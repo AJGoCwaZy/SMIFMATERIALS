@@ -60,6 +60,12 @@ FIND = """
     }
     // 2. Text cut off inside a box that hides overflow (only text counts, not decoration)
     const clips = /(hidden|clip)/.test(cs.overflow + cs.overflowX + cs.overflowY);
+    // 2b. Text cut short by a line clamp (it ends in an ellipsis instead of spilling)
+    const lc = cs.webkitLineClamp || cs.getPropertyValue('-webkit-line-clamp');
+    if (clips && lc && lc !== 'none' && el.scrollHeight > el.clientHeight + tol) {
+      const key = 'clamp:' + label(el);
+      if (!seen.has(key)) { seen.add(key); out.push('cut short to ' + lc + ' lines: "' + label(el) + '"'); }
+    }
     if (clips && (el.scrollHeight > el.clientHeight + tol || el.scrollWidth > el.clientWidth + tol)) {
       el.querySelectorAll('*').forEach(t => {
         if (!hasText(t) || t.closest('svg, canvas, [aria-hidden="true"]')) return;

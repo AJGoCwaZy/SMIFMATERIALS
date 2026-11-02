@@ -47,7 +47,7 @@ window.OWNERS = {
 window.PLAN = {
   cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (NYSE: LIN).' },
   call: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
-  question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck.' },
+  question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
   macro: { o: 'G', t: 30, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
   stab: { o: 'A', t: 30, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
   make: { o: 'A', t: 35, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
@@ -337,6 +337,8 @@ function boot(){
       if (k === 'h') return rich(sl.querySelector('.sh h2, h2'));
       if (k === 'f'){ const el = document.querySelector('[data-f="' + a + '"]'); return !el ? '' : el.classList.contains('fill') ? '<em class="nf">' + esc(el.textContent) + '</em>' : esc(el.textContent); }
       if (k === 'implied'){ const v = A.impliedNow ? A.impliedNow() : null; return v == null ? '<em class="nf">[x%]</em>' : v.toFixed(1) + '%'; }
+      // 'we expect': PITCH.growth, else the same number slides 22-24 use once the bridge drivers are the team's own
+      if (k === 'growth' && (kval(k) == null || kval(k) === '') && A.ourGrowthNow){ const v = A.ourGrowthNow(); if (v != null) return v.toFixed(1) + '%'; }
       if (k in KL){ const v = kval(k); return v == null || v === '' ? '<em class="nf">[' + esc(KL[k]) + ']</em>' : esc(v); }
       return m;
     });

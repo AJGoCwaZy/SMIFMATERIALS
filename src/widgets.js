@@ -63,9 +63,10 @@ window.DATA = {
     { n: 'Electronics', s: 9, g: 18, d: true, u: 'Ultra-pure nitrogen and specialty gases for chip fabs. Fastest-growing market in Q2 2026.' },
     { n: 'Other', s: 10, g: null, d: false, u: 'Aerospace, space, water treatment, labs and more.' }
   ]},
+  /* long: take-or-pay (the first big number); multi: on a multi-year contract, 3+ yr (the second) */
   cmix: { sample: false, segs: [
-    { n: 'On-site', v: 23.8, b: 8.1, yrs: '15-20 yr', long: true, c: '#6B432B', p: 'Take-or-pay minimums and energy pass-through. The most protected revenue. Up from 22.2% of sales in 2019.' },
-    { n: 'Merchant bulk', v: 29.9, b: 10.2, yrs: '3-7 yr', long: false, c: '#A57C61', p: 'Liquid by truck. Prices reset every few years; energy is passed on with a lag.' },
+    { n: 'On-site', v: 23.8, b: 8.1, yrs: '15-20 yr', long: true, multi: true, c: '#6B432B', p: 'Take-or-pay minimums and energy pass-through. The most protected revenue. Up from 22.2% of sales in 2019.' },
+    { n: 'Merchant bulk', v: 29.9, b: 10.2, yrs: '3-7 yr', long: false, multi: true, c: '#A57C61', p: 'Liquid by truck. Prices reset every few years; energy is passed on with a lag.' },
     { n: 'Packaged', v: 34.9, b: 11.9, yrs: '1-3 yr', long: false, c: '#C9B3A3', p: 'Cylinders for small customers. Most sensitive to the industrial cycle, but the largest piece.' },
     { n: 'Engineering and other', v: 11.3, b: 3.9, yrs: 'per project', long: false, c: '#2B5780', p: 'Engineering ($2.3B in 2025) builds plants for others: lumpy and lower margin, but it wins future gas contracts.' }
   ]},
@@ -123,7 +124,7 @@ window.DATA = {
     { n: 'Helium price falls back', p: .72, i: .22 },
     { n: 'Higher rates lower the valuation multiple', p: .62, i: .45 }
   ]},
-  /* fcf0 = 2025 free cash flow per share (Bloomberg). price \u2248 market cap \u00F7 shares, Oct 8, 2026. Growth, WACC and terminal growth are sample inputs for Gabriel's model. g1 is no longer read: slides 22-24 use our growth (PITCH.growth, else the cash flow bridge). */
+  /* fcf0 = 2025 free cash flow per share (Bloomberg). price \u2248 market cap \u00F7 shares, Oct 8, 2026. Growth, WACC and terminal growth are sample inputs for Gabriel's model. g1 (the 2019-2025 pace) stands in for our growth on slides 22-24 only while PITCH.growth is unset and the bridge is still sample data. */
   val: { sample: true, price: 480, fcf0: 10.84, g1: 13.9, years: 10, w: 7.8, g: 2.8, hist: 13.9 },
   /* cash flow bridge: % a year each driver adds to free cash flow per share, 2025 to 2029. 'link' = taken from the end-market forecast */
   bridge: { sample: true, years: 4, d: [
@@ -221,12 +222,13 @@ INIT.question = sl => {
   const v = D.val, P = window.PITCH, price = priceNow();
   const imp = impG(price, v.w / 100, v.g / 100) * 100;
   const eps = D.snap.tiles.find(t => /^EPS/.test(t[0])), epsG = eps ? eps[2].split(' ')[0] : null;
-  const ours = P.growth != null && P.growth !== '' ? parseFloat(String(P.growth)) : null;
+  // our growth: PITCH.growth, else the bridge once its drivers are ours (never the 2019-2025 stand-in)
+  const ours = A.ourGrowthNow(), ourT = P.growth != null && P.growth !== '' ? P.growth : ours == null ? null : ours.toFixed(1) + '%';
   const TL = [
     { k: 'The price needs', v: imp.toFixed(1) + '%', c: 'free cash flow growth a year for ten years, at about ' + usd(price) + ' a share', cls: 'need' },
     { k: SHORT() + ' delivered', v: v.hist + '%', c: 'free cash flow per share growth a year, 2019-2025' },
     { k: 'Analysts expect', v: epsG, c: 'EPS growth, 2026 only, not FCF (Bloomberg consensus)' },
-    { k: 'We expect', v: P.growth, c: ours == null ? 'free cash flow growth a year, from our model' : sg(ours - imp, 1, ' pts') + ' vs what the price needs', cls: 'ours', f: 'x% a year' }
+    { k: 'We expect', v: ourT, c: ours == null ? 'free cash flow growth a year, from our model' : sg(ours - imp, 1, ' pts') + ' vs what the price needs', cls: 'ours', f: 'x% a year' }
   ];
   const box = $('#qTest', sl);
   TL.forEach((t, i) => {
@@ -235,7 +237,7 @@ INIT.question = sl => {
   });
   // the same four numbers on one line: where the price sits against history, analysts and us
   const svg = $('#qLine', sl), x0 = 60, x1 = 1400, X = lin(0, 20, x0, x1), yl = 86;
-  const pts = [[imp, 'Price needs ' + imp.toFixed(1) + '%', C.gold, -1], [v.hist, 'Delivered ' + v.hist + '%', C.steel, 1], [epsG ? parseFloat(epsG) : null, 'Analysts, 2026 EPS ' + epsG, C.steel, -1, 'hollow'], [ours, ours == null ? '' : 'We expect ' + P.growth, C.navy, 1]];
+  const pts = [[imp, 'Price needs ' + imp.toFixed(1) + '%', C.gold, -1], [v.hist, 'Delivered ' + v.hist + '%', C.steel, 1], [epsG ? parseFloat(epsG) : null, 'Analysts, 2026 EPS ' + epsG, C.steel, -1, 'hollow'], [ours, ours == null ? '' : 'We expect ' + ourT, C.navy, 1]];
   const live = pts.filter(q => q[0] != null && !isNaN(q[0])).sort((a, b) => a[0] - b[0]);
   // tick labels near a lower stem are skipped (the tick stays) so no stem cuts through a number
   const stems = live.filter(q => q[3] > 0).map(q => X(clamp(q[0], 0, 20)));
@@ -508,7 +510,8 @@ INIT.cmix = sl => {
   if (!d.sample) srcok(sl, 'Bloomberg FA, 2025', '.card .ch .samp');
   const segs = d.segs.map((s2, i) => { const el = H('div', {style: 'background:' + s2.c + ';flex-grow:' + s2.v + (s2.c === '#C9B3A3' ? ';color:#1A1A1A' : '')}, '<span>' + esc(s2.n) + '</span><b>' + s2.v + '%</b>', st); el.addEventListener('click', () => sel(i)); H('span', null, '<i style="display:inline-block;width:14px;height:14px;background:' + s2.c + ';vertical-align:-2px;margin-right:6px"></i>' + esc(s2.n) + ' · ' + esc(s2.yrs), lg); return el; });
   const locked = d.segs.filter(x => x.long).reduce((a, x) => a + x.v, 0);
-  const multi = d.segs.filter(x => x.long || x.yrs === '3-7 yr').reduce((a, x) => a + x.v, 0);
+  const multi = d.segs.filter(x => x.long || x.multi).reduce((a, x) => a + x.v, 0);
+  const lc = $('#mixLockedCap', sl); if (lc) lc.textContent = 'Take-or-pay, ' + d.segs.filter(x => x.long).map(x => x.yrs).join(', ');
   tween(0, locked, 900, v => { $('#mixLocked', sl).textContent = v.toFixed(1) + '%'; });
   tween(0, multi, 900, v => { $('#mixMulti', sl).textContent = v.toFixed(1) + '%'; });
   // the rest of the protection lives on other slides: link there instead of claiming it here
@@ -609,7 +612,7 @@ INIT.next = sl => {
   const verdict = d.t.map(t => t.v);
   let sel = 0;
   const chips = d.t.map((t, i) => { const b = H('button', {type: 'button', class: 'chip'}, esc(t.n), cbox); b.addEventListener('click', () => pick(i)); return b; });
-  const x0 = 70, x1 = 940, yt = 20, yb = 380, X = lin(0, 10, x0, x1), Y = lin(0, 1, yb, yt);
+  const x0 = 70, x1 = 940, yt = 20, yb = 560, X = lin(0, 10, x0, x1), Y = lin(0, 1, yb, yt);
   // quadrants
   [[0, 5, .5, 1, 'Play it now', 'soon and big'], [5, 10, .5, 1, 'Build the option', 'big but later'], [0, 5, 0, .5, 'Nice extra', 'soon but small'], [5, 10, 0, .5, 'Watch', 'small and later']].forEach((q, k) => {
     S('rect', {x: X(q[0]), y: Y(q[3]), width: X(q[1]) - X(q[0]), height: Y(q[2]) - Y(q[3]), fill: k === 0 ? '#F4EFE7' : k === 1 ? '#F7F4EF' : k === 2 ? '#FBF9F6' : '#FFFFFF', stroke: C.line}, svg);
@@ -656,7 +659,7 @@ INIT.next = sl => {
 INIT.backlog = sl => {
   const d = D.backlog, svg = $('#blSvg', sl), gs = $('#ganttSvg', sl);
   $$('.samp', sl).forEach(x => x.classList.toggle('hidden', d.sample === false));
-  { const x0 = 70, x1 = 880, yb = 190, max = Math.ceil(Math.max(...d.q.map(q => q[1])) + 1), y = lin(0, max, yb, 18), bw = (x1 - x0) / d.q.length;
+  { const x0 = 20, x1 = 880, yb = 190, max = Math.ceil(Math.max(...d.q.map(q => q[1])) + 1), y = lin(0, max, yb, 18), bw = (x1 - x0) / d.q.length;
     gridY(svg, x0, x1, y, [0, 2, 4, 6, 8].filter(v => v <= max), v => '$' + v + 'B');
     d.q.forEach((q, i) => { const last = i === d.q.length - 1; const r = S('rect', {x: x0 + i * bw + bw * .2, y: yb, width: bw * .6, height: 0, fill: last ? C.navy : C.light}, svg); tween(0, yb - y(q[1]), 600 + i * 60, h => { r.setAttribute('y', yb - h); r.setAttribute('height', h); }); T('text', {x: x0 + i * bw + bw / 2, y: yb + 24, 'text-anchor': 'middle', class: 'ax'}, q[0], svg); T('text', {x: x0 + i * bw + bw / 2, y: y(q[1]) - 8, 'text-anchor': 'middle', class: last ? 'dlb' : 'dl'}, '$' + q[1] + 'B', svg); hov(r, sl, () => '<b>' + q[0] + '</b>: $' + q[1] + 'B signed, not yet built'); });
     S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg); }
@@ -699,7 +702,7 @@ INIT.pass = sl => {
     const x = r.v / 100, m = d.modes[mode], E0 = d.energyShare, O = d.otherCost, P0 = 100 - E0 - O;
     const dE = E0 * x, E1 = E0 + dE, R1 = 100 + m.pt * dE, P1 = R1 - E1 - O, m0 = P0 / 100 * 100, m1 = P1 / R1 * 100;
     clear(svg);
-    const x0 = 70, x1 = 860, yb = 420, max = 140, y = lin(0, max, yb, 10);
+    const x0 = 20, x1 = 860, yb = 420, max = 140, y = lin(0, max, yb, 10);
     gridY(svg, x0, x1, y, [0, 35, 70, 105, 140], v => '$' + v);
     const G = [['Revenue', 100, R1], ['Energy cost', E0, E1], ['Other costs', O, O], ['Operating profit', P0, P1]], gw = (x1 - x0) / G.length;
     G.forEach((g, i) => {
@@ -781,6 +784,9 @@ INIT.capex = sl => {
   const src = d.items.filter(v => v[1] > 0), use = d.items.filter(v => v[1] < 0).map(v => [v[0], -v[1]]);
   const gap = use.reduce((a, v) => a + v[1], 0) - src.reduce((a, v) => a + v[1], 0);
   if (gap > 0) src.push(['Other, net', gap]); else if (gap < 0) use.push(['Other, net', -gap]);
+  // the headline's second sentence follows the same numbers as the chart
+  const amt = n => { const it = d.items.find(v => v[0] === n); return it ? Math.abs(it[1]) : 0; };
+  const cxh = $('#cxH', sl); if (cxh) cxh.innerHTML = 'In 2025, operations ' + (amt('Operations') >= amt('Capex') + amt('Dividends') ? 'covered' : 'did not cover') + ' capex and dividends; <b>' + (gap > 0 ? 'buybacks needed other sources' : 'buybacks were covered too') + '</b>';
   const bn = v => '$' + (Math.round(v * 10 + 1e-9) / 10).toFixed(1) + 'B';
   const tot = src.reduce((a, v) => a + v[1], 0), yb = 262, y = lin(0, tot, yb, 22), cols = [[src, 'Sources', 60, [C.navy, C.gold]], [use, 'Uses', 215, [C.steel, C.light, C.sky, C.gold]]];
   cols.forEach(cl => {
@@ -814,21 +820,29 @@ function dcf(fcf0, g1, years, w, g){ let v = 0, f = fcf0; for (let t = 1; t <= y
 /* the free cash flow growth a year (years 1-10) at which the DCF value equals the price */
 function impG(price, w, g){ const d = D.val; let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
 const priceNow = () => window.PITCH.price || D.val.price;
-/* one source of truth for 'our growth': PITCH.growth once set, else the cash flow bridge (live edits, else its defaults) */
+/* one source of truth for 'our growth': PITCH.growth once set; else the cash flow bridge (live edits, else its defaults)
+   once its drivers are the team's own (bridge.sample false); until then the 2019-2025 pace (val.g1), labelled as that, never as 'our growth' */
 const r1 = x => +x.toFixed(1);
 const defBlend = () => { const em = D.endm.rows, sc = D.fcast.scen[D.fcast.start], tot = em.reduce((a, m) => a + m.s, 0); return em.reduce((a, m, i) => a + m.s / tot * sc[i], 0); };
 const bridgeG = () => D.bridge.d.reduce((a, x) => a + r1(x.link ? (A.fcastBlend != null ? A.fcastBlend : defBlend()) : x.v), 0);
-const ourG = () => { const P = window.PITCH.growth; return P != null && P !== '' && !isNaN(parseFloat(P)) ? parseFloat(P) : (A.ourGrowth != null ? A.ourGrowth : bridgeG()); };
+const ourSrc = () => { const P = window.PITCH.growth; return P != null && P !== '' && !isNaN(parseFloat(P)) ? 'pitch' : D.bridge.sample ? 'pace' : 'bridge'; };
+const ourG = () => { const s = ourSrc(); return s === 'pitch' ? parseFloat(window.PITCH.growth) : s === 'bridge' ? (A.ourGrowth != null ? A.ourGrowth : bridgeG()) : D.val.g1; };
+// where the growth on slides 22-24 comes from, in words
+const ourSrcTxt = () => ({pitch: 'our model', bridge: "the slide " + (A.idx('bridge') + 1) + " bridge's 2025-2029 rate", pace: 'the 2019-2025 pace until our bridge drivers are in'})[ourSrc()];
+// 'we expect': only the team's own number (PITCH.growth or a sourced bridge), never the historical stand-in; read by the notes and slides 3 and 25
+A.ourGrowthNow = () => ourSrc() === 'pace' ? null : ourG();
 A.impliedNow = () => impG(priceNow(), D.val.w / 100, D.val.g / 100) * 100;
 INIT.implied = sl => {
   const d = D.val, svg = $('#imSvg', sl);
   samp(sl, d.sample);
   const price = window.PITCH.price || d.price;
   const px = $('#imPx', sl); if (px && window.PITCH.price) px.textContent = usd(price) + ' (Bloomberg GP)';
+  const src = $('#imSrc', sl); if (src) src.textContent = ourSrcTxt();
   let touched = false, syncing = false;
   const W = rng('imW', draw, v => v.toFixed(1) + '%'), G = rng('imG', draw, v => v.toFixed(1) + '%'), O = rng('imO', () => { if (!syncing) touched = true; draw(); }, v => v.toFixed(1) + '%');
-  // the growth slider starts at our growth (PITCH.growth, else the cash flow bridge), clamped to its 0-18 range
+  // the growth slider starts at our growth (PITCH.growth, else the cash flow bridge, else the 2019-2025 pace), clamped to its 0-18 range
   const toOurs = () => { syncing = true; O.set(clamp(r1(ourG()), 0, 18)); syncing = false; };
+  $('#imRead', sl).addEventListener('click', e => { if (e.target.closest('[data-back]')){ touched = false; toOurs(); } });
   function solve(w, g){ let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
   function draw(){
     const w = W.v / 100, g = G.v / 100, imp = solve(w, g) * 100, ours = O.v;
@@ -842,11 +856,11 @@ INIT.implied = sl => {
     const vis = vals.filter(p => p[1] <= mx * 1.02);
     S('path', {d: vis.map((p, i) => (i ? 'L' : 'M') + gx(p[0]) + ' ' + y(p[1])).join(' '), fill: 'none', stroke: C.navy, 'stroke-width': 4}, svg);
     S('line', {x1: x0, x2: x1, y1: y(price), y2: y(price), stroke: C.gold, 'stroke-width': 2.5, 'stroke-dasharray': '7 5'}, svg);
-    T('text', {x: x0 + 8, y: y(price) - 8, class: 'dl', style: 'fill:#2B5780'}, 'Price ≈' + usd(price), svg);
+    const pT = T('text', {x: x0 + 8, y: y(price) - 8, class: 'dl', style: 'fill:#2B5780'}, 'Price ≈' + usd(price), svg);
     const vo = dcf(d.fcf0, ours / 100, d.years, w, g), showO = vo <= mx, ox = gx(ours), ix = gx(imp), inR = imp >= 0 && imp <= 20;
     // a white halo keeps the two labels readable in the rare spots where no side is free of the other line
     const halo = ';paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round';
-    let mkT = null;
+    let mkT = null, offT = null;
     if (inR){
       S('line', {x1: ix, x2: ix, y1: y(price), y2: yb, stroke: C.gold, 'stroke-width': 2}, svg); S('circle', {cx: ix, cy: y(price), r: 8, fill: C.gold, stroke: '#fff', 'stroke-width': 2.5}, svg);
       // the Market label sits beside the gold line, on the side away from the dotted line for our growth
@@ -856,23 +870,42 @@ INIT.implied = sl => {
       else if (showO && right && ox > ix && ox < ix + mw && ix - mw >= x0) right = false;
       mkT = T('text', {x: ix + (right ? 8 : -8), y: yb - 10, 'text-anchor': right ? 'start' : 'end', class: 'dl', style: 'fill:#2B5780' + halo}, mt, svg);
     }
-    else if (imp > 20) T('text', {x: x1, y: y(price) - 8, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780'}, 'Market: ' + imp.toFixed(1) + '% (off scale) →', svg);
-    else T('text', {x: x0 + 8, y: y(price) + 24, class: 'dl', style: 'fill:#2B5780'}, '← Market: ' + pct(imp, 1) + ' (off scale)', svg);
+    else if (imp > 20) offT = T('text', {x: x1, y: y(price) - 8, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780'}, 'Market: ' + imp.toFixed(1) + '% (off scale) →', svg);
+    else offT = T('text', {x: x1, y: y(price) + 24, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780'}, '← Market: ' + pct(imp, 1) + ' (off scale)', svg);
     if (showO){
       S('line', {x1: ox, x2: ox, y1: y(vo), y2: yb, stroke: C.navy, 'stroke-width': 2, 'stroke-dasharray': '3 4'}, svg); S('circle', {cx: ox, cy: y(vo), r: 9, fill: C.navy, stroke: '#fff', 'stroke-width': 2.5}, svg);
       const at = 'At ' + ours.toFixed(1) + '%: ' + usd(vo), aw = at.length * 11 + 14;
       // flip the label above-left when it would run off the chart or across the gold Market line
       const ly = y(vo) + 26, crossG = inR && ix > ox && ix < ox + aw && ly > y(price) && ly - 18 < yb;
       const flip = ox > x1 - 150 || (crossG && ox - aw >= x0);
-      T('text', {x: ox + (flip ? -14 : 14), y: flip ? y(vo) - 12 : ly, 'text-anchor': flip ? 'end' : 'start', class: 'dlb', style: halo.slice(1)}, at, svg);
+      const aT = T('text', {class: 'dlb', style: halo.slice(1)}, at, svg);
+      // try the preferred corner first, then the others, and keep the first one clear of the Price and Market labels and the gold line
+      const C4 = [[14, ly, 'start'], [-14, y(vo) - 12, 'end'], [-14, ly, 'end'], [14, y(vo) - 12, 'start']], pref = flip ? 1 : 0;
+      const put = (e, c) => { e.setAttribute('x', ox + c[0]); e.setAttribute('y', c[1]); e.setAttribute('text-anchor', c[2]); };
+      const bb = e => { try { const r = e.getBBox(); return r.width ? r : null; } catch (_){ return null; } };
+      const ov = (a, b) => a.x < b.x + b.width + 4 && b.x < a.x + a.width + 4 && a.y < b.y + b.height && b.y < a.y + a.height;
+      const obs = () => { const o = [pT, mkT, offT].filter(Boolean).map(bb).filter(Boolean); if (inR) o.push({x: ix - 3, y: y(price), width: 6, height: yb - y(price)}); return o; };
+      const clear1 = () => { const r = bb(aT); return !r || (r.x >= x0 - 12 && r.x + r.width <= x1 + 28 && r.y >= 0 && r.y + r.height <= yb && !obs().some(o => ov(r, o))); };
+      const ok = [pref, 0, 1, 2, 3].filter((v, i, a) => a.indexOf(v) === i).some(k => { put(aT, C4[k]); return clear1(); });
+      if (!ok){
+        put(aT, C4[pref]);
+        // no corner is free (a price far below today's): move the Price label to the right end of its line instead
+        const pr = bb(pT), ar = bb(aT);
+        if (pr && ar && ov(pr, ar)){ pT.setAttribute('x', x1); pT.setAttribute('text-anchor', 'end'); const p2 = bb(pT); if (p2 && (ov(p2, ar) || [mkT, offT].some(e => e && bb(e) && ov(p2, bb(e))))){ pT.setAttribute('x', x0 + 8); pT.removeAttribute('text-anchor'); } }
+      }
     }
     if (mkT) svg.appendChild(mkT);
     S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
-    $('#imKv', sl).innerHTML = '<div><span>Growth the price implies</span><b>' + imp.toFixed(1) + '%</b><i>a year for 10 years</i></div><div class="hi"><span>Value at our growth</span><b>' + usd(vo) + '</b><i>' + sg((vo / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '</i></div><div><span>2019-2025, actual</span><b>' + d.hist + '%</b><i>FCF per share growth a year (Bloomberg)</i></div>';
-    $('#imRead', sl).innerHTML = 'The price implies <b>' + imp.toFixed(1) + '%</b> a year. Linde grew free cash flow per share <b>' + d.hist + '%</b> a year in 2019-2025. At our growth of <b>' + ours.toFixed(1) + '%</b>: value ' + usd(vo) + ', ' + sg((vo / price - 1) * 100, 0, '%') + ' vs the price. <span class="fill">[Our expected growth and why]</span>';
+    // 'our growth' only while the slider sits on it; a dragged or clamped slider is a what-if
+    const isOurs = Math.abs(ours - ourG()) < .05, pace = ourSrc() === 'pace', canBack = Math.abs(ours - clamp(r1(ourG()), 0, 18)) > .04;
+    const vLab = !isOurs ? 'Value at ' + ours.toFixed(1) + '% growth (slider)' : pace ? 'Value at the 2019-25 pace' : 'Value at our growth';
+    const rLab = !isOurs ? 'At <b>' + ours.toFixed(1) + '%</b> (what-if)' : pace ? 'At the 2019-2025 pace of <b>' + ours.toFixed(1) + '%</b>' : 'At our growth of <b>' + ours.toFixed(1) + '%</b>';
+    $('#imKv', sl).innerHTML = '<div><span>Growth the price implies</span><b>' + imp.toFixed(1) + '%</b><i>a year for 10 years</i></div><div class="hi"><span>' + vLab + '</span><b>' + usd(vo) + '</b><i>' + sg((vo / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '</i></div><div><span>2019-2025, actual</span><b>' + d.hist + '%</b><i>FCF per share growth a year (Bloomberg)</i></div>';
+    $('#imRead', sl).innerHTML = 'The price implies <b>' + imp.toFixed(1) + '%</b> a year. Linde grew free cash flow per share <b>' + d.hist + '%</b> a year in 2019-2025. ' + rLab + ': value ' + usd(vo) + ', ' + sg((vo / price - 1) * 100, 0, '%') + ' vs the price. ' + (canBack ? '<button type="button" class="btn sm" data-back>' + (pace ? 'Back to the 2019-25 pace' : 'Back to our growth') + '</button>' : '<span class="fill">[Our expected growth and why]</span>');
   }
   toOurs();
-  return { enter(){ if (!touched && Math.abs(O.v - clamp(r1(ourG()), 0, 18)) > .04) toOurs(); } };
+  // always redraw on entering: labels are placed by measuring them, which needs the slide on screen
+  return { enter(){ if (!touched && Math.abs(O.v - clamp(r1(ourG()), 0, 18)) > .04) toOurs(); else draw(); } };
 };
 
 /* ---- 3D value landscape ---- */
@@ -881,21 +914,26 @@ INIT.surface = sl => {
   samp(sl, d.sample);
   const price = window.PITCH.price || d.price;
   const WS = [6, 10], GSr = [1.5, 4];
-  // our growth, read once at init because the 3D mesh is built once (PITCH.growth, else the cash flow bridge)
-  const gOur = ourG();
+  // our growth (PITCH.growth, else the cash flow bridge, else the 2019-2025 pace); re-read on entering the slide, see enter()
+  let gOur = ourG(), base = 0;
   const V = (w, g) => dcf(d.fcf0, gOur / 100, d.years, w / 100, g / 100);
-  const base = V(d.w, d.g);
-  // table
   const ws = [], gsv = []; for (let w = 6; w <= 10.001; w += .5) ws.push(+w.toFixed(1)); for (let g = 1.5; g <= 4.001; g += .5) gsv.push(+g.toFixed(1));
   // the grid point nearest the side-card inputs, outlined in the table
   const nw = ws.reduce((a, b) => Math.abs(b - d.w) < Math.abs(a - d.w) ? b : a), ng = gsv.reduce((a, b) => Math.abs(b - d.g) < Math.abs(a - d.g) ? b : a);
-  let th = '<table class="dtab" style="font-size:17px"><thead><tr><th>WACC ↓ · growth →</th>' + gsv.map(g => '<th class="n">' + g.toFixed(1) + '%</th>').join('') + '</tr></thead><tbody>';
-  ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(107,67,43,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1A1A1A'; return '<td class="n" style="background:' + bg + ';color:' + fg + (w === nw && g === ng ? ';outline:3px solid ' + C.gold + ';outline-offset:-3px' : '') + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
-  tab.innerHTML = th + '</tbody></table>';
-  let share = 0, tot = 0; for (let w = 6; w <= 10; w += .25) for (let g = 1.5; g <= 4; g += .125){ tot++; if (V(w, g) >= price) share++; }
-  $('#sfKv', sl).innerHTML = '<div class="hi"><span>Value at our inputs</span><b>' + usd(base) + '</b><i>Our FCF growth ' + gOur.toFixed(1) + '%, WACC ' + d.w + '%, long-run ' + d.g + '%</i></div><div><span>Share of inputs above price</span><b>' + Math.round(share / tot * 100) + '%</b><i>of the grid sits above ' + usd(price) + '</i></div>';
   const read3 = '<b>Blue dot:</b> our inputs. <b>Blue plane:</b> the price, about ' + usd(price) + '.';
   const read2 = '<b>Outlined cell:</b> the grid point nearest our inputs (WACC ' + nw.toFixed(1) + '%, growth ' + ng.toFixed(1) + '%). Brown cells sit above the price of about ' + usd(price) + ', red cells below.';
+  // the table, the side card and the footer for the current growth
+  function paint(){
+    base = V(d.w, d.g);
+    let th = '<table class="dtab" style="font-size:17px"><thead><tr><th>WACC ↓ · growth →</th>' + gsv.map(g => '<th class="n">' + g.toFixed(1) + '%</th>').join('') + '</tr></thead><tbody>';
+    ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(107,67,43,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1A1A1A'; return '<td class="n" style="background:' + bg + ';color:' + fg + (w === nw && g === ng ? ';outline:3px solid ' + C.gold + ';outline-offset:-3px' : '') + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
+    tab.innerHTML = th + '</tbody></table>';
+    let share = 0, tot = 0; for (let w = 6; w <= 10; w += .25) for (let g = 1.5; g <= 4; g += .125){ tot++; if (V(w, g) >= price) share++; }
+    const gl = ourSrc() === 'pace' ? 'FCF growth ' + gOur.toFixed(1) + '% (2019-25 pace)' : 'Our FCF growth ' + gOur.toFixed(1) + '%';
+    $('#sfKv', sl).innerHTML = '<div class="hi"><span>Value at our inputs</span><b>' + usd(base) + '</b><i>' + gl + ', WACC ' + d.w + '%, long-run ' + d.g + '%</i></div><div><span>Share of inputs above price</span><b>' + Math.round(share / tot * 100) + '%</b><i>of the grid sits above ' + usd(price) + '</i></div>';
+    const fs = $('#sfSrc', sl); if (fs) fs.textContent = ourSrc() === 'pace' ? 'the 2019-2025 pace of ' + d.hist + '% a year, until our bridge drivers are in' : ourSrc() === 'pitch' ? "our model's " + gOur.toFixed(1) + '% a year' : 'our bridge rate of ' + gOur.toFixed(1) + '% a year (slide ' + (A.idx('bridge') + 1) + ')';
+  }
+  paint();
   $('#sfRead', sl).innerHTML = read3;
   let three = null, mode = '3d';
   const b3 = $('#sf3', sl), b2 = $('#sf2', sl);
@@ -947,12 +985,16 @@ INIT.surface = sl => {
     let running = false, t0 = 0;
     function loop(now){ if (!t0) t0 = now; if (!A.RM && now - t0 < 2600 && !userMoved){ const k = (now - t0) / 2600, e = 1 - Math.pow(1 - k, 3); const a = .9 - e * .35; cam.position.set(Math.sin(a) * 30, 15, Math.cos(a) * 30); cam.lookAt(ctr.target); } ctr.update(); renderer.render(scene, cam); }
     let userMoved = false; renderer.domElement.addEventListener('pointerdown', () => { userMoved = true; });
-    if (window.ResizeObserver) new ResizeObserver(() => { size(); if (!running) renderer.render(scene, cam); }).observe(host);
+    const ro = window.ResizeObserver ? new ResizeObserver(() => { size(); if (!running) renderer.render(scene, cam); }) : null; if (ro) ro.observe(host);
     size();
-    return { start(){ size(); if (!running){ running = true; t0 = 0; renderer.setAnimationLoop(loop); } }, stop(){ running = false; renderer.setAnimationLoop(null); } };
+    return { start(){ size(); if (!running){ running = true; t0 = 0; renderer.setAnimationLoop(loop); } }, stop(){ running = false; renderer.setAnimationLoop(null); },
+      dispose(){ running = false; renderer.setAnimationLoop(null); if (ro) ro.disconnect(); scene.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material){ if (o.material.map) o.material.map.dispose(); o.material.dispose(); } }); renderer.dispose(); renderer.domElement.remove(); } };
   }
   return {
-    enter(){ if (!three && !host.dataset.tried){ host.dataset.tried = '1'; try { three = build(); } catch (e){ console.warn(e); three = null; } if (three) fall.hidden = true; else { fall.textContent = '3D needs WebGL, which is off in this browser. The table shows the same values.'; setMode('2d'); b3.disabled = true; } } if (three && mode === '3d') three.start(); },
+    enter(){
+      // the bridge (or forecast) changed since this slide was built: repaint the table and card, and rebuild the mesh at the new growth
+      if (Math.abs(ourG() - gOur) > .04){ gOur = ourG(); paint(); if (three){ three.dispose(); three = null; delete host.dataset.tried; } }
+      if (!three && !host.dataset.tried){ host.dataset.tried = '1'; try { three = build(); } catch (e){ console.warn(e); three = null; } if (three) fall.hidden = true; else { fall.textContent = '3D needs WebGL, which is off in this browser. The table shows the same values.'; setMode('2d'); b3.disabled = true; } } if (three && mode === '3d') three.start(); },
     leave(){ if (three) three.stop(); hideTip(sl); }
   };
 };
@@ -986,20 +1028,35 @@ INIT.scen = sl => {
       draw();
     }, nv => nv + '%');
   });
-  // risk / reward from the case values alone, not the sliders
-  const bear = d.s.find(s => s.k === 'bear').v, bull = d.s.find(s => s.k === 'bull').v, up = (bull / price - 1) * 100, dn = (1 - bear / price) * 100, ratio = dn > 0 ? up / dn : null;
-  $('#scAsym', sl).textContent = (ratio != null && ratio > 1) ? ', with more upside to the bull than downside to the bear' : ' across bear, base and bull';
+  // risk / reward from the case values alone, not the sliders; the ratio uses the rounded % shown, so the printed numbers divide to it
+  const bear = d.s.find(s => s.k === 'bear').v, bull = d.s.find(s => s.k === 'bull').v, up = (bull / price - 1) * 100, dn = (1 - bear / price) * 100;
+  const upR = Math.round(up), dnR = Math.round(dn), ratio = up > 0 && dn > 0 && upR > 0 && dnR > 0 ? upR / dnR : null;
+  const rr = () => up <= 0 ? 'Bull case is at or below the price. ' : dn <= 0 ? 'Bear case is at or above the price. ' :
+    'Upside to bull ' + sg(upR, 0, '%') + ' vs downside to bear ' + sg(-dnR, 0, '%') + (ratio == null ? '. ' : ratio >= 1 ? ': ' + ratio.toFixed(1) + ' to 1. ' : ': more downside to the bear than upside to the bull. ');
   function draw(){
     dcfRow();
     const sum = probs.reduce((a, b) => a + b, 0), tot = sum || 1, pt = d.s.reduce((a, s, i) => a + s.v * probs[i] / tot, 0);
+    // the headline number is the weighted value worked out here, so it follows the sliders
+    $('#scPt', sl).textContent = usd(pt);
+    // our own DCF (when computed) sits below the price: no upside-skew claim, and say the cases need reconciling
+    const dc = dr >= 0 && d.ff[dr].auto ? d.ff[dr] : null, dcLow = dc && dc[2] < price;
+    $('#scAsym', sl).textContent = ratio != null && ratio > 1 && !dcLow ? ', with more upside to the bull than downside to the bear' : ' across bear, base and bull';
     clear(svg);
-    const x0 = 260, x1 = 1360, lo = Math.floor(Math.min(...d.ff.map(f => f[1]), price, pt) / 50) * 50 - 50, hi = Math.ceil(Math.max(...d.ff.map(f => f[2]), pt) / 50) * 50 + 50, x = lin(lo, hi, x0, x1), rh = 44, y0 = 16;
-    for (let v = lo; v <= hi; v += 50){ S('line', {x1: x(v), x2: x(v), y1: y0, y2: y0 + d.ff.length * rh, stroke: C.line}, svg); T('text', {x: x(v), y: y0 + d.ff.length * rh + 24, 'text-anchor': 'middle', class: 'ax'}, '$' + v, svg); }
-    d.ff.forEach((f, i) => { const y = y0 + i * rh; T('text', {x: x0 - 14, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'axl'}, f[0], svg); const r = S('rect', {x: x(f[1]), y: y + 8, width: x(f[2]) - x(f[1]), height: rh - 16, fill: i === d.ff.length - 1 ? C.navy : C.light}, svg); hov(r, sl, () => '<b>' + esc(f[0]) + '</b>: ' + usd(f[1]) + ' to ' + usd(f[2]) + (f.tip ? ' (' + esc(f.tip) + ')' : '')); T('text', {x: x(f[1]) - 8, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'dl', style: 'font-size:14px'}, usd(f[1]), svg); T('text', {x: x(f[2]) + 8, y: y + rh / 2 + 6, class: 'dl', style: 'font-size:14px'}, usd(f[2]), svg); });
+    // tick step from the span, so a wide range (a fast bridge) stays readable; never below $0
+    const lo0 = Math.min(...d.ff.map(f => f[1]), price, pt), hi0 = Math.max(...d.ff.map(f => f[2]), pt), step = [50, 100, 250, 500, 1000].find(s => (hi0 - lo0) / s <= 14) || 2000;
+    const x0 = 260, x1 = 1360, lo = Math.max(0, Math.floor(lo0 / step) * step - step), hi = Math.ceil(hi0 / step) * step + step, x = lin(lo, hi, x0, x1), rh = 44, y0 = 16;
+    for (let v = lo; v <= hi; v += step){ S('line', {x1: x(v), x2: x(v), y1: y0, y2: y0 + d.ff.length * rh, stroke: C.line}, svg); T('text', {x: x(v), y: y0 + d.ff.length * rh + 24, 'text-anchor': 'middle', class: 'ax'}, usd(v), svg); }
+    const ends = [], halo = ';paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round';
+    d.ff.forEach((f, i) => { const y = y0 + i * rh; T('text', {x: x0 - 14, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'axl'}, f[0], svg); const r = S('rect', {x: x(f[1]), y: y + 8, width: x(f[2]) - x(f[1]), height: rh - 16, fill: i === d.ff.length - 1 ? C.navy : C.light}, svg); hov(r, sl, () => '<b>' + esc(f[0]) + '</b>: ' + usd(f[1]) + ' to ' + usd(f[2]) + (f.tip ? ' (' + esc(f.tip) + ')' : '')); ends.push(T('text', {x: x(f[1]) - 8, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'dl', style: 'font-size:14px' + halo}, usd(f[1]), svg)); ends.push(T('text', {x: x(f[2]) + 8, y: y + rh / 2 + 6, class: 'dl', style: 'font-size:14px' + halo}, usd(f[2]), svg)); });
     const yb = y0 + d.ff.length * rh;
     S('line', {x1: x(price), x2: x(price), y1: y0 - 6, y2: yb, stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '6 4'}, svg); T('text', {x: x(price), y: y0 - 2 - 6, 'text-anchor': 'middle', class: 'dl'}, 'Price ' + usd(price), svg);
     if (sum > 0){ S('line', {x1: x(pt), x2: x(pt), y1: y0 - 6, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 48, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#2B5780'}, 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg); }
-    $('#scTakeT', sl).textContent = (ratio != null ? 'Upside to bull ' + sg(up, 0, '%') + ' vs downside to bear ' + sg(-dn, 0, '%') + ': ' + ratio.toFixed(1) + ' to 1. ' : 'Bear case is at or above the price. ') + 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ').';
+    // the bar-end values go on top of the price and target lines, with a white halo, so a line never cuts through a number
+    ends.forEach(e => svg.appendChild(e));
+    const P = window.PITCH, tg = P.target != null && P.target !== '' ? parseFloat(P.target) : null;
+    $('#scTakeT', sl).textContent = rr() + 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ').' +
+      (tg != null && !isNaN(tg) && Math.abs(tg - pt) > 1 ? ' Our stated target ' + usd(tg) + ' differs from the weighted value ' + usd(pt) + '.' : '') +
+      (dcLow ? ' Our DCF at ' + (ourSrc() === 'pace' ? 'the 2019-2025 pace' : 'our growth') + ' (' + usd(dc[1]) + ' to ' + usd(dc[2]) + ') sits below ' + (dc[2] < bear ? 'the bear case' : 'the price') + '; the case values need to be reconciled with the model.' : '');
   }
   draw();
   return { enter(){ draw(); } };
@@ -1027,7 +1084,7 @@ INIT.bridge = sl => {
     const dl = Math.abs(sum) > 1e-9 ? val.map(g => (end - f0) * (g / 100) / sum) : val.map(g => f0 * g / 100 * yrs);
     clear(svg);
     let run = f0, peak = f0; dl.forEach(x => { run += x; peak = Math.max(peak, run); });
-    const x0 = 70, x1 = 950, yb = 300, top = Math.max(end, need, peak) * 1.14, y = lin(0, top, yb, 14);
+    const x0 = 10, x1 = 950, yb = 300, top = Math.max(end, need, peak) * 1.14, y = lin(0, top, yb, 14);
     const st = top > 40 ? 10 : 5, tk = []; for (let t = 0; t <= top; t += st) tk.push(t);
     gridY(svg, x0, x1, y, tk, t => '$' + t);
     const n = dl.length + 2, bw = (x1 - x0) / n, w = bw * .62;
@@ -1092,13 +1149,20 @@ INIT.close = sl => {
   band.innerHTML = '<div class="cr">' + F(P.rating, 'BUY') + '</div><div class="cn"><span class="clogo cc">' + A.logo() + '</span><b>' + esc(P.company) + '</b><span>' + esc(P.exchange) + ': ' + esc(P.ticker) + '</span></div>' +
     [['Price', A.kval('price'), '$ price'], ['Target', A.kval('target'), '$ target'], ['Upside', A.kval('upside'), 'x%'], ['Horizon', P.horizon, 'Horizon'], ['Position', P.position, 'x% of sleeve']].map(x => '<div class="cs"><span>' + x[0] + '</span><b>' + F(x[1], x[2]) + '</b></div>').join('');
   // back to slide 3: the question, what the price needs and what we expect (text copied, never the fill node)
-  const imp = A.impliedNow(), ours = P.growth != null && P.growth !== '' ? parseFloat(String(P.growth)) : null;
-  const qe = document.querySelector('[data-f="question.2"]'), qt = qe ? qe.textContent.trim() : '';
-  const q = !qe || qe.classList.contains('fill') ? '<span class="fill">' + esc(qt || '[Our question in one sentence]') + '</span>' : esc(qt);
-  $('#clQ', sl).innerHTML = '<span class="k">The question we answered</span><p><span class="q">' + q + '</span> <span class="a">The price needs <b>' + imp.toFixed(1) + '%</b> a year. We expect <b>' + F(P.growth, 'x% a year') + '</b>' + (ours == null || isNaN(ours) ? '.' : Math.abs(ours - imp) < .05 ? ': <b>in line with</b> what the price needs.' : ': <b>' + Math.abs(ours - imp).toFixed(1) + ' pts</b> ' + (ours >= imp ? 'above' : 'below') + ' what the price needs.') + '</span></p>';
+  // 'we expect' is the same number slides 22-24 use (PITCH.growth, else a sourced bridge); refreshed on entering the slide
+  function qband(){
+    const imp = A.impliedNow(), ours = A.ourGrowthNow(), ot = P.growth != null && P.growth !== '' ? P.growth : ours == null ? null : ours.toFixed(1) + '%';
+    const qe = document.querySelector('[data-f="question.2"]'), qt = qe ? qe.textContent.trim() : '';
+    const q = !qe || qe.classList.contains('fill') ? '<span class="fill">' + esc(qt || '[Our question in one sentence]') + '</span>' : esc(qt);
+    $('#clQ', sl).innerHTML = '<span class="k">The question we answered</span><p><span class="q">' + q + '</span> <span class="a">The price needs <b>' + imp.toFixed(1) + '%</b> a year. We expect <b>' + F(ot, 'x% a year') + '</b>' + (ours == null || isNaN(ours) ? '.' : Math.abs(ours - imp) < .05 ? ': <b>in line with</b> what the price needs.' : ': <b>' + Math.abs(ours - imp).toFixed(1) + ' pts</b> ' + (ours >= imp ? 'above' : 'below') + ' what the price needs.') + '</span></p>';
+    // the question is clamped to two lines here: flag it, since slide 3 shows it in full
+    const qs = $('#clQ .q', sl); if (qs && qs.scrollHeight > qs.clientHeight + 2){ qs.classList.add('clamped'); console.warn('Slide ' + (A.idx('close') + 1) + ': the question is cut to two lines. Keep it under about 200 characters.'); }
+  }
+  qband();
   t.innerHTML = '<thead><tr><th style="width:30%">Reason</th><th>What we expect</th><th>Signal and date</th><th>We sell if</th></tr></thead><tbody>' + P.pillars.map((p, i) =>
     '<tr class="click" data-go="' + esc(p.go) + '"><td><div class="scr"><span class="scb">' + (i + 1) + '</span><span><b>' + F(p.h, 'Reason ' + (i + 1) + ': headline') + '</b><em>Evidence: slide ' + (A.idx(p.go) + 1) + ' →</em></span></div></td><td>' + F(p.expect, 'the number we expect, and by when') + '</td><td>' + F(p.signal, 'the report or data point, with its date') + '</td><td>' + F(p.sell, 'the tripwire') + '</td></tr>').join('') + '</tbody>';
   $$('tr.click', t).forEach(r => r.addEventListener('click', e => { if (!e.target.closest('.scr em')) return; const g = A.idx(r.dataset.go); if (g >= 0) A.jump(g); }));
+  return { enter(){ qband(); } };
 };
 
 /* ---- covers: team lists ---- */

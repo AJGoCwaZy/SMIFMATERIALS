@@ -48,7 +48,7 @@
   </div>
   <footer class="sfoot"><span class="src">The price needs: reverse DCF on 2025 free cash flow of $10.84 a share (Bloomberg), sample WACC 7.8% and long-run growth 2.8% until Gabriel&rsquo;s model is in. Delivered: Bloomberg FA, 2019-2025. Analysts: Bloomberg consensus 2026 adj. EPS growth (one year, not FCF), Oct 8, 2026.</span></footer>
   <div class="notes">
-    <p data-t="cover">Our question: {f:question.2} Today's price needs <b>faster growth than the 8.6% analysts expect</b>, but Linde delivered 13.9% a year since 2019, and we expect {growth}.</p>
+    <p data-t="cover">Our question: {f:question.2} At today's price the market needs about <b>{implied} free cash flow growth a year</b> for ten years; Linde delivered 13.9% a year in 2019-2025, and we expect {growth}.</p>
     <p data-t="room">Point to the growth line and ask for a show of hands: will Linde land left or right of the blue "Price needs" dot over the next ten years?</p>
   </div>
 </section>
@@ -105,14 +105,14 @@
       <div class="g3panel" data-panel="deliver" hidden>
         <div class="card"><div class="ch"><span>Three supply modes</span><span class="samp src-ok">From source register</span></div><div class="cb" id="modeRows" style="gap:8px"></div></div>
         <div class="callout small">Trucking liquid gas only pays within about <b>150 miles</b>, so each plant is a local business that a rival cannot easily serve from far away.</div>
-        <div class="sel3" data-sel><span class="k">Click anything in the model</span><b>Select a building</b><p></p></div>
+        <div class="sel3" data-sel><span class="k">Click anything in the model</span><b>Select a building</b><p>Each part of the plant explains what it does and why it matters to the business.</p></div>
       </div>
     </div>
   </div>
   <footer class="sfoot"><span class="src">Contract tiers: Praxair investor slide (June 2016) via Bloomberg Intelligence; 150-mile trucking range: BI (Nov 2022).</span></footer>
   <div class="notes">
     <p data-t="cover">Air is free, so the real cost is the power bill for the compressors. Pipeline customers sign 15-20 year contracts and trucking only pays within about 150 miles, so <b>each plant is a local moat</b>.</p>
-    <p data-t="room">Before pressing "2 · Deliver it", ask the committee to guess how many years a pipeline customer is locked in, then press it and click the On-site pipeline row to reveal the answer.</p>
+    <p data-t="room">Before pressing "2 · Deliver it", ask the committee to guess how many years a pipeline customer is locked in; press it to reveal the answer, point at the On-site pipeline row's 15-20 yr, then click the row to show why.</p>
   </div>
 </section>
 
@@ -185,8 +185,8 @@
   </div>
   <footer class="sfoot"><span class="src">Mix: Linde investor materials via Ryan Hernandez, "Industrial Gases: The Big Three" (Sep 24, 2026). Electronics growth: Q2 2026 call. <span class="fill" data-f="endm.2">[Other growth rates: Q3 2026 release]</span></span></footer>
   <div class="notes">
-    <p data-t="cover"><b>About a third of sales (35%)</b> is in fully defensive markets: healthcare, food and electronics, the dark brown bars. Linde counts about 62% as resilient on a broader definition <span class="fill">[which markets Linde counts in the 62%]</span>. Electronics is also the fastest grower, up 18% in Q2 2026 versus a year earlier.</p>
-    <p data-t="room">Ask the committee to guess what share of sales is fully defensive, then point at the three dark brown bars and the 35% tile, and click the "Growth, latest quarter" tab to show Electronics up 18%.</p>
+    <p data-t="cover"><b>About a third of sales</b> is in fully defensive markets (the dark brown bars and the Fully defensive tile), though Linde counts about 62% as resilient on a broader definition <span class="fill">[which markets Linde counts in the 62%]</span>. Electronics grew 18% in Q2 2026 versus a year earlier; the Fastest growing tile shows the current leader.</p>
+    <p data-t="room">Ask the committee to guess what share of sales is fully defensive, then point at the dark brown bars and the Fully defensive tile, and click the "Growth, latest quarter" tab to show Electronics up 18%.</p>
   </div>
 </section>
 
@@ -223,15 +223,15 @@
       <div class="callout small" id="mixCall"></div>
     </div></div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;min-height:0">
-      <div class="card"><div class="ch"><span>Under contract</span></div><div class="cb"><div class="big" id="mixLocked">0%</div><p class="small muted">Take-or-pay, 15-20 yr</p><div class="big" id="mixMulti">0%</div><p class="small muted">Under multi-year contracts (3+ yr)</p></div></div>
+      <div class="card"><div class="ch"><span>Under contract</span></div><div class="cb"><div class="big" id="mixLocked">0%</div><p class="small muted" id="mixLockedCap">Take-or-pay, 15-20 yr</p><div class="big" id="mixMulti">0%</div><p class="small muted">Under multi-year contracts (3+ yr)</p></div></div>
       <div class="card fl"><div class="ch"><span id="mixH">Click a segment</span></div><div class="cb small" id="mixNote"><p>Each segment shows its contract length and protections.</p></div></div>
       <div class="card fl"><div class="ch"><span>Biggest customers</span></div><div class="cb small"><p><span class="fill" data-f="cmix.2">[Top customers or concentration: e.g. largest customer % of sales]</span></p></div></div>
     </div>
   </div>
   <footer class="sfoot"><span class="src">Bloomberg FA segments, 2025 sales of $34.0B. Contract lengths: Praxair investor slide via Bloomberg Intelligence (register #1).</span></footer>
   <div class="notes">
-    <p data-t="cover">On-site gas is <b>23.8% of sales</b>, $8.1B in 2025, locked in on 15-20 year take-or-pay contracts, up from 22.2% in 2019. Biggest customers: {f:cmix.2}.</p>
-    <p data-t="room">Ask the committee whether merchant bulk at 29.9% should count as locked in, then click the Merchant bulk segment to show its prices reset every 3-7 years.</p>
+    <p data-t="cover">On-site gas is <b>23.8% of sales</b>, on 15-20 year take-or-pay contracts; add merchant bulk on 3-7 year contracts and <b>53.7% of sales</b> is under multi-year contracts. Biggest customers: {f:cmix.2}.</p>
+    <p data-t="room">Before the numbers finish counting up, ask the committee to guess what share of sales is under multi-year contracts, then click the Merchant bulk segment to show its prices reset every few years.</p>
   </div>
 </section>
 
@@ -240,7 +240,7 @@
   <div class="body">
     <div class="grow">
       <div class="row" id="nxChips"></div>
-      <div class="card fl"><div class="ch"><span>Opportunity map · click a bubble</span><span class="samp">Sample placement</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="nxSvg" viewBox="0 0 960 440" preserveAspectRatio="xMidYMin meet"></svg></div></div></div>
+      <div class="card fl"><div class="ch"><span>Opportunity map · click a bubble</span><span class="samp">Sample placement</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="nxSvg" viewBox="0 0 960 625" preserveAspectRatio="xMidYMin meet"></svg></div></div></div>
     </div>
     <div class="side" style="width:450px">
       <div class="card fl"><div class="ch"><span id="nxH">Theme</span><span class="xs" style="text-transform:none;letter-spacing:0" id="nxG"></span></div><div class="cb" id="nxB" style="gap:12px;flex:1"></div></div>
@@ -268,7 +268,7 @@
   <footer class="sfoot"><span class="src" id="tamSrc"></span></footer>
   <div class="notes">
     <p data-t="cover">Each theme narrows in four steps: the headline market, the gas slice, the part {company} can serve, and <b>what {company} earns there today</b>. The gap between those last two bars is our runway.</p>
-    <p data-t="room">Ask the committee which of the four theme chips earns {company} the most today, then click AI and chips, Space, Clean energy and Healthcare in turn and point at the dark bottom bar.</p>
+    <p data-t="room">Ask the committee which theme they think earns {company} the most today, then click AI and chips and Healthcare and point at the dark bottom bar; Space and Clean energy still need sourced revenue.</p>
   </div>
 </section>
 
@@ -287,7 +287,7 @@
   <footer class="sfoot"><span class="src"><span class="fill" data-f="backlog.3">[Earnings releases and call transcripts · as of date]</span></span></footer>
   <div class="notes">
     <p data-t="cover">This backlog is growth that is already signed but not built yet, counted as {f:backlog.2}. The bars show it building, and the start-up chart shows <b>when each project starts adding revenue</b>.</p>
-    <p data-t="room">Ask the committee to guess which end market has the biggest signed project, then click the biggest circle on the start-up chart so the side panel reveals its end market, capex and start-up timing.</p>
+    <p data-t="room">Ask the committee to guess which end market has the biggest signed project, then click Fab gas supply A on the start-up chart so the side panel reveals its end market, capex and start-up timing.</p>
   </div>
 </section>
 
@@ -354,7 +354,7 @@
 </section>
 
 <section class="slide content" data-id="capex" data-init="capex" data-title="Capex and cash">
-  <header class="sh"><h2>A new plant costs cash first, then earns for 15 to 20 years. In 2025, operations covered capex and dividends; <b>buybacks needed other sources</b></h2></header>
+  <header class="sh"><h2>A new plant costs cash first, then earns for 15 to 20 years. <span id="cxH">In 2025, operations covered capex and dividends; <b>buybacks needed other sources</b></span></h2></header>
   <div class="body">
     <div class="grow">
       <div class="card fl"><div class="ch"><span>One new plant · cumulative cash ($M), the J-curve</span><span class="samp">Illustrative</span></div><div class="cb" style="flex:1">
@@ -374,7 +374,7 @@
   </div>
   <footer class="sfoot"><span class="src">Plant: illustrative inputs. Cash: Bloomberg cash flow statement, 2025. Buybacks are net of shares issued. Other, net: the balancing item (debt, cash and other investing flows), not pulled separately.</span></footer>
   <div class="notes">
-    <p data-t="cover">A new plant burns cash during the build, then earns for years. 2025: $10.35B from operations covered $5.26B of capex and $2.81B of dividends; the <b>$4.58B of buybacks needed about $2.3B from other sources</b>.</p>
+    <p data-t="cover">A new plant burns cash during the build, then earns for years. The 2025 waterfall on the right shows <b>where operating cash went</b>: capex, dividends and buybacks, with Other, net as the balancing item.</p>
     <p data-t="room">Ask the committee whether this 20-year plant clears the 10% target, then drag the Contract years slider down to 15 and point at the IRR box as it falls from 11.1% to 9.5%, below the target.</p>
   </div>
 </section>
@@ -433,7 +433,7 @@
       <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
         <div class="ctl"><label for="imW">Discount rate (WACC) <output id="imWo"></output></label><input type="range" id="imW" min="6" max="10" step="0.1" value="7.8"></div>
         <div class="ctl"><label for="imG">Growth after year 10 <output id="imGo"></output></label><input type="range" id="imG" min="1.5" max="4" step="0.1" value="2.8"></div>
-        <div class="ctl"><label for="imO">Our FCF growth (bridge) <output id="imOo"></output></label><input type="range" id="imO" min="0" max="18" step="0.1" value="13.9"></div>
+        <div class="ctl"><label for="imO">Our FCF growth, years 1-10 <output id="imOo"></output></label><input type="range" id="imO" min="0" max="18" step="0.1" value="13.9"></div>
       </div>
       <div class="card fl"><div class="ch"><span>Free cash flow growth needed to justify today's price</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="imSvg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
     </div>
@@ -442,10 +442,10 @@
       <div class="callout small" id="imRead"></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src">Reverse DCF: 10 years of free cash flow growth, then a terminal value. Our growth applies the bridge's 2025-2029 rate to all 10 years. Starting point: 2025 free cash flow of $10.84 a share (Bloomberg). Price: <span id="imPx">about $480 from market cap ÷ shares (Oct 8, 2026)</span>. <span class="fill" data-f="implied.2">[WACC and terminal growth from Gabriel’s model; price from GP on the day]</span></span></footer>
+  <footer class="sfoot"><span class="src">Reverse DCF: 10 years of free cash flow growth, then a terminal value. Our growth: <span id="imSrc">the slide 20 bridge</span>, applied to all 10 years. Starting point: 2025 free cash flow of $10.84 a share (Bloomberg). Price: <span id="imPx">about $480 from market cap ÷ shares (Oct 8, 2026)</span>. <span class="fill" data-f="implied.2">[WACC and terminal growth from Gabriel’s model; price from GP on the day]</span></span></footer>
   <div class="notes">
-    <p data-t="cover">At about {price}, the market is pricing in slower cash flow growth than the <b>13.9% a year</b> Linde actually delivered from 2019 to 2025. We expect {growth}.</p>
-    <p data-t="room">Ask the committee to guess what growth today's price implies, reveal it on the "Growth the price implies" card, then nudge the Discount rate (WACC) slider so they see the "Market" marker barely move.</p>
+    <p data-t="cover">At about {price}, the price needs <b>{implied} a year</b> of free cash flow growth for ten years; Linde delivered 13.9% a year from 2019 to 2025. We expect {growth}.</p>
+    <p data-t="room">Ask the committee to guess what growth today's price implies, reveal it on the "Growth the price implies" card, then drag the Discount rate (WACC) slider so they see how much the answer depends on it.</p>
   </div>
 </section>
 
@@ -461,15 +461,15 @@
       <div class="card fl"><div class="ch"><span>How to read it</span><span class="samp">Sample data</span></div><div class="cb small"><p>Each point is the DCF value per share for one pair of inputs: the discount rate (WACC) along one side, long-run growth along the other. Peaks are high values, valleys low ones.</p><p id="sfRead"></p></div></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src">DCF value per share across WACC 6-10% and terminal growth 1.5-4%, from $10.84 of 2025 free cash flow a share growing at our bridge rate; 13.9% was the 2019-2025 pace. <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
+  <footer class="sfoot"><span class="src">DCF value per share across WACC 6-10% and terminal growth 1.5-4%, from $10.84 of 2025 free cash flow a share growing at <span id="sfSrc">our bridge rate</span>. <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
   <div class="notes">
     <p data-t="cover">Each point is our DCF value per share for one pair of discount rate and long-run growth. Anything above the blue {price} plane is upside, and the box on the right shows <b>what share of inputs clears it</b>.</p>
-    <p data-t="room">Drag to orbit the 3D surface, then ask the committee which corner dips below the blue price plane before pointing at the high-WACC, low-growth edge near the 10% and 1.5% labels.</p>
+    <p data-t="room">Drag to orbit the 3D surface, ask the committee how much of it clears the blue price plane, then point at the "Share of inputs above price" card.</p>
   </div>
 </section>
 
 <section class="slide content" data-id="scen" data-init="scen" data-title="Bear, base, bull">
-  <header class="sh"><h2>Weighted to <b><span data-k="target"></span></b><span id="scAsym"></span></h2></header>
+  <header class="sh"><h2>Weighted to <b><span id="scPt"></span></b><span id="scAsym"></span></h2></header>
   <div class="body col">
     <div class="seg3" id="scCards"></div>
     <div class="card fl"><div class="ch"><span>Football field · value per share</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="ffSvg" viewBox="0 0 1400 300" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
@@ -487,12 +487,12 @@
   <div class="body col">
     <div class="clband" id="clBand"></div>
     <div class="clq" id="clQ"></div>
-    <div class="card fl"><div class="ch"><span>Scorecard · how we will know if we are right</span><span class="xs" style="text-transform:none;letter-spacing:0">Click Evidence for the slide</span></div><div class="cb" style="padding:0"><table class="dtab sc" id="clTab"></table></div></div>
+    <div class="card fl"><div class="ch"><span>Scorecard · how we will know if we are right</span><span class="xs" style="text-transform:none;letter-spacing:0">Evidence links open the slide</span></div><div class="cb" style="padding:0"><table class="dtab sc" id="clTab"></table></div></div>
     <div class="takeaway"><span class="labtag">Remember one thing</span><span class="fill" data-f="close.1">[The sentence we want the committee to repeat after we leave]</span></div>
   </div>
   <div class="notes">
     <p data-t="cover">We recommend {rating} {ticker}, a {target} target and <b>{upside} upside</b>, and every reason has a dated signal and a sell trigger. The one thing to remember: {f:close.1}</p>
-    <p data-t="room">Point at the "We sell if" column and ask the committee which of the three tripwires they want us to report back on first, clicking that row only if they ask to see its evidence slide.</p>
+    <p data-t="room">Point at the "We sell if" column and ask the committee which of the three tripwires they want us to report back on first, clicking that row's Evidence link only if they ask to see its evidence slide.</p>
   </div>
 </section>
 
