@@ -71,7 +71,7 @@ var FL = {
   gas: { c: '#6B432B', v: 8, px: 12 },
   energy: { c: '#2B5780', v: 14, px: 12 },
   cash: { c: '#2E7D4F', v: 16, px: 13 },
-  passthru: { c: '#2B5780', v: 13, px: 11 },
+  passthru: { c: '#1A1A1A', v: 13, px: 11 },
   liquid: { c: '#A57C61', v: 4, px: 10 }
 };
 
@@ -132,6 +132,8 @@ function build(THREE, opts) {
   controls.enableDamping = true; controls.dampingFactor = 0.08;
   controls.maxPolarAngle = 1.45; controls.minDistance = 16; controls.maxDistance = 480;
   controls.screenSpacePanning = true; controls.rotateSpeed = 0.6; controls.zoomSpeed = 0.8;
+  /* a plain scroll or trackpad swipe must not zoom the plant away; pinch (ctrlKey) and Ctrl or Cmd+scroll still zoom */
+  canvas.addEventListener('wheel', function (e) { if (!e.ctrlKey && !e.metaKey) e.stopImmediatePropagation(); }, { capture: true });
 
   /* lights: soft, bright study-model lighting */
   scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xCECAC3, 0.74));
@@ -759,7 +761,7 @@ function build(THREE, opts) {
   });
   ['fab', 'steel', 'refinery', 'hospital', 'food'].forEach(function (k) {
     var P = arcPath(PASS_FROM, CUST_TOPS[k], 17 + PASS_FROM.distanceTo(CUST_TOPS[k]) * 0.04, 30);
-    arcTube(P, 0x2B5780, 'passthru', 'passthru', 'Energy cost passed through to ' + NAMES[k].toLowerCase());
+    arcTube(P, 0x1A1A1A, 'passthru', 'passthru', 'Energy cost passed through to ' + NAMES[k].toLowerCase());
     new Flow(P, 'passthru', { r: 0.18, dens: 0.075 });
     if (k === 'refinery') PASS_APEX = P[15].clone();
   });

@@ -19,9 +19,9 @@ window.PITCH = {
   horizon: '3+ years',
   position: null,         // e.g. '3% of the Materials sleeve'
   date: null,             // e.g. 'December 3, 2026'
-  logo: null,             // the official Linde logo as a data URI or image URL; slots show a gold placeholder until set
-  orgLogo: null,          // the FIU SMIF logo for white backgrounds (footers), as a data URI or image URL; until set, a serif FIU SMIF wordmark shows
-  orgLogoLight: null,     // the white version of the FIU SMIF logo, for the brown band on the cover and closing slide
+  logo: 'vendor/logos/linde.png', // the Linde logo: a file in vendor/logos/ (built into the deck), a data URI or an image URL; null shows a placeholder
+  orgLogo: null,          // our logo for white backgrounds (footers), e.g. vendor/logos/smif-club.png in quotes; until set, a serif FIU SMIF wordmark shows
+  orgLogoLight: null,     // the white version for the brown band on the cover and closing slide, e.g. vendor/logos/smif-club-white.png in quotes
   /* the three reasons. tag: 2-3 words for the tracker chips. h: one-line headline.
      assume / see / worth: "market assumes, we see, worth $ per share".
      expect / signal / sell: the scorecard on the closing slide. go: the slide that proves it. */
@@ -47,7 +47,7 @@ window.OWNERS = {
 window.PLAN = {
   cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (NYSE: LIN).' },
   call: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
-  question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck.' },
+  question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
   macro: { o: 'G', t: 30, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
   stab: { o: 'A', t: 30, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
   make: { o: 'A', t: 35, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
@@ -117,7 +117,7 @@ function showTip(sl, ev, html){
 }
 function hideTip(sl){ const t = sl.querySelector(':scope > .tip'); if (t) t.classList.remove('show'); }
 function hov(el, sl, fn){ el.style.cursor = 'pointer'; el.addEventListener('pointermove', e => showTip(sl, e, fn())); el.addEventListener('pointerleave', () => hideTip(sl)); }
-function gridY(g, x0, x1, y, ticks, fmt){ const gg = S('g', {class: 'grid'}, g); ticks.forEach(t => { S('line', {x1: x0, x2: x1, y1: y(t), y2: y(t)}, gg); T('text', {x: x0 - 10, y: y(t) + 5, 'text-anchor': 'end', class: 'ax'}, fmt(t), g); }); }
+function gridY(g, x0, x1, y, ticks, fmt){ const gg = S('g', {class: 'grid'}, g); ticks.forEach(t => { S('line', {x1: x0, x2: x1, y1: y(t), y2: y(t)}, gg); T('text', {x: x0 - 10, y: y(t) + 5, 'text-anchor': 'end', class: 'ax'}, fmt(t), gg); }); }
 const C = { navy: '#6B432B', rule: '#8E5939', steel: '#A57C61', light: '#C9B3A3', sky: '#EDDDD3', tint: '#F7F4EF', soft: '#F4EFE7', ink: '#1A1A1A', grey: '#595959', line: '#DDD6CE', white: '#FFFFFF', gold: '#2B5780', goldt: '#EEF2F7', good: '#2E7D4F', bad: '#B23A2E' };
 /* mark a card's sample tag as replaced when its dataset is real */
 function samp(sl, sample, sel){ const el = sel ? $(sel, sl) : $('.samp', sl); if (el) el.classList.toggle('hidden', sample === false); }
@@ -132,8 +132,8 @@ function NCSS(fs, hs){
     '.nclock{margin-left:10px;letter-spacing:0;text-transform:none;color:#fff}.nclock .late{color:#FFB547}.nclock .early{color:#8FD6A8}.nclock em{font-style:normal;color:#C9B3A3}' +
     '.nrs{display:flex;flex-direction:column;gap:.42em}.nr{display:grid;grid-template-columns:4.7em 1fr;gap:.75em;align-items:start;font-size:1em}.ncol.nxt .nr{font-size:.86em}' +
     '.nt{font:700 .6em/1 "Arial",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:.6em 0;border-radius:3px;color:#1F1A17;margin-top:.15em}' +
-    '.nt.say{background:#FFFFFF}.nt.do{background:#C9B3A3}.nt.key{background:#8FD6A8}.nt.crowd{background:#F4A6C8}.nt.pass{background:#C9A27E}' +
-    '.nx{font:500 1em/1.36 "Arial",Arial,sans-serif;color:#FFFFFF}.nr.key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
+    '.nt.t-cover{background:#FFFFFF}.nt.t-room{background:#8FD6A8}.nt.t-say{background:#FFFFFF}.nt.t-do{background:#C9B3A3}.nt.t-key{background:#8FD6A8}.nt.t-crowd{background:#F4A6C8}.nt.t-pass{background:#C9A27E}' +
+    '.nx{font:500 1em/1.36 "Arial",Arial,sans-serif;color:#FFFFFF}.nr.t-key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
 }
 
 /* ---------------- deck core ---------------- */
@@ -196,7 +196,7 @@ function boot(){
   // reason tracker: which of the three reasons this slide supports
   function trk(s, r){
     const P = window.PITCH.pillars, t = H('div', {class: 'rtrk', 'aria-label': 'Supports reason ' + r.join(', ')}, '<span class="rl">Reason</span>', s);
-    P.forEach((p, k) => { const on = r.indexOf(k + 1) >= 0; const c = H('button', {type: 'button', class: 'rc' + (on ? ' on' : ''), title: (p.h || 'Reason ' + (k + 1)) + (p.go ? ' · evidence on slide ' + (ids.indexOf(p.go) + 1) : '')}, '<b>' + (k + 1) + '</b>' + (p.tag ? '<span>' + esc(p.tag) + '</span>' : ''), t); c.addEventListener('click', () => { const g = ids.indexOf(p.go); if (g >= 0) go(g); }); });
+    P.forEach((p, k) => { const on = r.indexOf(k + 1) >= 0; const c = H('button', {type: 'button', class: 'rc' + (on ? ' on' : ''), title: (p.h || 'Reason ' + (k + 1)) + (p.go ? ' · evidence on slide ' + (ids.indexOf(p.go) + 1) : '')}, '<b>' + (k + 1) + '</b>' + (p.tag ? '<span>' + esc(p.tag) + '</span>' : ''), t); c.addEventListener('click', () => { const g = ids.indexOf(p.go); if (g >= 0) A.jump(g); }); });
   }
 
   // chrome
@@ -328,7 +328,7 @@ function boot(){
   }
 
   // ---------- speaker notes: this slide on the left, the next slide faded on the right ----------
-  const TAG = { say: 'Say', do: 'Do', key: 'Key', crowd: 'Crowd', pass: 'Pass' };
+  const TAG = { cover: 'Cover', room: 'Room', say: 'Say', do: 'Do', key: 'Key', crowd: 'Crowd' };
   // a slide element's text with its gold placeholders kept visible
   function rich(el){ if (!el) return ''; const c = el.cloneNode(true); $$('.fill', c).forEach(f => { const e = document.createElement('em'); e.className = 'nf'; e.textContent = f.textContent; f.replaceWith(e); }); $$('[data-k]', c).forEach(k => k.removeAttribute('data-k')); return c.innerHTML; }
   function tok(h, i){
@@ -337,6 +337,8 @@ function boot(){
       if (k === 'h') return rich(sl.querySelector('.sh h2, h2'));
       if (k === 'f'){ const el = document.querySelector('[data-f="' + a + '"]'); return !el ? '' : el.classList.contains('fill') ? '<em class="nf">' + esc(el.textContent) + '</em>' : esc(el.textContent); }
       if (k === 'implied'){ const v = A.impliedNow ? A.impliedNow() : null; return v == null ? '<em class="nf">[x%]</em>' : v.toFixed(1) + '%'; }
+      // 'we expect': PITCH.growth, else the same number slides 22-24 use once the bridge drivers are the team's own
+      if (k === 'growth' && (kval(k) == null || kval(k) === '') && A.ourGrowthNow){ const v = A.ourGrowthNow(); if (v != null) return v.toFixed(1) + '%'; }
       if (k in KL){ const v = kval(k); return v == null || v === '' ? '<em class="nf">[' + esc(KL[k]) + ']</em>' : esc(v); }
       return m;
     });
@@ -344,11 +346,10 @@ function boot(){
   function col(i, which){
     if (i < 0 || i >= N) return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · end of the deck</span></div>';
     const m = meta(i), o = window.OWNERS[m.o];
-    let rows = (which === 'next' ? notes[i].slice(0, 3) : notes[i]).map(r => '<div class="nr ' + esc(r.t) + '"><span class="nt ' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
-    if (!rows) rows = '<div class="nr"><span class="nt say">Say</span><span class="nx">No notes for this slide yet.</span></div>';
-    if (which === 'now' && i + 1 < N && meta(i + 1).o !== m.o && meta(i + 1).t){ const no = window.OWNERS[meta(i + 1).o]; rows += '<div class="nr pass"><span class="nt pass">Pass</span><span class="nx">Hand over to <b style="color:' + no.c + ';filter:brightness(1.6)">' + esc(no.s) + '</b>: next is “' + esc(titles[i + 1]) + '”.</span></div>'; }
+    let rows = notes[i].map(r => '<div class="nr t-' + esc(r.t) + '"><span class="nt t-' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
+    if (!rows) rows = '<div class="nr"><span class="nt t-cover">Cover</span><span class="nx">No notes for this slide yet.</span></div>';
     const when = m.t ? mmss(m.t) + ' · plays ' + mmss(START[i]) + '-' + mmss(START[i] + m.t) : 'backup';
-    return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span></div><div class="nrs">' + rows + '</div>';
+    return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span>' + (which === 'now' && backTo() != null ? '<span class="nw">Backspace: back to slide ' + (backTo() + 1) + '</span>' : '') + '</div><div class="nrs">' + rows + '</div>';
   }
   function notesHTML(){ return '<div class="ncol now">' + col(cur, 'now') + '</div><div class="ncol nxt">' + col(cur + 1, 'next') + '</div>'; }
   function paintNotes(){
@@ -358,6 +359,7 @@ function boot(){
     paintClock();
   }
   function setNotes(on){
+    if (on && document.fullscreenElement) flash('Notes shrink the slide on a mirrored screen. Use an extended display and press P on the laptop.');
     root.classList.toggle('notes-on', on); bNotes.setAttribute('aria-pressed', String(on));
     try { localStorage.setItem('smifNotes', on ? '1' : '0'); } catch (e) {}
     layout(true); paintNotes();
@@ -376,7 +378,7 @@ function boot(){
     w.document.close();
     pop = w;
     w.document.addEventListener('keydown', onKey);
-    w.document.getElementById('pt').addEventListener('click', e => { const b = e.target.closest('[data-a]'); if (!b) return; const a = b.dataset.a; if (a === 'prev') adv(-1); else if (a === 'next') adv(1); else toggleTimer(); });
+    w.document.getElementById('pt').addEventListener('click', e => { const b = e.target.closest('[data-a]'); if (!b) return; const a = b.dataset.a; if (e.detail > 0) b.blur(); if (a === 'prev') adv(-1); else if (a === 'next') adv(1); else toggleTimer(); });
     if (root.classList.contains('notes-on')) setNotes(false);
     paintNotes();
   }
@@ -405,6 +407,9 @@ function boot(){
   // lifecycle
   const hooks = [], inited = [];
   let cur = -1;
+  // evidence jumps remember where they came from, so Backspace can go back (a short stack, for a jump made after a jump)
+  const jumps = [];
+  const backTo = () => jumps.length ? jumps[jumps.length - 1] : null;
   function ensure(i){
     if (inited[i]) return; inited[i] = true; hooks[i] = {};
     const k = slides[i].dataset.init;
@@ -422,12 +427,13 @@ function boot(){
     if (cur >= 0){ slides[cur].classList.remove('active'); leave(cur); }
     cur = i; slides[i].classList.add('active'); enter(i, dir);
     if (!fromHash) setHash(i);
-    cnt.textContent = (i + 1) + ' / ' + N;
+    cnt.textContent = (i + 1) + ' / ' + N + (backTo() != null ? ' \u00b7 Backspace: ' + (backTo() + 1) : '');
     SECS.forEach((sc, k) => { const n = i + 1, f = n > sc.b ? 1 : n < sc.a ? 0 : (n - sc.a + 1) / (sc.b - sc.a + 1); segs[k].firstChild.style.width = (f * 100) + '%'; segs[k].classList.toggle('cur', n >= sc.a && n <= sc.b); });
     gbtns.forEach((b, k) => b.classList.toggle('cur', k === i));
     paintBrief(); paintNotes();
   }
   A.go = i => go(i);
+  A.jump = i => { i = clamp(i | 0, 0, N - 1); if (cur >= 0 && i !== cur && Math.abs(i - cur) > 1){ jumps.push(cur); if (jumps.length > 8) jumps.shift(); } go(i); };
   A.cur = () => cur;
   function setHash(i){ const h = '#' + (i + 1); if (location.hash === h) return; try { history.replaceState(null, '', h); } catch (e){ try { location.hash = h; } catch (e2){} } }
   function toggleFs(){
@@ -455,17 +461,21 @@ function boot(){
     if (k === 's' || k === 'S'){ toggleTimer(); e.preventDefault(); return; }
     if (k === '0'){ resetTimer(); e.preventDefault(); return; }
     if (k === 'f' || k === 'F'){ toggleFs(); e.preventDefault(); return; }
+    if (t && t.type === 'range' && (k === 'PageDown' || k === 'PageUp') && !reader && grid.hidden && plan.hidden){ t.blur(); adv(k === 'PageDown' ? 1 : -1); e.preventDefault(); return; }
     if (inCtl) return;
     if (reader || !grid.hidden || !plan.hidden) return;
+    if (k === 'Backspace' && jumps.length){ const j = jumps.pop(); go(j); e.preventDefault(); return; }
+    if ((k === ' ' || k === 'Enter') && tag === 'BUTTON') return;
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Spacebar'){ adv(1); e.preventDefault(); }
     else if (k === 'ArrowLeft' || k === 'PageUp'){ adv(-1); e.preventDefault(); }
     else if (k === 'Home'){ go(0); e.preventDefault(); }
     else if (k === 'End'){ go(N - 1); e.preventDefault(); }
   }
   document.addEventListener('keydown', onKey);
-  // after a mouse click or drag, give the arrow keys back to the deck
+  // after a click, tap or drag (or a click on a slider label), give the arrow keys back to the deck
   document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('button'); if (b && e.detail > 0 && !b.closest('#grid') && !b.closest('#plan')) b.blur(); });
-  document.addEventListener('pointerup', e => { const r = e.target; if (r && r.type === 'range' && e.pointerType === 'mouse') setTimeout(() => r.blur(), 0); });
+  document.addEventListener('pointerup', e => { const r = e.target; if (r && r.type === 'range') setTimeout(() => r.blur(), 0); });
+  document.addEventListener('click', e => { const l = e.target.closest && e.target.closest('label'); if (l && l.control && l.control.type === 'range') setTimeout(() => l.control.blur(), 0); });
   window.addEventListener('hashchange', () => { const m = /^#(\d+)$/.exec(location.hash); if (m) go(+m[1] - 1, true); });
 
   // layout and reader mode

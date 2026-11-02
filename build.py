@@ -55,6 +55,16 @@ def inline_fonts(css):
     return re.sub(r"url\((fonts/[^)]+\.woff2)\)", to_data_uri, css)
 
 
+def inline_logos(js):
+    """PITCH.logo / orgLogo may point at a file in vendor/logos/: embed it so the deck stays one file."""
+    def to_data_uri(m):
+        path = ROOT / m.group(2)
+        mime = "image/svg+xml" if path.suffix == ".svg" else "image/" + path.suffix.lstrip(".").replace("jpg", "jpeg")
+        return m.group(1) + f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode("ascii") + m.group(1)
+
+    return re.sub(r"(['\"])(vendor/logos/[^'\"]+\.(?:png|jpg|jpeg|svg))\1", to_data_uri, js)
+
+
 def build():
     check_em_dashes()
     scripts = "\n".join(f"<script>\n{read(p)}\n</script>" for p in THREE_JS)
@@ -81,7 +91,7 @@ def build():
         read("gas-scene.js"),
         "</script>",
         "<script>",
-        read("src/engine.js"),
+        inline_logos(read("src/engine.js")),
         "</script>",
         "<script>",
         read("src/widgets.js"),
