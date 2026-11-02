@@ -132,8 +132,8 @@ function NCSS(fs, hs){
     '.nclock{margin-left:10px;letter-spacing:0;text-transform:none;color:#fff}.nclock .late{color:#FFB547}.nclock .early{color:#8FD6A8}.nclock em{font-style:normal;color:#C9B3A3}' +
     '.nrs{display:flex;flex-direction:column;gap:.42em}.nr{display:grid;grid-template-columns:4.7em 1fr;gap:.75em;align-items:start;font-size:1em}.ncol.nxt .nr{font-size:.86em}' +
     '.nt{font:700 .6em/1 "Arial",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:.6em 0;border-radius:3px;color:#1F1A17;margin-top:.15em}' +
-    '.nt.cover{background:#FFFFFF}.nt.room{background:#8FD6A8}.nt.say{background:#FFFFFF}.nt.do{background:#C9B3A3}.nt.key{background:#8FD6A8}.nt.crowd{background:#F4A6C8}.nt.pass{background:#C9A27E}' +
-    '.nx{font:500 1em/1.36 "Arial",Arial,sans-serif;color:#FFFFFF}.nr.key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
+    '.nt.t-cover{background:#FFFFFF}.nt.t-room{background:#8FD6A8}.nt.t-say{background:#FFFFFF}.nt.t-do{background:#C9B3A3}.nt.t-key{background:#8FD6A8}.nt.t-crowd{background:#F4A6C8}.nt.t-pass{background:#C9A27E}' +
+    '.nx{font:500 1em/1.36 "Arial",Arial,sans-serif;color:#FFFFFF}.nr.t-key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
 }
 
 /* ---------------- deck core ---------------- */
@@ -344,8 +344,8 @@ function boot(){
   function col(i, which){
     if (i < 0 || i >= N) return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · end of the deck</span></div>';
     const m = meta(i), o = window.OWNERS[m.o];
-    let rows = notes[i].map(r => '<div class="nr ' + esc(r.t) + '"><span class="nt ' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
-    if (!rows) rows = '<div class="nr"><span class="nt cover">Cover</span><span class="nx">No notes for this slide yet.</span></div>';
+    let rows = notes[i].map(r => '<div class="nr t-' + esc(r.t) + '"><span class="nt t-' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
+    if (!rows) rows = '<div class="nr"><span class="nt t-cover">Cover</span><span class="nx">No notes for this slide yet.</span></div>';
     const when = m.t ? mmss(m.t) + ' · plays ' + mmss(START[i]) + '-' + mmss(START[i] + m.t) : 'backup';
     return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span></div><div class="nrs">' + rows + '</div>';
   }
