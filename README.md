@@ -78,12 +78,12 @@ src/
   engine.js       How the deck runs: navigation, timer, notes window, build mode, team plan, pitch basics (PITCH block).
   widgets.js      The interactive charts and sliders on each slide, and the sample data behind them (DATA block).
 gas-scene.js      The 3D model (slides 6 and 8).
-vendor/           Fonts (Source Serif 4, IBM Plex Sans) and the 3D library, kept here so the deck works offline.
+vendor/           Fonts (Source Serif 4, IBM Plex Sans), built into the deck so it looks right offline. The 3D model loads three.js from the internet.
 build.py          Combines everything above into one file: out/smif-materials-pitch.html
-bake.py           Puts fill sheet answers into the built deck.
+bake.py           Puts fill sheet answers into the built deck. (Not added yet.)
 test_deck.py      Opens every slide in a headless browser and checks for errors.
-test_overflow.py  Flags any text that spills off a slide.
-.github/workflows/build.yml   Rebuilds and publishes the live deck on every merge to main.
+test_overflow.py  Flags any text that spills off a slide. (Not added yet.)
+.github/workflows/build.yml   Builds the deck and opens every slide on each pull request and merge. Download the built deck from the run's page under the Actions tab.
 ```
 
 ### Slide IDs
@@ -106,12 +106,13 @@ open out/smif-materials-pitch.html                 # Mac; on Windows, double-cli
 To check your change before you open a pull request:
 
 ```bash
-pip install playwright openpyxl
+pip install playwright
+playwright install chromium
 python test_deck.py        # every slide loads with no errors
-python test_overflow.py    # no text spills off a slide
+python test_deck.py --shots   # also saves a screenshot of every slide to out/shots/
 ```
 
-To put the fill sheet into the deck: download the Google Sheet (File > Download > Microsoft Excel), then run:
+To put the fill sheet into the deck (once `bake.py` is added): download the Google Sheet (File > Download > Microsoft Excel), then run:
 
 ```bash
 python bake.py out/smif-materials-pitch.html "SMIF Linde fill sheet.xlsx"

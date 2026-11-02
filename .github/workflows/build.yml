@@ -1,0 +1,28 @@
+name: Build and test deck
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build deck (fails on em dashes)
+        run: python build.py
+      - name: Install browser
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+      - name: Open every slide
+        run: python test_deck.py --shots
+      - name: Upload built deck and screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: smif-materials-pitch
+          path: out/
