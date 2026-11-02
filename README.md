@@ -80,10 +80,10 @@ src/
 gas-scene.js      The 3D model (slides 6 and 8).
 vendor/           Fonts (Source Serif 4, IBM Plex Sans), built into the deck so it looks right offline. The 3D model loads three.js from the internet.
 build.py          Combines everything above into one file: out/smif-materials-pitch.html
-bake.py           Puts fill sheet answers into the built deck. (Not added yet.)
+bake.py           Puts fill sheet answers into the built deck.
 test_deck.py      Opens every slide in a headless browser and checks for errors.
-test_overflow.py  Flags any text that spills off a slide. (Not added yet.)
-.github/workflows/build.yml   Builds the deck and opens every slide on each pull request and merge. Download the built deck from the run's page under the Actions tab.
+test_overflow.py  Flags any text that spills off a slide, gets cut off or ends up hidden under another box.
+.github/workflows/build.yml   Builds the deck, opens every slide and checks for spilling text on each pull request and merge. Download the built deck from the run's page under the Actions tab.
 ```
 
 ### Slide IDs
@@ -110,13 +110,19 @@ pip install playwright
 playwright install chromium
 python test_deck.py        # every slide loads with no errors
 python test_deck.py --shots   # also saves a screenshot of every slide to out/shots/
+python test_overflow.py    # no text spills off a slide
 ```
 
-To put the fill sheet into the deck (once `bake.py` is added): download the Google Sheet (File > Download > Microsoft Excel), then run:
+To put the fill sheet into the deck: download the Google Sheet (File > Download > Microsoft Excel), then run:
 
 ```bash
+pip install openpyxl
+python build.py
 python bake.py out/smif-materials-pitch.html "SMIF Linde fill sheet.xlsx"
+python test_overflow.py    # check the answers fit on their slides
 ```
+
+`bake.py` fills every gold box, the pitch basics (price, target, rating, date), the three reasons and the chart text from the sheet. It lists anything it left out: "Numbers to pull" rows (Alexander enters those in `src/widgets.js`) and rows for backup slides that are not in this deck. It also lists answers it could not use, like a verdict that isn't Play it now, Option value, Watch or Pass. Bake changes the built file, so run `build.py` again before baking a newer sheet.
 
 ---
 
