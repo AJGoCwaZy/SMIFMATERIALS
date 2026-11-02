@@ -13,17 +13,17 @@ var CSS = [
 '.gs-canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block;outline:none;touch-action:none;cursor:grab;z-index:1}',
 '.gs-canvas:active{cursor:grabbing}',
 '.gs-layer{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:2}',
-'.gs-pill{position:absolute;left:0;top:0;box-sizing:border-box;background:#FFFFFF;color:#0B417D;border:1.5px solid #0B417D;border-radius:3px;font:600 15px Inter,"Helvetica Neue",Arial,sans-serif;line-height:1.2;padding:6px 10px;white-space:nowrap;pointer-events:auto;cursor:pointer;user-select:none;-webkit-user-select:none;box-shadow:0 1px 5px rgba(11,65,125,.14)}',
-'.gs-pill.gs-sel{background:#0B417D;color:#FFFFFF}',
-'.gs-stem{position:absolute;left:0;top:0;width:1.5px;margin-left:-.75px;background:#0B417D;transform-origin:50% 0}',
-'.gs-dot{position:absolute;left:0;top:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;box-sizing:border-box;border-radius:50%;background:#0B417D;border:2px solid #FFFFFF}',
-'.gs-tip{position:absolute;left:0;top:0;z-index:3;background:#1B2A3A;color:#FFFFFF;font:500 14px Inter,"Helvetica Neue",Arial,sans-serif;line-height:1.3;padding:6px 10px;border-radius:4px;pointer-events:none;white-space:nowrap;display:none}'
+'.gs-pill{position:absolute;left:0;top:0;box-sizing:border-box;background:#FFFFFF;color:#6B432B;border:1.5px solid #6B432B;border-radius:3px;font:600 15px Inter,"Helvetica Neue",Arial,sans-serif;line-height:1.2;padding:6px 10px;white-space:nowrap;pointer-events:auto;cursor:pointer;user-select:none;-webkit-user-select:none;box-shadow:0 1px 5px rgba(107,67,43,.14)}',
+'.gs-pill.gs-sel{background:#6B432B;color:#FFFFFF}',
+'.gs-stem{position:absolute;left:0;top:0;width:1.5px;margin-left:-.75px;background:#6B432B;transform-origin:50% 0}',
+'.gs-dot{position:absolute;left:0;top:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;box-sizing:border-box;border-radius:50%;background:#6B432B;border:2px solid #FFFFFF}',
+'.gs-tip{position:absolute;left:0;top:0;z-index:3;background:#1A1A1A;color:#FFFFFF;font:500 14px Inter,"Helvetica Neue",Arial,sans-serif;line-height:1.3;padding:6px 10px;border-radius:4px;pointer-events:none;white-space:nowrap;display:none}'
 ].join('\n');
 
 var COL = {
-  bg: 0xF2F6FB, ground: 0xE6EDF6, road: 0xD5DFEC, pad: 0xF7F9FC, white: 0xFFFFFF, light: 0xDCE3EC,
-  navy: 0x0B417D, wall: 0xE8EDF3, roof: 0xC9D8EC, steelL: 0x9FB6D4, steelD: 0x5B6B7C,
-  gold: 0xB7791F, green: 0x2E7D4F, red: 0xB23A2E, ring: 0x5D7FA9, tree: 0xDCE5EF, trunk: 0xB3C2D4
+  bg: 0xF7F4EF, ground: 0xF4EFE7, road: 0xDDD6CE, pad: 0xFBF9F6, white: 0xFFFFFF, light: 0xE7E3DC,
+  navy: 0x6B432B, wall: 0xF1EDE6, roof: 0xEDDDD3, steelL: 0xC9B3A3, steelD: 0x595959,
+  gold: 0x2B5780, green: 0x2E7D4F, red: 0xB23A2E, ring: 0x90745F, tree: 0xE8E4DD, trunk: 0xC5C1BA
 };
 
 var TEXT = {
@@ -68,11 +68,11 @@ var STOPS = {
 /* flow kinds: color, speed (world units / s), on-screen dot size (css px) */
 var FL = {
   air: { c: '#7F9CC4', v: 5, px: 11 },
-  gas: { c: '#0B417D', v: 8, px: 12 },
-  energy: { c: '#B7791F', v: 14, px: 12 },
+  gas: { c: '#6B432B', v: 8, px: 12 },
+  energy: { c: '#2B5780', v: 14, px: 12 },
   cash: { c: '#2E7D4F', v: 16, px: 13 },
-  passthru: { c: '#B7791F', v: 13, px: 11 },
-  liquid: { c: '#3E6FB0', v: 4, px: 10 }
+  passthru: { c: '#2B5780', v: 13, px: 11 },
+  liquid: { c: '#A57C61', v: 4, px: 10 }
 };
 
 function injectStyle() {
@@ -134,14 +134,14 @@ function build(THREE, opts) {
   controls.screenSpacePanning = true; controls.rotateSpeed = 0.6; controls.zoomSpeed = 0.8;
 
   /* lights: soft, bright study-model lighting */
-  scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xBDCBDD, 0.74));
+  scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xCECAC3, 0.74));
   var sun = new THREE.DirectionalLight(0xFFFFFF, 0.38);
   sun.position.set(-75, 175, 115); sun.target.position.set(-10, 0, 0);
   sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
   var sc = sun.shadow.camera; sc.left = -140; sc.right = 140; sc.top = 125; sc.bottom = -125; sc.near = 40; sc.far = 520;
   sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.05;
   scene.add(sun); scene.add(sun.target);
-  var fill = new THREE.DirectionalLight(0xE6EEF8, 0.14); fill.position.set(80, 60, -90); scene.add(fill);
+  var fill = new THREE.DirectionalLight(0xF2EEE7, 0.14); fill.position.set(80, 60, -90); scene.add(fill);
 
   /* ---------------------------------------------------------------- materials */
   var MC = {};
@@ -158,10 +158,10 @@ function build(THREE, opts) {
   var M = {
     white: mat(COL.white), pad: mat(COL.pad, { r: 0.9 }), light: mat(COL.light), navy: mat(COL.navy, { r: 0.5, m: 0.08 }),
     wall: mat(COL.wall), roof: mat(COL.roof, { r: 0.75 }), steelL: mat(COL.steelL, { r: 0.5, m: 0.15 }),
-    steelD: mat(COL.steelD, { r: 0.5, m: 0.2 }), road: mat(0xBDC9D9, { r: 0.95 }), ground: mat(0xCDD6E1, { r: 1, m: 0 }),
-    glass: mat(0x8FA6C2, { r: 0.25, m: 0.25 }), dark: mat(0x2B3644, { r: 0.7 }), red: mat(COL.red, { r: 0.55 }),
+    steelD: mat(COL.steelD, { r: 0.5, m: 0.2 }), road: mat(0xCCC8C1, { r: 0.95 }), ground: mat(0xDAD6CF, { r: 1, m: 0 }),
+    glass: mat(0xA7A39C, { r: 0.25, m: 0.25 }), dark: mat(0x3E3229, { r: 0.7 }), red: mat(COL.red, { r: 0.55 }),
     tree: mat(COL.tree, { r: 0.9 }), trunk: mat(COL.trunk, { r: 0.9 }), ring: mat(COL.ring, { r: 0.8 }),
-    liquid: mat(0x3E6FB0, { r: 0.45, m: 0.15 }), pipeL: mat(0xC4D0DE, { r: 0.45, m: 0.25 })
+    liquid: mat(0xA57C61, { r: 0.45, m: 0.15 }), pipeL: mat(0xD3CFC8, { r: 0.45, m: 0.25 })
   };
 
   /* ---------------------------------------------------------------- geometry cache */
@@ -667,7 +667,7 @@ function build(THREE, opts) {
   function dotTex(hex) {
     if (TEXC[hex]) return TEXC[hex];
     var c = document.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
-    x.beginPath(); x.arc(32, 32, 31, 0, Math.PI * 2); x.fillStyle = 'rgba(11,40,80,0.22)'; x.fill();
+    x.beginPath(); x.arc(32, 32, 31, 0, Math.PI * 2); x.fillStyle = 'rgba(60,40,25,0.22)'; x.fill();
     x.beginPath(); x.arc(32, 32, 28, 0, Math.PI * 2); x.fillStyle = '#FFFFFF'; x.fill();
     x.beginPath(); x.arc(32, 32, 19.5, 0, Math.PI * 2); x.fillStyle = hex; x.fill();
     var t = new THREE.CanvasTexture(c); TEXC[hex] = t; return t;
@@ -759,7 +759,7 @@ function build(THREE, opts) {
   });
   ['fab', 'steel', 'refinery', 'hospital', 'food'].forEach(function (k) {
     var P = arcPath(PASS_FROM, CUST_TOPS[k], 17 + PASS_FROM.distanceTo(CUST_TOPS[k]) * 0.04, 30);
-    arcTube(P, 0xB7791F, 'passthru', 'passthru', 'Energy cost passed through to ' + NAMES[k].toLowerCase());
+    arcTube(P, 0x2B5780, 'passthru', 'passthru', 'Energy cost passed through to ' + NAMES[k].toLowerCase());
     new Flow(P, 'passthru', { r: 0.18, dens: 0.075 });
     if (k === 'refinery') PASS_APEX = P[15].clone();
   });
@@ -767,7 +767,7 @@ function build(THREE, opts) {
 
   /* ================================================================ TRUCKS */
   var MOVERS = [];
-  var glassDark = mat(0x23384F, { r: 0.3, m: 0.3 });
+  var glassDark = mat(0x3E3229, { r: 0.3, m: 0.3 });
   function wheels(g, xs, u) { xs.forEach(function (x) { hcyl(x, 0.55, 0, 0.55, 2.3, 'z', M.dark, { parent: g, unit: u, seg: 14, cast: false, dyn: false }); }); }
   function makeTanker() {
     var g = new THREE.Group(); root.add(g);

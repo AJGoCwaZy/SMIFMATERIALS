@@ -77,8 +77,8 @@ src/
   deck.css        The look: colors, fonts, spacing, card styles.
   engine.js       How the deck runs: navigation, timer, notes window, build mode, team plan, pitch basics (PITCH block).
   widgets.js      The interactive charts and sliders on each slide, and the sample data behind them (DATA block).
-gas-scene.js      The 3D model (slides 6 and 8).
-vendor/           Fonts (Source Serif 4, IBM Plex Sans), built into the deck so it looks right offline. The 3D model loads three.js from the internet.
+gas-scene.js      The 3D models (slides 6, 8 and 16).
+vendor/           Fonts (Source Serif 4) and the 3D library (three.js), built into the deck so it works offline. Body text uses Arial.
 build.py          Combines everything above into one file: out/smif-materials-pitch.html
 bake.py           Puts fill sheet answers into the built deck.
 test_deck.py      Opens every slide in a headless browser and checks for errors.

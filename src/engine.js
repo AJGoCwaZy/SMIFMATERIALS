@@ -20,6 +20,7 @@ window.PITCH = {
   position: null,         // e.g. '3% of the Materials sleeve'
   date: null,             // e.g. 'December 3, 2026'
   logo: null,             // the official Linde logo as a data URI or image URL; slots show a gold placeholder until set
+  orgLogo: null,          // the FIU SMIF logo (white or dark version) as a data URI or image URL; until set, a serif FIU SMIF wordmark shows
   /* the three reasons. tag: 2-3 words for the tracker chips. h: one-line headline.
      assume / see / worth: "market assumes, we see, worth $ per share".
      expect / signal / sell: the scorecard on the closing slide. go: the slide that proves it. */
@@ -32,12 +33,12 @@ window.PITCH = {
 
 /* who owns what: names, roles, colours used in the team plan */
 window.OWNERS = {
-  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · macro, the question, valuation', c: '#3E6FB0' },
-  A: { n: 'Aaron', s: 'Aaron', r: 'Competition, durability, pre-mortem', c: '#B7791F', last: null },
+  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · macro, the question, valuation', c: '#A57C61' },
+  A: { n: 'Aaron', s: 'Aaron', r: 'Competition, durability, pre-mortem', c: '#2B5780', last: null },
   D: { n: 'Daniel Vazquez', s: 'Daniel', r: 'Products, customers, end markets', c: '#2E7D4F' },
   R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Next markets, market size, backlog', c: '#7B5EA7' },
   X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · profitability, cash flow bridge, coordination', c: '#B23A2E' },
-  T: { n: 'Whole team', s: 'Team', r: 'Everyone', c: '#5B6B7C' }
+  T: { n: 'Whole team', s: 'Team', r: 'Everyone', c: '#595959' }
 };
 
 /* the build plan: owner (o), seconds in the timed run (t), which of the three reasons the slide supports (r),
@@ -116,7 +117,7 @@ function showTip(sl, ev, html){
 function hideTip(sl){ const t = sl.querySelector(':scope > .tip'); if (t) t.classList.remove('show'); }
 function hov(el, sl, fn){ el.style.cursor = 'pointer'; el.addEventListener('pointermove', e => showTip(sl, e, fn())); el.addEventListener('pointerleave', () => hideTip(sl)); }
 function gridY(g, x0, x1, y, ticks, fmt){ const gg = S('g', {class: 'grid'}, g); ticks.forEach(t => { S('line', {x1: x0, x2: x1, y1: y(t), y2: y(t)}, gg); T('text', {x: x0 - 10, y: y(t) + 5, 'text-anchor': 'end', class: 'ax'}, fmt(t), g); }); }
-const C = { navy: '#0B417D', rule: '#234E70', steel: '#3E6FB0', light: '#9FB6D4', sky: '#C9D8EC', tint: '#F2F6FB', soft: '#E6EDF6', ink: '#1B2A3A', grey: '#5B6B7C', line: '#D5DFEC', white: '#FFFFFF', gold: '#B7791F', goldt: '#FBF0DC', good: '#2E7D4F', bad: '#B23A2E' };
+const C = { navy: '#6B432B', rule: '#8E5939', steel: '#A57C61', light: '#C9B3A3', sky: '#EDDDD3', tint: '#F7F4EF', soft: '#F4EFE7', ink: '#1A1A1A', grey: '#595959', line: '#DDD6CE', white: '#FFFFFF', gold: '#2B5780', goldt: '#EEF2F7', good: '#2E7D4F', bad: '#B23A2E' };
 /* mark a card's sample tag as replaced when its dataset is real */
 function samp(sl, sample, sel){ const el = sel ? $(sel, sl) : $('.samp', sl); if (el) el.classList.toggle('hidden', sample === false); }
 const INIT = {};
@@ -125,13 +126,13 @@ window.__A = A;
 
 /* notes panel styles, shared by the docked panel and the pop-out window */
 function NCSS(fs, hs){
-  return '.ncol{display:flex;flex-direction:column;gap:8px;min-width:0;overflow:auto;font-size:' + fs + '}.ncol.now{flex:1.5}.ncol.nxt{flex:1;opacity:.4;border-left:1px solid rgba(188,208,234,.22);padding-left:26px;transition:opacity .2s}.ncol.nxt:hover{opacity:.85}' +
-    '.nh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 14px;font:600 ' + hs + 'px/1.25 "IBM Plex Sans",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9FB6D4;margin-bottom:4px}.nh .nw{letter-spacing:.06em;text-transform:none;white-space:nowrap;display:flex;align-items:center;gap:8px}.nh .nw i{width:10px;height:10px;border-radius:50%;display:inline-block}' +
-    '.nclock{margin-left:10px;letter-spacing:0;text-transform:none;color:#fff}.nclock .late{color:#FFB547}.nclock .early{color:#8FD6A8}.nclock em{font-style:normal;color:#9FB6D4}' +
+  return '.ncol{display:flex;flex-direction:column;gap:8px;min-width:0;overflow:auto;font-size:' + fs + '}.ncol.now{flex:1.5}.ncol.nxt{flex:1;opacity:.4;border-left:1px solid rgba(233,220,210,.22);padding-left:26px;transition:opacity .2s}.ncol.nxt:hover{opacity:.85}' +
+    '.nh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 14px;font:600 ' + hs + 'px/1.25 "Arial",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C9B3A3;margin-bottom:4px}.nh .nw{letter-spacing:.06em;text-transform:none;white-space:nowrap;display:flex;align-items:center;gap:8px}.nh .nw i{width:10px;height:10px;border-radius:50%;display:inline-block}' +
+    '.nclock{margin-left:10px;letter-spacing:0;text-transform:none;color:#fff}.nclock .late{color:#FFB547}.nclock .early{color:#8FD6A8}.nclock em{font-style:normal;color:#C9B3A3}' +
     '.nrs{display:flex;flex-direction:column;gap:.42em}.nr{display:grid;grid-template-columns:4.7em 1fr;gap:.75em;align-items:start;font-size:1em}.ncol.nxt .nr{font-size:.86em}' +
-    '.nt{font:700 .6em/1 "IBM Plex Sans",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:.6em 0;border-radius:3px;color:#0F1E33;margin-top:.15em}' +
-    '.nt.say{background:#FFFFFF}.nt.do{background:#9FB6D4}.nt.key{background:#8FD6A8}.nt.crowd{background:#F4A6C8}.nt.pass{background:#E0A84E}' +
-    '.nx{font:500 1em/1.36 "IBM Plex Sans",Arial,sans-serif;color:#FFFFFF}.nr.key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
+    '.nt{font:700 .6em/1 "Arial",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:.6em 0;border-radius:3px;color:#1F1A17;margin-top:.15em}' +
+    '.nt.say{background:#FFFFFF}.nt.do{background:#C9B3A3}.nt.key{background:#8FD6A8}.nt.crowd{background:#F4A6C8}.nt.pass{background:#C9A27E}' +
+    '.nx{font:500 1em/1.36 "Arial",Arial,sans-serif;color:#FFFFFF}.nr.key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
 }
 
 /* ---------------- deck core ---------------- */
@@ -164,6 +165,9 @@ function boot(){
   // company logo: every [data-logo] slot, plus a small one in the footer of the company slides
   A.logo = cls => window.PITCH.logo ? '<img src="' + esc(window.PITCH.logo) + '" alt="' + esc(window.PITCH.short || window.PITCH.company) + ' logo" class="' + (cls || '') + '">' : '<span class="fill">[' + esc(window.PITCH.short || 'Company') + ' logo]</span>';
   $$('[data-logo]').forEach(el => { el.innerHTML = A.logo(); });
+  // our own wordmark: footers, cover and closing band. Text until PITCH.orgLogo is set.
+  A.org = () => window.PITCH.orgLogo ? '<img src="' + esc(window.PITCH.orgLogo) + '" alt="FIU SMIF">' : 'FIU SMIF';
+  $$('[data-orglogo]').forEach(el => { el.innerHTML = A.org(); });
   $$('[data-owner]').forEach(el => { const m = window.PLAN[el.dataset.owner]; const o = m && window.OWNERS[m.o]; el.textContent = o ? o.n : ''; });
   const titles = [], notes = [];
   slides.forEach((s, i) => {
@@ -179,7 +183,7 @@ function boot(){
       let f = s.querySelector('.sfoot'); if (!f) f = H('footer', {class: 'sfoot'}, '<span class="src"></span>', s);
       f.insertBefore(H('span', {class: 'pno num'}, String(i + 1)), f.firstChild);
       if (window.PITCH.logo && i >= ids.indexOf('buyers') && ids.indexOf('buyers') >= 0) H('span', {class: 'flogo'}, A.logo(), f);
-      H('span', {class: 'brand'}, 'FIU SMIF · Materials', f);
+      H('span', {class: 'brand'}, A.org(), f);
       if (nt) s.appendChild(nt);
     }
     const m = meta(i), o = window.OWNERS[m.o];
@@ -359,15 +363,15 @@ function boot(){
   }
   // pop-out window for a second screen: the projector shows the slides, the laptop shows this
   let pop = null;
-  const POPCSS = 'html,body{margin:0;height:100%;background:#0F1E33;color:#fff;font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}' +
-    '#pt{display:flex;align-items:center;gap:10px;padding:12px 22px;background:#0A1626;border-bottom:3px solid #3E6FB0}#pt b{font:700 20px/1 "Source Serif 4",Georgia,serif;margin-right:auto}#pt button{appearance:none;border:1px solid rgba(188,208,234,.4);background:transparent;color:#fff;font:600 15px/1 "IBM Plex Sans",Arial,sans-serif;padding:10px 14px;border-radius:5px;cursor:pointer}#pt button:hover{background:rgba(255,255,255,.1)}#pc{font:600 15px/1 "IBM Plex Sans",Arial,sans-serif;color:#9FB6D4;min-width:64px;text-align:center}' +
+  const POPCSS = 'html,body{margin:0;height:100%;background:#1F1A17;color:#fff;font-family:"Arial","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}' +
+    '#pt{display:flex;align-items:center;gap:10px;padding:12px 22px;background:#141414;border-bottom:3px solid #A57C61}#pt b{font:700 20px/1 "Source Serif 4",Georgia,serif;margin-right:auto}#pt button{appearance:none;border:1px solid rgba(233,220,210,.4);background:transparent;color:#fff;font:600 15px/1 "Arial",Arial,sans-serif;padding:10px 14px;border-radius:5px;cursor:pointer}#pt button:hover{background:rgba(255,255,255,.1)}#pc{font:600 15px/1 "Arial",Arial,sans-serif;color:#C9B3A3;min-width:64px;text-align:center}' +
     '#pn{display:flex;gap:30px;padding:22px 26px;height:calc(100% - 64px);box-sizing:border-box}#pn .nh .nclock{display:none}' + NCSS('26px', 15);
   function popOut(){
     if (pop && !pop.closed){ try { pop.focus(); } catch (e) {} return; }
     let w = null; try { w = window.open('', 'smifNotes', 'width=1200,height=760'); } catch (e) { w = null; }
     if (!w || !w.document){ flash('The browser blocked the notes window. Press N for notes under the slide.'); return; }
     w.document.open();
-    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Speaker notes · SMIF Materials</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@700&display=swap"><style>' + POPCSS + '</style></head><body><div id="pt"><b>Speaker notes</b><button type="button" data-a="prev">‹ Prev</button><span id="pc"></span><button type="button" data-a="next">Next ›</button><button type="button" data-a="timer">Timer · S</button><span class="nclock" style="font:600 16px/1 \'IBM Plex Sans\',Arial,sans-serif;min-width:200px"></span></div><div id="pn"></div></body></html>');
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Speaker notes · SMIF Materials</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@700&display=swap"><style>' + POPCSS + '</style></head><body><div id="pt"><b>Speaker notes</b><button type="button" data-a="prev">‹ Prev</button><span id="pc"></span><button type="button" data-a="next">Next ›</button><button type="button" data-a="timer">Timer · S</button><span class="nclock" style="font:600 16px/1 \'Arial\',Arial,sans-serif;min-width:200px"></span></div><div id="pn"></div></body></html>');
     w.document.close();
     pop = w;
     w.document.addEventListener('keydown', onKey);
@@ -432,7 +436,7 @@ function boot(){
     } catch (e){ flash('Full screen is not available here'); }
   }
   let flashEl = null;
-  function flash(msg){ if (!flashEl){ flashEl = H('div', null, '', document.body); flashEl.style.cssText = 'position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#1B2A3A;color:#fff;font:500 14px/1 "IBM Plex Sans",Arial,sans-serif;padding:10px 14px;border-radius:6px;z-index:90;transition:opacity .3s'; } flashEl.textContent = msg; flashEl.style.opacity = '1'; setTimeout(() => { flashEl.style.opacity = '0'; }, 1800); }
+  function flash(msg){ if (!flashEl){ flashEl = H('div', null, '', document.body); flashEl.style.cssText = 'position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#1A1A1A;color:#fff;font:500 14px/1 "Arial",Arial,sans-serif;padding:10px 14px;border-radius:6px;z-index:90;transition:opacity .3s'; } flashEl.textContent = msg; flashEl.style.opacity = '1'; setTimeout(() => { flashEl.style.opacity = '0'; }, 1800); }
 
   function onKey(e){
     if (e.defaultPrevented) return;

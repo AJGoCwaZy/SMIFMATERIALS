@@ -18,11 +18,8 @@ OUT = ROOT / "out" / "smif-materials-pitch.html"
 TITLE = "SMIF Materials Pitch"
 DESCRIPTION = "Interactive pitch deck for the FIU SMIF Materials sector pitch on Linde plc (LIN)."
 
-# The 3D model needs three.js r128. It loads from a CDN, so slides 6 and 8 need internet.
-THREE_JS = [
-    "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
-    "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js",
-]
+# The 3D models need three.js r128. It is built into the deck, so the 3D slides work offline.
+THREE_JS = ["vendor/three.min.js", "vendor/OrbitControls.js"]
 
 # Page reset that the deck's CSS assumes.
 BASE_CSS = (
@@ -60,7 +57,7 @@ def inline_fonts(css):
 
 def build():
     check_em_dashes()
-    scripts = "\n".join(f'<script src="{u}"></script>' for u in THREE_JS)
+    scripts = "\n".join(f"<script>\n{read(p)}\n</script>" for p in THREE_JS)
     html = "\n".join([
         "<!doctype html>",
         '<html lang="en"><head><meta charset="utf-8">'
