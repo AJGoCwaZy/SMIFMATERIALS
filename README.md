@@ -4,7 +4,7 @@ The interactive slide deck for the FIU SMIF Materials team's pitch on Linde plc 
 
 **Live deck:** `[GitHub Pages link goes here once the repo is set up]`
 **Fill sheet (words and numbers):** https://docs.google.com/spreadsheets/d/1L23-LMUrW2D_asj35BNkO9VRB62ysRj2feFtmR7NBQA/edit
-**Google Drive (files, Bloomberg exports, PDFs):** `[shared folder link goes here once it's set up]`
+**Google Drive (files, Bloomberg exports, PDFs):** https://drive.google.com/drive/folders/1KYzA6_Ho54VGtIHFcqJoHiwdiI2oOjsL
 
 ---
 
@@ -26,7 +26,7 @@ If you're not sure, post in the group chat: **"Slide #, what to change, why."**
 
 All research files go in the shared Google Drive folder, not in this repo and not on SharePoint. Ask Alexander to share the folder with your Gmail.
 
-- **Upload:** drag files into your own subfolder (from your laptop or the Google Drive phone app).
+- **Upload:** drag files into your own subfolder (from your laptop or the Google Drive phone app). Filings, earnings transcripts and other docs everyone uses go in `Shared`.
 - **Name files clearly:** `LIN 10-Q Q3 2026.pdf`, not `download (3).pdf`.
 - **Convert Excel exports:** when you upload a Bloomberg `.xlsx`, open it with Google Sheets and save it as a Sheet. Claude reads Sheets more reliably than raw Excel files.
 - **Let your Claude read the folder:** in Claude, go to **Settings > Connectors**, connect **Google Drive** and sign in with the Gmail the folder is shared with. Then you can ask things like "summarize the Q3 10-Q in our SMIF Drive folder."
