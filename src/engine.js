@@ -19,9 +19,9 @@ window.PITCH = {
   horizon: '3+ years',
   position: null,         // e.g. '3% of the Materials sleeve'
   date: null,             // e.g. 'December 3, 2026'
-  logo: null,             // the official Linde logo as a data URI or image URL; slots show a gold placeholder until set
-  orgLogo: null,          // the FIU SMIF logo for white backgrounds (footers), as a data URI or image URL; until set, a serif FIU SMIF wordmark shows
-  orgLogoLight: null,     // the white version of the FIU SMIF logo, for the brown band on the cover and closing slide
+  logo: 'vendor/logos/linde.png', // the Linde logo: a file in vendor/logos/ (built into the deck), a data URI or an image URL; null shows a placeholder
+  orgLogo: null,          // our logo for white backgrounds (footers), e.g. vendor/logos/smif-club.png in quotes; until set, a serif FIU SMIF wordmark shows
+  orgLogoLight: null,     // the white version for the brown band on the cover and closing slide, e.g. vendor/logos/smif-club-white.png in quotes
   /* the three reasons. tag: 2-3 words for the tracker chips. h: one-line headline.
      assume / see / worth: "market assumes, we see, worth $ per share".
      expect / signal / sell: the scorecard on the closing slide. go: the slide that proves it. */
@@ -132,7 +132,7 @@ function NCSS(fs, hs){
     '.nclock{margin-left:10px;letter-spacing:0;text-transform:none;color:#fff}.nclock .late{color:#FFB547}.nclock .early{color:#8FD6A8}.nclock em{font-style:normal;color:#C9B3A3}' +
     '.nrs{display:flex;flex-direction:column;gap:.42em}.nr{display:grid;grid-template-columns:4.7em 1fr;gap:.75em;align-items:start;font-size:1em}.ncol.nxt .nr{font-size:.86em}' +
     '.nt{font:700 .6em/1 "Arial",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:.6em 0;border-radius:3px;color:#1F1A17;margin-top:.15em}' +
-    '.nt.say{background:#FFFFFF}.nt.do{background:#C9B3A3}.nt.key{background:#8FD6A8}.nt.crowd{background:#F4A6C8}.nt.pass{background:#C9A27E}' +
+    '.nt.cover{background:#FFFFFF}.nt.room{background:#8FD6A8}.nt.say{background:#FFFFFF}.nt.do{background:#C9B3A3}.nt.key{background:#8FD6A8}.nt.crowd{background:#F4A6C8}.nt.pass{background:#C9A27E}' +
     '.nx{font:500 1em/1.36 "Arial",Arial,sans-serif;color:#FFFFFF}.nr.key .nx{font-weight:700}.nx b{color:#FFFFFF}.nf{font-style:normal;color:#F6C77A}';
 }
 
@@ -328,7 +328,7 @@ function boot(){
   }
 
   // ---------- speaker notes: this slide on the left, the next slide faded on the right ----------
-  const TAG = { say: 'Say', do: 'Do', key: 'Key', crowd: 'Crowd', pass: 'Pass' };
+  const TAG = { cover: 'Cover', room: 'Room', say: 'Say', do: 'Do', key: 'Key', crowd: 'Crowd' };
   // a slide element's text with its gold placeholders kept visible
   function rich(el){ if (!el) return ''; const c = el.cloneNode(true); $$('.fill', c).forEach(f => { const e = document.createElement('em'); e.className = 'nf'; e.textContent = f.textContent; f.replaceWith(e); }); $$('[data-k]', c).forEach(k => k.removeAttribute('data-k')); return c.innerHTML; }
   function tok(h, i){
@@ -344,9 +344,8 @@ function boot(){
   function col(i, which){
     if (i < 0 || i >= N) return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · end of the deck</span></div>';
     const m = meta(i), o = window.OWNERS[m.o];
-    let rows = (which === 'next' ? notes[i].slice(0, 3) : notes[i]).map(r => '<div class="nr ' + esc(r.t) + '"><span class="nt ' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
-    if (!rows) rows = '<div class="nr"><span class="nt say">Say</span><span class="nx">No notes for this slide yet.</span></div>';
-    if (which === 'now' && i + 1 < N && meta(i + 1).o !== m.o && meta(i + 1).t){ const no = window.OWNERS[meta(i + 1).o]; rows += '<div class="nr pass"><span class="nt pass">Pass</span><span class="nx">Hand over to <b style="color:' + no.c + ';filter:brightness(1.6)">' + esc(no.s) + '</b>: next is “' + esc(titles[i + 1]) + '”.</span></div>'; }
+    let rows = notes[i].map(r => '<div class="nr ' + esc(r.t) + '"><span class="nt ' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
+    if (!rows) rows = '<div class="nr"><span class="nt cover">Cover</span><span class="nx">No notes for this slide yet.</span></div>';
     const when = m.t ? mmss(m.t) + ' · plays ' + mmss(START[i]) + '-' + mmss(START[i] + m.t) : 'backup';
     return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span></div><div class="nrs">' + rows + '</div>';
   }

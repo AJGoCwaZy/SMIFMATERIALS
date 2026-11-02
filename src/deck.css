@@ -708,3 +708,8 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 #nav{background:rgba(26,26,26,.94);border-radius:4px}
 #nav button[aria-pressed="true"]{background:var(--brown)}
 #macroB{background:#FAF8F4;border-left:4px solid var(--brown);margin-top:16px}
+/* logos: no frame, the Linde tile carries its own colour */
+.clogo img{background:none;padding:0;border-radius:0;height:64px}
+.clogo.cc img{height:46px;padding:0}
+.clband .clogo.cc img{height:34px;padding:0}
+.hlogo img{height:40px}
