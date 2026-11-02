@@ -117,7 +117,7 @@ function showTip(sl, ev, html){
 }
 function hideTip(sl){ const t = sl.querySelector(':scope > .tip'); if (t) t.classList.remove('show'); }
 function hov(el, sl, fn){ el.style.cursor = 'pointer'; el.addEventListener('pointermove', e => showTip(sl, e, fn())); el.addEventListener('pointerleave', () => hideTip(sl)); }
-function gridY(g, x0, x1, y, ticks, fmt){ const gg = S('g', {class: 'grid'}, g); ticks.forEach(t => { S('line', {x1: x0, x2: x1, y1: y(t), y2: y(t)}, gg); T('text', {x: x0 - 10, y: y(t) + 5, 'text-anchor': 'end', class: 'ax'}, fmt(t), g); }); }
+function gridY(g, x0, x1, y, ticks, fmt){ const gg = S('g', {class: 'grid'}, g); ticks.forEach(t => { S('line', {x1: x0, x2: x1, y1: y(t), y2: y(t)}, gg); T('text', {x: x0 - 10, y: y(t) + 5, 'text-anchor': 'end', class: 'ax'}, fmt(t), gg); }); }
 const C = { navy: '#6B432B', rule: '#8E5939', steel: '#A57C61', light: '#C9B3A3', sky: '#EDDDD3', tint: '#F7F4EF', soft: '#F4EFE7', ink: '#1A1A1A', grey: '#595959', line: '#DDD6CE', white: '#FFFFFF', gold: '#2B5780', goldt: '#EEF2F7', good: '#2E7D4F', bad: '#B23A2E' };
 /* mark a card's sample tag as replaced when its dataset is real */
 function samp(sl, sample, sel){ const el = sel ? $(sel, sl) : $('.samp', sl); if (el) el.classList.toggle('hidden', sample === false); }
@@ -196,7 +196,7 @@ function boot(){
   // reason tracker: which of the three reasons this slide supports
   function trk(s, r){
     const P = window.PITCH.pillars, t = H('div', {class: 'rtrk', 'aria-label': 'Supports reason ' + r.join(', ')}, '<span class="rl">Reason</span>', s);
-    P.forEach((p, k) => { const on = r.indexOf(k + 1) >= 0; const c = H('button', {type: 'button', class: 'rc' + (on ? ' on' : ''), title: (p.h || 'Reason ' + (k + 1)) + (p.go ? ' · evidence on slide ' + (ids.indexOf(p.go) + 1) : '')}, '<b>' + (k + 1) + '</b>' + (p.tag ? '<span>' + esc(p.tag) + '</span>' : ''), t); c.addEventListener('click', () => { const g = ids.indexOf(p.go); if (g >= 0) go(g); }); });
+    P.forEach((p, k) => { const on = r.indexOf(k + 1) >= 0; const c = H('button', {type: 'button', class: 'rc' + (on ? ' on' : ''), title: (p.h || 'Reason ' + (k + 1)) + (p.go ? ' · evidence on slide ' + (ids.indexOf(p.go) + 1) : '')}, '<b>' + (k + 1) + '</b>' + (p.tag ? '<span>' + esc(p.tag) + '</span>' : ''), t); c.addEventListener('click', () => { const g = ids.indexOf(p.go); if (g >= 0) A.jump(g); }); });
   }
 
   // chrome
@@ -347,7 +347,7 @@ function boot(){
     let rows = notes[i].map(r => '<div class="nr t-' + esc(r.t) + '"><span class="nt t-' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
     if (!rows) rows = '<div class="nr"><span class="nt t-cover">Cover</span><span class="nx">No notes for this slide yet.</span></div>';
     const when = m.t ? mmss(m.t) + ' · plays ' + mmss(START[i]) + '-' + mmss(START[i] + m.t) : 'backup';
-    return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span></div><div class="nrs">' + rows + '</div>';
+    return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span>' + (which === 'now' && backTo() != null ? '<span class="nw">Backspace: back to slide ' + (backTo() + 1) + '</span>' : '') + '</div><div class="nrs">' + rows + '</div>';
   }
   function notesHTML(){ return '<div class="ncol now">' + col(cur, 'now') + '</div><div class="ncol nxt">' + col(cur + 1, 'next') + '</div>'; }
   function paintNotes(){
@@ -357,6 +357,7 @@ function boot(){
     paintClock();
   }
   function setNotes(on){
+    if (on && document.fullscreenElement) flash('Notes shrink the slide on a mirrored screen. Use an extended display and press P on the laptop.');
     root.classList.toggle('notes-on', on); bNotes.setAttribute('aria-pressed', String(on));
     try { localStorage.setItem('smifNotes', on ? '1' : '0'); } catch (e) {}
     layout(true); paintNotes();
@@ -375,7 +376,7 @@ function boot(){
     w.document.close();
     pop = w;
     w.document.addEventListener('keydown', onKey);
-    w.document.getElementById('pt').addEventListener('click', e => { const b = e.target.closest('[data-a]'); if (!b) return; const a = b.dataset.a; if (a === 'prev') adv(-1); else if (a === 'next') adv(1); else toggleTimer(); });
+    w.document.getElementById('pt').addEventListener('click', e => { const b = e.target.closest('[data-a]'); if (!b) return; const a = b.dataset.a; if (e.detail > 0) b.blur(); if (a === 'prev') adv(-1); else if (a === 'next') adv(1); else toggleTimer(); });
     if (root.classList.contains('notes-on')) setNotes(false);
     paintNotes();
   }
@@ -404,6 +405,9 @@ function boot(){
   // lifecycle
   const hooks = [], inited = [];
   let cur = -1;
+  // evidence jumps remember where they came from, so Backspace can go back (a short stack, for a jump made after a jump)
+  const jumps = [];
+  const backTo = () => jumps.length ? jumps[jumps.length - 1] : null;
   function ensure(i){
     if (inited[i]) return; inited[i] = true; hooks[i] = {};
     const k = slides[i].dataset.init;
@@ -421,12 +425,13 @@ function boot(){
     if (cur >= 0){ slides[cur].classList.remove('active'); leave(cur); }
     cur = i; slides[i].classList.add('active'); enter(i, dir);
     if (!fromHash) setHash(i);
-    cnt.textContent = (i + 1) + ' / ' + N;
+    cnt.textContent = (i + 1) + ' / ' + N + (backTo() != null ? ' \u00b7 Backspace: ' + (backTo() + 1) : '');
     SECS.forEach((sc, k) => { const n = i + 1, f = n > sc.b ? 1 : n < sc.a ? 0 : (n - sc.a + 1) / (sc.b - sc.a + 1); segs[k].firstChild.style.width = (f * 100) + '%'; segs[k].classList.toggle('cur', n >= sc.a && n <= sc.b); });
     gbtns.forEach((b, k) => b.classList.toggle('cur', k === i));
     paintBrief(); paintNotes();
   }
   A.go = i => go(i);
+  A.jump = i => { i = clamp(i | 0, 0, N - 1); if (cur >= 0 && i !== cur && Math.abs(i - cur) > 1){ jumps.push(cur); if (jumps.length > 8) jumps.shift(); } go(i); };
   A.cur = () => cur;
   function setHash(i){ const h = '#' + (i + 1); if (location.hash === h) return; try { history.replaceState(null, '', h); } catch (e){ try { location.hash = h; } catch (e2){} } }
   function toggleFs(){
@@ -454,17 +459,21 @@ function boot(){
     if (k === 's' || k === 'S'){ toggleTimer(); e.preventDefault(); return; }
     if (k === '0'){ resetTimer(); e.preventDefault(); return; }
     if (k === 'f' || k === 'F'){ toggleFs(); e.preventDefault(); return; }
+    if (t && t.type === 'range' && (k === 'PageDown' || k === 'PageUp') && !reader && grid.hidden && plan.hidden){ t.blur(); adv(k === 'PageDown' ? 1 : -1); e.preventDefault(); return; }
     if (inCtl) return;
     if (reader || !grid.hidden || !plan.hidden) return;
+    if (k === 'Backspace' && jumps.length){ const j = jumps.pop(); go(j); e.preventDefault(); return; }
+    if ((k === ' ' || k === 'Enter') && tag === 'BUTTON') return;
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Spacebar'){ adv(1); e.preventDefault(); }
     else if (k === 'ArrowLeft' || k === 'PageUp'){ adv(-1); e.preventDefault(); }
     else if (k === 'Home'){ go(0); e.preventDefault(); }
     else if (k === 'End'){ go(N - 1); e.preventDefault(); }
   }
   document.addEventListener('keydown', onKey);
-  // after a mouse click or drag, give the arrow keys back to the deck
+  // after a click, tap or drag (or a click on a slider label), give the arrow keys back to the deck
   document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('button'); if (b && e.detail > 0 && !b.closest('#grid') && !b.closest('#plan')) b.blur(); });
-  document.addEventListener('pointerup', e => { const r = e.target; if (r && r.type === 'range' && e.pointerType === 'mouse') setTimeout(() => r.blur(), 0); });
+  document.addEventListener('pointerup', e => { const r = e.target; if (r && r.type === 'range') setTimeout(() => r.blur(), 0); });
+  document.addEventListener('click', e => { const l = e.target.closest && e.target.closest('label'); if (l && l.control && l.control.type === 'range') setTimeout(() => l.control.blur(), 0); });
   window.addEventListener('hashchange', () => { const m = /^#(\d+)$/.exec(location.hash); if (m) go(+m[1] - 1, true); });
 
   // layout and reader mode

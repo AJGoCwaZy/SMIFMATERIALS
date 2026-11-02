@@ -138,6 +138,9 @@ python test_overflow.py    # check the answers fit on their slides
 | `T` | Team plan: who owns each slide and how long it runs |
 | `B` | Build mode: shows what each slide must prove and the fill ID on every gold box |
 | `F` | Full screen |
+| `Backspace` | After a jump from an evidence link, back to the slide you jumped from |
+
+With two screens set to extend, not mirror: press P on the laptop for the notes window, and F on the projector for full screen. N docks notes under the slide and shrinks it, so do not use N on a mirrored projector.
 
 ---
 
