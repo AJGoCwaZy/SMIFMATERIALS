@@ -626,7 +626,8 @@ button.tile:hover:not(.on){border-color:var(--brown)}
 .mrow{border:1px solid var(--hair-lt);border-radius:0}
 .mrow.on{background:var(--brown-dk);border-color:var(--brown-dk)}
 .sel3{border:0;border-left:4px solid var(--brown);background:#FAF8F4}
-.sel3 .k,.rcn .k,.qr .qn{color:var(--brown)}
+.sel3 .k,.rcn .k{color:var(--brown)}
+.qr .qn{color:inherit;opacity:.7}
 .callout{border-left:4px solid var(--brown);background:#FAF8F4}
 .callout.gold{border-left-color:var(--blue);background:#EEF2F7}
 .eyebrow{color:var(--brown)}
@@ -689,11 +690,11 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 .lockup.sm .l1{font-size:56px}
 .lockup.sm .l2{font-size:46px}
 .lockup.sm{gap:20px}
-.divider .dvt{position:absolute;left:550px;right:110px;top:300px;display:flex;flex-direction:column;gap:18px}
+.divider .dvt{position:absolute;left:550px;right:110px;top:270px;display:flex;flex-direction:column;gap:18px}
 .divider .dvt h2{margin:0;font:400 116px/1 var(--serif);color:#1A1A1A;letter-spacing:-.015em}
 .divider .dvt p{font:400 24px/1.35 var(--sans);color:#595959}
 .dvlogo{position:absolute;left:110px;top:96px}
-.divider .qa{position:absolute;left:110px;top:470px;width:380px;margin:0;display:flex;flex-direction:column;gap:12px}
+.divider .qa{position:absolute;left:110px;top:500px;width:380px;margin:0;display:flex;flex-direction:column;gap:12px}
 .divider .qa div{border:0;padding:0 0 0 26px;position:relative;gap:2px}
 .divider .qa div::before{content:"";position:absolute;left:0;top:4px;border:8px solid transparent;border-left:12px solid var(--brown);border-right:0}
 .divider .qa b{font:700 18px/1.25 var(--sans);color:#1A1A1A}

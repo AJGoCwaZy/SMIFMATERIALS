@@ -20,7 +20,8 @@ window.PITCH = {
   position: null,         // e.g. '3% of the Materials sleeve'
   date: null,             // e.g. 'December 3, 2026'
   logo: null,             // the official Linde logo as a data URI or image URL; slots show a gold placeholder until set
-  orgLogo: null,          // the FIU SMIF logo (white or dark version) as a data URI or image URL; until set, a serif FIU SMIF wordmark shows
+  orgLogo: null,          // the FIU SMIF logo for white backgrounds (footers), as a data URI or image URL; until set, a serif FIU SMIF wordmark shows
+  orgLogoLight: null,     // the white version of the FIU SMIF logo, for the brown band on the cover and closing slide
   /* the three reasons. tag: 2-3 words for the tracker chips. h: one-line headline.
      assume / see / worth: "market assumes, we see, worth $ per share".
      expect / signal / sell: the scorecard on the closing slide. go: the slide that proves it. */
@@ -166,8 +167,8 @@ function boot(){
   A.logo = cls => window.PITCH.logo ? '<img src="' + esc(window.PITCH.logo) + '" alt="' + esc(window.PITCH.short || window.PITCH.company) + ' logo" class="' + (cls || '') + '">' : '<span class="fill">[' + esc(window.PITCH.short || 'Company') + ' logo]</span>';
   $$('[data-logo]').forEach(el => { el.innerHTML = A.logo(); });
   // our own wordmark: footers, cover and closing band. Text until PITCH.orgLogo is set.
-  A.org = () => window.PITCH.orgLogo ? '<img src="' + esc(window.PITCH.orgLogo) + '" alt="FIU SMIF">' : 'FIU SMIF';
-  $$('[data-orglogo]').forEach(el => { el.innerHTML = A.org(); });
+  A.org = light => { const P = window.PITCH, u = light ? (P.orgLogoLight || P.orgLogo) : P.orgLogo; return u ? '<img src="' + esc(u) + '" alt="FIU SMIF">' : 'FIU SMIF'; };
+  $$('[data-orglogo]').forEach(el => { el.innerHTML = A.org(el.dataset.orglogo === 'light'); });
   $$('[data-owner]').forEach(el => { const m = window.PLAN[el.dataset.owner]; const o = m && window.OWNERS[m.o]; el.textContent = o ? o.n : ''; });
   const titles = [], notes = [];
   slides.forEach((s, i) => {
