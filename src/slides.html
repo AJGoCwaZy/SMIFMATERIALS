@@ -1,0 +1,554 @@
+<section class="slide cover" data-sec="Open" data-id="cover" data-title="Cover">
+  <div class="wm"></div>
+  <div class="cv">
+    <div class="eyebrow">FIU Student Managed Investment Fund · Materials sector</div>
+    <h1>Industrial Gases</h1>
+    <div class="gold"></div>
+    <div class="clogo" data-logo></div>
+    <div class="co"><span data-k="company"></span> (<span data-k="exchange"></span>: <span data-k="ticker"></span>)</div>
+    <div class="meta">Investment Committee pitch · <span data-k="date"></span></div>
+  </div>
+  <div class="cteam" id="coverTeam"></div>
+  <div class="notes">
+    <p data-t="say">"Good afternoon. We are the Materials team, and today we are pitching {company}, ticker {ticker}."</p>
+    <p data-t="do">Say the five names in one breath, then click straight to the call.</p>
+    <p data-t="key">Fifteen seconds. Do not read the slide.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="call" data-init="call" data-title="The call">
+  <header class="sh"><h2>We recommend <span data-k="rating"></span> <span data-k="ticker"></span>, with a <span data-k="target"></span> target and <span data-k="upside"></span> upside</h2></header>
+  <div class="body">
+    <div class="side" style="width:400px">
+      <div class="callcard">
+        <div class="clogo cc" data-logo></div>
+        <div class="rt" data-k="rating"></div>
+        <div class="tk"><span data-k="company"></span> · <span data-k="ticker"></span></div>
+        <dl>
+          <dt>Current price</dt><dd data-k="price"></dd>
+          <dt>Price target</dt><dd data-k="target"></dd>
+          <dt>Upside</dt><dd data-k="upside"></dd>
+          <dt>Horizon</dt><dd data-k="horizon"></dd>
+          <dt>Position ask</dt><dd data-k="position"></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="grow" id="pillars" style="gap:12px"></div>
+  </div>
+  <div class="notes">
+    <p data-t="say">"We recommend {rating} {ticker}, with a {target} target and {upside} upside over {horizon}."</p>
+    <p data-t="say">One line per reason, in the card format: market assumes, we see, worth.</p>
+    <p data-t="do">Click a card only if someone asks. Each one jumps to its evidence.</p>
+    <p data-t="key">The committee should know the answer before any detail.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="question" data-init="question" data-title="The question we answer">
+  <header class="sh"><h2><span class="fill" data-f="question.1">[Headline: the one question this pitch answers, in plain words]</span></h2></header>
+  <div class="body col">
+    <div class="qbig"><span class="k">The question</span><p><span class="fill" data-f="question.2">[Our question in one sentence. Make it something the share price could be getting wrong.]</span></p></div>
+    <div class="qtest" id="qTest"></div>
+    <div class="qline"><svg id="qLine" viewBox="0 0 1440 150" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Growth rates on one line"></svg></div>
+    <div class="qroad"><div class="qrh"><span class="eyebrow">How we answer it</span><span class="xs muted">Click a section to jump there</span></div><div class="qrl" id="qRoad"></div></div>
+  </div>
+  <footer class="sfoot"><span class="src">The price needs: reverse DCF on 2025 free cash flow of $10.84 a share (Bloomberg), sample WACC 7.8% and long-run growth 2.8% until Gabriel&rsquo;s model is in. Delivered: Bloomberg FA, 2019-2025. Analysts: Bloomberg consensus, Oct 8, 2026.</span></footer>
+  <div class="notes">
+    <p data-t="say">Read the question once, slowly: "{f:question.2}"</p>
+    <p data-t="say">"At today's price, the market needs about {implied} free cash flow growth a year for ten years. We expect {growth}."</p>
+    <p data-t="do">Point at the first tile and the last tile only. Skip the roadmap.</p>
+    <p data-t="key">"Everything after this slide answers that question."</p>
+    <p data-t="crowd">Optional: before you point, ask the room to guess what growth the price needs.</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Industry" data-id="macro" data-init="macro" data-title="Macro backdrop">
+  <header class="sh"><h2><span class="fill" data-f="macro.1">[One sentence: the macro backdrop and which way it pushes this company]</span></h2></header>
+  <div class="body col">
+    <div id="macroTiles" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px"></div>
+    <div class="card fl"><div class="ch"><span id="macroH">What it means for industrial gases</span><span class="samp" id="macroS">Sample data</span></div><div class="cb small" id="macroB"></div></div>
+    <div class="takeaway"><span class="labtag">30 seconds</span><span class="fill" data-f="macro.2">[The one macro force that matters most for this pitch]</span></div>
+  </div>
+  <div class="notes">
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Click the one tile that matters most. Skip the others.</p>
+    <p data-t="key">{f:macro.2}</p>
+    <p data-t="key">Thirty seconds. The professor asked for brevity here.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="stab" data-init="stab" data-title="Stability through the cycle">
+  <header class="sh"><h2>Most of Materials swings with the cycle. Industrial gas earnings barely move.</h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="stabTabs"><button class="chip on" data-m="eps" type="button">EPS growth range, 2007-20</button><button class="chip" data-m="covid" type="button">Covid test, 2Q20 volume</button></div>
+      <div class="chartbox" id="stabChart"><svg id="stabSvg" viewBox="0 0 960 470" preserveAspectRatio="xMidYMid meet"></svg></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="card fl"><div class="ch"><span>How to read it</span><span class="samp src-ok">From source register</span></div><div class="cb small" id="stabNote"></div></div>
+      <div class="callout gold small"><b>Our read:</b> <span class="fill" data-f="stab.1">[One sentence in your own words]</span></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Bloomberg Intelligence, "Industrial Gases' Stability Is Unique in Materials" (Nov 8, 2022) and "Linde's Diverse Markets Mute Drag From Materials Downturn" (Oct 30, 2023). Older sources: business-model facts, not current figures.</span></footer>
+  <div class="notes">
+    <p data-t="say">"Most of Materials swings with the economy. Industrial gas earnings barely move."</p>
+    <p data-t="do">Point at the bar widths, then flip to the Covid test.</p>
+    <p data-t="key">Gases moved 28 points from worst year to best; basic chemicals moved 179. Worst Covid quarter: Linde lost about 6% of volume vs a 12% median.</p>
+    <p data-t="say">"{f:stab.1}"</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="make" data-init="g3" data-stop="make" data-steps="make,deliver" data-title="3D: how gas is made and delivered">
+  <header class="sh"><h2>The raw material is free air. The plant, the power bill and the delivery radius are the business.</h2></header>
+  <div class="body g3wrap">
+    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
+    <div class="g3side">
+      <div class="g3steps" role="tablist" aria-label="Steps"><button class="chip on" data-step="make" type="button" role="tab">1 · Make it</button><button class="chip" data-step="deliver" type="button" role="tab">2 · Deliver it</button><span class="xs muted">or press →</span></div>
+      <div class="g3panel" data-panel="make">
+        <div class="card"><div class="ch"><span>How the plant works</span></div><div class="cb">
+          <ol class="steps">
+            <li><span><b>Compress.</b> Electric motors squeeze outside air. Power is the largest running cost.</span></li>
+            <li><span><b>Clean and cool.</b> Adsorbers strip water and CO2, then the air is chilled until it turns liquid.</span></li>
+            <li><span><b>Split.</b> In the cold box each gas boils off at its own temperature: nitrogen, argon, oxygen.</span></li>
+          </ol>
+        </div></div>
+        <div class="legend3" data-legend="air,energy,gas"></div>
+        <div class="sel3" data-sel><span class="k">Click anything in the model</span><b>Select a building</b><p>Each part of the plant explains what it does and why it matters to the business.</p></div>
+      </div>
+      <div class="g3panel" data-panel="deliver" hidden>
+        <div class="card"><div class="ch"><span>Three supply modes</span><span class="samp src-ok">From source register</span></div><div class="cb" id="modeRows" style="gap:8px"></div></div>
+        <div class="callout small">Trucking liquid gas only pays within about <b>150 miles</b>, so each plant is a local business that a rival cannot easily serve from far away.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Contract tiers: Praxair investor slide (June 2016) via Bloomberg Intelligence; 150-mile trucking range: BI (Nov 2022).</span></footer>
+  <div class="notes">
+    <p data-t="say">"The raw material is free air. Whoever owns the plant and controls the power bill owns the economics."</p>
+    <p data-t="do">Step 1: power in, compress, clean, freeze, split in the cold box. Press → for step 2, then click each supply mode.</p>
+    <p data-t="key">Pipeline 15-20 yr take-or-pay · trucks 3-7 yr · cylinders 1-3 yr · trucking only pays within about 150 miles.</p>
+    <p data-t="say">"Density is a local moat: a rival cannot serve your customer from far away."</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="moat" data-init="moat" data-title="Moat scorecard">
+  <header class="sh"><h2><span class="fill" data-f="moat.1">[Headline: why Linde wins inside the oligopoly]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="moatPeers"></div>
+      <div class="card fl"><div class="ch"><span>Moat scorecard · 1 (weak) to 5 (strong)</span><span class="samp">Sample data</span></div><div class="cb" id="moatRows" style="gap:12px;justify-content:center"></div></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="card fl"><div class="ch"><span id="moatH">How we scored it</span></div><div class="cb small" id="moatB"><p>Click any bar for the raw number and its source.</p></div></div>
+      <div class="callout gold small"><b>Where we lose:</b> <span class="fill" data-f="moat.2">[The one measure where Air Products or Air Liquide beats Linde, and why it does not break the thesis]</span></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src"><span class="fill" data-f="moat.3">[Sources: Bloomberg RV, FA, company filings, as of date]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Linde is selected first. Click Air Products, then Air Liquide.</p>
+    <p data-t="key">Name the two measures where Linde leads and the one where it does not.</p>
+    <p data-t="say">"{f:moat.2}"</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Linde" data-id="buyers" data-init="g3" data-stop="buyers" data-title="3D: who buys">
+  <header class="sh"><h2>Every fab, hospital and mill on this map pays for gas it cannot run without</h2></header>
+  <div class="body g3wrap">
+    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
+    <div class="g3side">
+      <div class="card fl"><div class="ch"><span>Customers</span></div><div class="cb" id="buyerRows" style="gap:7px"></div></div>
+      <div class="sel3" data-sel><span class="k">Why they buy</span><b>Click a customer</b><p>Gas is essential to them but a small share of their costs, so they rarely switch suppliers over price.</p></div>
+    </div>
+  </div>
+  <div class="notes">
+    <p data-t="say">"Gas is essential to these customers but a small share of their costs, so they rarely switch over price."</p>
+    <p data-t="do">Click the chip fab, then the hospital.</p>
+    <p data-t="key">For each: what the gas does for them, and why they would not switch.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="snap" data-init="snap" data-title="Company at a glance">
+  <header class="sh"><h2><span data-k="company"></span> at a glance <span class="hlogo" data-logo></span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div id="snapTiles" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px"></div>
+      <div class="callout small" style="margin-top:auto"><b>In one line:</b> <span class="fill" data-f="snap.1">[What Linde does, how big it is, how it is valued vs its history]</span></div>
+    </div>
+    <div class="side" style="width:440px">
+      <div class="card fl"><div class="ch"><span>Sales by region</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1;align-items:center;justify-content:center">
+        <div class="chartbox" style="width:100%;min-height:300px"><svg id="snapDonut" viewBox="0 0 400 300"></svg></div>
+        <p class="small" id="snapNote" style="min-height:52px;align-self:stretch"></p>
+      </div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Bloomberg FA, Bloomberg-adjusted figures, pulled Oct 8, 2026. Estimates: Bloomberg consensus. Regions summed from 2025 supply-mode segments. <span class="fill" data-f="snap.2">[Refresh the week of the pitch]</span></span></footer>
+  <div class="notes">
+    <p data-t="do">Read three numbers only, then click the biggest region in the donut.</p>
+    <p data-t="key">Market cap $222.1B · EV/EBITDA 17.4x on 2026 estimates · dividend $6.41 a share.</p>
+    <p data-t="say">"{f:snap.1}"</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="endm" data-init="endm" data-title="End markets">
+  <header class="sh"><h2><span class="fill" data-f="endm.1">[Headline: what Linde sells into, and which part is growing]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="endTabs"><button class="chip on" data-m="share" type="button">Share of sales</button><button class="chip" data-m="growth" type="button">Growth, latest quarter</button><span class="row" style="margin-left:auto;gap:16px;font-size:16px"><span><i style="display:inline-block;width:14px;height:14px;background:var(--navy);vertical-align:-2px;margin-right:6px"></i>Fully defensive</span><span><i style="display:inline-block;width:14px;height:14px;background:var(--light);vertical-align:-2px;margin-right:6px"></i>Cyclical or mixed</span></span></div>
+      <div class="card fl"><div class="ch"><span id="endH">Sales by end market</span><span class="samp">Sample data</span></div><div class="cb" id="endBars" style="justify-content:center;flex:1"></div></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="kv" id="endKv"></div>
+      <div class="card fl"><div class="ch"><span id="endNh">Click a bar</span></div><div class="cb small" id="endNote"><p>Each end market shows what the customers use the gas for.</p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Mix: Linde investor materials via Ryan Hernandez, "Industrial Gases: The Big Three" (Sep 24, 2026). Electronics growth: Q2 2026 call. <span class="fill" data-f="endm.2">[Other growth rates: Q3 2026 release]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Show share of sales first, then flip to growth.</p>
+    <p data-t="key">About 62% of sales is defensive. Electronics grew 18% in Q2 2026, the fastest.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="fcast" data-init="fcast" data-title="Our end-market forecast">
+  <header class="sh"><h2><span class="fill" data-f="fcast.1">[Headline: our three-year view of each end market, and what it adds up to]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="fcScen"><span class="eyebrow" style="margin-right:4px">Scenario</span></div>
+      <div class="card fl"><div class="ch"><span>Sales growth a year, next three years · drag to set our view</span><span class="samp">Sample forecasts</span></div><div class="cb" id="fcRows" style="gap:0;justify-content:center;flex:1"></div></div>
+    </div>
+    <div class="side" style="width:410px">
+      <div class="card"><div class="ch"><span>What it adds up to</span></div><div class="cb">
+        <span class="eyebrow">Linde sales growth from end markets, a year</span>
+        <div class="big" id="fcBig">0%</div>
+        <div class="kv" id="fcKv"></div>
+        <p class="small" id="fcRead"></p>
+      </div></div>
+      <div class="card fl"><div class="ch"><span id="fcH">Click a market</span></div><div class="cb small" id="fcNote"></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Share of sales from the end-market slide. Forecasts: <span class="fill" data-f="fcast.2">[team view, with the indicator behind each one · as of date]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Start on Base. Then click Bear and Bull so the committee sees the range.</p>
+    <p data-t="say">Name the two biggest markets and the fastest one, with one reason each.</p>
+    <p data-t="key">Land the number in the right column: what the end markets add up to. It feeds Alexander's bridge.</p>
+    <p data-t="crowd">Optional: invite one committee member to drag the market they disagree with.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="cmix" data-init="cmix" data-title="Contract mix">
+  <header class="sh"><h2><span class="fill" data-f="cmix.1">[Headline: how much of Linde’s revenue is locked in by long contracts]</span></h2></header>
+  <div class="body col">
+    <div class="card"><div class="ch"><span>Sales by supply mode</span><span class="samp">Sample data</span></div><div class="cb">
+      <div class="stk" id="mixStack" style="height:86px"></div>
+      <div id="mixLegend" class="row" style="gap:18px;font-size:16px"></div>
+    </div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;min-height:0">
+      <div class="card"><div class="ch"><span>Locked in for 5+ years</span></div><div class="cb"><div class="big" id="mixLocked">0%</div><p class="small muted">Share of sales under contracts longer than five years.</p></div></div>
+      <div class="card fl"><div class="ch"><span id="mixH">Click a segment</span></div><div class="cb small" id="mixNote"><p>Each segment shows its contract length and protections.</p></div></div>
+      <div class="card fl"><div class="ch"><span>Biggest customers</span></div><div class="cb small"><p><span class="fill" data-f="cmix.2">[Top customers or concentration: e.g. largest customer % of sales]</span></p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Bloomberg FA segments, 2025 sales of $34.0B. Contract lengths: Praxair investor slide via Bloomberg Intelligence (register #1).</span></footer>
+  <div class="notes">
+    <p data-t="crowd">Before clicking, ask: "What share of sales do you think is locked in for five years or more?"</p>
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Click the on-site segment.</p>
+    <p data-t="key">On-site is 23.8% of sales ($8.1B in 2025) on 15-20 year contracts.</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Growth" data-id="next" data-init="next" data-title="Next markets">
+  <header class="sh"><h2><span class="fill" data-f="next.1">[Headline: the new industries we could play into, and the one that matters most]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="nxChips"></div>
+      <div class="card fl"><div class="ch"><span>Opportunity map · click a bubble</span><span class="samp">Sample placement</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="nxSvg" viewBox="0 0 960 440" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:450px">
+      <div class="card fl"><div class="ch"><span id="nxH">Theme</span><span class="xs" style="text-transform:none;letter-spacing:0" id="nxG"></span></div><div class="cb" id="nxB" style="gap:12px;flex:1"></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src" id="nxSrc">How each industry uses gas: source register #3, #4, #6, #7 and company filings. Placement and verdicts: <span class="fill" data-f="next.2">[team view]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Click the theme you believe in most, then the one you would pass on.</p>
+    <p data-t="say">For each: how it uses gas, what Linde sells there today, and our verdict.</p>
+    <p data-t="do">"Size it" opens the next slide with that theme already selected.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="tam" data-init="tam" data-title="TAM by theme">
+  <header class="sh"><h2>Each growth theme, sized from the headline market down to our revenue</h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="tamThemes"></div>
+      <div class="card fl"><div class="ch"><span id="tamFH">Market funnel</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="tamSvg" viewBox="0 0 900 440" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="kv" id="tamKv"></div>
+      <div class="card fl"><div class="ch"><span>How we sized it</span></div><div class="cb small" id="tamHow"></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src" id="tamSrc"></span></footer>
+  <div class="notes">
+    <p data-t="do">Click each theme in order of importance.</p>
+    <p data-t="say">Four numbers per theme: the headline market, the gas slice, the share Linde can serve, the revenue today.</p>
+    <p data-t="say">[Which theme matters most, and why]</p>
+    <p data-t="key">The advisor asked for this slide. Give it the full time.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="backlog" data-init="backlog" data-title="Signed backlog">
+  <header class="sh"><h2><span class="fill" data-f="backlog.1">[Headline: the growth already signed, and when it shows up in revenue]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="card"><div class="ch"><span>Backlog over time ($B)</span><span class="samp">Sample data</span></div><div class="cb"><div class="chartbox" style="height:230px"><svg id="blSvg" viewBox="0 0 900 230" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+      <div class="card fl"><div class="ch"><span>Project start-ups by year</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="ganttSvg" viewBox="0 0 900 250" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:380px">
+      <div class="card fl"><div class="ch"><span id="blH">Click a project</span></div><div class="cb small" id="blNote"><p>Each bar is a signed project. Its start-up year is when the revenue begins.</p></div></div>
+      <div class="callout gold small"><b>Check:</b> <span class="fill" data-f="backlog.2">[Backlog definition used: sale-of-gas only, or total project backlog]</span></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src"><span class="fill" data-f="backlog.3">[Earnings releases and call transcripts · as of date]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"The backlog is growth that is signed but not built yet."</p>
+    <p data-t="do">Hover the latest bar, then click the largest project.</p>
+    <p data-t="say">"{h}"</p>
+    <p data-t="key">Definition we use: {f:backlog.2}</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Money" data-id="money" data-init="g3" data-stop="money" data-title="3D: follow the dollar">
+  <header class="sh"><h2>Follow the dollar: steady bills in, energy costs passed on, new plants paid for up front</h2></header>
+  <div class="body g3wrap">
+    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
+    <div class="g3side">
+      <div class="card"><div class="ch"><span>Three money flows</span></div><div class="cb">
+        <ol class="steps">
+          <li><span><b>Cash in.</b> Customers pay every month, with minimum volumes on long contracts.</span></li>
+          <li><span><b>Energy passed on.</b> Power cost changes are billed through to on-site customers.</span></li>
+          <li><span><b>Cash out first.</b> A new plant costs cash for 2-3 years before it earns for 15-20.</span></li>
+        </ol>
+      </div></div>
+      <div class="legend3" data-legend="cash,energy,passthru,gas"></div>
+      <div class="sel3" data-sel><span class="k">Click anything in the model</span><b>Select a building</b><p>Follow one flow at a time with the toggles above.</p></div>
+    </div>
+  </div>
+  <div class="notes">
+    <p data-t="say">"Follow the dollar: steady bills in, energy costs passed on, new plants paid for up front."</p>
+    <p data-t="do">Toggle the flows one at a time: green cash in, gold energy out. Then click the new plant.</p>
+    <p data-t="key">The next four slides put a number on each flow.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="pass" data-init="pass" data-title="Pass-through">
+  <header class="sh"><h2>Pass-through protects the profit dollars, not the margin percentage</h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="passMode"></div>
+      <div class="ctl"><label for="passE">Energy price change <output id="passEo"></output></label><input type="range" id="passE" min="-50" max="100" step="5" value="40"></div>
+      <div class="card fl"><div class="ch"><span>Before and after, per $100 of sales</span><span class="samp">Illustrative</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="passSvg" viewBox="0 0 880 300" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:420px">
+      <div class="kv" id="passKv"></div>
+      <div class="callout small" id="passRead"></div>
+      <div class="card fl"><div class="ch"><span>Protections and their limits</span></div><div class="cb small"><p><span class="fill" data-f="pass.1">[Where the contracts protect us, and where they do not: lag, merchant, packaged, project exits]</span></p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Illustrative: $100 of sales, energy 30% of sales before the shock. Replace with company figures from the price / volume / pass-through bridge in the earnings release.</span></footer>
+  <div class="notes">
+    <p data-t="crowd">Before dragging, ask: "If power costs jump 40%, does Linde make more money or less?"</p>
+    <p data-t="do">Drag energy up 40%, then switch to Packaged.</p>
+    <p data-t="say">"Revenue rises, profit dollars stay flat, so the margin percentage falls. A lower margin is not always a weaker business."</p>
+    <p data-t="key">On-site passes energy through in full; packaged passes nothing until list prices reset.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="marg" data-init="marg" data-title="Margins and returns">
+  <header class="sh"><h2><span class="fill" data-f="marg.1">[Headline: the margin and return trend, and what drives it]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="margTabs"><button class="chip on" data-m="adj" type="button">Adjusted margin</button><button class="chip" data-m="om" type="button">GAAP margin vs Materials</button><button class="chip" data-m="roc" type="button">Return on capital vs Materials</button></div>
+      <div class="card fl"><div class="ch"><span id="margH">Operating margin, %</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="margSvg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:380px">
+      <div class="kv" id="margKv" style="grid-template-columns:1fr"></div>
+      <div class="callout gold small"><b>Driver:</b> <span class="fill" data-f="marg.2">[Why margins moved: pricing, productivity, mix, pass-through]</span></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Bloomberg FA and the S&amp;P 500 Materials benchmark, pulled Oct 8, 2026. Fiscal years; 2026-27 are Bloomberg consensus. <span class="fill" data-f="marg.3">[Add Air Products: FA on APD US]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"{h}"</p>
+    <p data-t="do">Show the margin line first, then return on capital. Hover 2025.</p>
+    <p data-t="key">Adjusted margin 18.7% in 2019 to 29.1% in 2025. Return on capital 11.5% vs 4.9% for Materials (GAAP, 2025).</p>
+    <p data-t="say">Driver: {f:marg.2}</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="capex" data-init="capex" data-title="Capex and cash">
+  <header class="sh"><h2>A new plant costs cash first and pays it back for years: the J-curve</h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="card fl"><div class="ch"><span>One new plant · cumulative cash ($M)</span><span class="samp">Illustrative</span></div><div class="cb" style="flex:1">
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+          <div class="ctl"><label for="jcCap">Plant cost <output id="jcCapo"></output></label><input type="range" id="jcCap" min="200" max="2000" step="50" value="1000"></div>
+          <div class="ctl"><label for="jcBuild">Build years <output id="jcBuildo"></output></label><input type="range" id="jcBuild" min="1" max="4" step="1" value="2"></div>
+          <div class="ctl"><label for="jcCash">Cash per year <output id="jcCasho"></output></label><input type="range" id="jcCash" min="40" max="300" step="5" value="140"></div>
+          <div class="ctl"><label for="jcYrs">Contract years <output id="jcYrso"></output></label><input type="range" id="jcYrs" min="10" max="20" step="1" value="15"></div>
+        </div>
+        <div class="chartbox"><svg id="jcSvg" viewBox="0 0 900 290" preserveAspectRatio="xMidYMid meet"></svg></div>
+      </div></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="kv" id="jcKv"></div>
+      <div class="card fl"><div class="ch"><span>Where Linde’s cash went, 2025 ($B)</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="suSvg" viewBox="0 0 380 300" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Plant: illustrative inputs. Cash: Bloomberg cash flow statement, 2025. Buybacks are net of shares issued.</span></footer>
+  <div class="notes">
+    <p data-t="say">"A new plant costs cash first and pays it back for years."</p>
+    <p data-t="do">Drag plant cost up (the dip gets deeper), then contract years down (payback gets tight).</p>
+    <p data-t="key">2025: $10.4B from operations paid for $5.3B of capex, $2.8B of dividends and $4.6B of buybacks.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="bridge" data-init="bridge" data-title="Cash flow bridge to 2029">
+  <header class="sh"><h2><span class="fill" data-f="bridge.1">[Headline: where Linde&rsquo;s cash flow per share gets to by 2029, and whether that beats what the price needs]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="card fl"><div class="ch"><span>Free cash flow per share, 2025 to 2029E ($)</span><span class="samp">Sample drivers</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="brSvg" viewBox="0 0 960 360" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+      <div id="brCtl" class="brctl"></div>
+    </div>
+    <div class="side" style="width:380px">
+      <div class="kv" id="brKv" style="grid-template-columns:1fr"></div>
+      <div class="callout gold small"><b>Our read:</b> <span class="fill" data-f="bridge.2">[Which driver carries the case, and the one we are least sure of]</span></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Start: 2025 free cash flow per share, $10.84 (Bloomberg). Each driver is % a year added to free cash flow per share, compounded four years. Gold line: the growth today&rsquo;s price needs (reverse DCF, sample WACC). <span class="fill" data-f="bridge.3">[Driver values from Gabriel&rsquo;s model]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"This slide adds up everything the team just said."</p>
+    <p data-t="do">Start at 2025, walk each driver once, land on 2029. Then drag the driver you are least sure of.</p>
+    <p data-t="key">Say how far above or below the gold line you land. That gap is the case in one chart.</p>
+    <p data-t="say">"{f:bridge.2}"</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Risks" data-id="premortem" data-init="premortem" data-title="Pre-mortem">
+  <header class="sh"><h2>Pre-mortem: it is December 2029 and <span data-k="ticker"></span> lost the fund money. What happened?</h2></header>
+  <div class="body">
+    <div class="grow pmgrid" id="pmCards">
+      <button type="button" class="flip pm" aria-pressed="false"><div class="fi">
+        <div class="ff"><span class="k">Story 1 · the most likely</span><h3><span class="fill" data-f="premortem.1">[How we lost money, in one line]</span></h3><span class="k">How it unfolds</span><p><span class="fill" data-f="premortem.2">[Trigger, then what happens to volumes, prices or costs, then the share price]</span></p><span class="k">First warning sign</span><p><span class="fill" data-f="premortem.3">[The signal and the number that would flash]</span></p><span class="hint">Click for our defense</span></div>
+        <div class="fb"><h4>What limits the damage</h4><p><span class="fill" data-f="premortem.4">[Contracts, balance sheet or diversification: the evidence]</span></p><h4>Cost if it happens</h4><p><span class="fill" data-f="premortem.5">[$ per share]</span></p><h4>We sell if</h4><p><span class="fill" data-f="premortem.6">[The tripwire]</span></p></div>
+      </div></button>
+      <button type="button" class="flip pm" aria-pressed="false"><div class="fi">
+        <div class="ff"><span class="k">Story 2 · the most damaging</span><h3><span class="fill" data-f="premortem.7">[How we lost money, in one line]</span></h3><span class="k">How it unfolds</span><p><span class="fill" data-f="premortem.8">[Trigger, then what happens to volumes, prices or costs, then the share price]</span></p><span class="k">First warning sign</span><p><span class="fill" data-f="premortem.9">[The signal and the number that would flash]</span></p><span class="hint">Click for our defense</span></div>
+        <div class="fb"><h4>What limits the damage</h4><p><span class="fill" data-f="premortem.10">[Contracts, balance sheet or diversification: the evidence]</span></p><h4>Cost if it happens</h4><p><span class="fill" data-f="premortem.11">[$ per share]</span></p><h4>We sell if</h4><p><span class="fill" data-f="premortem.12">[The tripwire]</span></p></div>
+      </div></button>
+      <button type="button" class="flip pm" aria-pressed="false"><div class="fi">
+        <div class="ff"><span class="k">Story 3 · the one nobody expects</span><h3><span class="fill" data-f="premortem.13">[How we lost money, in one line]</span></h3><span class="k">How it unfolds</span><p><span class="fill" data-f="premortem.14">[Trigger, then what happens to volumes, prices or costs, then the share price]</span></p><span class="k">First warning sign</span><p><span class="fill" data-f="premortem.15">[The signal and the number that would flash]</span></p><span class="hint">Click for our defense</span></div>
+        <div class="fb"><h4>What limits the damage</h4><p><span class="fill" data-f="premortem.16">[Contracts, balance sheet or diversification: the evidence]</span></p><h4>Cost if it happens</h4><p><span class="fill" data-f="premortem.17">[$ per share]</span></p><h4>We sell if</h4><p><span class="fill" data-f="premortem.18">[The tripwire]</span></p></div>
+      </div></button>
+    </div>
+    <div class="side" style="width:360px">
+      <div class="card fl"><div class="ch"><span>How likely by 2029?</span><span class="samp">Sample odds</span></div><div class="cb" id="pmOdds" style="gap:14px"></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Method: a pre-mortem assumes the investment already failed and works backwards to the most plausible causes. Odds and costs: <span class="fill" data-f="premortem.19">[team estimates]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"It is December 2029 and LIN lost the fund money. What happened?"</p>
+    <p data-t="crowd">Let the question hang for two seconds before you flip anything.</p>
+    <p data-t="do">Flip Story 1 and Story 2. Then point at the combined odds on the right.</p>
+    <p data-t="key">The combined odds are how often the team thinks we are wrong. The bear case prices it.</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Valuation" data-id="implied" data-init="implied" data-title="What the price assumes">
+  <header class="sh"><h2><span class="fill" data-f="implied.1">[Headline: the growth the share price already assumes, vs what we expect]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+        <div class="ctl"><label for="imW">Discount rate (WACC) <output id="imWo"></output></label><input type="range" id="imW" min="6" max="10" step="0.1" value="7.8"></div>
+        <div class="ctl"><label for="imG">Growth after year 10 <output id="imGo"></output></label><input type="range" id="imG" min="1.5" max="4" step="0.1" value="2.8"></div>
+        <div class="ctl"><label for="imO">Our FCF growth, years 1-10 <output id="imOo"></output></label><input type="range" id="imO" min="0" max="18" step="0.1" value="13.9"></div>
+      </div>
+      <div class="card fl"><div class="ch"><span>Free cash flow growth needed to justify today's price</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="imSvg" viewBox="0 0 900 330" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="kv" id="imKv" style="grid-template-columns:1fr"></div>
+      <div class="callout small" id="imRead"></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Reverse DCF: 10 years of free cash flow growth, then a terminal value. Starting point: 2025 free cash flow of $10.84 a share (Bloomberg). Price about $480 from market cap ÷ shares (Oct 8, 2026). <span class="fill" data-f="implied.2">[WACC and terminal growth from Gabriel’s model; price from GP on the day]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">"At today's price the market only needs {implied} growth a year. We expect {growth}."</p>
+    <p data-t="do">Move the WACC slider once to show the answer holds.</p>
+    <p data-t="key">Linde grew free cash flow per share 13.9% a year in 2019-2025.</p>
+    <p data-t="say">"{h}"</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="surface" data-init="surface" data-title="Value landscape">
+  <header class="sh"><h2><span class="fill" data-f="surface.1">[Headline: the value per share stays above the price across reasonable inputs]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row"><button class="btn sm on" id="sf3" type="button">3D landscape</button><button class="btn sm" id="sf2" type="button">Table</button><span class="xs muted" style="margin-left:8px">Drag to orbit. The gold plane is today's price: everything above it is upside.</span></div>
+      <div class="g3host" id="sfHost" style="flex:1"><div class="g3fall" id="sfFall">The 3D landscape loads when this slide is on screen.</div><div id="sfTable" class="hidden" style="position:absolute;inset:0;background:var(--white);padding:10px;overflow:auto;z-index:6"></div></div>
+    </div>
+    <div class="side" style="width:380px">
+      <div class="kv" id="sfKv" style="grid-template-columns:1fr"></div>
+      <div class="card fl"><div class="ch"><span>How to read it</span><span class="samp">Sample data</span></div><div class="cb small"><p>Each point is the DCF value per share for one pair of inputs: the discount rate (WACC) along one side, long-run growth along the other. Peaks are high values, valleys low ones.</p><p id="sfRead"></p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">DCF value per share across WACC 6-10% and terminal growth 1.5-4%, from $10.84 of 2025 free cash flow a share growing 13.9% a year (the 2019-2025 pace). <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
+  <div class="notes">
+    <p data-t="do">Orbit once so the committee sees the gold price plane cutting through the surface.</p>
+    <p data-t="say">"{h}"</p>
+    <p data-t="key">Most of the landscape above the plane means the upside holds even if our inputs are off.</p>
+    <p data-t="do">Switch to the table only if someone wants exact numbers.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="scen" data-init="scen" data-title="Bear, base, bull">
+  <header class="sh"><h2>Bear, base and bull, weighted to one price target</h2></header>
+  <div class="body col">
+    <div class="seg3" id="scCards"></div>
+    <div class="card fl"><div class="ch"><span>Football field · value per share</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="ffSvg" viewBox="0 0 1400 300" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+  </div>
+  <footer class="sfoot"><span class="src"><span class="fill" data-f="scen.1">[Model, Bloomberg RV comps, ANR analyst targets, GP 52-week range · as of date]</span></span></footer>
+  <div class="notes">
+    <p data-t="say">One driving assumption per scenario: bear, base, bull.</p>
+    <p data-t="do">Move the probability sliders only if asked.</p>
+    <p data-t="key">The gold line is the weighted target, {target}. Every method in the football field should cluster around it.</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Close" data-id="close" data-init="close" data-title="Recommendation and scorecard">
+  <header class="sh"><h2>Our recommendation: <span data-k="rating"></span> <span data-k="ticker"></span>, <span data-k="target"></span> target</h2></header>
+  <div class="body col">
+    <div class="clband" id="clBand"></div>
+    <div class="card fl"><div class="ch"><span>Scorecard · how we will know if we are right</span><span class="xs" style="text-transform:none;letter-spacing:0">Click a row for the evidence</span></div><div class="cb" style="padding:0"><table class="dtab sc" id="clTab"></table></div></div>
+    <div class="takeaway"><span class="labtag">Remember one thing</span><span class="fill" data-f="close.1">[The sentence we want the committee to repeat after we leave]</span></div>
+  </div>
+  <div class="notes">
+    <p data-t="say">"We recommend {rating} {ticker} with a {target} target, {upside} upside."</p>
+    <p data-t="do">Read the scorecard across, one line per reason: expect, signal and date, sell if.</p>
+    <p data-t="say">"{f:close.1}"</p>
+    <p data-t="say">"Thank you. We are happy to take questions."</p>
+  </div>
+</section>
+
+<section class="slide divider" data-id="qa" data-title="Questions">
+  <div class="navyp"><div class="wm"></div><div class="dv">
+    <div class="clogo" data-logo style="margin-bottom:18px"></div>
+    <h2>Questions</h2>
+    <p><span data-k="company"></span> (<span data-k="ticker"></span>) · <span data-k="rating"></span> · <span data-k="target"></span> target</p>
+    <div class="qa" id="qaTeam"></div>
+  </div></div>
+  <div class="bandb"><span>FIU SMIF · Materials</span><small>Fall 2026</small></div>
+  <div class="notes">
+    <p data-t="do">Whoever owns the slide answers. Press G to jump to the slide that answers it.</p>
+    <p data-t="key">Answer in one sentence first, then show the slide.</p>
+  </div>
+</section>

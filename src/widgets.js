@@ -1,0 +1,1030 @@
+/* ================================================================
+   DATA · one block per slide. sample:true shows a gold SAMPLE tag.
+   Replace values with sourced numbers and set sample:false.
+   ================================================================ */
+window.DATA = {
+  /* focus: the tile Gabriel talks about (0-3); ours: one line on what it means for Linde */
+  macro: { sample: true, focus: 0, ours: null, tiles: [
+    { k: '10Y Treasury yield', v: '4.9%', c: '+0.7 pts this year', st: 'warn', sw: 'Headwind', why: 'Higher long-term rates raise the discount rate on 15-20 year contracts and the cost of financing new plants.' },
+    { k: 'US dollar (DXY)', v: '101', c: '−4% this year', st: 'good', sw: 'Tailwind', why: 'A weaker dollar lifts the dollar value of sales earned abroad. Most of the big gas companies sell more outside the US than inside.' },
+    { k: 'ISM manufacturing', v: '49.5', c: 'Below 50 = shrinking', st: 'warn', sw: 'Watch', why: 'Factory activity drives volumes for merchant and packaged gas. On-site volumes are protected by take-or-pay minimums.' },
+    { k: 'Industrial power price', v: '8.6¢/kWh', c: '+6% this year', st: 'ctx', sw: 'Passed on', why: 'Electricity is the largest running cost of an air separation plant. On-site contracts pass it to customers; merchant and packaged prices catch up with a lag.' }
+  ]},
+  stab: { sample: false,
+    eps: [ { n: 'Industrial gases', lo: -7, hi: 21 }, { n: 'Specialty chemicals', lo: -11, hi: 50 }, { n: 'Basic and diversified chemicals', lo: -42, hi: 137 } ],
+    covid: [ { n: 'Linde', v: -6, l: '≈ −6%, about half the median' }, { n: 'Materials peer median', v: -12, l: '−12%' } ]
+  },
+  modes: [
+    { k: 'pipeline', n: 'On-site pipeline', c: '15-20 yr', p: 'Take-or-pay minimums (the customer pays even if it uses less) and energy cost passed through.' },
+    { k: 'trucks', n: 'Bulk liquid (merchant)', c: '3-7 yr', p: 'Liquid delivered by truck to tanks at the customer. Prices reset more often.' },
+    { k: 'cylinders', n: 'Packaged cylinders', c: '1-3 yr', p: 'Small customers such as welders and labs. Cylinder rental plus gas.' }
+  ],
+  structure: { big3: 76, sizes: { 94: 'MarketsandMarkets (2024)', 100: 'Linde’s own estimate, more than $100B a year', 122: 'Kings Research (2025)' },
+    events: [
+      { y: 1992, h: 'Praxair spun off from Union Carbide', b: 'Praxair becomes an independent US gas company. It later merges with Linde.' },
+      { y: 2016, h: 'Air Liquide buys Airgas', b: 'Announced Nov 17, 2015, closed May 23, 2016: $143 a share, $13.4B including debt. Airgas was the last big US-listed independent.' },
+      { y: 2018, h: 'Linde and Praxair merge', b: 'Closed October 2018. Regulators required asset sales to Messer and Nippon Sanso before approving it.' },
+      { y: 2026, h: 'Air Liquide buys DIG Airgas (Korea)', b: 'Bought from a Macquarie fund for EUR 2.85B enterprise value, closed Jan 13, 2026.' }
+    ]
+  },
+  moat: { sample: true, peers: ['Linde', 'Air Products', 'Air Liquide'], rows: [
+    { n: 'On-site share of sales', v: [4, 5, 4], raw: ['23.8% of 2025 sales (Bloomberg FA)', '[x%]', '[x%]'] },
+    { n: 'Signed backlog vs sales', v: [4, 3, 3], raw: ['$8.1B sale-of-gas backlog, about 24% of 2025 sales (register #7)', '[x%]', '[EUR 6B backlog vs sales]'] },
+    { n: 'Operating margin', v: [5, 3, 3], raw: ['29.1% adjusted, 2025 (Bloomberg)', '[x%]', '[x%]'] },
+    { n: 'Return on capital', v: [5, 2, 3], raw: ['11.5% GAAP, 24.2% Linde-adjusted, 2025 (Bloomberg, register #4)', '[x%]', '[x%]'] },
+    { n: 'Pricing track record', v: [5, 4, 4], raw: ['25 years of positive pricing (register #4)', '[ ]', '[ ]'] }
+  ]},
+  threats: { sample: true, cards: [
+    { h: 'Customers build their own plants', watch: '[On-site contract renewal rate]' },
+    { h: 'Hydrogen projects nobody buys', watch: '[Project exit charges, cancelled projects]' },
+    { h: 'Chip fabs recycle their helium', watch: '[Helium volumes and price]' },
+    { h: 'An industrial recession hits merchant and packaged volumes', watch: '[Base volume growth]' }
+  ]},
+  buyers: [
+    { k: 'fab', n: 'Chip fab', u: 'Ultra-pure nitrogen keeps every wafer step free of oxygen and moisture. Specialty gases etch and deposit the circuits.' },
+    { k: 'hospital', n: 'Hospital', u: 'Medical oxygen for patients, delivered as liquid by truck or in cylinders.' },
+    { k: 'steel', n: 'Steel mill', u: 'Oxygen is blown into the furnace to burn off carbon. Argon stirs and shields the molten metal.' },
+    { k: 'refinery', n: 'Refinery and chemicals', u: 'Hydrogen strips sulfur out of fuels. Nitrogen keeps tanks and lines safe from fire.' },
+    { k: 'food', n: 'Food and beverage', u: 'Nitrogen and CO2 flash-freeze food, carbonate drinks and fill packages so food keeps longer.' },
+    { k: 'rocket', n: 'Launch pad', u: 'Liquid oxygen and liquid hydrogen are rocket propellants. Nitrogen and helium purge the systems.' },
+    { k: 'workshop', n: 'Metal fabrication', u: 'Argon, CO2 and acetylene for welding and cutting, delivered in cylinders.' }
+  ],
+  snap: { sample: false, tiles: [
+    ['Market cap', '$222.1B', 'Bloomberg, Oct 8, 2026'], ['Enterprise value', '$246.7B', 'market cap + debt + minorities \u2212 cash'], ['Revenue, last 12 months', '$35.4B', '+6.6% vs a year earlier'], ['Operating margin, adj.', '29.2%', 'last 12 months'],
+    ['EPS, adj., 2026E', '$17.88', '+8.6% · consensus'], ['EV / EBITDA, 2026E', '17.4x', 'on consensus EBITDA of $14.2B'], ['Net debt / EBITDA', '1.8x', 'end of 2025'], ['Dividend per share', '$6.41', '2026E · $3.50 in 2019']
+  ], regions: [ { n: 'Americas', v: 44.7, b: 15.2 }, { n: 'Europe, Middle East, Africa', v: 25.2, b: 8.5 }, { n: 'Asia Pacific', v: 19.6, b: 6.7 }, { n: 'Engineering', v: 6.6, b: 2.3 }, { n: 'Other', v: 3.9, b: 1.3 } ] },
+  /* mix: Linde via register #7. g = latest growth where known (null = still to pull) */
+  endm: { sample: false, defensive: 62, gLabel: 'Q2 2026 vs a year earlier', rows: [
+    { n: 'Chemicals and energy', s: 21, g: null, d: false, u: 'Hydrogen and oxygen for refineries and chemical plants.' },
+    { n: 'Manufacturing', s: 21, g: null, d: false, u: 'Welding, cutting, heat treating, glass and automotive.' },
+    { n: 'Healthcare', s: 17, g: null, d: true, u: 'Medical oxygen, hospital gases and US home care (Lincare).' },
+    { n: 'Metals and mining', s: 13, g: null, d: false, u: 'Oxygen and argon for steel, copper and other metals.' },
+    { n: 'Food and beverage', s: 9, g: null, d: true, u: 'Freezing, carbonation and packaging gases.' },
+    { n: 'Electronics', s: 9, g: 18, d: true, u: 'Ultra-pure nitrogen and specialty gases for chip fabs. Fastest-growing market in Q2 2026.' },
+    { n: 'Other', s: 10, g: null, d: false, u: 'Aerospace, space, water treatment, labs and more.' }
+  ]},
+  cmix: { sample: false, segs: [
+    { n: 'On-site', v: 23.8, b: 8.1, yrs: '15-20 yr', long: true, c: '#0B417D', p: 'Take-or-pay minimums and energy pass-through. The most protected revenue. Up from 22.2% of sales in 2019.' },
+    { n: 'Merchant bulk', v: 29.9, b: 10.2, yrs: '3-7 yr', long: false, c: '#3E6FB0', p: 'Liquid by truck. Prices reset every few years; energy is passed on with a lag.' },
+    { n: 'Packaged', v: 34.9, b: 11.9, yrs: '1-3 yr', long: false, c: '#9FB6D4', p: 'Cylinders for small customers. Most sensitive to the industrial cycle, but the largest piece.' },
+    { n: 'Engineering and other', v: 11.3, b: 3.9, yrs: 'per project', long: false, c: '#B7791F', p: 'Engineering ($2.3B in 2025) builds plants for others: lumpy and lower margin, but it wins future gas contracts.' }
+  ]},
+  tam: { sample: true, themes: [
+    { n: 'AI and chips', st: [ ['Chipmaker capex, 2032 (BI core case)', 262], ['Electronics gases spend', 18], ['Share we can serve', 6], ['Our revenue today', 3.1] ], g: '7.5% a year (BI core case)', how: ['Headline: Bloomberg Intelligence chip capex outlook (register #5).', 'Gas slice: [electronics gases market, Linde and Air Liquide disclosures].', 'Our share: [fabs within Linde\u2019s pipeline reach].', 'Revenue: about 9% of Linde\u2019s 2025 sales of $34.0B (register #7, Bloomberg).'] },
+    { n: 'Space', st: [ ['Global launch market', 15], ['Propellants and gases', 2], ['Share we can serve', 1.3], ['Our revenue today', 0.5] ], g: '[double digits]', how: ['Headline: [launch market estimate].', 'Gas slice: [ ].', 'Our share: Linde supplies 65-75% of launches (register #4).', 'Revenue: Linde has invested about $0.5B and expects a $1B business (register #4); revenue today [ ].'] },
+    { n: 'Clean energy', st: [ ['Clean hydrogen and carbon capture', 40], ['Gas company addressable', 10], ['Share we can serve', 3], ['Our revenue today', 0.8] ], g: '[slowed: register #6 caution]', how: ['Headline: [hydrogen market estimate].', 'Gas slice: [ ].', 'Our share: [contracted projects only].', 'Revenue: [ ].'] },
+    { n: 'Healthcare', st: [ ['Medical gases and home care', 30], ['Gas and supply spend', 14], ['Share we can serve', 6], ['Our revenue today', 5.8] ], g: '[x% a year]', how: ['Headline: [medical gas market estimate].', 'Gas slice: [ ].', 'Our share: [ ].', 'Revenue: about 17% of Linde\u2019s 2025 sales of $34.0B (register #7, Bloomberg).'] }
+  ]},
+  /* end-market forecasts, same order as endm.rows: growth % a year for the next three years.
+     why / signal: the team's one line of evidence and the signal that would change the view, per market (null = placeholder) */
+  fcast: { sample: true, start: 'base',
+    why: [null, null, null, null, null, null, null],
+    signal: [null, null, null, null, null, null, null],
+    scen: { bear: [-2, -3, 3, -5, 2, 4, -1], base: [2, 2, 4, 0, 3, 12, 2], bull: [4, 4, 5, 3, 4, 18, 3] },
+    ind: ['US chemical output (ACC), refinery utilization (EIA)', 'ISM manufacturing PMI, US industrial production (Fed G.17)', 'Hospital admissions, Medicare home-oxygen rates (CMS)', 'Global steel output (worldsteel), US steel capacity use (AISI)', 'Food manufacturing output, US CO2 supply', 'Fab equipment spending (SEMI), chipmaker capex guidance', 'Aerospace build rates, launch cadence']
+  },
+  /* new industries that run on gas. x = years until it matters for us, y = new gas demand at scale (0 low to 1 high) */
+  next: { sample: true, t: [
+    { n: 'AI and chips', x: 2, y: .78, v: null, today: 'Electronics is about 9% of sales (about $3.1B in 2025) and grew 18% in Q2 2026. Linde added a ~$1B Phoenix fab expansion to its backlog in July 2026.', gases: ['Ultra-pure nitrogen', 'Hydrogen', 'Argon', 'Etch gases (NF3, WF6)', 'Neon'], how: 'Chip fabs are among the biggest single users of industrial gas. Ultra-pure nitrogen blankets every step, and specialty gases etch and deposit the circuits. Gas use per wafer rises at the most advanced chips.', src: 'Register #4 (gas intensity at advanced nodes), #5 (chip capex), #7 (Phoenix); Q2 2026 call' },
+    { n: 'Quantum computing', x: 8, y: .17, v: null, gases: ['Helium-3', 'Helium-4', 'Liquid nitrogen'], how: 'Most quantum computers sit inside dilution refrigerators that reach near absolute zero with a sealed mix of helium-3 and helium-4. Newer "dry" systems need little liquid helium refilling, so volumes stay small; the value is in scarce helium.', src: 'Register #3 (helium supply after the Qatar outage)' },
+    { n: 'Robotics', x: 4.3, y: .38, v: null, gases: ['Argon', 'CO2', 'Nitrogen', 'Oxygen'], how: 'Robots are built from precision-cut and welded metal, plus chips and batteries. That means argon and CO2 for welding and nitrogen or oxygen for laser cutting, so demand grows with factory automation, mostly through packaged and merchant gas.', src: '[industry source]' },
+    { n: 'Bioengineering', x: 3.5, y: .3, v: null, gases: ['Liquid nitrogen', 'CO2', 'Oxygen'], how: 'Cell therapies, biobanks and IVF clinics store living cells in liquid nitrogen at about \u2212196 \u00B0C. CO2 keeps incubators at the right acidity, and oxygen feeds the cells growing in bioreactors.', src: '[industry source]' },
+    { n: 'Space', x: 2.5, y: .34, v: null, today: 'Supplies 65-75% of all space launches, has invested about $0.5B in rocket propellants and expects a $1B business within a few years.', gases: ['Liquid oxygen', 'Liquid hydrogen', 'Helium', 'Nitrogen'], how: 'Rockets burn liquid oxygen with a fuel such as kerosene, methane or liquid hydrogen. Helium and nitrogen pressurize and purge the systems. ', src: 'Register #4 (Linde Q4 2025 call)' },
+    { n: 'Clean energy', x: 6.5, y: .78, v: null, today: 'About two-thirds of the record $10B project backlog supports contracted clean-energy projects (Feb 2026 call).', gases: ['Hydrogen', 'Captured CO2', 'Oxygen'], how: 'Hydrogen for refining, ammonia and clean fuels, plus capturing CO2. It is the largest potential market, but forecasts have been cut for lack of buyers, and Air Products cancelled its Louisiana project in June 2026.', src: 'Register #6 (hydrogen caution), #7 (APD project exits)' }
+  ]},
+  backlog: { sample: true, q: [ ['Q1 25', 6.8], ['Q2 25', 7.0], ['Q3 25', 7.2], ['Q4 25', 7.1], ['Q1 26', 7.4], ['Q2 26', 8.1] ],
+    proj: [
+      { n: 'Fab gas supply A', m: 'Electronics', y: 2027, c: 1000, r: 'US' }, { n: 'Fab gas supply B', m: 'Electronics', y: 2027.5, c: 600, r: 'Asia' },
+      { n: 'Steel plant oxygen', m: 'Metals', y: 2026.5, c: 350, r: 'India' }, { n: 'Launch propellants', m: 'Space', y: 2026.8, c: 250, r: 'US' },
+      { n: 'Chemicals park', m: 'Chemicals', y: 2027.8, c: 450, r: 'China' }, { n: 'Clean hydrogen', m: 'Clean energy', y: 2028.5, c: 900, r: 'US Gulf' },
+      { n: 'Hospital network', m: 'Healthcare', y: 2026.3, c: 120, r: 'Europe' }
+    ]},
+  cat: { sample: true, ev: [
+    { d: 2026.83, l: 'Q3 earnings', h: 'Q3 2026 results', x: 'Management promised details of cost cuts on this call (Q2 2026 call). [What else we expect: backlog, margin]', w: '[A backlog decline or a guidance cut]' },
+    { d: 2027.0, l: 'Lincare', h: 'Lincare review: sell part or all of the US home-healthcare unit', x: '[What a sale would do to margins and EPS]', w: '[ ]' },
+    { d: 2027.1, l: 'Q4 earnings', h: 'Q4 2026 results and 2027 EPS guidance', x: '[ ]', w: '[ ]' },
+    { d: 2027.33, l: 'Q1 earnings', h: 'Q1 2027 results', x: '[ ]', w: '[ ]' },
+    { d: 2027.5, l: 'Start-ups', h: 'Backlog start-ups: 20+ projects (~$1.3B) from late 2026 (Q2 2026 call)', x: '[ ]', w: '[ ]' },
+    { d: 2027.75, l: 'Space', h: '[Space reported as its own end market once big enough (Q2 2026 call)]', x: '[ ]', w: '[ ]' }
+  ]},
+  pass: { energyShare: 30, otherCost: 45, modes: [ { k: 'on', n: 'On-site', pt: 1, d: 'Full pass-through, immediately.' }, { k: 'mer', n: 'Merchant bulk', pt: 0.6, d: 'About 60% passed on in year one; the rest at the next price reset.' }, { k: 'pkg', n: 'Packaged', pt: 0, d: 'Nothing passed on until list prices are raised.' } ] },
+  /* Bloomberg FA, pulled Oct 8, 2026. GAAP figures include Praxair merger amortization. */
+  marg: { modes: {
+    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#0B417D', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] } ] },
+    om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#9FB6D4', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#0B417D', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
+    roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#9FB6D4', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#0B417D', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
+  }},
+  uses: { sample: false, items: [ ['Operations', 10.35], ['Capex', -5.26], ['Dividends', -2.81], ['Buybacks', -4.58] ] },
+  risks: { sample: true, r: [
+    { n: 'Industrial recession cuts merchant and packaged volumes', p: .55, i: .62 },
+    { n: 'Energy spike not fully passed through', p: .45, i: .38 },
+    { n: 'Clean-hydrogen projects written off', p: .3, i: .8 },
+    { n: 'Chip spending slows, fab projects slip', p: .38, i: .55 },
+    { n: 'Helium price falls back', p: .72, i: .22 },
+    { n: 'Higher rates lower the valuation multiple', p: .62, i: .45 }
+  ]},
+  /* fcf0 = 2025 free cash flow per share (Bloomberg). price \u2248 market cap \u00F7 shares, Oct 8, 2026. Growth, WACC and terminal growth are sample inputs for Gabriel's model. */
+  val: { sample: true, price: 480, fcf0: 10.84, g1: 13.9, years: 10, w: 7.8, g: 2.8, hist: 13.9 },
+  /* cash flow bridge: % a year each driver adds to free cash flow per share, 2025 to 2029. 'link' = taken from the end-market forecast */
+  bridge: { sample: true, years: 4, d: [
+    { k: 'em', n: 'End markets', s: 'our forecast, slide', v: null, link: 'fcast' },
+    { k: 'bl', n: 'New plants', s: 'signed backlog start-ups', v: 2 },
+    { k: 'mg', n: 'Margin', s: 'pricing, cost cuts, mix', v: 1 },
+    { k: 'cx', n: 'Capex', s: 'more spend lowers it', v: -0.5 },
+    { k: 'sh', n: 'Fewer shares', s: '2025 buybacks: ~2% of cap', v: 2 }
+  ]},
+  /* pre-mortem odds: chance of each story by 2029, % */
+  premortem: { sample: true, p: [20, 10, 10] },
+  scen: { sample: true, s: [
+    { k: 'bear', n: 'Bear', v: 400, p: 25, a: '[Industrial recession: volumes \u22125%, margin \u22122 pts, multiple de-rates]' },
+    { k: 'base', n: 'Base', v: 520, p: 50, a: '[Backlog starts on time, pricing tracks inflation]' },
+    { k: 'bull', n: 'Bull', v: 620, p: 25, a: '[Electronics and space beat plan, Lincare sold at a good price]' }
+  ], ff: [ ['52-week range', 420, 495], ['Analyst targets', 470, 590], ['Comps, EV/EBITDA', 440, 540], ['DCF, WACC 7-9%', 420, 600], ['Our scenarios', 400, 620] ] },
+  /* FY2025, GAAP basis. Linde and the sector: Bloomberg FA benchmark (Oct 8, 2026). null = still to pull. */
+  comps: { cols: ['Company', 'P/E', 'EV/EBITDA', 'Price/book', 'Op. margin', 'Return on capital', 'Net debt/EBITDA'], fmt: ['', 'x', 'x', 'x', '%', '%', 'x'],
+    rows: [ ['Linde (LIN)', 25.91, 17.39, 5.17, 25.58, 11.46, 1.79], ['S&P 500 Materials', 24.30, 13.99, 2.88, 11.39, 4.90, 2.17], ['Air Products (APD)', null, null, null, null, null, null], ['Air Liquide (AI FP)', null, null, null, null, null, null], ['Nippon Sanso (4091 JP)', null, null, null, null, null, null] ] },
+  sources: [
+    ['1', 'BI, "Industrial Gases’ Stability Is Unique in Materials"', 'Nov 8, 2022', 'Stale: business-model facts only', 'EPS stability, contract tiers, 150-mile trucking range'],
+    ['2', 'BI, "Linde’s Diverse Markets Mute Drag From Materials Downturn"', 'Oct 30, 2023', 'Moderately stale', 'Covid volume test, end-market mix (2021)'],
+    ['3', 'Bloomberg Economics, "Chipmakers to Stay Afloat on US Helium for Now"', 'Jun 15, 2026', 'Fresh', 'Helium supply shock, recycling at fabs'],
+    ['4', 'Linde Q4 2025 earnings call summary (AI-generated)', 'Feb 5, 2026', 'Recent: verify against transcript', 'Guidance, backlog, pricing, space'],
+    ['5', 'BI, Semiconductor capital-equipment outlook', 'Feb 28, 2024', 'Stale-ish, long-range forecast', 'Chip capex $262B by 2032 (core)'],
+    ['6', 'BI, AI Infrastructure 2025 Outlook', 'Feb 12, 2025', 'Stale-ish', 'Data-center spend, hydrogen caution'],
+    ['7', 'Ryan Hernandez, "Industrial Gases: The Big Three"', 'Sep 24, 2026', 'Fresh', 'Market size, structure, deals, backlogs, guidance'],
+    ['8', 'SMIF Equities Screener: Materials', 'Sep 2026', 'Fresh', 'Eligible universe; only LIN and APD are gas names'],
+    ['9', 'Bloomberg FA: Linde (LIN US) statements, segments, ratios and the S&P 500 Materials benchmark', 'Oct 8, 2026', 'Fresh', 'Snapshot, regions, supply-mode mix, margins, returns, cash flow, comps'],
+    ['10', 'Linde Q2 2026 earnings call', 'Jul 31, 2026', 'Fresh: verify against the transcript', 'Electronics +18%, Lincare review, cost cuts, project start-ups'],
+    ['+', '[Add each new source here]', '[date]', '[freshness]', '[what it supports]']
+  ]
+};
+
+/* explanations for anything clicked in the 3D model */
+window.UNIT_INFO = {
+  intake: 'Outside air is the raw material and it costs nothing. The filter house removes dust before compression.',
+  compressor: 'Big electric motors squeeze the air. Electricity is the largest running cost of the whole plant.',
+  coldbox: 'Inside this insulated tower, liquid air is distilled. Nitrogen boils off at −196 °C, argon at −186 °C, oxygen at −183 °C.',
+  tanks: 'Liquid product waits here for trucks. Storing liquid lets the plant keep running when demand dips.',
+  pylons: 'Grid power feeds the compressors. On-site contracts pass power cost changes to the customer.',
+  pipeline: 'Gas flows straight to a big customer next door, under a 15-20 year take-or-pay contract.',
+  trucks: 'Bulk liquid goes by truck to mid-size customers on 3-7 year contracts.',
+  cylinders: 'Small customers buy gas in cylinders on 1-3 year terms, often with a cylinder rental fee.',
+  ring: 'Liquid gas is heavy and cold to move. Trucking only pays within about 150 miles, so every plant serves a local market.',
+  fab: 'Chip fabs need huge volumes of ultra-pure nitrogen plus specialty gases. Gas use per wafer rises at advanced nodes.',
+  steel: 'Steelmakers blow oxygen into the furnace to burn off carbon. Usually supplied by pipeline on long contracts.',
+  refinery: 'Refineries use hydrogen to strip sulfur from fuels and nitrogen to keep equipment safe.',
+  hospital: 'Hospitals cannot run out of medical oxygen, so supply security matters more than price.',
+  food: 'Nitrogen and CO2 freeze, carbonate and package food and drinks.',
+  rocket: 'Launches burn liquid oxygen and hydrogen; nitrogen and helium purge the lines.',
+  workshop: 'Welders and fabricators buy argon, CO2 and acetylene in cylinders.',
+  hq: 'Customers pay every month. Long contracts with minimum volumes make this cash steady.',
+  newplant: 'A new plant costs cash for 2-3 years before start-up, then earns for 15-20 years: the J-curve.',
+  passthru: 'When power costs rise, on-site contracts bill the change to the customer, so profit dollars hold.'
+};
+
+(function(){
+'use strict';
+const A = window.__A; const {RM, $, $$, S, T, H, esc, lin, clamp, usd, sg, pct, mmss, clear, F, tween, rng, pick, showTip, hideTip, hov, gridY, C, samp, INIT} = A;
+const D = window.DATA;
+const SHORT = () => window.PITCH.short || window.PITCH.ticker || 'the company';
+function srcok(sl, text, sel){ $$(sel || '.samp', sl).forEach(x => { x.className = 'samp src-ok'; x.textContent = text; }); }
+const FL = s => esc(s).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>');
+
+/* ---- the call ---- */
+INIT.call = sl => {
+  const box = $('#pillars', sl);
+  const LB = ['Reason 1', 'Reason 2', 'Reason 3'];
+  window.PITCH.pillars.forEach((p, i) => {
+    const b = H('button', {type: 'button', class: 'pillar'}, '<div class="pn">' + (i + 1) + '</div><div class="pb"><span class="ptag">' + F(p.tag, '2-3 word tag') + '</span><h3>' + F(p.h, LB[i] + ': a short headline') + '</h3><div class="pr"><span>Market assumes</span><span>' + F(p.assume, 'what the price implies') + '</span><span>We see</span><span>' + F(p.see, 'our evidence') + '</span><span>Worth</span><span>' + F(p.worth, '$ per share') + '</span></div><span class="go">Go to the evidence →</span></div>', box);
+    b.addEventListener('click', () => { const k = A.idx(p.go); if (k >= 0) A.go(k); });
+  });
+};
+
+/* ---- agenda ---- */
+INIT.agenda = sl => {
+  const box = $('#agendaCards', sl);
+  const AG = [ ['macro', 'Industry', 'Macro in thirty seconds, then why industrial gases and who wins.'], ['buyers', 'Linde', 'Customers, end markets, our forecast, contracts.'], ['next', 'Growth', 'Next markets, market size by theme, signed backlog.'], ['money', 'The money', 'Pass-through, margins, capex and the cash flow bridge.'], ['premortem', 'Risks', 'How we could be wrong, and the odds.'], ['implied', 'Valuation', 'What the price assumes and what it is worth.'] ];
+  AG.forEach((a, n) => {
+    const i = A.idx(a[0]); if (i < 0) return;
+    const sec = A.SECS.find(s => s.a <= i + 1 && s.b >= i + 1);
+    let secs = 0; for (let k = sec.a - 1; k < sec.b; k++) secs += A.meta(k).t || 0;
+    const own = window.OWNERS[A.meta(i).o];
+    const b = H('button', {type: 'button', class: 'agc'}, '<div class="agn"><span>' + (n + 1) + '</span><small>' + mmss(secs) + '</small></div><div class="agb"><h3></h3><p></p><span class="agl"></span></div>', box);
+    $('h3', b).textContent = a[1]; $('p', b).textContent = a[2]; $('.agl', b).textContent = own.s + ' · slides ' + sec.a + '-' + sec.b + ' →';
+    b.addEventListener('click', () => A.go(i));
+  });
+};
+
+/* ---- the question: what the price needs vs what we expect, and the roadmap ---- */
+INIT.question = sl => {
+  const v = D.val, P = window.PITCH, price = priceNow();
+  const imp = impG(price, v.w / 100, v.g / 100) * 100;
+  const eps = D.snap.tiles.find(t => /^EPS/.test(t[0])), epsG = eps ? eps[2].split(' ')[0] : null;
+  const ours = P.growth != null && P.growth !== '' ? parseFloat(String(P.growth)) : null;
+  const TL = [
+    { k: 'The price needs', v: imp.toFixed(1) + '%', c: 'free cash flow growth a year for ten years, at about ' + usd(price) + ' a share', cls: 'need' },
+    { k: SHORT() + ' delivered', v: v.hist + '%', c: 'free cash flow per share growth a year, 2019-2025' },
+    { k: 'Analysts expect', v: epsG, c: 'EPS growth in 2026, Bloomberg consensus' },
+    { k: 'We expect', v: P.growth, c: ours == null ? 'free cash flow growth a year, from our model' : sg(ours - imp, 1, ' pts') + ' vs what the price needs', cls: 'ours', f: 'x% a year' }
+  ];
+  const box = $('#qTest', sl);
+  TL.forEach((t, i) => {
+    H('div', {class: 'qt ' + (t.cls || '')}, '<span class="tk">' + esc(t.k) + '</span><span class="tv">' + F(t.v, t.f || '[ ]') + '</span><span class="tc">' + esc(t.c) + '</span>', box);
+    if (i === 0) H('div', {class: 'qvs'}, 'vs', box);
+  });
+  // the same four numbers on one line: where the price sits against history, analysts and us
+  const svg = $('#qLine', sl), x0 = 60, x1 = 1400, X = lin(0, 20, x0, x1), yl = 78;
+  S('line', {x1: x0, x2: x1, y1: yl, y2: yl, stroke: C.light, 'stroke-width': 3}, svg);
+  for (let k = 0; k <= 20; k += 2){ S('line', {x1: X(k), x2: X(k), y1: yl - 6, y2: yl + 6, stroke: C.light, 'stroke-width': 2}, svg); T('text', {x: X(k), y: yl + 30, 'text-anchor': 'middle', class: 'ax'}, k + '%', svg); }
+  T('text', {x: x1, y: yl + 58, 'text-anchor': 'end', class: 'axt', style: 'font-size:15px'}, 'Growth a year →', svg);
+  const pts = [[imp, 'Price needs ' + imp.toFixed(1) + '%', C.gold, -1], [v.hist, 'Delivered ' + v.hist + '%', C.steel, 1], [epsG ? parseFloat(epsG) : null, 'Analysts (EPS) ' + epsG, C.steel, -1], [ours, ours == null ? '' : 'We expect ' + P.growth, C.navy, 1]];
+  pts.forEach(q => {
+    if (q[0] == null || isNaN(q[0])) return;
+    const x = X(clamp(q[0], 0, 20)), up = q[3] < 0;
+    S('line', {x1: x, x2: x, y1: yl, y2: up ? yl - 34 : yl + 34, stroke: q[2], 'stroke-width': 2}, svg);
+    S('circle', {cx: x, cy: yl, r: q[2] === C.navy || q[2] === C.gold ? 11 : 8, fill: q[2], stroke: '#fff', 'stroke-width': 3}, svg);
+    T('text', {x: x, y: up ? yl - 42 : yl + 52, 'text-anchor': 'middle', class: 'dlb', style: 'font-size:17px;fill:' + (q[2] === C.gold ? '#7A4E10' : q[2])}, q[1], svg);
+  });
+  if (ours == null){ T('text', {x: X(19.6), y: yl - 22, 'text-anchor': 'end', class: 'dl', style: 'fill:#7A4E10;font-size:15px'}, '[We expect: our number lands here]', svg); }
+  // roadmap from the section list
+  const road = $('#qRoad', sl);
+  A.SECS.filter(sc => ['Open', 'Close', 'Backup'].indexOf(sc.n) < 0).forEach((sc, n) => {
+    const own = [], tm = [0];
+    for (let k = sc.a - 1; k < sc.b; k++){ const m = A.meta(k); tm[0] += m.t || 0; if (own.indexOf(m.o) < 0) own.push(m.o); }
+    const b = H('button', {type: 'button', class: 'qr'}, '<span class="qn">' + (n + 1) + '</span><b></b><span class="qo">' + own.map(o => '<i style="background:' + window.OWNERS[o].c + '">' + esc(window.OWNERS[o].s) + '</i>').join('') + '</span><span class="qm">' + mmss(tm[0]) + ' · slides ' + sc.a + '-' + sc.b + '</span>', road);
+    $('b', b).textContent = sc.n;
+    b.addEventListener('click', () => A.go(sc.a - 1));
+  });
+};
+
+/* ---- macro ---- */
+INIT.macro = sl => {
+  const d = D.macro, box = $('#macroTiles', sl);
+  samp(sl, d.sample, '#macroS');
+  const tiles = d.tiles.map((t, i) => {
+    const b = H('button', {type: 'button', class: 'tile'}, '<span class="tk"></span><span class="tv"></span><span class="tc"></span><span class="pill ' + t.st + '" style="align-self:flex-start"></span>', box);
+    $('.tk', b).textContent = t.k; $('.tv', b).textContent = t.v; $('.tc', b).textContent = t.c; $('.pill', b).textContent = t.sw;
+    b.addEventListener('click', () => sel(i)); return b;
+  });
+  function sel(i){ tiles.forEach((b, k) => b.classList.toggle('on', k === i)); const t = d.tiles[i]; $('#macroH', sl).textContent = t.k + ' · what it means for industrial gases'; $('#macroB', sl).innerHTML = '<p>' + esc(t.why) + '</p>' + (i === (d.focus || 0) ? '<p><b>For our company:</b> ' + F(d.ours, 'One line in your words') + '</p>' : '') ; }
+  sel(d.focus || 0);
+};
+
+/* ---- stability ---- */
+INIT.stab = sl => {
+  const svg = $('#stabSvg', sl), note = $('#stabNote', sl), d = D.stab;
+  function draw(m){
+    clear(svg);
+    const x0 = 340, x1 = 920;
+    if (m === 'eps'){
+      const x = lin(-62, 150, x0, x1), rows = d.eps, rh = 100, y0 = 40;
+      [-40, 0, 40, 80, 120].forEach(t => { S('line', {x1: x(t), x2: x(t), y1: y0 - 20, y2: y0 + rows.length * rh, stroke: t === 0 ? C.grey : C.line, 'stroke-width': t === 0 ? 1.5 : 1}, svg); T('text', {x: x(t), y: y0 + rows.length * rh + 26, 'text-anchor': 'middle', class: 'ax'}, (t > 0 ? '+' : t < 0 ? '−' : '') + Math.abs(t) + '%', svg); });
+      T('text', {x: (x0 + x1) / 2, y: y0 + rows.length * rh + 56, 'text-anchor': 'middle', class: 'axt'}, 'Range of yearly adjusted EPS growth, 2007-2020', svg);
+      rows.forEach((r, i) => {
+        const y = y0 + i * rh + rh / 2;
+        T('text', {x: x0 - 16, y: y + 6, 'text-anchor': 'end', class: 'axl', style: i === 0 ? 'fill:#0B417D;font-weight:700' : ''}, r.n, svg);
+        const bar = S('rect', {x: x(r.lo), y: y - 20, width: 0, height: 40, fill: i === 0 ? C.navy : C.light}, svg);
+        tween(0, x(r.hi) - x(r.lo), 700 + i * 120, w => bar.setAttribute('width', w));
+        T('text', {x: x(r.lo) - 8, y: y + 6, 'text-anchor': 'end', class: 'dl'}, '−' + Math.abs(r.lo) + '%', svg);
+        T('text', {x: x(r.hi) + 8, y: y + 6, class: 'dl'}, '+' + r.hi + '%', svg);
+        hov(bar, sl, () => '<b>' + esc(r.n) + '</b>: worst year ' + r.lo + '%, best year +' + r.hi + '%. Spread ' + (r.hi - r.lo) + ' points.');
+      });
+      note.innerHTML = '<p>Each bar spans the worst and the best year of earnings growth from 2007 to 2020, which includes the financial crisis.</p><p><b>Short bar = steady earnings.</b> Industrial gases moved 28 points from worst to best; basic chemicals moved 179.</p>';
+    } else {
+      const x = lin(-14, 2, x0, x1), rows = d.covid, rh = 130, y0 = 70;
+      [-12, -8, -4, 0].forEach(t => { S('line', {x1: x(t), x2: x(t), y1: y0 - 30, y2: y0 + rows.length * rh, stroke: t === 0 ? C.grey : C.line, 'stroke-width': t === 0 ? 1.5 : 1}, svg); T('text', {x: x(t), y: y0 + rows.length * rh + 26, 'text-anchor': 'middle', class: 'ax'}, (t < 0 ? '−' : '') + Math.abs(t) + '%', svg); });
+      T('text', {x: (x0 + x1) / 2, y: y0 + rows.length * rh + 56, 'text-anchor': 'middle', class: 'axt'}, 'Sales volume change, worst Covid quarter (2Q20)', svg);
+      rows.forEach((r, i) => {
+        const y = y0 + i * rh + rh / 2;
+        T('text', {x: x0 - 16, y: y + 6, 'text-anchor': 'end', class: 'axl', style: i === 0 ? 'fill:#0B417D;font-weight:700' : ''}, r.n, svg);
+        const bar = S('rect', {x: x(0), y: y - 24, width: 0, height: 48, fill: i === 0 ? C.navy : C.light}, svg);
+        tween(0, x(0) - x(r.v), 700, w => { bar.setAttribute('width', w); bar.setAttribute('x', x(0) - w); });
+        T('text', {x: x(r.v) - 10, y: y + 6, 'text-anchor': 'end', class: 'dl'}, r.l, svg);
+      });
+      note.innerHTML = '<p>In the worst Covid quarter, Materials companies lost a median 12% of volume. Linde lost about half that.</p><p>Management classes only about <b>one third</b> of sales as cyclical.</p>';
+    }
+  }
+  pick($$('#stabTabs .chip', sl), 'data-m', draw);
+  draw('eps');
+};
+
+/* ---- 3D model slides ---- */
+let GS = null, gsTried = false, gsSlide = null;
+const FLOWC = { air: ['#7F9CC4', 'Air in'], energy: ['#B7791F', 'Power'], gas: ['#0B417D', 'Gas out'], cash: ['#2E7D4F', 'Cash in'], passthru: ['#B7791F', 'Pass-through'] };
+const STOPFLOWS = { site: {air: 1, gas: 1, energy: 1, cash: 0, passthru: 0}, make: {air: 1, gas: 1, energy: 1, cash: 0, passthru: 0}, deliver: {air: 0, gas: 1, energy: 0, cash: 0, passthru: 0}, buyers: {air: 0, gas: 1, energy: 0, cash: 0, passthru: 0}, money: {air: 0, gas: 0, energy: 1, cash: 1, passthru: 1} };
+const g3hooks = new Map();
+function gas(){
+  if (!gsTried){
+    gsTried = true;
+    try { GS = window.GasScene ? window.GasScene.create({ onPick: k => { const h = gsSlide && g3hooks.get(gsSlide); if (h) h.pick(k); } }) : null; } catch (e){ console.warn('3D unavailable', e); GS = null; }
+  }
+  return GS;
+}
+INIT.g3 = sl => {
+  const host = $('.g3host', sl), fall = $('.g3fall', host);
+  const steps = sl.dataset.steps ? sl.dataset.steps.split(',') : null;
+  let stop = sl.dataset.stop;
+  const bar = H('div', {class: 'g3bar'}, null, host);
+  const stops = [['site', 'Whole site'], ['make', 'Make'], ['deliver', 'Deliver'], ['buyers', 'Buyers'], ['money', 'Money']];
+  const sb = stops.map(s => { const b = H('button', {type: 'button', class: 'chip' + (s[0] === stop ? ' on' : '')}, s[1], bar); b.addEventListener('click', () => { if (!GS) return; if (steps && steps.indexOf(s[0]) >= 0){ setStep(s[0]); return; } sb.forEach(x => x.classList.toggle('on', x === b)); GS.go(s[0]); flows = Object.assign({}, STOPFLOWS[s[0]]); syncLegend(); }); return b; });
+  // steps: one slide, several stops, each with its own panel in the right column
+  const stepBtns = $$('[data-step]', sl), panels = $$('[data-panel]', sl);
+  function setStep(k){
+    stop = k;
+    stepBtns.forEach(b => { const on = b.dataset.step === k; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    panels.forEach(p => { p.hidden = p.dataset.panel !== k; });
+    sb.forEach((x, i) => x.classList.toggle('on', stops[i][0] === k));
+    rows.forEach(r => r.b.classList.remove('on'));
+    if (GS && gsSlide === sl){ GS.highlight(null); GS.go(k); }
+    flows = Object.assign({}, STOPFLOWS[k]); syncLegend();
+  }
+  stepBtns.forEach(b => b.addEventListener('click', () => setStep(b.dataset.step)));
+  H('div', {class: 'g3hint'}, 'Drag to orbit · scroll to zoom · click a building', host);
+  let flows = Object.assign({}, STOPFLOWS[stop]);
+  const lg = $('[data-legend]', sl), lbtn = {};
+  if (lg) lg.dataset.legend.split(',').forEach(k => { const b = H('button', {type: 'button', class: 'lg', 'aria-pressed': 'true'}, '<i style="background:' + FLOWC[k][0] + '"></i>' + FLOWC[k][1], lg); b.addEventListener('click', () => { flows[k] = flows[k] ? 0 : 1; const o = {}; o[k] = !!flows[k]; if (GS) GS.setFlows(o); syncLegend(); }); lbtn[k] = b; });
+  function syncLegend(){ Object.keys(lbtn).forEach(k => lbtn[k].setAttribute('aria-pressed', String(!!flows[k]))); }
+  const selc = $('[data-sel]', sl);
+  const rows = [];
+  function info(k){
+    if (!selc) return;
+    const name = (GS && GS.units.find(u => u.key === k) || {}).name || k;
+    selc.innerHTML = '<span class="k">Selected</span><b></b><p></p>'; $('b', selc).textContent = name; $('p', selc).textContent = window.UNIT_INFO[k] || '';
+    rows.forEach(r => r.b.classList.toggle('on', r.k === k));
+  }
+  function choose(k){ if (GS){ GS.highlight(k); } info(k); }
+  // supply-mode rows (deliver) and customer rows (buyers)
+  const mr = $('#modeRows', sl);
+  if (mr) D.modes.forEach(m => { const b = H('button', {type: 'button', class: 'mrow'}, '<b></b><span></span><em></em>', mr); $('b', b).textContent = m.n; $('span', b).textContent = m.c; $('em', b).textContent = m.p; b.addEventListener('click', () => choose(m.k)); rows.push({k: m.k, b}); });
+  const br = $('#buyerRows', sl);
+  if (br) D.buyers.forEach(m => { const b = H('button', {type: 'button', class: 'mrow'}, '<b></b>', br); $('b', b).textContent = m.n; b.addEventListener('click', () => { choose(m.k); if (selc){ $('p', selc).textContent = m.u; $('.k', selc).textContent = 'Why they buy'; } }); rows.push({k: m.k, b}); });
+  const hook = {
+    pick(k){ info(k); const bk = D.buyers.find(b => b.k === k); if (bk && br && selc){ $('p', selc).textContent = bk.u; $('.k', selc).textContent = 'Why they buy'; } },
+    enter(dir){
+      const g = gas();
+      if (!g){ if (steps) setStep(dir < 0 ? steps[steps.length - 1] : steps[0]); fall.textContent = '3D needs WebGL, which this browser has turned off. The cards on the right carry the same story.'; return; }
+      gsSlide = sl; fall.hidden = true;
+      g.mount(host); g.highlight(null); rows.forEach(r => r.b.classList.remove('on'));
+      if (steps) setStep(dir < 0 ? steps[steps.length - 1] : steps[0]);
+      sb.forEach((x, i) => x.classList.toggle('on', stops[i][0] === stop));
+      g.go(stop);
+      flows = Object.assign({}, STOPFLOWS[stop]); syncLegend();
+      g.start();
+    },
+    step(d){ if (!steps) return false; const n = steps.indexOf(stop) + d; if (n < 0 || n >= steps.length) return false; setStep(steps[n]); return true; },
+    leave(){ if (GS && gsSlide === sl){ GS.stop(); GS.highlight(null); } }
+  };
+  g3hooks.set(sl, hook);
+  return hook;
+};
+
+/* ---- market structure ---- */
+INIT.structure = sl => {
+  const d = D.structure, st = $('#tamStack', sl), note = $('#tamNote', sl);
+  const a = H('div', {style: 'background:#0B417D;flex-grow:76'}, '', st), b = H('div', {style: 'background:#C9D8EC;color:#1B2A3A;flex-grow:24'}, '', st);
+  function draw(t){
+    t = +t; const sh = d.big3 / t * 100;
+    a.style.flexGrow = String(d.big3); b.style.flexGrow = String(t - d.big3);
+    a.innerHTML = '<span>Big Three, 2025 revenue</span><b>$' + d.big3 + 'B · ' + Math.round(sh) + '%</b>';
+    b.innerHTML = '<span>Everyone else</span><b>$' + (t - d.big3) + 'B</b>';
+    note.textContent = 'Market size $' + t + 'B: ' + d.sizes[t] + '. The Big Three’s combined 2025 revenue of about $76B is ' + Math.round(sh) + '% of it. Growing about 5-6% a year.';
+  }
+  pick($$('#tamTabs .chip', sl), 'data-t', draw); draw(100);
+  const tl = $('#consTl', sl), x = lin(1988, 2029, 3, 97);
+  H('div', {class: 'ln'}, '', tl);
+  [1990, 2000, 2010, 2020].forEach(y => { const m = H('div', {class: 'mo'}, String(y), tl); m.style.left = x(y) + '%'; });
+  const evs = d.events.map((e, i) => {
+    const b = H('button', {type: 'button', class: 'ev', 'aria-label': e.y + ': ' + e.h}, '', tl); b.style.left = x(e.y) + '%';
+    const l = H('div', {class: 'evl'}, String(e.y), tl); l.style.left = x(e.y) + '%';
+    b.addEventListener('click', () => sel(i)); return b;
+  });
+  function sel(i){ evs.forEach((b, k) => b.classList.toggle('on', k === i)); const e = d.events[i]; $('#consNote', sl).innerHTML = '<b>' + e.y + ' · ' + esc(e.h) + '.</b> ' + esc(e.b); }
+  sel(1);
+};
+
+/* ---- moat scorecard ---- */
+INIT.moat = sl => {
+  const d = D.moat, rowsBox = $('#moatRows', sl), peersBox = $('#moatPeers', sl);
+  samp(sl, d.sample);
+  let hi = 0;
+  const names = d.peers;
+  const chipsEl = names.map((n, i) => { const b = H('button', {type: 'button', class: 'chip' + (i === 0 ? ' on' : '')}, esc(n), peersBox); b.addEventListener('click', () => { hi = i; chipsEl.forEach((x, k) => x.classList.toggle('on', k === i)); paint(); }); return b; });
+  const cells = [];
+  d.rows.forEach((r, ri) => {
+    const row = H('div', {style: 'display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:center'}, '<span style="font:600 18px/1.2 var(--sans)">' + esc(r.n) + '</span>', rowsBox);
+    const bars = H('div', {style: 'display:flex;flex-direction:column;gap:3px'}, null, row);
+    r.v.forEach((v, pi) => {
+      const t = H('div', {style: 'position:relative;height:13px;background:#F2F6FB;cursor:pointer', title: names[pi]}, '<i style="position:absolute;left:0;top:0;bottom:0;width:0;transition:width .5s,background .2s"></i>', bars);
+      t.addEventListener('click', () => { $('#moatH', sl).textContent = r.n; $('#moatB', sl).innerHTML = '<p><b>' + esc(names[pi]) + ':</b> score ' + v + ' of 5 <span class="samp">Sample score</span></p><p>Raw value: ' + FL(r.raw[pi]) + '</p>'; });
+      cells.push({t, v, pi});
+    });
+  });
+  function paint(){ cells.forEach(c => { const i = c.t.firstChild; i.style.width = (c.v / 5 * 100) + '%'; i.style.background = c.pi === hi ? C.navy : C.sky; }); }
+  requestAnimationFrame(paint);
+};
+
+/* ---- threats (flip cards) ---- */
+INIT.threats = sl => {
+  const d = D.threats, box = $('#threatCards', sl);
+  d.cards.forEach((c, i) => {
+    const b = H('button', {type: 'button', class: 'flip', 'aria-pressed': 'false'}, '<div class="fi"><div class="ff"><span class="k">Threat ' + (i + 1) + '</span><h3></h3><span class="samp" style="align-self:flex-start">Sample</span><span class="k" style="margin-top:18px">If it happens</span><p style="font-size:18px;line-height:1.4;color:#fff"><span class="fill">[What it would do to volumes, prices or margins]</span></p><span class="k" style="margin-top:6px">We watch</span><p class="wt" style="font-size:18px;line-height:1.4;color:#fff"></p><span class="hint">Click to see why it may not bite</span></div><div class="fb"><h4>Why it may not bite</h4><p><span class="fill">[Evidence in two lines]</span></p><h4 style="margin-top:auto">What we watch</h4><p></p></div></div>', box);
+    $('h3', b).textContent = c.h; $('.ff .wt', b).innerHTML = '<span class="fill">' + esc(c.watch) + '</span>'; $$('.fb p', b)[1].innerHTML = '<span class="fill">' + esc(c.watch) + '</span>';
+    if (!d.sample) $('.samp', b).classList.add('hidden');
+    b.addEventListener('click', () => { const on = !b.classList.contains('on'); b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+  });
+};
+
+/* ---- company snapshot ---- */
+INIT.snap = sl => {
+  const d = D.snap, box = $('#snapTiles', sl);
+  box.style.cssText += ';flex:1;grid-template-rows:auto 1fr 1fr';
+  H('div', {style: 'grid-column:1/-1;display:flex;align-items:center;gap:12px'}, '<span class="eyebrow">Key numbers</span><span class="samp">Sample data</span>', box);
+  d.tiles.forEach(t => { H('div', {class: 'tile'}, '<span class="tk">' + esc(t[0]) + '</span><span class="tv">' + esc(t[1]) + '</span><span class="tc">' + esc(t[2]) + '</span>', box); });
+  if (!d.sample) srcok(sl, 'Bloomberg FA');
+  const svg = $('#snapDonut', sl), cx = 200, cy = 150, R = 120, r0 = 70, tot = d.regions.reduce((a, b) => a + b.v, 0);
+  const cols = [C.navy, C.steel, C.light, C.gold, C.sky];
+  let a0 = -Math.PI / 2; const arcs = [];
+  d.regions.forEach((g, i) => {
+    const a1 = a0 + g.v / tot * Math.PI * 2, la = a1 - a0 > Math.PI ? 1 : 0;
+    const p = (r, a) => (cx + r * Math.cos(a)).toFixed(1) + ' ' + (cy + r * Math.sin(a)).toFixed(1);
+    const path = S('path', {d: 'M' + p(R, a0) + ' A' + R + ' ' + R + ' 0 ' + la + ' 1 ' + p(R, a1) + ' L' + p(r0, a1) + ' A' + r0 + ' ' + r0 + ' 0 ' + la + ' 0 ' + p(r0, a0) + 'Z', fill: cols[i % cols.length], stroke: '#fff', 'stroke-width': 3}, svg);
+    path.style.cursor = 'pointer'; path.addEventListener('click', () => sel(i)); hov(path, sl, () => '<b>' + esc(g.n) + '</b>: ' + g.v + '% · $' + g.b + 'B'); arcs.push(path);
+    a0 = a1;
+  });
+  const ct = T('text', {x: cx, y: cy - 2, 'text-anchor': 'middle', class: 'dlb', style: 'font-size:34px'}, '', svg);
+  const cs = T('text', {x: cx, y: cy + 24, 'text-anchor': 'middle', class: 'ax'}, '', svg);
+  function sel(i){ arcs.forEach((p, k) => p.setAttribute('opacity', k === i ? 1 : .45)); const g = d.regions[i]; ct.textContent = g.v + '%'; cs.textContent = 'of 2025 sales'; $('#snapNote', sl).innerHTML = '<b>' + esc(g.n) + ':</b> $' + g.b + 'B of sales in 2025. <span class="fill">[growth, margin, what drives it]</span>'; }
+  sel(0);
+};
+
+/* ---- end markets ---- */
+INIT.endm = sl => {
+  const d = D.endm, box = $('#endBars', sl);
+  if (!d.sample) srcok(sl, 'Register #7 · Q2 2026 call');
+  const hb = H('div', {class: 'hb'}, null, box);
+  const items = d.rows.map((r, i) => {
+    H('span', {class: 'hn'}, esc(r.n), hb);
+    const t = H('div', {class: 'ht'}, '<i></i><em></em>', hb);
+    t.addEventListener('click', () => sel(i));
+    return {t, r};
+  });
+  let mode = 'share';
+  function draw(){
+    const max = mode === 'share' ? 25 : 20;
+    items.forEach(o => {
+      const v = mode === 'share' ? o.r.s : o.r.g, w = v == null ? 0 : Math.max(0, v) / max * 82;
+      o.t.firstChild.style.width = w + '%'; o.t.firstChild.style.background = o.r.d ? C.navy : C.light;
+      const em = o.t.lastChild; em.style.left = 'calc(' + w + '% + 10px)';
+      if (v == null) em.innerHTML = '<span class="fill">[pull from the Q3 release]</span>'; else em.textContent = mode === 'share' ? v + '%' : sg(v, 0, '%');
+    });
+    $('#endH', sl).textContent = mode === 'share' ? 'Linde sales by end market, % of total' : 'Sales growth by end market, ' + d.gLabel;
+  }
+  function sel(i){ items.forEach((o, k) => o.t.classList.toggle('on', k === i)); const r = d.rows[i]; $('#endNh', sl).textContent = r.n; $('#endNote', sl).innerHTML = '<p>' + esc(r.u) + '</p><p><b>' + (r.d ? 'Fully defensive' : 'Cyclical or mixed') + '</b> · ' + r.s + '% of sales · ' + (r.g == null ? '<span class="fill">[growth: pull]</span>' : sg(r.g, 0, '%') + ' (' + esc(d.gLabel) + ')') + '</p><p><span class="fill">[What this means for our thesis]</span></p>'; }
+  pick($$('#endTabs .chip', sl), 'data-m', m => { mode = m; draw(); });
+  const known = d.rows.filter(r => r.g != null).sort((a, b) => b.g - a.g);
+  $('#endKv', sl).innerHTML = '<div class="hi"><span>Defensive, per Linde</span><b>~' + d.defensive + '%</b><i>of sales (register #7)</i></div><div><span>Fastest growing</span><b style="font-size:22px">' + (known[0] ? esc(known[0].n) : '<span class="fill">[ ]</span>') + '</b><i>' + (known[0] ? sg(known[0].g, 0, '%') + ', ' + esc(d.gLabel) : '') + '</i></div>';
+  requestAnimationFrame(draw);
+};
+
+/* ---- contract mix ---- */
+INIT.cmix = sl => {
+  const d = D.cmix, st = $('#mixStack', sl), lg = $('#mixLegend', sl);
+  if (!d.sample) srcok(sl, 'Bloomberg FA, 2025', '.card .ch .samp');
+  const segs = d.segs.map((s2, i) => { const el = H('div', {style: 'background:' + s2.c + ';flex-grow:' + s2.v + (s2.c === '#9FB6D4' ? ';color:#1B2A3A' : '')}, '<span>' + esc(s2.n) + '</span><b>' + s2.v + '%</b>', st); el.addEventListener('click', () => sel(i)); H('span', null, '<i style="display:inline-block;width:14px;height:14px;background:' + s2.c + ';vertical-align:-2px;margin-right:6px"></i>' + esc(s2.n) + ' · ' + esc(s2.yrs), lg); return el; });
+  const locked = d.segs.filter(x => x.long).reduce((a, x) => a + x.v, 0);
+  tween(0, locked, 900, v => { $('#mixLocked', sl).textContent = v.toFixed(1) + '%'; });
+  function sel(i){ segs.forEach((el, k) => el.style.opacity = k === i ? 1 : .5); const x = d.segs[i]; $('#mixH', sl).textContent = x.n + ' · ' + x.yrs; $('#mixNote', sl).innerHTML = '<p>' + esc(x.p) + '</p><p><b>' + x.v + '% of sales, $' + x.b + 'B in 2025.</b></p>'; }
+  sel(0);
+};
+
+/* ---- TAM by theme ---- */
+INIT.tam = sl => {
+  const d = D.tam, svg = $('#tamSvg', sl), chipsBox = $('#tamThemes', sl);
+  samp(sl, d.sample);
+  const tk = SHORT();
+  const chips = d.themes.map((t, i) => { const b = H('button', {type: 'button', class: 'chip' + (i === 0 ? ' on' : '')}, esc(t.n), chipsBox); b.addEventListener('click', () => { chips.forEach(x => x.classList.toggle('on', x === b)); draw(i); }); return b; });
+  const hook = { enter(){ if (A.tamWant != null){ const k = d.themes.findIndex(t => t.n === A.tamWant); A.tamWant = null; if (k >= 0) chips[k].click(); } } };
+  function draw(i){
+    clear(svg);
+    const t = d.themes[i], st = t.st, x0 = 330, x1 = 880, rh = 104;
+    const lx = v => Math.log10(Math.max(v, .05));
+    const sc = lin(lx(.05), lx(400), 0, x1 - x0);
+    $('#tamFH', sl).textContent = t.n + ' · from headline market to ' + tk + ' revenue ($B, log scale)';
+    st.forEach((s, k) => {
+      const y = 20 + k * rh, w = sc(lx(s[1])), cx = x0 + (x1 - x0) / 2;
+      const lab = k === 2 ? s[0].replace('we', tk) : k === 3 ? s[0].replace('Our', tk) : s[0];
+      T('text', {x: x0 - 18, y: y + 30, 'text-anchor': 'end', class: 'axl'}, lab, svg);
+      const r = S('rect', {x: cx, y: y + 6, width: 0, height: 44, fill: [C.sky, C.light, C.steel, C.navy][k]}, svg);
+      tween(0, w, 600 + k * 120, ww => { r.setAttribute('width', ww); r.setAttribute('x', cx - ww / 2); });
+      T('text', {x: cx, y: y + 36, 'text-anchor': 'middle', class: 'dlb', style: k >= 2 ? 'fill:#fff' : ''}, '$' + (s[1] >= 10 ? Math.round(s[1]) : s[1]) + 'B', svg);
+      if (k < st.length - 1){ const c = st[k + 1][1] / s[1] * 100; T('text', {x: cx, y: y + 76, 'text-anchor': 'middle', class: 'ax', style: 'fill:#3E6FB0;font-weight:600'}, '↓ ' + (c >= 10 ? Math.round(c) : c.toFixed(1)) + '% of this', svg); }
+    });
+    const share = st[3][1] / st[1][1] * 100;
+    $('#tamKv', sl).innerHTML = '<div class="hi"><span>' + esc(tk) + ' revenue today</span><b>$' + st[3][1] + 'B</b><i>' + esc(t.n) + '</i></div><div><span>Share of gas slice</span><b>' + (share >= 10 ? Math.round(share) : share.toFixed(1)) + '%</b><i>' + esc(st[1][0].toLowerCase()) + '</i></div><div style="grid-column:1/-1"><span>Market growth</span><b style="font-size:22px">' + F(t.g.indexOf('[') === 0 ? null : t.g, t.g.replace(/[\[\]]/g, '')) + '</b></div>';
+    $('#tamHow', sl).innerHTML = t.how.map((h, k) => '<p><b>' + (k + 1) + '.</b> ' + esc(h).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</p>').join('');
+    $('#tamSrc', sl).innerHTML = 'Headline sources: source register #4-#7. Downstream stages: <span class="fill">[company disclosures, BI, as of date]</span>';
+  }
+  draw(0);
+  return hook;
+};
+
+/* ---- end-market forecast ---- */
+INIT.fcast = sl => {
+  const em = D.endm.rows, d = D.fcast, rows = $('#fcRows', sl);
+  if (!d.sample) $$('.samp', sl).forEach(x => x.classList.add('hidden'));
+  const g = d.scen[d.start].slice();
+  let setting = false, sel = -1;
+  H('div', {class: 'fcr hd'}, '<span>End market</span><span class="r">Sales</span><span>Our forecast, % a year</span><span class="r">View</span><span>Outlook</span><span>Adds to growth</span><span class="r">Pts</span>', rows);
+  const sc = H('div', {class: 'row', style: 'gap:8px'}, null, $('#fcScen', sl));
+  const scen = ['bear', 'base', 'bull'].map(k => { const b = H('button', {type: 'button', class: 'chip' + (k === d.start ? ' on' : '')}, k[0].toUpperCase() + k.slice(1), sc); b.addEventListener('click', () => apply(k)); return {k, b}; });
+  H('span', {class: 'xs muted', style: 'margin-left:6px'}, 'Drag any slider to set your own view', $('#fcScen', sl));
+  const R = em.map((m, i) => {
+    const r = H('div', {class: 'fcr'}, '<button type="button" class="nm"><i style="background:' + (m.d ? C.navy : C.light) + '"></i><span></span></button><span class="sh2">' + m.s + '%</span><input type="range" id="fcg' + i + '" min="-10" max="20" step="0.5" value="' + g[i] + '" aria-label="Forecast growth for ' + esc(m.n) + '"><output id="fcg' + i + 'o"></output><span class="pill"></span><div class="cbar"><i></i></div><b class="cpt"></b>', rows);
+    $('.nm span', r).textContent = m.n;
+    $('.nm', r).addEventListener('click', () => pickRow(i));
+    const ctl = rng('fcg' + i, v => { g[i] = v; if (!setting) scen.forEach(x => x.b.classList.remove('on')); draw(); if (sel === i) note(); }, v => sg(v, 1, '%'));
+    return {r, ctl, m};
+  });
+  function apply(k){ setting = true; scen.forEach(x => x.b.classList.toggle('on', x.k === k)); d.scen[k].forEach((v, i) => R[i].ctl.set(v)); setting = false; draw(); if (sel >= 0) note(); }
+  function view(v){ return v >= 4 ? ['good', 'Tailwind'] : v >= 0 ? ['ctx', 'Steady'] : ['bad', 'Headwind']; }
+  function draw(){
+    const tot = em.reduce((a, m) => a + m.s, 0);
+    const con = em.map((m, i) => m.s / tot * g[i]);
+    const blend = con.reduce((a, b) => a + b, 0);
+    const mx = Math.max(1.5, ...con.map(Math.abs));
+    R.forEach((o, i) => {
+      const [cls, lab] = view(g[i]); const p = $('.pill', o.r); p.className = 'pill ' + cls; p.textContent = lab;
+      const w = Math.abs(con[i]) / mx * 50, bar = $('.cbar i', o.r);
+      bar.style.width = w + '%'; bar.style.left = con[i] >= 0 ? '50%' : (50 - w) + '%'; bar.style.background = con[i] >= 0 ? C.navy : C.bad;
+      $('.cpt', o.r).textContent = sg(con[i], 2);
+    });
+    const grp = f => { const ms = em.map((m, i) => [m, i]).filter(x => f(x[0])); const s = ms.reduce((a, x) => a + x[0].s, 0); return s ? ms.reduce((a, x) => a + x[0].s * g[x[1]], 0) / s : 0; };
+    $('#fcBig', sl).textContent = sg(blend, 1, '%');
+    A.fcastBlend = blend;
+    $('#fcKv', sl).innerHTML = '<div><span>Fully defensive markets</span><b>' + sg(grp(m => m.d), 1, '%') + '</b><i>a year</i></div><div><span>Cyclical or mixed</span><b>' + sg(grp(m => !m.d), 1, '%') + '</b><i>a year</i></div>';
+    const top = con.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0])[0];
+    $('#fcRead', sl).innerHTML = '<b>' + esc(em[top[1]].n) + '</b> adds the most: ' + sg(top[0], 1, ' pts') + ' of the ' + sg(blend, 1, '%') + '. Compare with <span class="fill">[management guidance or consensus]</span>.';
+  }
+  function note(){
+    const m = em[sel];
+    $('#fcH', sl).textContent = m.n + ' · ' + sg(g[sel], 1, '%') + ' a year';
+    $('#fcNote', sl).innerHTML = '<p><b>Why we think this:</b> ' + F(d.why[sel], 'one line of evidence') + '</p><p><b>What would change our view:</b> ' + F(d.signal[sel], 'the signal') + '</p><p><b>Indicator to watch:</b> ' + esc(d.ind[sel]) + '</p>';
+  }
+  function pickRow(i){ sel = i; R.forEach((o, k) => o.r.classList.toggle('on', k === i)); note(); }
+  draw(); pickRow(em.findIndex(m => m.n === 'Electronics') >= 0 ? em.findIndex(m => m.n === 'Electronics') : 0);
+};
+
+/* ---- next markets: opportunity map ---- */
+INIT.next = sl => {
+  const d = D.next, svg = $('#nxSvg', sl), cbox = $('#nxChips', sl);
+  if (!d.sample) $$('.samp', sl).forEach(x => x.classList.add('hidden'));
+  const VERD = { play: ['Play it now', C.navy, '#fff'], option: ['Option value', C.steel, '#fff'], watch: ['Watch', C.sky, C.ink], pass: ['Pass', '#FFFFFF', C.grey] };
+  const verdict = d.t.map(t => t.v);
+  let sel = 0;
+  const chips = d.t.map((t, i) => { const b = H('button', {type: 'button', class: 'chip'}, esc(t.n), cbox); b.addEventListener('click', () => pick(i)); return b; });
+  const x0 = 70, x1 = 940, yt = 20, yb = 380, X = lin(0, 10, x0, x1), Y = lin(0, 1, yb, yt);
+  // quadrants
+  [[0, 5, .5, 1, 'Play it now', 'soon and big'], [5, 10, .5, 1, 'Build the option', 'big but later'], [0, 5, 0, .5, 'Nice extra', 'soon but small'], [5, 10, 0, .5, 'Watch', 'small and later']].forEach((q, k) => {
+    S('rect', {x: X(q[0]), y: Y(q[3]), width: X(q[1]) - X(q[0]), height: Y(q[2]) - Y(q[3]), fill: k === 0 ? '#E6EDF6' : k === 1 ? '#F2F6FB' : k === 2 ? '#F7F9FC' : '#FFFFFF', stroke: C.line}, svg);
+    const left = k === 2, ly = k === 2 ? Y(q[2]) - 30 : Y(q[3]) + 24, lx = left ? X(q[0]) + 12 : X(q[1]) - 12, an = left ? 'start' : 'end';
+    T('text', {x: lx, y: ly, 'text-anchor': an, class: 'axl', style: 'fill:#3E6FB0;font-size:14px;letter-spacing:.08em;text-transform:uppercase'}, q[4], svg);
+    T('text', {x: lx, y: ly + 18, 'text-anchor': an, class: 'ax', style: 'font-size:13px'}, q[5], svg);
+  });
+  [[0, 'Now'], [2.5, '2-3 yrs'], [5, '5 yrs'], [7.5, '7-8 yrs'], [10, '10+ yrs']].forEach(t => T('text', {x: X(t[0]), y: yb + 22, 'text-anchor': 'middle', class: 'ax'}, t[1], svg));
+  T('text', {x: (x0 + x1) / 2, y: yb + 48, 'text-anchor': 'middle', class: 'axt'}, 'When it matters for ' + SHORT() + ' →', svg);
+  T('text', {x: 22, y: (yt + yb) / 2, 'text-anchor': 'middle', class: 'axt', transform: 'rotate(-90 22 ' + ((yt + yb) / 2) + ')'}, 'New gas demand at scale →', svg);
+  const G = d.t.map((t, i) => {
+    const g = S('g', {style: 'cursor:pointer', tabindex: '0', role: 'button', 'aria-label': t.n}, svg);
+    const ring = S('circle', {cx: X(t.x), cy: Y(t.y), r: 38, fill: 'none', stroke: C.gold, 'stroke-width': 5, opacity: 0}, g);
+    const c = S('circle', {cx: X(t.x), cy: Y(t.y), r: 30, 'stroke-width': 2.5}, g);
+    const tx = T('text', {x: X(t.x), y: Y(t.y) + 6, 'text-anchor': 'middle', style: 'font:700 18px "Source Serif 4",Georgia,serif'}, String(i + 1), g);
+    const lb = T('text', {x: X(t.x), y: Y(t.y) + 54, 'text-anchor': 'middle', class: 'axl', style: 'font-size:15px'}, t.n, g);
+    g.addEventListener('click', () => pick(i)); g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); pick(i); } });
+    return {ring, c, tx};
+  });
+  function paint(){ G.forEach((o, i) => { const v = VERD[verdict[i]]; o.c.setAttribute('fill', v ? v[1] : '#FFFFFF'); o.c.setAttribute('stroke', v ? (verdict[i] === 'pass' ? C.grey : v[1]) : C.navy); o.c.setAttribute('stroke-dasharray', v ? '' : '5 4'); o.tx.setAttribute('fill', v ? v[2] : C.navy); o.ring.setAttribute('opacity', i === sel ? 1 : 0); }); }
+  function pick(i){
+    sel = i; chips.forEach((b, k) => b.classList.toggle('on', k === i));
+    const t = d.t[i];
+    $('#nxH', sl).textContent = (i + 1) + ' · ' + t.n;
+    const tam = D.tam.themes.findIndex(x => x.n === t.n);
+    const b = $('#nxB', sl);
+    b.innerHTML = '<span class="eyebrow">How it uses gas</span><p class="small" style="margin-top:-4px"></p><div class="row" style="gap:6px" id="nxGas"></div>' +
+      '<span class="eyebrow" style="margin-top:4px">What ' + esc(SHORT()) + ' sells here today</span><p class="small" style="margin-top:-4px">' + (t.today ? esc(t.today) : '<span class="fill">[product, customer or contract, with a number]</span>') + '</p>' +
+      '<span class="eyebrow" style="margin-top:4px">Our verdict</span><div class="row" style="gap:6px" id="nxV"></div>' +
+      '<p class="xs muted" style="margin-top:auto">Source: ' + esc(t.src).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</p>' +
+      (tam >= 0 ? '<button type="button" class="btn sm" id="nxGo" style="align-self:flex-start">Size it on slide ' + (A.idx('tam') + 1) + ' →</button>' : '');
+    $('p.small', b).textContent = t.how;
+    t.gases.forEach(gs => H('span', {class: 'pill ctx', style: 'text-transform:none;letter-spacing:0;font-size:13.5px'}, esc(gs), $('#nxGas', b)));
+    Object.keys(VERD).forEach(k => { const vb = H('button', {type: 'button', class: 'chip' + (verdict[i] === k ? ' on' : '')}, VERD[k][0], $('#nxV', b)); vb.addEventListener('click', () => { verdict[i] = verdict[i] === k ? null : k; pick(i); }); });
+    if (!verdict[i]) H('span', {class: 'xs muted'}, 'Not decided yet', $('#nxV', b));
+    const go = $('#nxGo', b); if (go) go.addEventListener('click', () => { A.tamWant = t.n; A.go(A.idx('tam')); });
+    $('#nxG', sl).textContent = verdict[i] ? VERD[verdict[i]][0] : '';
+    paint();
+  }
+  pick(0);
+};
+
+/* ---- backlog ---- */
+INIT.backlog = sl => {
+  const d = D.backlog, svg = $('#blSvg', sl), gs = $('#ganttSvg', sl);
+  samp(sl, d.sample);
+  { const x0 = 70, x1 = 880, yb = 190, max = Math.ceil(Math.max(...d.q.map(q => q[1])) + 1), y = lin(0, max, yb, 18), bw = (x1 - x0) / d.q.length;
+    gridY(svg, x0, x1, y, [0, 2, 4, 6, 8].filter(v => v <= max), v => '$' + v + 'B');
+    d.q.forEach((q, i) => { const last = i === d.q.length - 1; const r = S('rect', {x: x0 + i * bw + bw * .2, y: yb, width: bw * .6, height: 0, fill: last ? C.navy : C.light}, svg); tween(0, yb - y(q[1]), 600 + i * 60, h => { r.setAttribute('y', yb - h); r.setAttribute('height', h); }); T('text', {x: x0 + i * bw + bw / 2, y: yb + 24, 'text-anchor': 'middle', class: 'ax'}, q[0], svg); T('text', {x: x0 + i * bw + bw / 2, y: y(q[1]) - 8, 'text-anchor': 'middle', class: last ? 'dlb' : 'dl'}, '$' + q[1] + 'B', svg); hov(r, sl, () => '<b>' + q[0] + '</b>: $' + q[1] + 'B signed, not yet built'); });
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg); }
+  { const x0 = 230, x1 = 880, x = lin(2026, 2029, x0, x1), rh = 30, y0 = 10, P = d.proj;
+    const MC = { Electronics: C.navy, Metals: C.grey, Space: C.gold, Chemicals: C.steel, 'Clean energy': C.good, Healthcare: '#7B5EA7' };
+    [2026, 2027, 2028, 2029].forEach(yv => { S('line', {x1: x(yv), x2: x(yv), y1: y0, y2: y0 + P.length * rh, stroke: C.line}, gs); T('text', {x: x(yv), y: y0 + P.length * rh + 22, 'text-anchor': 'middle', class: 'ax'}, String(yv), gs); });
+    P.forEach((p, i) => {
+      const y = y0 + i * rh + rh / 2;
+      T('text', {x: x0 - 12, y: y + 5, 'text-anchor': 'end', class: 'ax', style: 'fill:#1B2A3A'}, p.n, gs);
+      S('line', {x1: x0, x2: x(p.y), y1: y, y2: y, stroke: MC[p.m] || C.steel, 'stroke-width': 3, 'stroke-dasharray': '2 5', 'stroke-linecap': 'round'}, gs);
+      const c = S('circle', {cx: x(p.y), cy: y, r: 5 + Math.sqrt(p.c) / 5, fill: MC[p.m] || C.steel, stroke: '#fff', 'stroke-width': 2}, gs);
+      c.style.cursor = 'pointer';
+      c.addEventListener('click', () => { $('#blH', sl).textContent = p.n; $('#blNote', sl).innerHTML = '<p><b>' + esc(p.m) + ' · ' + esc(p.r) + '</b></p><p>Capex about $' + p.c.toLocaleString() + 'M, start-up ' + (p.y % 1 > .45 ? 'second half ' : 'first half ') + Math.floor(p.y) + '.</p><p><span class="fill">[Contract length, customer, why it matters]</span></p>'; });
+      hov(c, sl, () => '<b>' + esc(p.n) + '</b> · ' + esc(p.m) + ' · start-up ' + Math.floor(p.y));
+    });
+  }
+};
+
+/* ---- catalysts ---- */
+INIT.cat = sl => {
+  const d = D.cat, tl = $('#catTl', sl), x = lin(2026.7, 2028.0, 2, 98);
+  samp(sl, d.sample);
+  H('div', {class: 'ln'}, '', tl);
+  [['Oct 26', 2026.75], ['Jan 27', 2027.0], ['Apr 27', 2027.25], ['Jul 27', 2027.5], ['Oct 27', 2027.75]].forEach(m => { const e = H('div', {class: 'mo'}, m[0], tl); e.style.left = x(m[1]) + '%'; });
+  const evs = d.ev.map((e, i) => { const b = H('button', {type: 'button', class: 'ev', 'aria-label': e.h}, String(i + 1), tl); b.style.left = x(e.d) + '%'; const l = H('div', {class: 'evl'}, esc(e.l), tl); l.style.left = x(e.d) + '%'; l.style.top = (i % 2 ? 8 : 30) + 'px'; b.addEventListener('click', () => sel(i)); return b; });
+  const fl = s => esc(s).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>');
+  function sel(i){ evs.forEach((b, k) => b.classList.toggle('on', k === i)); const e = d.ev[i]; $('#catH', sl).innerHTML = fl(e.h); $('#catNote', sl).innerHTML = '<p><b>What we expect:</b> ' + fl(e.x) + '</p><p><b>Date:</b> <span class="fill">[exact date]</span></p>'; $('#catWatch', sl).innerHTML = '<p>' + fl(e.w) + '</p>'; }
+  sel(0);
+};
+
+/* ---- pass-through ---- */
+INIT.pass = sl => {
+  const d = D.pass, svg = $('#passSvg', sl);
+  let mode = 0;
+  const mb = $('#passMode', sl);
+  H('span', {class: 'eyebrow', style: 'margin-right:6px'}, 'Contract type', mb);
+  const chips = d.modes.map((m, i) => { const b = H('button', {type: 'button', class: 'chip' + (i === 0 ? ' on' : '')}, esc(m.n), mb); b.addEventListener('click', () => { mode = i; chips.forEach(x => x.classList.toggle('on', x === b)); draw(); }); return b; });
+  const r = rng('passE', draw, v => sg(v, 0, '%'));
+  function draw(){
+    const x = r.v / 100, m = d.modes[mode], E0 = d.energyShare, O = d.otherCost, P0 = 100 - E0 - O;
+    const dE = E0 * x, E1 = E0 + dE, R1 = 100 + m.pt * dE, P1 = R1 - E1 - O, m0 = P0 / 100 * 100, m1 = P1 / R1 * 100;
+    clear(svg);
+    const x0 = 70, x1 = 860, yb = 250, max = 140, y = lin(0, max, yb, 10);
+    gridY(svg, x0, x1, y, [0, 35, 70, 105, 140], v => '$' + v);
+    const G = [['Revenue', 100, R1], ['Energy cost', E0, E1], ['Other costs', O, O], ['Operating profit', P0, P1]], gw = (x1 - x0) / G.length;
+    G.forEach((g, i) => {
+      const cx = x0 + i * gw + gw / 2;
+      [[g[1], C.light, -1], [g[2], i === 3 ? (P1 < P0 - .01 ? C.bad : C.navy) : C.navy, 1]].forEach(b => { const v = Math.max(0, b[0]); S('rect', {x: cx + (b[2] < 0 ? -74 : 4), y: y(v), width: 70, height: yb - y(v), fill: b[1]}, svg); T('text', {x: cx + (b[2] < 0 ? -39 : 39), y: y(v) - 8, 'text-anchor': 'middle', class: 'dl'}, '$' + b[0].toFixed(1), svg); });
+      T('text', {x: cx, y: yb + 26, 'text-anchor': 'middle', class: 'axl'}, g[0], svg);
+    });
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
+    S('rect', {x: x1 - 230, y: 0, width: 14, height: 14, fill: C.light}, svg); T('text', {x: x1 - 210, y: 12, class: 'ax'}, 'Before', svg);
+    S('rect', {x: x1 - 140, y: 0, width: 14, height: 14, fill: C.navy}, svg); T('text', {x: x1 - 120, y: 12, class: 'ax'}, 'After', svg);
+    $('#passKv', sl).innerHTML = '<div><span>Revenue</span><b>' + sg(R1 - 100, 1, '%') + '</b><i>per $100 of sales</i></div><div><span>Profit dollars</span><b style="color:' + (P1 < P0 - .01 ? C.bad : C.navy) + '">' + sg((P1 / P0 - 1) * 100, 1, '%') + '</b><i>$' + P0.toFixed(1) + ' to $' + P1.toFixed(1) + '</i></div><div class="hi" style="grid-column:1/-1"><span>Operating margin</span><b>' + m0.toFixed(1) + '% → ' + m1.toFixed(1) + '%</b><i>' + esc(m.n) + ': ' + esc(m.d) + '</i></div>';
+    $('#passRead', sl).innerHTML = m.pt === 1 ? 'Energy ' + sg(r.v, 0, '%') + ': revenue moves, <b>profit dollars do not</b>, so the margin % ' + (m1 < m0 ? 'falls' : 'rises') + ' only because revenue changed. A business can look weaker on margin and be just as profitable.' : 'Without full pass-through the company eats ' + Math.round((1 - m.pt) * 100) + '% of the cost change until prices reset, so <b>profit dollars move</b> too.';
+  }
+  draw();
+};
+
+/* ---- margins and returns ---- */
+INIT.marg = sl => {
+  const d = D.marg, svg = $('#margSvg', sl);
+  srcok(sl, 'Bloomberg FA, Oct 8, 2026');
+  let m = 'adj';
+  function draw(){
+    clear(svg);
+    const md = d.modes[m], Y = md.years, x0 = 70, x1 = 720, yb = 370;
+    const all = md.series.reduce((a, s2) => a.concat(s2.v.filter(v => v != null)), []);
+    const mx = Math.ceil(Math.max(...all) / 5) * 5 + 5, y = lin(0, mx, yb, 20), x = lin(0, Y.length - 1, x0 + 10, x1 - 10);
+    gridY(svg, x0, x1, y, Array.from({length: mx / 5 + 1}, (_, i) => i * 5), v => v + '%');
+    Y.forEach((yr, i) => T('text', {x: x(i), y: yb + 26, 'text-anchor': 'middle', class: 'ax', style: md.est != null && i >= md.est ? 'font-style:italic' : ''}, yr, svg));
+    if (md.est != null){ S('rect', {x: (x(md.est - 1) + x(md.est)) / 2, y: 20, width: x1 - (x(md.est - 1) + x(md.est)) / 2, height: yb - 20, fill: C.tint}, svg); T('text', {x: x1 - 6, y: 36, 'text-anchor': 'end', class: 'ax'}, 'Consensus estimates', svg); }
+    md.series.forEach((sr, k) => {
+      const isL = sr.n === 'Linde', act = sr.v.map((v, i) => [i, v]).filter(p => p[1] != null && (md.est == null || p[0] < md.est)), est = md.est != null ? sr.v.map((v, i) => [i, v]).filter(p => p[1] != null && p[0] >= md.est - 1) : [];
+      const pl = S('polyline', {points: act.map(p => x(p[0]) + ',' + y(p[1])).join(' '), fill: 'none', stroke: sr.c, 'stroke-width': isL ? 4.5 : 3.5, 'stroke-linejoin': 'round'}, svg);
+      if (est.length > 1) S('polyline', {points: est.map(p => x(p[0]) + ',' + y(p[1])).join(' '), fill: 'none', stroke: sr.c, 'stroke-width': 3, 'stroke-dasharray': '7 6'}, svg);
+      if (!A.RM && pl.getTotalLength){ const L = pl.getTotalLength(); pl.style.strokeDasharray = L; pl.style.strokeDashoffset = L; pl.getBoundingClientRect(); pl.style.transition = 'stroke-dashoffset .9s ease'; pl.style.strokeDashoffset = 0; }
+      sr.v.forEach((v, i) => { if (v == null) return; const c = S('circle', {cx: x(i), cy: y(v), r: 6, fill: md.est != null && i >= md.est ? '#fff' : sr.c, stroke: md.est != null && i >= md.est ? sr.c : '#fff', 'stroke-width': 2.5}, svg); hov(c, sl, () => '<b>' + esc(sr.n) + ' ' + Y[i] + '</b>: ' + v.toFixed(1) + '%'); });
+      const li = sr.v.length - 1, lv = sr.v[li];
+      T('text', {x: x(li) + 14, y: y(lv) + 6, class: isL ? 'dlb' : 'dl'}, sr.n + ' ' + lv.toFixed(1) + '%', svg);
+    });
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
+    $('#margH', sl).textContent = md.t;
+    const L = md.series.find(s2 => s2.n === 'Linde').v, i25 = Y.indexOf('2025'), comp = md.series.find(s2 => s2.n !== 'Linde');
+    let kv = '<div class="hi"><span>Linde, 2025</span><b>' + L[i25].toFixed(1) + '%</b><i>' + sg(L[i25] - L[0], 1, ' pts') + ' since 2019</i></div>';
+    if (comp) kv += '<div><span>Gap to ' + esc(comp.n) + '</span><b>' + sg(L[i25] - comp.v[i25], 1, ' pts') + '</b><i>in 2025</i></div>';
+    else kv += '<div><span>Consensus, 2027E</span><b>' + L[L.length - 1].toFixed(1) + '%</b><i>Bloomberg estimates</i></div>';
+    kv += '<div><span>Why GAAP is lower</span><i style="font-size:15px;line-height:1.35;color:#1B2A3A">GAAP numbers carry amortization from the 2018 Praxair merger: $0.9B in 2025, $1.9B in 2019. Linde’s own adjusted return on capital was 24.2% in 2025 (register #4).</i></div>';
+    $('#margKv', sl).innerHTML = kv;
+  }
+  pick($$('#margTabs .chip', sl), 'data-m', k => { m = k; draw(); });
+  draw();
+};
+
+/* ---- capex J-curve + uses of cash ---- */
+INIT.capex = sl => {
+  const svg = $('#jcSvg', sl), su = $('#suSvg', sl);
+  const cap = rng('jcCap', draw, v => '$' + v.toLocaleString() + 'M'), bld = rng('jcBuild', draw, v => v + (v === 1 ? ' yr' : ' yrs')), cash = rng('jcCash', draw, v => '$' + v + 'M'), yrs = rng('jcYrs', draw, v => v + ' yrs');
+  function flows(){ const f = [], B = bld.v; for (let t = 0; t < B; t++) f.push(-cap.v / B); for (let t = 0; t < yrs.v; t++) f.push(cash.v * (t === 0 ? .6 : 1)); return f; }
+  function irr(f){ let lo = -.9, hi = 1; const npv = r => f.reduce((a, c, t) => a + c / Math.pow(1 + r, t + 1), 0); if (npv(lo) * npv(hi) > 0) return null; for (let k = 0; k < 80; k++){ const mid = (lo + hi) / 2; if (npv(lo) * npv(mid) <= 0) hi = mid; else lo = mid; } return (lo + hi) / 2; }
+  function draw(){
+    const f = flows(), cum = []; f.reduce((a, c, i) => (cum[i] = a + c), 0);
+    clear(svg);
+    const x0 = 80, x1 = 880, mn = Math.min(0, ...cum), mx = Math.max(0, ...cum), pad = (mx - mn) * .1 || 100, y = lin(mn - pad, mx + pad, 270, 10), x = lin(0, f.length, x0, x1);
+    const step = Math.pow(10, Math.floor(Math.log10((mx - mn) || 1))) * ((mx - mn) / Math.pow(10, Math.floor(Math.log10((mx - mn) || 1))) > 4 ? 1 : .5);
+    const ticks = []; for (let v = Math.ceil((mn - pad) / step) * step; v <= mx + pad; v += step) ticks.push(v);
+    gridY(svg, x0, x1, y, ticks, v => (v < 0 ? '−' : '') + '$' + Math.abs(Math.round(v)).toLocaleString());
+    S('line', {x1: x0, x2: x1, y1: y(0), y2: y(0), stroke: C.grey, 'stroke-width': 1.5}, svg);
+    let d = 'M' + x(0) + ' ' + y(0); cum.forEach((c, i) => { d += ' L' + x(i + 1) + ' ' + y(c); });
+    S('path', {d: d + ' L' + x(cum.length) + ' ' + y(0) + ' Z', fill: C.sky, opacity: .55}, svg);
+    S('path', {d, fill: 'none', stroke: C.navy, 'stroke-width': 4, 'stroke-linejoin': 'round'}, svg);
+    const pb = cum.findIndex(c => c >= 0);
+    if (pb > 0){ S('line', {x1: x(pb + 1), x2: x(pb + 1), y1: 10, y2: 270, stroke: C.gold, 'stroke-width': 2, 'stroke-dasharray': '5 4'}, svg); T('text', {x: x(pb + 1) + 6, y: 26, class: 'dl', style: 'fill:#7A4E10'}, 'Payback, year ' + (pb + 1), svg); }
+    S('rect', {x: x(0), y: 0, width: x(bld.v) - x(0), height: 280, fill: C.bad, opacity: .06}, svg); T('text', {x: x(0) + 6, y: 278, class: 'ax'}, 'Build', svg);
+    for (let t = 0; t <= f.length; t += 5) T('text', {x: x(t), y: 296, 'text-anchor': 'middle', class: 'ax'}, 'yr ' + t, svg);
+    const r = irr(f), tot = cum[cum.length - 1];
+    $('#jcKv', sl).innerHTML = '<div class="hi"><span>Return on the plant (IRR)</span><b>' + (r == null ? 'n/a' : (r * 100).toFixed(1) + '%') + '</b><i>gas companies target above about 10%</i></div><div><span>Payback</span><b>' + (pb > 0 ? 'Yr ' + (pb + 1) : 'Never') + '</b><i>from first spend</i></div><div style="grid-column:1/-1"><span>Total cash over the contract</span><b>' + usd(tot) + 'M</b><i>before any renewal</i></div>';
+  }
+  draw();
+  // where the cash comes from and where it goes: two stacked columns that balance
+  const d = D.uses; if (!d.sample) srcok(sl, 'Bloomberg CF, 2025', '.side .samp'); else samp(sl, d.sample, '.side .samp');
+  const src = d.items.filter(v => v[1] > 0), use = d.items.filter(v => v[1] < 0).map(v => [v[0], -v[1]]);
+  const gap = use.reduce((a, v) => a + v[1], 0) - src.reduce((a, v) => a + v[1], 0);
+  if (gap > 0) src.push(['Net borrowing', gap]); else if (gap < 0) use.push(['Debt paid down', -gap]);
+  const tot = src.reduce((a, v) => a + v[1], 0), yb = 262, y = lin(0, tot, yb, 22), cols = [[src, 'Sources', 60, [C.navy, C.gold]], [use, 'Uses', 215, [C.steel, C.light, C.sky, C.gold]]];
+  cols.forEach(cl => {
+    let acc = 0;
+    cl[0].forEach((v, i) => {
+      const y1 = y(acc + v[1]), y0 = y(acc), col = v[0] === 'Net borrowing' || v[0] === 'Debt paid down' ? C.gold : cl[3][i % cl[3].length];
+      const r = S('rect', {x: cl[2], y: y1, width: 105, height: Math.max(1, y0 - y1 - 2), fill: col}, su);
+      hov(r, sl, () => '<b>' + esc(v[0]) + '</b>: $' + v[1].toFixed(1) + 'B');
+      const dark = col === C.navy || col === C.steel || col === C.gold;
+      if (y0 - y1 > 34){ T('text', {x: cl[2] + 8, y: y1 + 18, class: 'ax', style: 'font-size:13px;font-weight:600;fill:' + (dark ? '#fff' : '#1B2A3A')}, v[0], su); T('text', {x: cl[2] + 8, y: y1 + 34, class: 'ax', style: 'font-size:13px;fill:' + (dark ? '#fff' : '#1B2A3A')}, '$' + v[1].toFixed(1) + 'B', su); }
+      else T('text', {x: cl[2] + 112, y: (y0 + y1) / 2 + 4, class: 'ax', style: 'font-size:12px'}, v[0] + ' $' + v[1].toFixed(1) + 'B', su);
+      acc += v[1];
+    });
+    T('text', {x: cl[2] + 52, y: yb + 22, 'text-anchor': 'middle', class: 'axl'}, cl[1], su);
+  });
+  T('text', {x: 190, y: 10, 'text-anchor': 'middle', class: 'ax', style: 'font-size:13px'}, 'Each column totals $' + tot.toFixed(1) + 'B a year', su);
+};
+
+/* ---- risk matrix ---- */
+INIT.risks = sl => {
+  const d = D.risks, m = $('#rmx', sl);
+  samp(sl, d.sample);
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++){ const sc = (2 - r) + c; H('div', {class: 'cell' + (sc >= 3 ? ' h3' : sc === 2 ? ' h2' : '')}, '', m); }
+  const dots = d.r.map((k, i) => { const b = H('button', {type: 'button', class: 'rdot', 'aria-label': k.n}, String(i + 1), m); b.style.left = (k.p * 100) + '%'; b.style.top = ((1 - k.i) * 100) + '%'; b.addEventListener('click', () => sel(i)); hov(b, sl, () => esc(k.n)); return b; });
+  function sel(i){ dots.forEach((b, k) => b.classList.toggle('on', k === i)); const k = d.r[i]; $('#rkH', sl).textContent = 'Risk ' + (i + 1); $('#rkB', sl).innerHTML = '<p><b>' + esc(k.n) + '</b></p><p><b>What we watch:</b> <span class="fill">[the number and its tripwire]</span></p><p><b>What limits the damage:</b> <span class="fill">[contracts, balance sheet, diversification]</span></p><p><b>Price impact:</b> <span class="fill">[$ per share in the bear case]</span></p>'; }
+  const top = d.r.map((k, i) => [k.p * k.i, i]).sort((a, b) => b[0] - a[0])[0][1]; sel(top);
+};
+
+/* ---- reverse DCF ---- */
+function dcf(fcf0, g1, years, w, g){ let v = 0, f = fcf0; for (let t = 1; t <= years; t++){ f *= 1 + g1; v += f / Math.pow(1 + w, t); } return v + f * (1 + g) / (w - g) / Math.pow(1 + w, years); }
+/* the free cash flow growth a year (years 1-10) at which the DCF value equals the price */
+function impG(price, w, g){ const d = D.val; let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
+const priceNow = () => window.PITCH.price || D.val.price;
+A.impliedNow = () => impG(priceNow(), D.val.w / 100, D.val.g / 100) * 100;
+INIT.implied = sl => {
+  const d = D.val, svg = $('#imSvg', sl);
+  samp(sl, d.sample);
+  const price = window.PITCH.price || d.price;
+  const W = rng('imW', draw, v => v.toFixed(1) + '%'), G = rng('imG', draw, v => v.toFixed(1) + '%'), O = rng('imO', draw, v => v.toFixed(1) + '%');
+  function solve(w, g){ let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
+  function draw(){
+    const w = W.v / 100, g = G.v / 100, imp = solve(w, g) * 100, ours = O.v;
+    clear(svg);
+    const x0 = 80, x1 = 870, yb = 280, gx = lin(0, 15, x0, x1), vals = []; for (let k = 0; k <= 15; k += .25) vals.push([k, dcf(d.fcf0, k / 100, d.years, w, g)]);
+    const mx = Math.max(price * 1.6, Math.min(vals[vals.length - 1][1], price * 2.6)), y = lin(0, mx, yb, 14);
+    const step = mx > 800 ? 200 : 100; const ticks = []; for (let v = 0; v <= mx; v += step) ticks.push(v);
+    gridY(svg, x0, x1, y, ticks, v => '$' + v);
+    for (let k = 0; k <= 15; k += 3) T('text', {x: gx(k), y: yb + 24, 'text-anchor': 'middle', class: 'ax'}, k + '%', svg);
+    T('text', {x: (x0 + x1) / 2, y: yb + 48, 'text-anchor': 'middle', class: 'axt'}, 'Free cash flow growth a year, years 1-10', svg);
+    const vis = vals.filter(p => p[1] <= mx * 1.02);
+    S('path', {d: vis.map((p, i) => (i ? 'L' : 'M') + gx(p[0]) + ' ' + y(p[1])).join(' '), fill: 'none', stroke: C.navy, 'stroke-width': 4}, svg);
+    S('line', {x1: x0, x2: x1, y1: y(price), y2: y(price), stroke: C.gold, 'stroke-width': 2.5, 'stroke-dasharray': '7 5'}, svg);
+    T('text', {x: x0 + 8, y: y(price) - 8, class: 'dl', style: 'fill:#7A4E10'}, 'Price ≈' + usd(price), svg);
+    if (imp >= 0 && imp <= 15){ S('line', {x1: gx(imp), x2: gx(imp), y1: y(price), y2: yb, stroke: C.gold, 'stroke-width': 2}, svg); S('circle', {cx: gx(imp), cy: y(price), r: 8, fill: C.gold, stroke: '#fff', 'stroke-width': 2.5}, svg); T('text', {x: gx(imp), y: yb - 10, 'text-anchor': 'middle', class: 'dl', style: 'fill:#7A4E10'}, 'Market: ' + imp.toFixed(1) + '%', svg); }
+    const vo = dcf(d.fcf0, ours / 100, d.years, w, g);
+    if (vo <= mx){ S('line', {x1: gx(ours), x2: gx(ours), y1: y(vo), y2: yb, stroke: C.navy, 'stroke-width': 2, 'stroke-dasharray': '3 4'}, svg); S('circle', {cx: gx(ours), cy: y(vo), r: 9, fill: C.navy, stroke: '#fff', 'stroke-width': 2.5}, svg); const nearR = gx(ours) > x1 - 150; T('text', {x: gx(ours) + (nearR ? -14 : 14), y: y(vo) + (nearR ? -12 : 6), 'text-anchor': nearR ? 'end' : 'start', class: 'dlb'}, 'Slider: ' + usd(vo), svg); }
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
+    $('#imKv', sl).innerHTML = '<div><span>Growth the price implies</span><b>' + imp.toFixed(1) + '%</b><i>a year for 10 years</i></div><div class="hi"><span>Value at slider growth</span><b>' + usd(vo) + '</b><i>' + sg((vo / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '</i></div><div><span>2019-2025, actual</span><b>' + d.hist + '%</b><i>FCF per share growth a year (Bloomberg)</i></div>';
+    $('#imRead', sl).innerHTML = 'The price implies <b>' + imp.toFixed(1) + '%</b> a year. Linde grew free cash flow per share <b>' + d.hist + '%</b> a year in 2019-2025. Slider at <b>' + ours.toFixed(1) + '%</b>: value ' + usd(vo) + ', ' + sg((vo / price - 1) * 100, 0, '%') + ' vs the price. <span class="fill">[Our expected growth and why]</span>';
+  }
+  draw();
+};
+
+/* ---- 3D value landscape ---- */
+INIT.surface = sl => {
+  const d = D.val, host = $('#sfHost', sl), tab = $('#sfTable', sl), fall = $('#sfFall', sl);
+  const price = window.PITCH.price || d.price;
+  const WS = [6, 10], GSr = [1.5, 4];
+  const V = (w, g) => dcf(d.fcf0, d.g1 / 100, d.years, w / 100, g / 100);
+  const base = V(d.w, d.g);
+  // table
+  const ws = [], gsv = []; for (let w = 6; w <= 10.001; w += .5) ws.push(+w.toFixed(1)); for (let g = 1.5; g <= 4.001; g += .5) gsv.push(+g.toFixed(1));
+  let th = '<table class="dtab" style="font-size:17px"><thead><tr><th>WACC ↓ · growth →</th>' + gsv.map(g => '<th class="n">' + g.toFixed(1) + '%</th>').join('') + '</tr></thead><tbody>';
+  ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(11,65,125,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1B2A3A'; return '<td class="n" style="background:' + bg + ';color:' + fg + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
+  tab.innerHTML = th + '</tbody></table>';
+  let share = 0, tot = 0; for (let w = 6; w <= 10; w += .25) for (let g = 1.5; g <= 4; g += .125){ tot++; if (V(w, g) >= price) share++; }
+  $('#sfKv', sl).innerHTML = '<div class="hi"><span>Value at sample inputs</span><b>' + usd(base) + '</b><i>FCF growth ' + d.g1 + '% (2019-25 pace), WACC ' + d.w + '%, long-run ' + d.g + '%</i></div><div><span>Share of inputs above price</span><b>' + Math.round(share / tot * 100) + '%</b><i>of the grid sits above ' + usd(price) + '</i></div>';
+  $('#sfRead', sl).innerHTML = '<b>Gold dot:</b> the sample inputs. <b>Gold plane:</b> the price, about ' + usd(price) + '.';
+  let three = null, mode = '3d';
+  const b3 = $('#sf3', sl), b2 = $('#sf2', sl);
+  function setMode(m){ mode = m; b3.classList.toggle('on', m === '3d'); b2.classList.toggle('on', m === '2d'); tab.classList.toggle('hidden', m !== '2d'); if (three){ if (m === '3d') three.start(); else three.stop(); } }
+  b3.addEventListener('click', () => { if (three) setMode('3d'); });
+  b2.addEventListener('click', () => setMode('2d'));
+  function build(){
+    const THREE = window.THREE; if (!THREE || !THREE.OrbitControls) return null;
+    let renderer; try { renderer = new THREE.WebGLRenderer({antialias: true}); } catch (e){ return null; }
+    if (!renderer || !renderer.getContext()) return null;
+    renderer.setClearColor(0xF2F6FB, 1); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    if ('outputEncoding' in renderer) renderer.outputEncoding = THREE.sRGBEncoding;
+    host.appendChild(renderer.domElement); renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;z-index:1';
+    const scene = new THREE.Scene(); scene.background = new THREE.Color(0xF2F6FB);
+    const cam = new THREE.PerspectiveCamera(36, 1, .1, 300); cam.position.set(19, 15, 21);
+    const ctr = new THREE.OrbitControls(cam, renderer.domElement); ctr.target.set(0, 2.4, 0); ctr.enableDamping = true; ctr.dampingFactor = .08; ctr.minDistance = 14; ctr.maxDistance = 55; ctr.maxPolarAngle = 1.45; ctr.update();
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x8FA6C4, .6));
+    const sun = new THREE.DirectionalLight(0xffffff, .95); sun.position.set(10, 22, 12); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, {left: -14, right: 14, top: 14, bottom: -14}); scene.add(sun);
+    const XW = 12, ZW = 9, NX = 48, NZ = 40, vMax = V(6, 4), YS = 9 / vMax;
+    const xOf = w => (w - 8) / 4 * XW, zOf = g => -(g - 2.75) / 2.5 * ZW;
+    const pos = [], col = [], idx = [];
+    const cLo = new THREE.Color(0xDCE6F3), cMid = new THREE.Color(0x6F95C8), cHi = new THREE.Color(0x0B417D), cBad = new THREE.Color(0xE7B9B2);
+    for (let j = 0; j <= NZ; j++) for (let i = 0; i <= NX; i++){ const w = 6 + i / NX * 4, g = 1.5 + j / NZ * 2.5, v = V(w, g); pos.push(xOf(w), v * YS, zOf(g)); const c = new THREE.Color(); if (v < price) c.copy(cBad).lerp(cLo, v / price); else c.copy(cMid).lerp(cHi, Math.min(1, (v - price) / price)); col.push(c.r, c.g, c.b); }
+    for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++){ const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, e = c + 1; idx.push(a, c, b, b, c, e); }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); geo.setIndex(idx); geo.computeVertexNormals();
+    const surf = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({vertexColors: true, side: THREE.DoubleSide, roughness: .6, metalness: .04})); surf.castShadow = true; surf.receiveShadow = true; scene.add(surf);
+    const rowMat = new THREE.LineBasicMaterial({color: 0x234E70, transparent: true, opacity: .3});
+    for (let j = 0; j <= NZ; j += 8){ const pts = []; for (let i = 0; i <= NX; i++){ const w = 6 + i / NX * 4, g = 1.5 + j / NZ * 2.5; pts.push(new THREE.Vector3(xOf(w), V(w, g) * YS + .02, zOf(g))); } scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), rowMat)); }
+    for (let i = 0; i <= NX; i += 6){ const pts = []; for (let j = 0; j <= NZ; j++){ const w = 6 + i / NX * 4, g = 1.5 + j / NZ * 2.5; pts.push(new THREE.Vector3(xOf(w), V(w, g) * YS + .02, zOf(g))); } scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), rowMat)); }
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry(XW + 1.2, ZW + 1.2), new THREE.MeshBasicMaterial({color: 0xB7791F, transparent: true, opacity: .28, side: THREE.DoubleSide, depthWrite: false}));
+    plane.rotation.x = -Math.PI / 2; plane.position.y = price * YS; scene.add(plane);
+    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(plane.geometry), new THREE.LineBasicMaterial({color: 0xB7791F})); edge.rotation.x = -Math.PI / 2; edge.position.y = price * YS; scene.add(edge);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({color: 0xE6EDF6, roughness: 1})); floor.rotation.x = -Math.PI / 2; floor.position.y = -.02; floor.receiveShadow = true; scene.add(floor);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.38, 24, 16), new THREE.MeshStandardMaterial({color: 0xB7791F, emissive: 0x3A2A12})); dot.position.set(xOf(d.w), base * YS + .3, zOf(d.g)); dot.castShadow = true; scene.add(dot);
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, base * YS + .3, 8), new THREE.MeshBasicMaterial({color: 0xB7791F})); stem.position.set(xOf(d.w), (base * YS + .3) / 2, zOf(d.g)); scene.add(stem);
+    function sprite(text, o){ o = o || {}; const cv = document.createElement('canvas'), g = cv.getContext('2d'), fs = 64; g.font = (o.w || 600) + ' ' + fs + 'px "IBM Plex Sans", Arial, sans-serif'; const tw = Math.ceil(g.measureText(text).width) + 44; cv.width = tw; cv.height = fs + 36; g.font = (o.w || 600) + ' ' + fs + 'px "IBM Plex Sans", Arial, sans-serif'; g.textBaseline = 'middle'; if (o.bg){ g.fillStyle = o.bg; g.fillRect(0, 0, tw, cv.height); } g.fillStyle = o.c || '#1B2A3A'; g.fillText(text, 22, cv.height / 2 + 2); const tx = new THREE.CanvasTexture(cv); tx.minFilter = THREE.LinearFilter; if ('encoding' in tx) tx.encoding = THREE.sRGBEncoding; const sp = new THREE.Sprite(new THREE.SpriteMaterial({map: tx, transparent: true, depthTest: false})); const s = (o.s || .5) / 64; sp.scale.set(tw * s, cv.height * s, 1); sp.center.set(o.cx == null ? .5 : o.cx, .5); sp.renderOrder = 5; scene.add(sp); return sp; }
+    [6, 7, 8, 9, 10].forEach(w => sprite(w + '%', {s: .45, c: '#5B6B7C'}).position.set(xOf(w), .05, zOf(1.5) + 1.1));
+    sprite('WACC (discount rate) →', {s: .5, c: '#0B417D', w: 700}).position.set(0, .05, zOf(1.5) + 3.1);
+    [1.5, 2.5, 3.5].forEach(g => sprite(g.toFixed(1) + '%', {s: .45, c: '#5B6B7C', cx: 0}).position.set(xOf(10) + .9, .05, zOf(g)));
+    sprite('Long-run growth →', {s: .5, c: '#0B417D', w: 700, cx: 0}).position.set(xOf(10) + 2.4, .05, zOf(2.75));
+    sprite('Price ' + usd(price), {s: .5, c: '#FFFFFF', bg: '#B7791F', cx: 0}).position.set(xOf(10) + .8, price * YS, zOf(4) - .4);
+    sprite('Base ' + usd(base), {s: .5, c: '#FFFFFF', bg: '#0B417D'}).position.set(xOf(d.w), base * YS + 1.4, zOf(d.g));
+    // hover readout
+    const ray = new THREE.Raycaster(), mv = new THREE.Vector2();
+    renderer.domElement.addEventListener('pointermove', e => { if (e.buttons) return; const r = renderer.domElement.getBoundingClientRect(); mv.x = (e.clientX - r.left) / r.width * 2 - 1; mv.y = -(e.clientY - r.top) / r.height * 2 + 1; ray.setFromCamera(mv, cam); const h = ray.intersectObject(surf)[0]; if (!h){ hideTip(sl); return; } const w = 8 + h.point.x / XW * 4, g = 2.75 - h.point.z / ZW * 2.5; const v = V(w, g); showTip(sl, e, 'WACC <b>' + w.toFixed(1) + '%</b> · growth <b>' + g.toFixed(1) + '%</b> → <b>' + usd(v) + '</b> (' + sg((v / price - 1) * 100, 0, '%') + ')'); });
+    renderer.domElement.addEventListener('pointerleave', () => hideTip(sl));
+    function size(){ const w = host.clientWidth || 900, h = host.clientHeight || 560; const sc = host.getBoundingClientRect().width / w || 1; renderer.setPixelRatio(clamp((window.devicePixelRatio || 1) * sc, .75, 2)); renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+    let running = false, t0 = 0;
+    function loop(now){ if (!t0) t0 = now; if (!A.RM && now - t0 < 2600 && !userMoved){ const k = (now - t0) / 2600, e = 1 - Math.pow(1 - k, 3); const a = .9 - e * .35; cam.position.set(Math.sin(a) * 30, 15, Math.cos(a) * 30); cam.lookAt(ctr.target); } ctr.update(); renderer.render(scene, cam); }
+    let userMoved = false; renderer.domElement.addEventListener('pointerdown', () => { userMoved = true; });
+    if (window.ResizeObserver) new ResizeObserver(() => { size(); if (!running) renderer.render(scene, cam); }).observe(host);
+    size();
+    return { start(){ size(); if (!running){ running = true; t0 = 0; renderer.setAnimationLoop(loop); } }, stop(){ running = false; renderer.setAnimationLoop(null); } };
+  }
+  return {
+    enter(){ if (!three && !host.dataset.tried){ host.dataset.tried = '1'; try { three = build(); } catch (e){ console.warn(e); three = null; } if (three) fall.hidden = true; else { fall.textContent = '3D needs WebGL, which is off in this browser. The table shows the same values.'; setMode('2d'); b3.disabled = true; } } if (three && mode === '3d') three.start(); },
+    leave(){ if (three) three.stop(); hideTip(sl); }
+  };
+};
+
+/* ---- scenarios + football field ---- */
+INIT.scen = sl => {
+  const d = D.scen, box = $('#scCards', sl), svg = $('#ffSvg', sl);
+  samp(sl, d.sample);
+  const price = window.PITCH.price || D.val.price;
+  const probs = d.s.map(s => s.p);
+  const ctl = d.s.map((s, i) => {
+    const c = H('div', {class: 'scn ' + s.k}, '<span class="k">' + esc(s.n) + ' case</span><b class="v">' + usd(s.v) + '</b><p>' + esc(s.a).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</p><div class="ctl"><label for="scp' + i + '">Probability <output id="scp' + i + 'o"></output></label><input type="range" id="scp' + i + '" min="0" max="100" step="5" value="' + s.p + '"></div>', box);
+    return rng('scp' + i, v => { probs[i] = v; draw(); }, v => v + '%');
+  });
+  function draw(){
+    const tot = probs.reduce((a, b) => a + b, 0) || 1, pt = d.s.reduce((a, s, i) => a + s.v * probs[i] / tot, 0);
+    clear(svg);
+    const x0 = 260, x1 = 1360, lo = Math.floor(Math.min(...d.ff.map(f => f[1]), price) / 50) * 50 - 50, hi = Math.ceil(Math.max(...d.ff.map(f => f[2]), pt) / 50) * 50 + 50, x = lin(lo, hi, x0, x1), rh = 44, y0 = 16;
+    for (let v = lo; v <= hi; v += 50){ S('line', {x1: x(v), x2: x(v), y1: y0, y2: y0 + d.ff.length * rh, stroke: C.line}, svg); T('text', {x: x(v), y: y0 + d.ff.length * rh + 24, 'text-anchor': 'middle', class: 'ax'}, '$' + v, svg); }
+    d.ff.forEach((f, i) => { const y = y0 + i * rh; T('text', {x: x0 - 14, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'axl'}, f[0], svg); const r = S('rect', {x: x(f[1]), y: y + 8, width: x(f[2]) - x(f[1]), height: rh - 16, fill: i === d.ff.length - 1 ? C.navy : C.light}, svg); hov(r, sl, () => '<b>' + esc(f[0]) + '</b>: ' + usd(f[1]) + ' to ' + usd(f[2])); T('text', {x: x(f[1]) - 8, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'dl', style: 'font-size:14px'}, usd(f[1]), svg); T('text', {x: x(f[2]) + 8, y: y + rh / 2 + 6, class: 'dl', style: 'font-size:14px'}, usd(f[2]), svg); });
+    const yb = y0 + d.ff.length * rh;
+    S('line', {x1: x(price), x2: x(price), y1: y0 - 6, y2: yb, stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '6 4'}, svg); T('text', {x: x(price), y: y0 - 2 - 6, 'text-anchor': 'middle', class: 'dl'}, 'Price ' + usd(price), svg);
+    S('line', {x1: x(pt), x2: x(pt), y1: y0 - 6, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 48, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#7A4E10'}, 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg);
+  }
+  draw();
+};
+
+/* ---- cash flow bridge: 2025 to 2029 by driver, against what the price needs ---- */
+INIT.bridge = sl => {
+  const d = D.bridge, v = D.val, svg = $('#brSvg', sl), box = $('#brCtl', sl);
+  samp(sl, d.sample);
+  const price = priceNow(), f0 = v.fcf0, yrs = d.years, fi = A.idx('fcast');
+  const r1 = x => Math.round(x * 10) / 10;
+  const defBlend = () => { const em = D.endm.rows, sc = D.fcast.scen[D.fcast.start], tot = em.reduce((a, m) => a + m.s, 0); return em.reduce((a, m, i) => a + m.s / tot * sc[i], 0); };
+  const val = d.d.map(x => r1(x.link ? (A.fcastBlend != null ? A.fcastBlend : defBlend()) : x.v));
+  let touched = false, syncing = false;
+  const ctl = d.d.map((x, i) => {
+    H('div', {class: 'ctl'}, '<label for="brs' + i + '">' + esc(x.n) + ' <output id="brs' + i + 'o"></output></label><input type="range" id="brs' + i + '" min="-4" max="10" step="0.1" value="' + val[i] + '"><span class="bs">' + esc(x.s) + (x.link ? ' ' + (fi + 1) : '') + '</span>', box);
+    return rng('brs' + i, nv => { val[i] = nv; if (x.link && !syncing) touched = true; draw(); }, nv => sg(nv, 1, '%'));
+  });
+  function draw(){
+    const sum = val.reduce((a, b) => a + b, 0) / 100, end = f0 * Math.pow(1 + sum, yrs);
+    const imp = impG(price, v.w / 100, v.g / 100), need = f0 * Math.pow(1 + imp, yrs);
+    const dl = Math.abs(sum) > 1e-9 ? val.map(g => (end - f0) * (g / 100) / sum) : val.map(g => f0 * g / 100 * yrs);
+    clear(svg);
+    let run = f0, peak = f0; dl.forEach(x => { run += x; peak = Math.max(peak, run); });
+    const x0 = 70, x1 = 950, yb = 300, top = Math.max(end, need, peak) * 1.14, y = lin(0, top, yb, 14);
+    const st = top > 40 ? 10 : 5, tk = []; for (let t = 0; t <= top; t += st) tk.push(t);
+    gridY(svg, x0, x1, y, tk, t => '$' + t);
+    const n = dl.length + 2, bw = (x1 - x0) / n, w = bw * .62;
+    const cx = i => x0 + i * bw + bw / 2;
+    function bar(i, a0, a1, fill, lab, txt, tip){
+      const r = S('rect', {x: cx(i) - w / 2, y: y(Math.max(a0, a1)), width: w, height: Math.max(2, Math.abs(y(a0) - y(a1))), fill}, svg);
+      T('text', {x: cx(i), y: yb + 24, 'text-anchor': 'middle', class: 'axl', style: 'font-size:15px'}, lab, svg);
+      T('text', {x: cx(i), y: y(Math.max(a0, a1)) - 9, 'text-anchor': 'middle', class: i === 0 || i === n - 1 ? 'dlb' : 'dl', style: 'font-size:16px'}, txt, svg);
+      hov(r, sl, () => tip);
+    }
+    bar(0, 0, f0, C.navy, '2025', '$' + f0.toFixed(2), '<b>2025 actual</b>: $' + f0.toFixed(2) + ' of free cash flow per share (Bloomberg)');
+    let acc = f0;
+    dl.forEach((x, i) => {
+      const a0 = acc, a1 = acc + x;
+      S('line', {x1: cx(i) + w / 2, x2: cx(i + 1) - w / 2, y1: y(a0), y2: y(a0), stroke: C.grey, 'stroke-width': 1, 'stroke-dasharray': '3 3'}, svg);
+      bar(i + 1, a0, a1, x >= 0 ? C.steel : C.bad, d.d[i].n, (x >= 0 ? '+' : '−') + '$' + Math.abs(x).toFixed(2), '<b>' + esc(d.d[i].n) + '</b>: ' + sg(val[i], 1, '%') + ' a year adds ' + (x >= 0 ? '+' : '−') + '$' + Math.abs(x).toFixed(2) + ' a share by 2029');
+      acc = a1;
+    });
+    S('line', {x1: cx(n - 2) + w / 2, x2: cx(n - 1) - w / 2, y1: y(acc), y2: y(acc), stroke: C.grey, 'stroke-width': 1, 'stroke-dasharray': '3 3'}, svg);
+    bar(n - 1, 0, end, C.navy, '2029E', '$' + end.toFixed(2), '<b>2029 estimate</b>: $' + end.toFixed(2) + ', ' + sg(sum * 100, 1, '%') + ' a year');
+    S('line', {x1: x0, x2: x1, y1: y(need), y2: y(need), stroke: C.gold, 'stroke-width': 3, 'stroke-dasharray': '9 6'}, svg);
+    const ly = y(need) - 10 < 30 ? y(need) + 24 : y(need) - 10;
+    T('text', {x: cx(1) - w / 2, y: ly, class: 'dlb', style: 'fill:#7A4E10;font-size:16px'}, 'What the price needs by 2029: $' + need.toFixed(2) + ' (' + (imp * 100).toFixed(1) + '% a year)', svg);
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
+    const gap = sum * 100 - imp * 100, good = gap >= 0;
+    $('#brKv', sl).innerHTML = '<div class="hi" style="grid-column:1/-1"><span>Free cash flow per share, 2029E</span><b>$' + end.toFixed(2) + '</b><i>from $' + f0.toFixed(2) + ' in 2025 · ' + sg((end / need - 1) * 100, 0, '%') + ' vs what the price needs</i></div>' +
+      '<div><span>Our drivers add up to</span><b>' + sg(sum * 100, 1, '%') + '</b><i>a year</i></div><div><span>The price needs</span><b>' + (imp * 100).toFixed(1) + '%</b><i>a year (reverse DCF)</i></div>' +
+      '<div style="grid-column:1/-1;border-color:' + (good ? C.good : C.bad) + '"><span>Gap</span><b style="color:' + (good ? C.good : C.bad) + '">' + sg(gap, 1, ' pts') + '</b><i>' + (good ? 'our drivers beat what the price assumes' : 'the price already assumes more than our drivers') + '</i></div>';
+  }
+  draw();
+  return { enter(){ if (!touched && A.fcastBlend != null && Math.abs(r1(A.fcastBlend) - val[0]) > .04){ syncing = true; ctl[0].set(r1(A.fcastBlend)); syncing = false; } } };
+};
+
+/* ---- pre-mortem: three stories, their odds, and 100 possible futures ---- */
+INIT.premortem = sl => {
+  const d = D.premortem, box = $('#pmOdds', sl), cards = $$('.flip.pm', sl);
+  samp(sl, d.sample);
+  cards.forEach(b => b.addEventListener('click', () => { const on = !b.classList.contains('on'); b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }));
+  const p = d.p.slice();
+  const odds = cards.map(c => { const o = H('span', {class: 'pmo'}, '<b>0%</b><span>odds by 2029</span>'); const f = $('.ff', c); f.insertBefore(o, $('.hint', f)); return $('b', o); });
+  p.forEach((v, i) => { H('div', {class: 'ctl'}, '<label for="pmp' + i + '">Story ' + (i + 1) + ' <output id="pmp' + i + 'o"></output></label><input type="range" id="pmp' + i + '" min="0" max="60" step="5" value="' + v + '">', box); rng('pmp' + i, nv => { p[i] = nv; draw(); }, nv => nv + '%'); });
+  const res = H('div', {class: 'pmres'}, '<span class="eyebrow">At least one story happens</span><div class="big" id="pmAny">0%</div><div class="pmdots" aria-hidden="true"></div><p class="xs muted" id="pmRead"></p>', box);
+  const dots = []; for (let k = 0; k < 100; k++) dots.push(H('i', null, null, $('.pmdots', res)));
+  const sc = A.idx('scen');
+  const go = H('button', {type: 'button', class: 'btn sm', style: 'align-self:flex-start;margin-top:auto'}, 'Priced in the bear case: slide ' + (sc + 1) + ' →', box);
+  go.addEventListener('click', () => A.go(sc));
+  function draw(){
+    const any = (1 - p.reduce((a, v) => a * (1 - v / 100), 1)) * 100, k = Math.round(any);
+    $('#pmAny', res).textContent = k + '%';
+    odds.forEach((o, i) => { o.textContent = p[i] + '%'; });
+    dots.forEach((e, i) => e.classList.toggle('on', i < k));
+    $('#pmRead', res).textContent = 'In ' + k + ' of 100 possible 2029s, at least one story happens. Assumes the stories are independent.';
+  }
+  draw();
+};
+
+/* ---- close: the call and the scorecard ---- */
+INIT.close = sl => {
+  const P = window.PITCH, band = $('#clBand', sl), t = $('#clTab', sl);
+  band.innerHTML = '<div class="cr">' + F(P.rating, 'BUY') + '</div><div class="cn"><span class="clogo cc">' + A.logo() + '</span><b>' + esc(P.company) + '</b><span>' + esc(P.exchange) + ': ' + esc(P.ticker) + '</span></div>' +
+    [['Price', A.kval('price'), '$ price'], ['Target', A.kval('target'), '$ target'], ['Upside', A.kval('upside'), 'x%'], ['Horizon', P.horizon, 'Horizon'], ['Position', P.position, 'x% of sleeve']].map(x => '<div class="cs"><span>' + x[0] + '</span><b>' + F(x[1], x[2]) + '</b></div>').join('');
+  t.innerHTML = '<thead><tr><th style="width:30%">Reason</th><th>What we expect</th><th>Signal and date</th><th>We sell if</th></tr></thead><tbody>' + P.pillars.map((p, i) =>
+    '<tr class="click" data-go="' + esc(p.go) + '"><td><div class="scr"><span class="scb">' + (i + 1) + '</span><span><b>' + F(p.h, 'Reason ' + (i + 1) + ': headline') + '</b><em>Evidence: slide ' + (A.idx(p.go) + 1) + ' →</em></span></div></td><td>' + F(p.expect, 'the number we expect, and by when') + '</td><td>' + F(p.signal, 'the report or data point, with its date') + '</td><td>' + F(p.sell, 'the tripwire') + '</td></tr>').join('') + '</tbody>';
+  $$('tr.click', t).forEach(r => r.addEventListener('click', () => { const g = A.idx(r.dataset.go); if (g >= 0) A.go(g); }));
+};
+
+/* ---- covers: team lists ---- */
+function teamList(el, cls){ ['G', 'A', 'D', 'R', 'X'].forEach(k => { const o = window.OWNERS[k]; H('div', null, '<b>' + esc(o.n) + (k === 'A' && !o.last ? ' <span class="fill">[last name]</span>' : '') + '</b><span>' + esc(o.r) + '</span>', el); }); }
+
+/* ---- backup: comps and sources ---- */
+INIT.comps = sl => {
+  const d = D.comps, t = $('#compsTab', sl);
+  srcok(sl, 'Linde and sector: Bloomberg');
+  let key = 2, dir = 1;
+  const val = (r, k) => r[k] == null ? null : r[k];
+  function draw(){
+    const rows = d.rows.slice().sort((a, b) => { if (key === 0) return String(a[0]).localeCompare(b[0]) * dir; const va = val(a, key), vb = val(b, key); if (va == null && vb == null) return 0; if (va == null) return 1; if (vb == null) return -1; return (vb - va) * dir; });
+    t.innerHTML = '<thead><tr>' + d.cols.map((c, i) => '<th class="' + (i ? 'n' : '') + '"><button type="button" data-k="' + i + '">' + esc(c) + (i === key ? (dir > 0 ? ' ↓' : ' ↑') : '') + '</button></th>').join('') + '</tr></thead><tbody>' + rows.map(r => '<tr' + (r[0].indexOf('Linde') === 0 ? ' class="on"' : '') + '>' + r.map((v, i) => '<td class="' + (i ? 'n' : '') + '">' + (i === 0 ? '<b>' + esc(v) + '</b>' : v == null ? '<span class="fill">[pull]</span>' : v.toFixed(1) + d.fmt[i]) + '</td>').join('') + '</tr>').join('') + '</tbody>';
+    $$('th button', t).forEach(b => b.addEventListener('click', () => { const k = +b.dataset.k; if (k === key) dir = -dir; else { key = k; dir = 1; } draw(); }));
+  }
+  draw();
+};
+INIT.sources = sl => {
+  const t = $('#srcTab', sl);
+  t.innerHTML = '<thead><tr><th>#</th><th>Source</th><th>Date</th><th>Freshness</th><th>Supports</th></tr></thead><tbody>' + D.sources.map(r => '<tr>' + r.map((v, i) => '<td' + (i === 0 ? ' style="font-weight:700;color:#0B417D"' : '') + '>' + esc(v).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</td>').join('') + '</tr>').join('') + '</tbody>';
+};
+
+/* boot once the DOM is ready */
+function start(){
+  teamList(document.getElementById('coverTeam'));
+  teamList(document.getElementById('qaTeam'));
+  A.boot();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+
