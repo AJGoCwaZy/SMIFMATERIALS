@@ -4,7 +4,7 @@ The interactive slide deck for the FIU SMIF Materials team's pitch on Linde plc 
 
 **Live deck:** `[GitHub Pages link goes here once the repo is set up]`
 **Fill sheet (words and numbers):** https://docs.google.com/spreadsheets/d/1L23-LMUrW2D_asj35BNkO9VRB62ysRj2feFtmR7NBQA/edit
-**SharePoint (files, Bloomberg exports, PDFs):** https://fiudit-my.sharepoint.com/:f:/g/personal/dvazq069_fiu_edu/IgA2ZMz_4xK1RoDeYfS9NOo-AZGBYZmDKDChcC4GeKfFCak?e=hTgogL
+**Google Drive (files, Bloomberg exports, PDFs):** https://drive.google.com/drive/folders/1KYzA6_Ho54VGtIHFcqJoHiwdiI2oOjsL
 
 ---
 
@@ -18,9 +18,18 @@ The deck is one HTML file built from a few source files. Before this repo, every
 |---|---|---|
 | Words or numbers on a slide (a headline, a gold [placeholder], a data point) | **The fill sheet** | It's the easiest place, and every number gets a source and a date. It goes into the deck every Wednesday. |
 | Layout, a chart, the order of slides, a new or removed slide | **This repo**, through a pull request | These are code changes, so Alexander or Gabriel reviews them first. |
-| A file you pulled (Bloomberg export, PDF, screenshot) | **SharePoint**, in your own folder | GitHub is for the deck's code, not research files. |
+| A file you pulled (Bloomberg export, PDF, screenshot) | **The shared Google Drive folder**, in your own subfolder | GitHub is for the deck's code, not research files. Drive is also where everyone's Claude can read them. |
 
 If you're not sure, post in the group chat: **"Slide #, what to change, why."**
+
+### Research files on Google Drive
+
+All research files go in the shared Google Drive folder, not in this repo and not on SharePoint. Ask Alexander to share the folder with your Gmail.
+
+- **Upload:** drag files into your own subfolder (from your laptop or the Google Drive phone app). Filings, earnings transcripts and other docs everyone uses go in `Shared`.
+- **Name files clearly:** `LIN 10-Q Q3 2026.pdf`, not `download (3).pdf`.
+- **Convert Excel exports:** when you upload a Bloomberg `.xlsx`, open it with Google Sheets and save it as a Sheet. Claude reads Sheets more reliably than raw Excel files.
+- **Let your Claude read the folder:** in Claude, go to **Settings > Connectors**, connect **Google Drive** and sign in with the Gmail the folder is shared with. Then you can ask things like "summarize the Q3 10-Q in our SMIF Drive folder."
 
 ---
 
