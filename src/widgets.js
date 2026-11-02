@@ -64,10 +64,10 @@ window.DATA = {
     { n: 'Other', s: 10, g: null, d: false, u: 'Aerospace, space, water treatment, labs and more.' }
   ]},
   cmix: { sample: false, segs: [
-    { n: 'On-site', v: 23.8, b: 8.1, yrs: '15-20 yr', long: true, c: '#0B417D', p: 'Take-or-pay minimums and energy pass-through. The most protected revenue. Up from 22.2% of sales in 2019.' },
-    { n: 'Merchant bulk', v: 29.9, b: 10.2, yrs: '3-7 yr', long: false, c: '#3E6FB0', p: 'Liquid by truck. Prices reset every few years; energy is passed on with a lag.' },
-    { n: 'Packaged', v: 34.9, b: 11.9, yrs: '1-3 yr', long: false, c: '#9FB6D4', p: 'Cylinders for small customers. Most sensitive to the industrial cycle, but the largest piece.' },
-    { n: 'Engineering and other', v: 11.3, b: 3.9, yrs: 'per project', long: false, c: '#B7791F', p: 'Engineering ($2.3B in 2025) builds plants for others: lumpy and lower margin, but it wins future gas contracts.' }
+    { n: 'On-site', v: 23.8, b: 8.1, yrs: '15-20 yr', long: true, c: '#6B432B', p: 'Take-or-pay minimums and energy pass-through. The most protected revenue. Up from 22.2% of sales in 2019.' },
+    { n: 'Merchant bulk', v: 29.9, b: 10.2, yrs: '3-7 yr', long: false, c: '#A57C61', p: 'Liquid by truck. Prices reset every few years; energy is passed on with a lag.' },
+    { n: 'Packaged', v: 34.9, b: 11.9, yrs: '1-3 yr', long: false, c: '#C9B3A3', p: 'Cylinders for small customers. Most sensitive to the industrial cycle, but the largest piece.' },
+    { n: 'Engineering and other', v: 11.3, b: 3.9, yrs: 'per project', long: false, c: '#2B5780', p: 'Engineering ($2.3B in 2025) builds plants for others: lumpy and lower margin, but it wins future gas contracts.' }
   ]},
   tam: { sample: true, themes: [
     { n: 'AI and chips', st: [ ['Chipmaker capex, 2032 (BI core case)', 262], ['Electronics gases spend', 18], ['Share we can serve', 6], ['Our revenue today', 3.1] ], g: '7.5% a year (BI core case)', how: ['Headline: Bloomberg Intelligence chip capex outlook (register #5).', 'Gas slice: [electronics gases market, Linde and Air Liquide disclosures].', 'Our share: [fabs within Linde\u2019s pipeline reach].', 'Revenue: about 9% of Linde\u2019s 2025 sales of $34.0B (register #7, Bloomberg).'] },
@@ -110,9 +110,9 @@ window.DATA = {
   pass: { energyShare: 30, otherCost: 45, modes: [ { k: 'on', n: 'On-site', pt: 1, d: 'Full pass-through, immediately.' }, { k: 'mer', n: 'Merchant bulk', pt: 0.6, d: 'About 60% passed on in year one; the rest at the next price reset.' }, { k: 'pkg', n: 'Packaged', pt: 0, d: 'Nothing passed on until list prices are raised.' } ] },
   /* Bloomberg FA, pulled Oct 8, 2026. GAAP figures include Praxair merger amortization. */
   marg: { modes: {
-    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#0B417D', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] } ] },
-    om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#9FB6D4', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#0B417D', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
-    roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#9FB6D4', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#0B417D', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
+    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#6B432B', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] } ] },
+    om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#6B432B', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
+    roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#6B432B', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
   }},
   uses: { sample: false, items: [ ['Operations', 10.35], ['Capex', -5.26], ['Dividends', -2.81], ['Buybacks', -4.58] ] },
   risks: { sample: true, r: [
@@ -242,9 +242,9 @@ INIT.question = sl => {
     const x = X(clamp(q[0], 0, 20)), up = q[3] < 0;
     S('line', {x1: x, x2: x, y1: yl, y2: up ? yl - 34 : yl + 34, stroke: q[2], 'stroke-width': 2}, svg);
     S('circle', {cx: x, cy: yl, r: q[2] === C.navy || q[2] === C.gold ? 11 : 8, fill: q[2], stroke: '#fff', 'stroke-width': 3}, svg);
-    T('text', {x: x, y: up ? yl - 42 : yl + 52, 'text-anchor': 'middle', class: 'dlb', style: 'font-size:17px;fill:' + (q[2] === C.gold ? '#7A4E10' : q[2])}, q[1], svg);
+    T('text', {x: x, y: up ? yl - 42 : yl + 52, 'text-anchor': 'middle', class: 'dlb', style: 'font-size:17px;fill:' + (q[2] === C.gold ? '#2B5780' : q[2])}, q[1], svg);
   });
-  if (ours == null){ T('text', {x: X(19.6), y: yl - 22, 'text-anchor': 'end', class: 'dl', style: 'fill:#7A4E10;font-size:15px'}, '[We expect: our number lands here]', svg); }
+  if (ours == null){ T('text', {x: X(19.6), y: yl - 22, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780;font-size:15px'}, '[We expect: our number lands here]', svg); }
   // roadmap from the section list
   const road = $('#qRoad', sl);
   A.SECS.filter(sc => ['Open', 'Close', 'Backup'].indexOf(sc.n) < 0).forEach((sc, n) => {
@@ -281,7 +281,7 @@ INIT.stab = sl => {
       T('text', {x: (x0 + x1) / 2, y: y0 + rows.length * rh + 56, 'text-anchor': 'middle', class: 'axt'}, 'Range of yearly adjusted EPS growth, 2007-2020', svg);
       rows.forEach((r, i) => {
         const y = y0 + i * rh + rh / 2;
-        T('text', {x: x0 - 16, y: y + 6, 'text-anchor': 'end', class: 'axl', style: i === 0 ? 'fill:#0B417D;font-weight:700' : ''}, r.n, svg);
+        T('text', {x: x0 - 16, y: y + 6, 'text-anchor': 'end', class: 'axl', style: i === 0 ? 'fill:#6B432B;font-weight:700' : ''}, r.n, svg);
         const bar = S('rect', {x: x(r.lo), y: y - 20, width: 0, height: 40, fill: i === 0 ? C.navy : C.light}, svg);
         tween(0, x(r.hi) - x(r.lo), 700 + i * 120, w => bar.setAttribute('width', w));
         T('text', {x: x(r.lo) - 8, y: y + 6, 'text-anchor': 'end', class: 'dl'}, '−' + Math.abs(r.lo) + '%', svg);
@@ -295,7 +295,7 @@ INIT.stab = sl => {
       T('text', {x: (x0 + x1) / 2, y: y0 + rows.length * rh + 56, 'text-anchor': 'middle', class: 'axt'}, 'Sales volume change, worst Covid quarter (2Q20)', svg);
       rows.forEach((r, i) => {
         const y = y0 + i * rh + rh / 2;
-        T('text', {x: x0 - 16, y: y + 6, 'text-anchor': 'end', class: 'axl', style: i === 0 ? 'fill:#0B417D;font-weight:700' : ''}, r.n, svg);
+        T('text', {x: x0 - 16, y: y + 6, 'text-anchor': 'end', class: 'axl', style: i === 0 ? 'fill:#6B432B;font-weight:700' : ''}, r.n, svg);
         const bar = S('rect', {x: x(0), y: y - 24, width: 0, height: 48, fill: i === 0 ? C.navy : C.light}, svg);
         tween(0, x(0) - x(r.v), 700, w => { bar.setAttribute('width', w); bar.setAttribute('x', x(0) - w); });
         T('text', {x: x(r.v) - 10, y: y + 6, 'text-anchor': 'end', class: 'dl'}, r.l, svg);
@@ -309,7 +309,7 @@ INIT.stab = sl => {
 
 /* ---- 3D model slides ---- */
 let GS = null, gsTried = false, gsSlide = null;
-const FLOWC = { air: ['#7F9CC4', 'Air in'], energy: ['#B7791F', 'Power'], gas: ['#0B417D', 'Gas out'], cash: ['#2E7D4F', 'Cash in'], passthru: ['#B7791F', 'Pass-through'] };
+const FLOWC = { air: ['#7F9CC4', 'Air in'], energy: ['#2B5780', 'Power'], gas: ['#6B432B', 'Gas out'], cash: ['#2E7D4F', 'Cash in'], passthru: ['#2B5780', 'Pass-through'] };
 const STOPFLOWS = { site: {air: 1, gas: 1, energy: 1, cash: 0, passthru: 0}, make: {air: 1, gas: 1, energy: 1, cash: 0, passthru: 0}, deliver: {air: 0, gas: 1, energy: 0, cash: 0, passthru: 0}, buyers: {air: 0, gas: 1, energy: 0, cash: 0, passthru: 0}, money: {air: 0, gas: 0, energy: 1, cash: 1, passthru: 1} };
 const g3hooks = new Map();
 function gas(){
@@ -380,7 +380,7 @@ INIT.g3 = sl => {
 /* ---- market structure ---- */
 INIT.structure = sl => {
   const d = D.structure, st = $('#tamStack', sl), note = $('#tamNote', sl);
-  const a = H('div', {style: 'background:#0B417D;flex-grow:76'}, '', st), b = H('div', {style: 'background:#C9D8EC;color:#1B2A3A;flex-grow:24'}, '', st);
+  const a = H('div', {style: 'background:#6B432B;flex-grow:76'}, '', st), b = H('div', {style: 'background:#EDDDD3;color:#1A1A1A;flex-grow:24'}, '', st);
   function draw(t){
     t = +t; const sh = d.big3 / t * 100;
     a.style.flexGrow = String(d.big3); b.style.flexGrow = String(t - d.big3);
@@ -413,7 +413,7 @@ INIT.moat = sl => {
     const row = H('div', {style: 'display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:center'}, '<span style="font:600 18px/1.2 var(--sans)">' + esc(r.n) + '</span>', rowsBox);
     const bars = H('div', {style: 'display:flex;flex-direction:column;gap:3px'}, null, row);
     r.v.forEach((v, pi) => {
-      const t = H('div', {style: 'position:relative;height:13px;background:#F2F6FB;cursor:pointer', title: names[pi]}, '<i style="position:absolute;left:0;top:0;bottom:0;width:0;transition:width .5s,background .2s"></i>', bars);
+      const t = H('div', {style: 'position:relative;height:13px;background:#F7F4EF;cursor:pointer', title: names[pi]}, '<i style="position:absolute;left:0;top:0;bottom:0;width:0;transition:width .5s,background .2s"></i>', bars);
       t.addEventListener('click', () => { $('#moatH', sl).textContent = r.n; $('#moatB', sl).innerHTML = '<p><b>' + esc(names[pi]) + ':</b> score ' + v + ' of 5 <span class="samp">Sample score</span></p><p>Raw value: ' + FL(r.raw[pi]) + '</p>'; });
       cells.push({t, v, pi});
     });
@@ -489,7 +489,7 @@ INIT.endm = sl => {
 INIT.cmix = sl => {
   const d = D.cmix, st = $('#mixStack', sl), lg = $('#mixLegend', sl);
   if (!d.sample) srcok(sl, 'Bloomberg FA, 2025', '.card .ch .samp');
-  const segs = d.segs.map((s2, i) => { const el = H('div', {style: 'background:' + s2.c + ';flex-grow:' + s2.v + (s2.c === '#9FB6D4' ? ';color:#1B2A3A' : '')}, '<span>' + esc(s2.n) + '</span><b>' + s2.v + '%</b>', st); el.addEventListener('click', () => sel(i)); H('span', null, '<i style="display:inline-block;width:14px;height:14px;background:' + s2.c + ';vertical-align:-2px;margin-right:6px"></i>' + esc(s2.n) + ' · ' + esc(s2.yrs), lg); return el; });
+  const segs = d.segs.map((s2, i) => { const el = H('div', {style: 'background:' + s2.c + ';flex-grow:' + s2.v + (s2.c === '#C9B3A3' ? ';color:#1A1A1A' : '')}, '<span>' + esc(s2.n) + '</span><b>' + s2.v + '%</b>', st); el.addEventListener('click', () => sel(i)); H('span', null, '<i style="display:inline-block;width:14px;height:14px;background:' + s2.c + ';vertical-align:-2px;margin-right:6px"></i>' + esc(s2.n) + ' · ' + esc(s2.yrs), lg); return el; });
   const locked = d.segs.filter(x => x.long).reduce((a, x) => a + x.v, 0);
   tween(0, locked, 900, v => { $('#mixLocked', sl).textContent = v.toFixed(1) + '%'; });
   function sel(i){ segs.forEach((el, k) => el.style.opacity = k === i ? 1 : .5); const x = d.segs[i]; $('#mixH', sl).textContent = x.n + ' · ' + x.yrs; $('#mixNote', sl).innerHTML = '<p>' + esc(x.p) + '</p><p><b>' + x.v + '% of sales, $' + x.b + 'B in 2025.</b></p>'; }
@@ -516,7 +516,7 @@ INIT.tam = sl => {
       const r = S('rect', {x: cx, y: y + 6, width: 0, height: 44, fill: [C.sky, C.light, C.steel, C.navy][k]}, svg);
       tween(0, w, 600 + k * 120, ww => { r.setAttribute('width', ww); r.setAttribute('x', cx - ww / 2); });
       T('text', {x: cx, y: y + 36, 'text-anchor': 'middle', class: 'dlb', style: k >= 2 ? 'fill:#fff' : ''}, '$' + (s[1] >= 10 ? Math.round(s[1]) : s[1]) + 'B', svg);
-      if (k < st.length - 1){ const c = st[k + 1][1] / s[1] * 100; T('text', {x: cx, y: y + 76, 'text-anchor': 'middle', class: 'ax', style: 'fill:#3E6FB0;font-weight:600'}, '↓ ' + (c >= 10 ? Math.round(c) : c.toFixed(1)) + '% of this', svg); }
+      if (k < st.length - 1){ const c = st[k + 1][1] / s[1] * 100; T('text', {x: cx, y: y + 76, 'text-anchor': 'middle', class: 'ax', style: 'fill:#A57C61;font-weight:600'}, '↓ ' + (c >= 10 ? Math.round(c) : c.toFixed(1)) + '% of this', svg); }
     });
     const share = st[3][1] / st[1][1] * 100;
     $('#tamKv', sl).innerHTML = '<div class="hi"><span>' + esc(tk) + ' revenue today</span><b>$' + st[3][1] + 'B</b><i>' + esc(t.n) + '</i></div><div><span>Share of gas slice</span><b>' + (share >= 10 ? Math.round(share) : share.toFixed(1)) + '%</b><i>' + esc(st[1][0].toLowerCase()) + '</i></div><div style="grid-column:1/-1"><span>Market growth</span><b style="font-size:22px">' + F(t.g.indexOf('[') === 0 ? null : t.g, t.g.replace(/[\[\]]/g, '')) + '</b></div>';
@@ -584,9 +584,9 @@ INIT.next = sl => {
   const x0 = 70, x1 = 940, yt = 20, yb = 380, X = lin(0, 10, x0, x1), Y = lin(0, 1, yb, yt);
   // quadrants
   [[0, 5, .5, 1, 'Play it now', 'soon and big'], [5, 10, .5, 1, 'Build the option', 'big but later'], [0, 5, 0, .5, 'Nice extra', 'soon but small'], [5, 10, 0, .5, 'Watch', 'small and later']].forEach((q, k) => {
-    S('rect', {x: X(q[0]), y: Y(q[3]), width: X(q[1]) - X(q[0]), height: Y(q[2]) - Y(q[3]), fill: k === 0 ? '#E6EDF6' : k === 1 ? '#F2F6FB' : k === 2 ? '#F7F9FC' : '#FFFFFF', stroke: C.line}, svg);
+    S('rect', {x: X(q[0]), y: Y(q[3]), width: X(q[1]) - X(q[0]), height: Y(q[2]) - Y(q[3]), fill: k === 0 ? '#F4EFE7' : k === 1 ? '#F7F4EF' : k === 2 ? '#FBF9F6' : '#FFFFFF', stroke: C.line}, svg);
     const left = k === 2, ly = k === 2 ? Y(q[2]) - 30 : Y(q[3]) + 24, lx = left ? X(q[0]) + 12 : X(q[1]) - 12, an = left ? 'start' : 'end';
-    T('text', {x: lx, y: ly, 'text-anchor': an, class: 'axl', style: 'fill:#3E6FB0;font-size:14px;letter-spacing:.08em;text-transform:uppercase'}, q[4], svg);
+    T('text', {x: lx, y: ly, 'text-anchor': an, class: 'axl', style: 'fill:#A57C61;font-size:14px;letter-spacing:.08em;text-transform:uppercase'}, q[4], svg);
     T('text', {x: lx, y: ly + 18, 'text-anchor': an, class: 'ax', style: 'font-size:13px'}, q[5], svg);
   });
   [[0, 'Now'], [2.5, '2-3 yrs'], [5, '5 yrs'], [7.5, '7-8 yrs'], [10, '10+ yrs']].forEach(t => T('text', {x: X(t[0]), y: yb + 22, 'text-anchor': 'middle', class: 'ax'}, t[1], svg));
@@ -637,7 +637,7 @@ INIT.backlog = sl => {
     [2026, 2027, 2028, 2029].forEach(yv => { S('line', {x1: x(yv), x2: x(yv), y1: y0, y2: y0 + P.length * rh, stroke: C.line}, gs); T('text', {x: x(yv), y: y0 + P.length * rh + 22, 'text-anchor': 'middle', class: 'ax'}, String(yv), gs); });
     P.forEach((p, i) => {
       const y = y0 + i * rh + rh / 2;
-      T('text', {x: x0 - 12, y: y + 5, 'text-anchor': 'end', class: 'ax', style: 'fill:#1B2A3A'}, p.n, gs);
+      T('text', {x: x0 - 12, y: y + 5, 'text-anchor': 'end', class: 'ax', style: 'fill:#1A1A1A'}, p.n, gs);
       S('line', {x1: x0, x2: x(p.y), y1: y, y2: y, stroke: MC[p.m] || C.steel, 'stroke-width': 3, 'stroke-dasharray': '2 5', 'stroke-linecap': 'round'}, gs);
       const c = S('circle', {cx: x(p.y), cy: y, r: 5 + Math.sqrt(p.c) / 5, fill: MC[p.m] || C.steel, stroke: '#fff', 'stroke-width': 2}, gs);
       c.style.cursor = 'pointer';
@@ -716,7 +716,7 @@ INIT.marg = sl => {
     let kv = '<div class="hi"><span>Linde, 2025</span><b>' + L[i25].toFixed(1) + '%</b><i>' + sg(L[i25] - L[0], 1, ' pts') + ' since 2019</i></div>';
     if (comp) kv += '<div><span>Gap to ' + esc(comp.n) + '</span><b>' + sg(L[i25] - comp.v[i25], 1, ' pts') + '</b><i>in 2025</i></div>';
     else kv += '<div><span>Consensus, 2027E</span><b>' + L[L.length - 1].toFixed(1) + '%</b><i>Bloomberg estimates</i></div>';
-    kv += '<div><span>Why GAAP is lower</span><i style="font-size:15px;line-height:1.35;color:#1B2A3A">GAAP numbers carry amortization from the 2018 Praxair merger: $0.9B in 2025, $1.9B in 2019. Linde’s own adjusted return on capital was 24.2% in 2025 (register #4).</i></div>';
+    kv += '<div><span>Why GAAP is lower</span><i style="font-size:15px;line-height:1.35;color:#1A1A1A">GAAP numbers carry amortization from the 2018 Praxair merger: $0.9B in 2025, $1.9B in 2019. Linde’s own adjusted return on capital was 24.2% in 2025 (register #4).</i></div>';
     $('#margKv', sl).innerHTML = kv;
   }
   pick($$('#margTabs .chip', sl), 'data-m', k => { m = k; draw(); });
@@ -741,7 +741,7 @@ INIT.capex = sl => {
     S('path', {d: d + ' L' + x(cum.length) + ' ' + y(0) + ' Z', fill: C.sky, opacity: .55}, svg);
     S('path', {d, fill: 'none', stroke: C.navy, 'stroke-width': 4, 'stroke-linejoin': 'round'}, svg);
     const pb = cum.findIndex(c => c >= 0);
-    if (pb > 0){ S('line', {x1: x(pb + 1), x2: x(pb + 1), y1: 10, y2: 270, stroke: C.gold, 'stroke-width': 2, 'stroke-dasharray': '5 4'}, svg); T('text', {x: x(pb + 1) + 6, y: 26, class: 'dl', style: 'fill:#7A4E10'}, 'Payback, year ' + (pb + 1), svg); }
+    if (pb > 0){ S('line', {x1: x(pb + 1), x2: x(pb + 1), y1: 10, y2: 270, stroke: C.gold, 'stroke-width': 2, 'stroke-dasharray': '5 4'}, svg); T('text', {x: x(pb + 1) + 6, y: 26, class: 'dl', style: 'fill:#2B5780'}, 'Payback, year ' + (pb + 1), svg); }
     S('rect', {x: x(0), y: 0, width: x(bld.v) - x(0), height: 280, fill: C.bad, opacity: .06}, svg); T('text', {x: x(0) + 6, y: 278, class: 'ax'}, 'Build', svg);
     for (let t = 0; t <= f.length; t += 5) T('text', {x: x(t), y: 296, 'text-anchor': 'middle', class: 'ax'}, 'yr ' + t, svg);
     const r = irr(f), tot = cum[cum.length - 1];
@@ -761,7 +761,7 @@ INIT.capex = sl => {
       const r = S('rect', {x: cl[2], y: y1, width: 105, height: Math.max(1, y0 - y1 - 2), fill: col}, su);
       hov(r, sl, () => '<b>' + esc(v[0]) + '</b>: $' + v[1].toFixed(1) + 'B');
       const dark = col === C.navy || col === C.steel || col === C.gold;
-      if (y0 - y1 > 34){ T('text', {x: cl[2] + 8, y: y1 + 18, class: 'ax', style: 'font-size:13px;font-weight:600;fill:' + (dark ? '#fff' : '#1B2A3A')}, v[0], su); T('text', {x: cl[2] + 8, y: y1 + 34, class: 'ax', style: 'font-size:13px;fill:' + (dark ? '#fff' : '#1B2A3A')}, '$' + v[1].toFixed(1) + 'B', su); }
+      if (y0 - y1 > 34){ T('text', {x: cl[2] + 8, y: y1 + 18, class: 'ax', style: 'font-size:13px;font-weight:600;fill:' + (dark ? '#fff' : '#1A1A1A')}, v[0], su); T('text', {x: cl[2] + 8, y: y1 + 34, class: 'ax', style: 'font-size:13px;fill:' + (dark ? '#fff' : '#1A1A1A')}, '$' + v[1].toFixed(1) + 'B', su); }
       else T('text', {x: cl[2] + 112, y: (y0 + y1) / 2 + 4, class: 'ax', style: 'font-size:12px'}, v[0] + ' $' + v[1].toFixed(1) + 'B', su);
       acc += v[1];
     });
@@ -804,8 +804,8 @@ INIT.implied = sl => {
     const vis = vals.filter(p => p[1] <= mx * 1.02);
     S('path', {d: vis.map((p, i) => (i ? 'L' : 'M') + gx(p[0]) + ' ' + y(p[1])).join(' '), fill: 'none', stroke: C.navy, 'stroke-width': 4}, svg);
     S('line', {x1: x0, x2: x1, y1: y(price), y2: y(price), stroke: C.gold, 'stroke-width': 2.5, 'stroke-dasharray': '7 5'}, svg);
-    T('text', {x: x0 + 8, y: y(price) - 8, class: 'dl', style: 'fill:#7A4E10'}, 'Price ≈' + usd(price), svg);
-    if (imp >= 0 && imp <= 15){ S('line', {x1: gx(imp), x2: gx(imp), y1: y(price), y2: yb, stroke: C.gold, 'stroke-width': 2}, svg); S('circle', {cx: gx(imp), cy: y(price), r: 8, fill: C.gold, stroke: '#fff', 'stroke-width': 2.5}, svg); T('text', {x: gx(imp), y: yb - 10, 'text-anchor': 'middle', class: 'dl', style: 'fill:#7A4E10'}, 'Market: ' + imp.toFixed(1) + '%', svg); }
+    T('text', {x: x0 + 8, y: y(price) - 8, class: 'dl', style: 'fill:#2B5780'}, 'Price ≈' + usd(price), svg);
+    if (imp >= 0 && imp <= 15){ S('line', {x1: gx(imp), x2: gx(imp), y1: y(price), y2: yb, stroke: C.gold, 'stroke-width': 2}, svg); S('circle', {cx: gx(imp), cy: y(price), r: 8, fill: C.gold, stroke: '#fff', 'stroke-width': 2.5}, svg); T('text', {x: gx(imp), y: yb - 10, 'text-anchor': 'middle', class: 'dl', style: 'fill:#2B5780'}, 'Market: ' + imp.toFixed(1) + '%', svg); }
     const vo = dcf(d.fcf0, ours / 100, d.years, w, g);
     if (vo <= mx){ S('line', {x1: gx(ours), x2: gx(ours), y1: y(vo), y2: yb, stroke: C.navy, 'stroke-width': 2, 'stroke-dasharray': '3 4'}, svg); S('circle', {cx: gx(ours), cy: y(vo), r: 9, fill: C.navy, stroke: '#fff', 'stroke-width': 2.5}, svg); const nearR = gx(ours) > x1 - 150; T('text', {x: gx(ours) + (nearR ? -14 : 14), y: y(vo) + (nearR ? -12 : 6), 'text-anchor': nearR ? 'end' : 'start', class: 'dlb'}, 'Slider: ' + usd(vo), svg); }
     S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
@@ -825,11 +825,11 @@ INIT.surface = sl => {
   // table
   const ws = [], gsv = []; for (let w = 6; w <= 10.001; w += .5) ws.push(+w.toFixed(1)); for (let g = 1.5; g <= 4.001; g += .5) gsv.push(+g.toFixed(1));
   let th = '<table class="dtab" style="font-size:17px"><thead><tr><th>WACC ↓ · growth →</th>' + gsv.map(g => '<th class="n">' + g.toFixed(1) + '%</th>').join('') + '</tr></thead><tbody>';
-  ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(11,65,125,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1B2A3A'; return '<td class="n" style="background:' + bg + ';color:' + fg + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
+  ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(107,67,43,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1A1A1A'; return '<td class="n" style="background:' + bg + ';color:' + fg + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
   tab.innerHTML = th + '</tbody></table>';
   let share = 0, tot = 0; for (let w = 6; w <= 10; w += .25) for (let g = 1.5; g <= 4; g += .125){ tot++; if (V(w, g) >= price) share++; }
   $('#sfKv', sl).innerHTML = '<div class="hi"><span>Value at sample inputs</span><b>' + usd(base) + '</b><i>FCF growth ' + d.g1 + '% (2019-25 pace), WACC ' + d.w + '%, long-run ' + d.g + '%</i></div><div><span>Share of inputs above price</span><b>' + Math.round(share / tot * 100) + '%</b><i>of the grid sits above ' + usd(price) + '</i></div>';
-  $('#sfRead', sl).innerHTML = '<b>Gold dot:</b> the sample inputs. <b>Gold plane:</b> the price, about ' + usd(price) + '.';
+  $('#sfRead', sl).innerHTML = '<b>Blue dot:</b> the sample inputs. <b>Blue plane:</b> the price, about ' + usd(price) + '.';
   let three = null, mode = '3d';
   const b3 = $('#sf3', sl), b2 = $('#sf2', sl);
   function setMode(m){ mode = m; b3.classList.toggle('on', m === '3d'); b2.classList.toggle('on', m === '2d'); tab.classList.toggle('hidden', m !== '2d'); if (three){ if (m === '3d') three.start(); else three.stop(); } }
@@ -839,38 +839,38 @@ INIT.surface = sl => {
     const THREE = window.THREE; if (!THREE || !THREE.OrbitControls) return null;
     let renderer; try { renderer = new THREE.WebGLRenderer({antialias: true}); } catch (e){ return null; }
     if (!renderer || !renderer.getContext()) return null;
-    renderer.setClearColor(0xF2F6FB, 1); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setClearColor(0xFAF8F4, 1); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     if ('outputEncoding' in renderer) renderer.outputEncoding = THREE.sRGBEncoding;
     host.appendChild(renderer.domElement); renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;z-index:1';
-    const scene = new THREE.Scene(); scene.background = new THREE.Color(0xF2F6FB);
+    const scene = new THREE.Scene(); scene.background = new THREE.Color(0xFAF8F4);
     const cam = new THREE.PerspectiveCamera(36, 1, .1, 300); cam.position.set(19, 15, 21);
     const ctr = new THREE.OrbitControls(cam, renderer.domElement); ctr.target.set(0, 2.4, 0); ctr.enableDamping = true; ctr.dampingFactor = .08; ctr.minDistance = 14; ctr.maxDistance = 55; ctr.maxPolarAngle = 1.45; ctr.update();
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x8FA6C4, .6));
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xB9A898, .6));
     const sun = new THREE.DirectionalLight(0xffffff, .95); sun.position.set(10, 22, 12); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, {left: -14, right: 14, top: 14, bottom: -14}); scene.add(sun);
     const XW = 12, ZW = 9, NX = 48, NZ = 40, vMax = V(6, 4), YS = 9 / vMax;
     const xOf = w => (w - 8) / 4 * XW, zOf = g => -(g - 2.75) / 2.5 * ZW;
     const pos = [], col = [], idx = [];
-    const cLo = new THREE.Color(0xDCE6F3), cMid = new THREE.Color(0x6F95C8), cHi = new THREE.Color(0x0B417D), cBad = new THREE.Color(0xE7B9B2);
+    const cLo = new THREE.Color(0xEFE3D9), cMid = new THREE.Color(0xB08566), cHi = new THREE.Color(0x6B432B), cBad = new THREE.Color(0xE7B9B2);
     for (let j = 0; j <= NZ; j++) for (let i = 0; i <= NX; i++){ const w = 6 + i / NX * 4, g = 1.5 + j / NZ * 2.5, v = V(w, g); pos.push(xOf(w), v * YS, zOf(g)); const c = new THREE.Color(); if (v < price) c.copy(cBad).lerp(cLo, v / price); else c.copy(cMid).lerp(cHi, Math.min(1, (v - price) / price)); col.push(c.r, c.g, c.b); }
     for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++){ const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, e = c + 1; idx.push(a, c, b, b, c, e); }
     const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); geo.setIndex(idx); geo.computeVertexNormals();
     const surf = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({vertexColors: true, side: THREE.DoubleSide, roughness: .6, metalness: .04})); surf.castShadow = true; surf.receiveShadow = true; scene.add(surf);
-    const rowMat = new THREE.LineBasicMaterial({color: 0x234E70, transparent: true, opacity: .3});
+    const rowMat = new THREE.LineBasicMaterial({color: 0x8E5939, transparent: true, opacity: .3});
     for (let j = 0; j <= NZ; j += 8){ const pts = []; for (let i = 0; i <= NX; i++){ const w = 6 + i / NX * 4, g = 1.5 + j / NZ * 2.5; pts.push(new THREE.Vector3(xOf(w), V(w, g) * YS + .02, zOf(g))); } scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), rowMat)); }
     for (let i = 0; i <= NX; i += 6){ const pts = []; for (let j = 0; j <= NZ; j++){ const w = 6 + i / NX * 4, g = 1.5 + j / NZ * 2.5; pts.push(new THREE.Vector3(xOf(w), V(w, g) * YS + .02, zOf(g))); } scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), rowMat)); }
-    const plane = new THREE.Mesh(new THREE.PlaneGeometry(XW + 1.2, ZW + 1.2), new THREE.MeshBasicMaterial({color: 0xB7791F, transparent: true, opacity: .28, side: THREE.DoubleSide, depthWrite: false}));
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry(XW + 1.2, ZW + 1.2), new THREE.MeshBasicMaterial({color: 0x2B5780, transparent: true, opacity: .28, side: THREE.DoubleSide, depthWrite: false}));
     plane.rotation.x = -Math.PI / 2; plane.position.y = price * YS; scene.add(plane);
-    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(plane.geometry), new THREE.LineBasicMaterial({color: 0xB7791F})); edge.rotation.x = -Math.PI / 2; edge.position.y = price * YS; scene.add(edge);
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({color: 0xE6EDF6, roughness: 1})); floor.rotation.x = -Math.PI / 2; floor.position.y = -.02; floor.receiveShadow = true; scene.add(floor);
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(.38, 24, 16), new THREE.MeshStandardMaterial({color: 0xB7791F, emissive: 0x3A2A12})); dot.position.set(xOf(d.w), base * YS + .3, zOf(d.g)); dot.castShadow = true; scene.add(dot);
-    const stem = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, base * YS + .3, 8), new THREE.MeshBasicMaterial({color: 0xB7791F})); stem.position.set(xOf(d.w), (base * YS + .3) / 2, zOf(d.g)); scene.add(stem);
-    function sprite(text, o){ o = o || {}; const cv = document.createElement('canvas'), g = cv.getContext('2d'), fs = 64; g.font = (o.w || 600) + ' ' + fs + 'px "IBM Plex Sans", Arial, sans-serif'; const tw = Math.ceil(g.measureText(text).width) + 44; cv.width = tw; cv.height = fs + 36; g.font = (o.w || 600) + ' ' + fs + 'px "IBM Plex Sans", Arial, sans-serif'; g.textBaseline = 'middle'; if (o.bg){ g.fillStyle = o.bg; g.fillRect(0, 0, tw, cv.height); } g.fillStyle = o.c || '#1B2A3A'; g.fillText(text, 22, cv.height / 2 + 2); const tx = new THREE.CanvasTexture(cv); tx.minFilter = THREE.LinearFilter; if ('encoding' in tx) tx.encoding = THREE.sRGBEncoding; const sp = new THREE.Sprite(new THREE.SpriteMaterial({map: tx, transparent: true, depthTest: false})); const s = (o.s || .5) / 64; sp.scale.set(tw * s, cv.height * s, 1); sp.center.set(o.cx == null ? .5 : o.cx, .5); sp.renderOrder = 5; scene.add(sp); return sp; }
-    [6, 7, 8, 9, 10].forEach(w => sprite(w + '%', {s: .45, c: '#5B6B7C'}).position.set(xOf(w), .05, zOf(1.5) + 1.1));
-    sprite('WACC (discount rate) →', {s: .5, c: '#0B417D', w: 700}).position.set(0, .05, zOf(1.5) + 3.1);
-    [1.5, 2.5, 3.5].forEach(g => sprite(g.toFixed(1) + '%', {s: .45, c: '#5B6B7C', cx: 0}).position.set(xOf(10) + .9, .05, zOf(g)));
-    sprite('Long-run growth →', {s: .5, c: '#0B417D', w: 700, cx: 0}).position.set(xOf(10) + 2.4, .05, zOf(2.75));
-    sprite('Price ' + usd(price), {s: .5, c: '#FFFFFF', bg: '#B7791F', cx: 0}).position.set(xOf(10) + .8, price * YS, zOf(4) - .4);
-    sprite('Base ' + usd(base), {s: .5, c: '#FFFFFF', bg: '#0B417D'}).position.set(xOf(d.w), base * YS + 1.4, zOf(d.g));
+    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(plane.geometry), new THREE.LineBasicMaterial({color: 0x2B5780})); edge.rotation.x = -Math.PI / 2; edge.position.y = price * YS; scene.add(edge);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({color: 0xF1ECE4, roughness: 1})); floor.rotation.x = -Math.PI / 2; floor.position.y = -.02; floor.receiveShadow = true; scene.add(floor);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.38, 24, 16), new THREE.MeshStandardMaterial({color: 0x2B5780, emissive: 0x0F2238})); dot.position.set(xOf(d.w), base * YS + .3, zOf(d.g)); dot.castShadow = true; scene.add(dot);
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, base * YS + .3, 8), new THREE.MeshBasicMaterial({color: 0x2B5780})); stem.position.set(xOf(d.w), (base * YS + .3) / 2, zOf(d.g)); scene.add(stem);
+    function sprite(text, o){ o = o || {}; const cv = document.createElement('canvas'), g = cv.getContext('2d'), fs = 64; g.font = (o.w || 600) + ' ' + fs + 'px "Arial", Arial, sans-serif'; const tw = Math.ceil(g.measureText(text).width) + 44; cv.width = tw; cv.height = fs + 36; g.font = (o.w || 600) + ' ' + fs + 'px "Arial", Arial, sans-serif'; g.textBaseline = 'middle'; if (o.bg){ g.fillStyle = o.bg; g.fillRect(0, 0, tw, cv.height); } g.fillStyle = o.c || '#1A1A1A'; g.fillText(text, 22, cv.height / 2 + 2); const tx = new THREE.CanvasTexture(cv); tx.minFilter = THREE.LinearFilter; if ('encoding' in tx) tx.encoding = THREE.sRGBEncoding; const sp = new THREE.Sprite(new THREE.SpriteMaterial({map: tx, transparent: true, depthTest: false})); const s = (o.s || .5) / 64; sp.scale.set(tw * s, cv.height * s, 1); sp.center.set(o.cx == null ? .5 : o.cx, .5); sp.renderOrder = 5; scene.add(sp); return sp; }
+    [6, 7, 8, 9, 10].forEach(w => sprite(w + '%', {s: .45, c: '#595959'}).position.set(xOf(w), .05, zOf(1.5) + 1.1));
+    sprite('WACC (discount rate) →', {s: .5, c: '#6B432B', w: 700}).position.set(0, .05, zOf(1.5) + 3.1);
+    [1.5, 2.5, 3.5].forEach(g => sprite(g.toFixed(1) + '%', {s: .45, c: '#595959', cx: 0}).position.set(xOf(10) + .9, .05, zOf(g)));
+    sprite('Long-run growth →', {s: .5, c: '#6B432B', w: 700, cx: 0}).position.set(xOf(10) + 2.4, .05, zOf(2.75));
+    sprite('Price ' + usd(price), {s: .5, c: '#FFFFFF', bg: '#2B5780', cx: 0}).position.set(xOf(10) + .8, price * YS, zOf(4) - .4);
+    sprite('Base ' + usd(base), {s: .5, c: '#FFFFFF', bg: '#6B432B'}).position.set(xOf(d.w), base * YS + 1.4, zOf(d.g));
     // hover readout
     const ray = new THREE.Raycaster(), mv = new THREE.Vector2();
     renderer.domElement.addEventListener('pointermove', e => { if (e.buttons) return; const r = renderer.domElement.getBoundingClientRect(); mv.x = (e.clientX - r.left) / r.width * 2 - 1; mv.y = -(e.clientY - r.top) / r.height * 2 + 1; ray.setFromCamera(mv, cam); const h = ray.intersectObject(surf)[0]; if (!h){ hideTip(sl); return; } const w = 8 + h.point.x / XW * 4, g = 2.75 - h.point.z / ZW * 2.5; const v = V(w, g); showTip(sl, e, 'WACC <b>' + w.toFixed(1) + '%</b> · growth <b>' + g.toFixed(1) + '%</b> → <b>' + usd(v) + '</b> (' + sg((v / price - 1) * 100, 0, '%') + ')'); });
@@ -907,7 +907,7 @@ INIT.scen = sl => {
     d.ff.forEach((f, i) => { const y = y0 + i * rh; T('text', {x: x0 - 14, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'axl'}, f[0], svg); const r = S('rect', {x: x(f[1]), y: y + 8, width: x(f[2]) - x(f[1]), height: rh - 16, fill: i === d.ff.length - 1 ? C.navy : C.light}, svg); hov(r, sl, () => '<b>' + esc(f[0]) + '</b>: ' + usd(f[1]) + ' to ' + usd(f[2])); T('text', {x: x(f[1]) - 8, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'dl', style: 'font-size:14px'}, usd(f[1]), svg); T('text', {x: x(f[2]) + 8, y: y + rh / 2 + 6, class: 'dl', style: 'font-size:14px'}, usd(f[2]), svg); });
     const yb = y0 + d.ff.length * rh;
     S('line', {x1: x(price), x2: x(price), y1: y0 - 6, y2: yb, stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '6 4'}, svg); T('text', {x: x(price), y: y0 - 2 - 6, 'text-anchor': 'middle', class: 'dl'}, 'Price ' + usd(price), svg);
-    S('line', {x1: x(pt), x2: x(pt), y1: y0 - 6, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 48, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#7A4E10'}, 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg);
+    S('line', {x1: x(pt), x2: x(pt), y1: y0 - 6, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 48, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#2B5780'}, 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg);
   }
   draw();
 };
@@ -954,7 +954,7 @@ INIT.bridge = sl => {
     bar(n - 1, 0, end, C.navy, '2029E', '$' + end.toFixed(2), '<b>2029 estimate</b>: $' + end.toFixed(2) + ', ' + sg(sum * 100, 1, '%') + ' a year');
     S('line', {x1: x0, x2: x1, y1: y(need), y2: y(need), stroke: C.gold, 'stroke-width': 3, 'stroke-dasharray': '9 6'}, svg);
     const ly = y(need) - 10 < 30 ? y(need) + 24 : y(need) - 10;
-    T('text', {x: cx(1) - w / 2, y: ly, class: 'dlb', style: 'fill:#7A4E10;font-size:16px'}, 'What the price needs by 2029: $' + need.toFixed(2) + ' (' + (imp * 100).toFixed(1) + '% a year)', svg);
+    T('text', {x: cx(1) - w / 2, y: ly, class: 'dlb', style: 'fill:#2B5780;font-size:16px'}, 'What the price needs by 2029: $' + need.toFixed(2) + ' (' + (imp * 100).toFixed(1) + '% a year)', svg);
     S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
     const gap = sum * 100 - imp * 100, good = gap >= 0;
     $('#brKv', sl).innerHTML = '<div class="hi" style="grid-column:1/-1"><span>Free cash flow per share, 2029E</span><b>$' + end.toFixed(2) + '</b><i>from $' + f0.toFixed(2) + ' in 2025 · ' + sg((end / need - 1) * 100, 0, '%') + ' vs what the price needs</i></div>' +
@@ -1016,7 +1016,7 @@ INIT.comps = sl => {
 };
 INIT.sources = sl => {
   const t = $('#srcTab', sl);
-  t.innerHTML = '<thead><tr><th>#</th><th>Source</th><th>Date</th><th>Freshness</th><th>Supports</th></tr></thead><tbody>' + D.sources.map(r => '<tr>' + r.map((v, i) => '<td' + (i === 0 ? ' style="font-weight:700;color:#0B417D"' : '') + '>' + esc(v).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</td>').join('') + '</tr>').join('') + '</tbody>';
+  t.innerHTML = '<thead><tr><th>#</th><th>Source</th><th>Date</th><th>Freshness</th><th>Supports</th></tr></thead><tbody>' + D.sources.map(r => '<tr>' + r.map((v, i) => '<td' + (i === 0 ? ' style="font-weight:700;color:#6B432B"' : '') + '>' + esc(v).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</td>').join('') + '</tr>').join('') + '</tbody>';
 };
 
 /* boot once the DOM is ready */

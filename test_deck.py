@@ -45,6 +45,7 @@ def main():
             if not page.evaluate(f"document.querySelectorAll('section.slide')[{i}].classList.contains('active')"):
                 errors.append(f"[slide {i + 1}] did not open ({title})")
             if shots:
+                page.add_style_tag(content="#chrome{display:none!important}")
                 page.screenshot(path=str(SHOTS / f"{i + 1:02d}-{sid}.png"))
             print(f"  {i + 1:2d}  {title}")
         browser.close()
