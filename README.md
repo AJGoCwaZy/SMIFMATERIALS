@@ -24,12 +24,12 @@ If you're not sure, post in the group chat: **"Slide #, what to change, why."**
 
 ### Research files on Google Drive
 
-All research files go in the shared Google Drive folder, not in this repo and not on SharePoint. Ask Alexander to share the folder with your Gmail.
+All research files go in the shared Google Drive folder (link at the top), not in this repo and not on SharePoint. Anyone with the link can open and edit it, so keep the link inside the team.
 
 - **Upload:** drag files into your own subfolder (from your laptop or the Google Drive phone app). Filings, earnings transcripts and other docs everyone uses go in `Shared`.
 - **Name files clearly:** `LIN 10-Q Q3 2026.pdf`, not `download (3).pdf`.
 - **Convert Excel exports:** when you upload a Bloomberg `.xlsx`, open it with Google Sheets and save it as a Sheet. Claude reads Sheets more reliably than raw Excel files.
-- **Let your Claude read the folder:** in Claude, go to **Settings > Connectors**, connect **Google Drive** and sign in with the Gmail the folder is shared with. Then you can ask things like "summarize the Q3 10-Q in our SMIF Drive folder."
+- **Let your Claude read the folder:** in Claude, go to **Settings > Connectors**, connect **Google Drive** and sign in with your Gmail. Open the folder link once while signed in so it shows up in your Drive. Then you can ask things like "summarize the Q3 10-Q in our SMIF Drive folder."
 
 ---
 
