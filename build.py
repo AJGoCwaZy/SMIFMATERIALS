@@ -59,6 +59,9 @@ def inline_logos(js):
     """PITCH.logo / orgLogo may point at a file in vendor/logos/: embed it so the deck stays one file."""
     def to_data_uri(m):
         path = ROOT / m.group(2)
+        if not path.exists():
+            print(f"  note: {m.group(2)} not found, showing the name instead")
+            return "null"
         mime = "image/svg+xml" if path.suffix == ".svg" else "image/" + path.suffix.lstrip(".").replace("jpg", "jpeg")
         return m.group(1) + f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode("ascii") + m.group(1)
 
@@ -94,7 +97,7 @@ def build():
         inline_logos(read("src/engine.js")),
         "</script>",
         "<script>",
-        read("src/widgets.js"),
+        inline_logos(read("src/widgets.js")),
         "</script>",
         "",
         "</body></html>",

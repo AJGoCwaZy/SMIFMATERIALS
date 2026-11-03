@@ -27,7 +27,9 @@ window.DATA = {
       { y: 2026, h: 'Air Liquide buys DIG Airgas (Korea)', b: 'Bought from a Macquarie fund for EUR 2.85B enterprise value, closed Jan 13, 2026.' }
     ]
   },
-  moat: { sample: true, peers: ['Linde', 'Air Products', 'Air Liquide'], rows: [
+  /* logos: files in vendor/logos/ (built into the deck); a missing file shows the name instead */
+  moat: { sample: true, peers: ['Linde', 'Air Products', 'Air Liquide'], tick: ['LIN', 'APD', 'AI'],
+    logos: ['vendor/logos/linde.png', 'vendor/logos/air-products.png', 'vendor/logos/air-liquide.svg'], rows: [
     { n: 'On-site share of sales', v: [4, 5, 4], raw: ['23.8% of 2025 sales (Bloomberg FA)', '[x%]', '[x%]'] },
     { n: 'Signed backlog vs sales', v: [4, 3, 3], raw: ['$8.1B sale-of-gas backlog as of [quarter], about 24% of 2025 sales (register #7)', '[x%]', '[EUR 6B backlog vs sales]'] },
     { n: 'Operating margin', v: [5, 3, 3], raw: ['29.1% adjusted, 2025 (Bloomberg)', '[x%]', '[x%]'] },
@@ -423,19 +425,34 @@ INIT.moat = sl => {
   const d = D.moat, rowsBox = $('#moatRows', sl), peersBox = $('#moatPeers', sl);
   samp(sl, d.sample);
   let hi = 0;
-  const names = d.peers;
-  const chipsEl = names.map((n, i) => { const b = H('button', {type: 'button', class: 'chip' + (i === 0 ? ' on' : '')}, esc(n), peersBox); b.addEventListener('click', () => { hi = i; chipsEl.forEach((x, k) => x.classList.toggle('on', k === i)); paint(); }); return b; });
-  const cells = [];
-  d.rows.forEach((r, ri) => {
-    const row = H('div', {style: 'display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:center'}, '<span style="font:600 18px/1.2 var(--sans)">' + esc(r.n) + '</span>', rowsBox);
-    const bars = H('div', {style: 'display:flex;flex-direction:column;gap:3px'}, null, row);
+  const names = d.peers, tick = d.tick || names, logos = d.logos || [];
+  const COL = [C.navy, C.gold, '#8C8C8C'];  // Linde dark brown, Air Products navy, Air Liquide grey: one colour per company everywhere on the slide
+  const pick = i => { hi = i; chipsEl.forEach((x, k) => { x.classList.toggle('on', k === i); x.setAttribute('aria-pressed', String(k === i)); }); paint(); };
+  const chipsEl = names.map((n, i) => {
+    const b = H('button', {type: 'button', class: 'mpeer' + (i === 0 ? ' on' : ''), 'aria-pressed': String(i === 0), style: '--pc:' + COL[i], title: n},
+      (logos[i] ? '<img src="' + esc(logos[i]) + '" alt="' + esc(n) + '">' : '<span class="mpn">' + esc(n) + '</span>') + '<span class="mpt">' + esc(tick[i]) + '</span>', peersBox);
+    b.addEventListener('click', () => pick(i));
+    return b;
+  });
+  const cells = [], tots = names.map(() => 0);
+  const show = (r, pi, v) => { $('#moatH', sl).textContent = r.n; $('#moatB', sl).innerHTML = '<p><b style="color:' + COL[pi] + '">' + esc(names[pi]) + ':</b> score ' + v + ' of 5' + (d.sample ? ' <span class="samp">Sample score</span>' : '') + '</p><p>Raw value: ' + FL(r.raw[pi]) + '</p>'; };
+  d.rows.forEach(r => {
+    const row = H('div', {class: 'mrowx'}, '<span class="mrn">' + esc(r.n) + '</span>', rowsBox);
+    const bars = H('div', {class: 'mbars'}, null, row);
     r.v.forEach((v, pi) => {
-      const t = H('div', {style: 'position:relative;height:13px;background:#F7F4EF;cursor:pointer', title: names[pi]}, '<i style="position:absolute;left:0;top:0;bottom:0;width:0;transition:width .5s,background .2s"></i>', bars);
-      t.addEventListener('click', () => { $('#moatH', sl).textContent = r.n; $('#moatB', sl).innerHTML = '<p><b>' + esc(names[pi]) + ':</b> score ' + v + ' of 5' + (d.sample ? ' <span class="samp">Sample score</span>' : '') + '</p><p>Raw value: ' + FL(r.raw[pi]) + '</p>'; });
-      cells.push({t, v, pi});
+      tots[pi] += v;
+      const line = H('div', {class: 'mbar', style: '--pc:' + COL[pi], title: names[pi] + ': ' + v + ' of 5'}, '<b>' + esc(tick[pi]) + '</b><span class="mtr"><i></i></span><em>' + v + '</em>', bars);
+      line.addEventListener('click', () => show(r, pi, v));
+      cells.push({line, v, pi});
     });
   });
-  function paint(){ cells.forEach(c => { const i = c.t.firstChild; i.style.width = (c.v / 5 * 100) + '%'; i.style.background = c.pi === hi ? C.navy : C.sky; }); }
+  const tot = H('div', {class: 'mrowx mtot'}, '<span class="mrn">Total, out of ' + (d.rows.length * 5) + '</span>', rowsBox);
+  const tw = H('div', {class: 'mtots'}, null, tot);
+  const totEl = names.map((n, pi) => H('span', {style: '--pc:' + COL[pi]}, '<b>' + esc(tick[pi]) + '</b><em>' + tots[pi] + '</em>', tw));
+  function paint(){
+    cells.forEach(c => { c.line.classList.toggle('dim', c.pi !== hi); c.line.querySelector('i').style.width = (c.v / 5 * 100) + '%'; });
+    totEl.forEach((e, pi) => e.classList.toggle('dim', pi !== hi));
+  }
   requestAnimationFrame(paint);
 };
 
