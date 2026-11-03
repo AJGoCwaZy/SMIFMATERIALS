@@ -841,7 +841,11 @@ const priceNow = () => window.PITCH.price || D.val.price;
    once its drivers are the team's own (bridge.sample false); until then the 2019-2025 pace (val.g1), labelled as that, never as 'our growth' */
 const r1 = x => +x.toFixed(1);
 const defBlend = () => { const em = D.endm.rows, sc = D.fcast.scen[D.fcast.start], tot = em.reduce((a, m) => a + m.s, 0); return em.reduce((a, m, i) => a + m.s / tot * sc[i], 0); };
-const bridgeG = () => D.bridge.d.reduce((a, x) => a + r1(x.link ? (A.fcastBlend != null ? A.fcastBlend : defBlend()) : x.v), 0);
+/* End markets come in as sales growth (slide 11). Free cash flow moves about twice as much, because operating cash flow
+   is about twice free cash flow (2025: $10.35B vs $5.09B after capex). cashLev() is that ratio, from DATA.uses. */
+const cashLev = () => { const u = D.uses.items, ops = u.find(x => x[0] === 'Operations')[1], cx = -u.find(x => x[0] === 'Capex')[1]; return ops / (ops - cx); };
+const emDrv = () => (A.fcastBlend != null ? A.fcastBlend : defBlend()) * cashLev();
+const bridgeG = () => D.bridge.d.reduce((a, x) => a + r1(x.link ? emDrv() : x.v), 0);
 const ourSrc = () => { const P = window.PITCH.growth; return P != null && P !== '' && !isNaN(parseFloat(P)) ? 'pitch' : D.bridge.sample ? 'pace' : 'bridge'; };
 const ourG = () => { const s = ourSrc(); return s === 'pitch' ? parseFloat(window.PITCH.growth) : s === 'bridge' ? (A.ourGrowth != null ? A.ourGrowth : bridgeG()) : D.val.g1; };
 // where the growth on slides 22-24 comes from, in words
@@ -1084,7 +1088,7 @@ INIT.bridge = sl => {
   const d = D.bridge, v = D.val, svg = $('#brSvg', sl), box = $('#brCtl', sl);
   samp(sl, d.sample);
   const price = priceNow(), f0 = v.fcf0, yrs = d.years, fi = A.idx('fcast');
-  const val = d.d.map(x => r1(x.link ? (A.fcastBlend != null ? A.fcastBlend : defBlend()) : x.v));
+  const val = d.d.map(x => r1(x.link ? emDrv() : x.v));
   let touched = false, syncing = false;
   const ctl = d.d.map((x, i) => {
     H('div', {class: 'ctl'}, '<label for="brs' + i + '">' + esc(x.n) + ' <output id="brs' + i + 'o"></output></label><input type="range" id="brs' + i + '" min="' + (x.link ? -10 : -4) + '" max="' + (x.link ? 20 : 10) + '" step="0.1" value="' + val[i] + '">' + (x.link ? '<span class="bs" id="brLinkCap"></span>' : '<span class="bs">' + esc(x.s) + '</span>'), box);
@@ -1134,7 +1138,7 @@ INIT.bridge = sl => {
       '<div style="grid-column:1/-1;border-color:' + (good ? C.good : C.bad) + '"><span>Gap</span><b style="color:' + (good ? C.good : C.bad) + '">' + sg(gap, 1, ' pts') + '</b><i>' + (good ? 'our drivers beat what the price assumes' : 'the price already assumes more than our drivers') + '</i></div>';
   }
   draw();
-  return { enter(){ cap(); if (!touched && A.fcastBlend != null && Math.abs(r1(A.fcastBlend) - val[0]) > .04){ syncing = true; ctl[0].set(r1(A.fcastBlend)); syncing = false; } } };
+  return { enter(){ cap(); if (!touched && A.fcastBlend != null && Math.abs(r1(emDrv()) - val[0]) > .04){ syncing = true; ctl[0].set(r1(emDrv())); syncing = false; } } };
 };
 
 /* ---- pre-mortem: three stories, their odds, and 100 possible futures ---- */
