@@ -110,10 +110,16 @@ window.DATA = {
     { d: 2027.5, l: 'Start-ups', h: 'Backlog start-ups: 20+ projects (~$1.3B) from late 2026 (Q2 2026 call)', x: '[ ]', w: '[ ]' },
     { d: 2027.75, l: 'Space', h: '[Space reported as its own end market once big enough (Q2 2026 call)]', x: '[ ]', w: '[ ]' }
   ]},
-  pass: { energyShare: 30, otherCost: 45, modes: [ { k: 'on', n: 'On-site', pt: 1, d: 'Full pass-through, immediately.' }, { k: 'mer', n: 'Merchant bulk', pt: 0.6, d: 'About 60% passed on in year one; the rest at the next price reset.' }, { k: 'pkg', n: 'Packaged', pt: 0, d: 'Nothing passed on until list prices are raised.' } ] },
+  /* Timing from the Q3 2026 call (CFO): on-site energy is recovered in the current month; merchant and packaged with a 3 to 6 month lag.
+     Linde does not disclose energy as a share of sales: 30% is illustrative (10-K: energy is 'the single largest cost item'). */
+  pass: { energyShare: 30, otherCost: 45, modes: [ { k: 'on', n: 'On-site', pt: 1, d: 'Full pass-through, immediately.' }, { k: 'mer', n: 'Merchant bulk', pt: 0.6, d: 'Price formulas catch up after a 3 to 6 month lag, so about 60% comes back in year one.' }, { k: 'pkg', n: 'Packaged', pt: 0.6, d: 'Surcharges and list prices, also a 3 to 6 month lag: about 60% back in year one.' } ] },
   /* Bloomberg FA, pulled Oct 8, 2026. GAAP figures include Praxair merger amortization. */
   marg: { modes: {
-    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#6B432B', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] } ] },
+    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#6B432B', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] },
+      /* Air Products: company-reported adjusted operating margin, fiscal years to Sept 30 (10-K, annual reports, sec.gov).
+         2019-21 computed from reported segment operating income / sales. GAAP is left out: 2024 includes the LNG sale gain
+         (36.9% GAAP margin) and 2025 $3.7B of project-exit charges (-7.3%). */
+      { n: 'Air Products', c: '#2B5780', v: [24.33, 24.88, 21.97, 19.00, 21.74, 24.36, 23.74, null, null] } ] },
     om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#6B432B', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
     roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#6B432B', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
   }},
@@ -129,12 +135,17 @@ window.DATA = {
   /* fcf0 = 2025 free cash flow per share (Bloomberg). price \u2248 market cap \u00F7 shares, Oct 8, 2026. Growth, WACC and terminal growth are sample inputs for Gabriel's model. g1 (the 2019-2025 pace) stands in for our growth on slides 22-24 only while PITCH.growth is unset and the bridge is still sample data. */
   val: { sample: true, price: 480, fcf0: 10.84, g1: 13.9, years: 10, w: 7.8, g: 2.8, hist: 13.9 },
   /* cash flow bridge: % a year each driver adds to free cash flow per share, 2025 to 2029. 'link' = taken from the end-market forecast */
-  bridge: { sample: true, years: 4, d: [
-    { k: 'em', n: 'End markets', s: 'our forecast, slide', v: null, link: 'fcast' },
-    { k: 'bl', n: 'New plants', s: 'signed backlog start-ups', v: 2 },
-    { k: 'mg', n: 'Margin', s: 'pricing, cost cuts, mix', v: 1 },
-    { k: 'cx', n: 'Capex', s: 'more spend lowers it', v: -0.5 },
-    { k: 'sh', n: 'Fewer shares', s: '2025 buybacks: ~2% of cap', v: 2 }
+  /* Driver values, % a year added to free cash flow per share, 2025-2029. 2025 base: operating cash flow $10.35B, capex $5.26B,
+     free cash flow $5.09B (10-K). New plants: $7.9B sale-of-gas backlog (Q3 2026 10-Q) x 35% sales per $ of capex (mgmt range
+     20-50%, Q2 2026 call) / 4 years = $0.69B sales a year at the 2025 cash margin (30.5%) = $0.21B a year. Margin: +40 bps a year
+     (mgmt 30-50, Q4 2025 call) on $34.0B sales after 22.4% tax = $0.11B. Capex: $5.26B to $6.15B by 2029 (Gabriel's model; 2026
+     guide $5.5-6.0B) = $0.22B more a year. Shares: diluted count -2.05% in 2025 (10-K). End markets: slide 11 x cash leverage. */
+  bridge: { sample: false, years: 4, d: [
+    { k: 'em', n: 'End markets', s: 'slide 11 forecast x2 cash leverage', v: null, link: 'fcast' },
+    { k: 'bl', n: 'New plants', s: '$7.9B backlog starting up', v: 4.1 },
+    { k: 'mg', n: 'Margin', s: '+40 bps a year (mgmt 30-50)', v: 2.1 },
+    { k: 'cx', n: 'Capex', s: '$5.3B to ~$6.2B by 2029', v: -4.4 },
+    { k: 'sh', n: 'Fewer shares', s: 'diluted shares -2% a year', v: 2.1 }
   ]},
   /* pre-mortem odds: chance of each story by 2029, % */
   premortem: { sample: true, p: [20, 10, 10] },
@@ -755,7 +766,7 @@ INIT.marg = sl => {
       if (est.length > 1) S('polyline', {points: est.map(p => x(p[0]) + ',' + y(p[1])).join(' '), fill: 'none', stroke: sr.c, 'stroke-width': 3, 'stroke-dasharray': '7 6'}, svg);
       if (!A.RM && pl.getTotalLength){ const L = pl.getTotalLength(); pl.style.strokeDasharray = L; pl.style.strokeDashoffset = L; pl.getBoundingClientRect(); pl.style.transition = 'stroke-dashoffset .9s ease'; pl.style.strokeDashoffset = 0; }
       sr.v.forEach((v, i) => { if (v == null) return; const c = S('circle', {cx: x(i), cy: y(v), r: 6, fill: md.est != null && i >= md.est ? '#fff' : sr.c, stroke: md.est != null && i >= md.est ? sr.c : '#fff', 'stroke-width': 2.5}, svg); hov(c, sl, () => '<b>' + esc(sr.n) + ' ' + Y[i] + '</b>: ' + v.toFixed(1) + '%'); });
-      const li = sr.v.length - 1, lv = sr.v[li];
+      let li = sr.v.length - 1; while (li > 0 && sr.v[li] == null) li--; const lv = sr.v[li];
       T('text', {x: x(li) + 14, y: y(lv) + 6, class: isL ? 'dlb' : 'dl'}, sr.n + ' ' + lv.toFixed(1) + '%', svg);
     });
     S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
@@ -1086,12 +1097,12 @@ INIT.scen = sl => {
 /* ---- cash flow bridge: 2025 to 2029 by driver, against what the price needs ---- */
 INIT.bridge = sl => {
   const d = D.bridge, v = D.val, svg = $('#brSvg', sl), box = $('#brCtl', sl);
-  samp(sl, d.sample);
+  if (d.sample) samp(sl, true); else srcok(sl, 'Our drivers: 10-K, Q3 2026');
   const price = priceNow(), f0 = v.fcf0, yrs = d.years, fi = A.idx('fcast');
   const val = d.d.map(x => r1(x.link ? emDrv() : x.v));
   let touched = false, syncing = false;
   const ctl = d.d.map((x, i) => {
-    H('div', {class: 'ctl'}, '<label for="brs' + i + '">' + esc(x.n) + ' <output id="brs' + i + 'o"></output></label><input type="range" id="brs' + i + '" min="' + (x.link ? -10 : -4) + '" max="' + (x.link ? 20 : 10) + '" step="0.1" value="' + val[i] + '">' + (x.link ? '<span class="bs" id="brLinkCap"></span>' : '<span class="bs">' + esc(x.s) + '</span>'), box);
+    H('div', {class: 'ctl'}, '<label for="brs' + i + '">' + esc(x.n) + ' <output id="brs' + i + 'o"></output></label><input type="range" id="brs' + i + '" min="' + (x.link ? -10 : -8) + '" max="' + (x.link ? 20 : 10) + '" step="0.1" value="' + val[i] + '">' + (x.link ? '<span class="bs" id="brLinkCap"></span>' : '<span class="bs">' + esc(x.s) + '</span>'), box);
     return rng('brs' + i, nv => { val[i] = nv; if (x.link && !syncing){ touched = true; cap(); } draw(); }, nv => sg(nv, 1, '%'));
   });
   // where the End markets number comes from: slide 11's chip (or a custom view), or set here
@@ -1127,6 +1138,7 @@ INIT.bridge = sl => {
     S('line', {x1: cx(n - 2) + w / 2, x2: cx(n - 1) - w / 2, y1: y(acc), y2: y(acc), stroke: C.grey, 'stroke-width': 1, 'stroke-dasharray': '3 3'}, svg);
     bar(n - 1, 0, end, C.navy, '2029E', '$' + end.toFixed(2), '<b>2029 estimate</b>: $' + end.toFixed(2) + ', ' + sg(sum * 100, 1, '%') + ' a year');
     S('line', {x1: x0, x2: x1, y1: y(need), y2: y(need), stroke: C.gold, 'stroke-width': 3, 'stroke-dasharray': '9 6'}, svg);
+    svg.querySelectorAll('text.dl, text.dlb').forEach(t => svg.appendChild(t));  // value labels sit on top of the needed-growth line
     // the needed-value label sits above or below the line, clear of every driver's value label and bar, else at the top
     const keep = []; let ac2 = f0; dl.forEach(x => { const t = y(Math.max(ac2, ac2 + x)), b = Math.max(t + 2, y(Math.min(ac2, ac2 + x))); keep.push([t - 9, t, b]); ac2 += x; });
     const ly = [y(need) - 10, y(need) + 24].find(c => keep.every(([l, t, b]) => Math.abs(l - c) >= 22 && (c + 5 < t || c - 14 > b))) || 14;
