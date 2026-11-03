@@ -764,3 +764,32 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 .flip.pm .fb{background:var(--brown-dk);border-color:var(--brown-dk);color:#fff}
 .flip.pm .fb h4,.flip.pm .fb p{color:#fff}
 .flip.pm .fb .fill{background:rgba(255,236,170,.2);color:#FFF1C7;border-bottom-color:var(--gold-dk)}
+
+/* ---- slide 7 moat scorecard: logo selectors, one colour per company ---- */
+#moatPeers{gap:10px}
+.mpeer{appearance:none;display:flex;align-items:center;gap:12px;height:56px;padding:8px 16px 8px 14px;background:#fff;border:1px solid var(--hair-lt);border-bottom:4px solid var(--pc);cursor:pointer;transition:box-shadow .15s,background .15s}
+.mpeer img{height:30px;width:auto;max-width:170px;display:block}
+.mpeer .mpn{font:700 17px/1 var(--sans);color:#1A1A1A}
+.mpeer .mpt{font:700 13px/1 var(--sans);letter-spacing:.06em;color:var(--pc)}
+.mpeer:hover{background:#FAF8F4}
+.mpeer.on{box-shadow:0 0 0 2px var(--pc) inset}
+.mpeer:not(.on) .mpt{opacity:.7}
+#moatRows{gap:10px!important}
+.mrowx{display:grid;grid-template-columns:230px 1fr;gap:16px;align-items:center;padding:6px 0;border-bottom:1px solid #EFEFEF}
+.mrn{font:700 18px/1.2 var(--sans);color:#1A1A1A}
+.mbars{display:flex;flex-direction:column;gap:5px}
+.mbar{display:grid;grid-template-columns:44px 1fr 22px;gap:10px;align-items:center;cursor:pointer;transition:opacity .2s}
+.mbar b{font:700 13px/1 var(--sans);letter-spacing:.04em;color:var(--pc)}
+.mbar .mtr{position:relative;height:18px;background:#F2F2F2}
+.mbar .mtr i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--pc);transition:width .5s}
+.mbar em{font:700 17px/1 var(--serif);font-style:normal;color:var(--pc);text-align:right}
+.mbar.dim .mtr i{opacity:.3}
+.mbar.dim em,.mbar.dim b{opacity:.75}
+.mbar:hover .mtr i{opacity:1}
+.mtot{border-bottom:0;border-top:1.5px solid #1A1A1A;padding-top:10px}
+.mtots{display:flex;gap:34px}
+.mtots span{display:flex;align-items:baseline;gap:8px;transition:opacity .2s}
+.mtots b{font:700 14px/1 var(--sans);letter-spacing:.04em;color:var(--pc)}
+.mtots em{font:700 30px/1 var(--serif);font-style:normal;color:var(--pc)}
+.mtots .dim{opacity:.55}
+#brSvg text.dl,#brSvg text.dlb{paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
