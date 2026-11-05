@@ -30,10 +30,10 @@ window.DATA = {
   /* logos: files in vendor/logos/ (built into the deck); a missing file shows the name instead */
   moat: { sample: true, peers: ['Linde', 'Air Products', 'Air Liquide'], tick: ['LIN', 'APD', 'AI'],
     logos: ['vendor/logos/linde.png', 'vendor/logos/air-products.png', 'vendor/logos/air-liquide.svg'], rows: [
-    { n: 'On-site share of sales', v: [4, 5, 4], raw: ['23.8% of 2025 sales (Bloomberg FA)', '[x%]', '[x%]'] },
+    { n: 'On-site share of sales', v: [4, 5, 4], raw: ['23.8% of 2025 sales (Bloomberg FA)', '52% of FY2025 sales (10-K)', '27.3%: Large Industries share of 2025 gas sales (our calculation)'] },
     { n: 'Signed backlog vs sales', v: [4, 3, 3], raw: ['$8.1B sale-of-gas backlog as of [quarter], about 24% of 2025 sales (register #7)', '[x%]', '[EUR 6B backlog vs sales]'] },
-    { n: 'Operating margin', v: [5, 3, 3], raw: ['29.1% adjusted, 2025 (Bloomberg)', '[x%]', '[x%]'] },
-    { n: 'Return on capital', v: [5, 2, 3], raw: ['11.5% GAAP, 24.2% Linde-adjusted, 2025 (Bloomberg, register #4)', '[x%]', '[x%]'] },
+    { n: 'Operating margin', v: [5, 3, 3], raw: ['29.8% adjusted, 2025 (company)', '23.7% adjusted, FY2025 (company)', '20.7% recurring operating margin, 2025'] },
+    { n: 'Return on capital', v: [5, 2, 3], raw: ['11.5% GAAP, 24.2% Linde-adjusted, 2025 (Bloomberg, register #4)', '10.1% adjusted ROC, FY2025 (annual report)', '11.2% recurring ROCE, 2025'] },
     { n: 'Pricing track record', v: [5, 4, 4], raw: ['25 years of positive pricing (register #4)', '[ ]', '[ ]'] }
   ]},
   threats: { sample: true, cards: [
@@ -115,12 +115,22 @@ window.DATA = {
   pass: { energyShare: 30, otherCost: 45, modes: [ { k: 'on', n: 'On-site', pt: 1, d: 'Full pass-through, immediately.' }, { k: 'mer', n: 'Merchant bulk', pt: 0.6, d: 'Price formulas catch up after a 3 to 6 month lag, so about 60% comes back in year one.' }, { k: 'pkg', n: 'Packaged', pt: 0.6, d: 'Surcharges and list prices, also a 3 to 6 month lag: about 60% back in year one.' } ] },
   /* Bloomberg FA, pulled Oct 8, 2026. GAAP figures include Praxair merger amortization. */
   marg: { modes: {
-    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#6B432B', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] },
+    /* Linde: company-reported adjusted operating profit margin, FY earnings releases (8-K Ex. 99.1, sec.gov); 2019 pro forma.
+       Same basis as Air Products' adjusted margin below, so the gap compares like with like (Atlas review, R9). */
+    adj: { t: 'Adjusted operating margin, company-reported, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'Linde', c: '#6B432B', v: [18.7, 21.3, 23.3, 23.7, 27.6, 29.5, 29.8] },
       /* Air Products: company-reported adjusted operating margin, fiscal years to Sept 30 (10-K, annual reports, sec.gov).
          2019-21 computed from reported segment operating income / sales. GAAP is left out: 2024 includes the LNG sale gain
          (36.9% GAAP margin) and 2025 $3.7B of project-exit charges (-7.3%). */
-      { n: 'Air Products', c: '#2B5780', v: [24.33, 24.88, 21.97, 19.00, 21.74, 24.36, 23.74, null, null] } ] },
+      { n: 'Air Products', c: '#2B5780', v: [24.33, 24.88, 21.97, 19.00, 21.74, 24.36, 23.74] } ] },
     om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#6B432B', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
+    /* peers side by side, FY2025, each company's own definition (Linde and APD: earnings releases and 10-K / annual report;
+       Air Liquide: FY2025 results release, Feb 20, 2026). Air Liquide's Large Industries share is our calculation (7,110 / 26,085). */
+    peer: { t: 'Peers side by side, FY2025', rows: [
+      ['Adjusted operating margin', ['29.8%', 'company adjusted'], ['23.7%', 'company adjusted, FY to Sept'], ['20.7%', 'recurring operating margin; 20.9% ex energy']],
+      ['Return on capital', ['24.2%', 'adjusted after-tax ROC'], ['10.1%', 'adjusted ROC'], ['11.2%', 'recurring ROCE']],
+      ['Long-contract supply mode', ['23.8%', 'on-site share of sales'], ['52%', 'on-site share of sales'], ['27.3%', 'Large Industries share of gas sales (derived)']],
+      ['Sales', ['$34.0B', 'calendar 2025'], ['$12.0B', 'FY to Sept 2025'], ['\u20AC26.9B', 'calendar 2025']]
+    ] },
     roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#6B432B', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
   }},
   /* Linde 10-K FY2025 cash flow statement, $B. Net borrowing = debt increases (decreases), net. Other, net is computed: acquisitions, other investing, NCI and other, cash build, less divestitures and FX. */
@@ -736,9 +746,17 @@ INIT.pass = sl => {
 /* ---- margins and returns ---- */
 INIT.marg = sl => {
   const d = D.marg, svg = $('#margSvg', sl);
-  srcok(sl, 'Bloomberg FA, Oct 8, 2026');
+  srcok(sl, 'company releases; Bloomberg FA');
   let m = 'adj';
+  const pbox = H('div', {class: 'mpeert', hidden: ''}, null, svg.closest('.cb'));
+  function peer(){
+    const md = d.modes.peer, P = ['Linde', 'Air Products', 'Air Liquide'];
+    pbox.innerHTML = '<table class="dtab" style="font-size:17px"><thead><tr><th></th>' + P.map(p => '<th class="n">' + p + '</th>').join('') + '</tr></thead><tbody>' + md.rows.map(r => '<tr><td><b>' + esc(r[0]) + '</b></td>' + r.slice(1).map(c => '<td class="n"><b>' + esc(c[0]) + '</b><br><span class="xs muted">' + esc(c[1]) + '</span></td>').join('') + '</tr>').join('') + '</tbody></table>';
+    $('#margH', sl).textContent = md.t;
+    $('#margKv', sl).innerHTML = '<div class="hi"><span>Operating advantage</span><b>+6.1 pts</b><i>adjusted margin vs Air Products, FY2025 (same basis)</i></div><div><span>What investors pay for it</span><b>17.4x</b><i>Linde EV / 2026E EBITDA (Bloomberg). Peers: <span class="fill">[APD and AI on RV]</span></i></div><div><span>Read with care</span><i style="font-size:15px;line-height:1.35;color:#1A1A1A">Return on capital uses each company&rsquo;s own definition. A bigger on-site share is more protection, not automatically more value.</i></div>';
+  }
   function draw(){
+    const pm = m === 'peer'; svg.closest('.chartbox').hidden = pm; pbox.hidden = !pm; if (pm) return peer();
     clear(svg);
     const md = d.modes[m], Y = md.years, x0 = 70, x1 = 720, yb = 370;
     const all = md.series.reduce((a, s2) => a.concat(s2.v.filter(v => v != null)), []);

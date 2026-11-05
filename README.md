@@ -37,11 +37,11 @@ All research files go in the shared Google Drive folder (link at the top), not i
 
 | Person | Owns | Role in this repo |
 |---|---|---|
-| Gabriel Castillo | The call, the question, macro, industry (slides 1-6, 25); backs up Ryan on growth (13-15) | Co-lead. Approves changes to the finance slides. |
-| Alexander Jovanovic | Moat scorecard, profitability, cash flow bridge, coordination (slides 7, 16-20); backs up Aaron on the pre-mortem (21) | Co-lead. Approves changes and runs the Wednesday deck update. |
-| Aaron | Pre-mortem and valuation (slides 21-24) | Editor |
-| Daniel Vazquez | Products, customers, end markets (slides 8-12) | Editor |
-| Ryan Hernandez | Next markets, market size, backlog (slides 13-15) | Editor |
+| Gabriel Castillo | The call, the question, macro, industry and next markets (slides 1-7), the close (20); backs up Ryan on growth (11-12) | Co-lead. Approves changes to the finance slides. |
+| Alexander Jovanovic | Peer margins, pass-through, capex and cash, the free cash flow bridge, coordination (slides 13-16); backs up Aaron on the pre-mortem (17) | Co-lead. Approves changes and runs the Wednesday deck update. |
+| Aaron | Pre-mortem and valuation (slides 17-19); owns the valuation model and its reconciliation (backup) | Editor |
+| Daniel Vazquez | End markets, contracts, the end-market forecast (slides 8-10) | Editor |
+| Ryan Hernandez | Market size and the signed backlog (slides 11-12) | Editor |
 
 ---
 
@@ -77,7 +77,7 @@ src/
   deck.css        The look: colors, fonts, spacing, card styles.
   engine.js       How the deck runs: navigation, timer, notes window, build mode, team plan, pitch basics (PITCH block).
   widgets.js      The interactive charts and sliders on each slide, and the sample data behind them (DATA block).
-gas-scene.js      The 3D models (slides 6, 8 and 16).
+gas-scene.js      The 3D models (slide 6 and two backup slides).
 vendor/           Fonts (Source Serif 4) and the 3D library (three.js), built into the deck so it works offline. Body text uses Arial.
 build.py          Combines everything above into one file: out/smif-materials-pitch.html
 bake.py           Puts fill sheet answers into the built deck.
@@ -137,6 +137,7 @@ python test_overflow.py    # check the answers fit on their slides
 | `G` | Jump to any slide |
 | `T` | Team plan: who owns each slide and how long it runs |
 | `B` | Build mode: shows what each slide must prove and the fill ID on every gold box |
+| `Q` | Presentation mode (the default: approved numbers, no sliders) or Q&A mode (every slider and what-if is back) |
 | `F` | Full screen |
 | `Backspace` | After a jump from an evidence link, back to the slide you jumped from |
 

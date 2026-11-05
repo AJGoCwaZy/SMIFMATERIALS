@@ -798,3 +798,12 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 /* valuation model state tag and reconciliation table */
 .vsmod{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:3px;background:#FFF3C4;color:#6B4E00;font:600 12px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase}
 .rctab tr.tot td{border-top:2px solid var(--brown-dk);font-weight:700}
+
+/* presentation mode (default): no sliders or what-ifs on screen; the bars they drive stay. Q&A mode shows them all. */
+:root[data-mode=present] .ctl,:root[data-mode=present] [data-reset],:root[data-mode=present] #fcScen .xs{display:none!important}
+:root[data-mode=present] .fcr input[type=range]{pointer-events:none}
+:root[data-mode=present] .fcr input[type=range]::-webkit-slider-thumb{opacity:0}
+:root[data-mode=present] .fcr input[type=range]::-moz-range-thumb{opacity:0}
+/* the reason tabs: only the ones this slide supports, so the headline leads */
+:root[data-mode=present] .rtrk .rc:not(.on){display:none}
+.mpeert{flex:1;display:flex;align-items:center}.mpeert[hidden]{display:none}.mpeert table{width:100%}

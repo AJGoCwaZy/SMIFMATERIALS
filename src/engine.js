@@ -5,7 +5,7 @@
    lives in DATA (widgets.js); a dataset marked sample:true shows a
    gold SAMPLE tag until the team replaces it.
    Keys: arrows / space move · N notes under the slide · P notes in their own window · G all slides · T team plan
-         B build mode · S pitch timer · 0 reset timer · F full screen
+         B build mode · Q presentation / Q&A mode · S pitch timer · 0 reset timer · F full screen
    ================================================================ */
 window.PITCH = {
   company: 'Linde plc',
@@ -96,7 +96,7 @@ function clear(el){ while (el.firstChild) el.removeChild(el.firstChild); }
 /* a value or a gold placeholder */
 const F = (v, label) => (v == null || v === '') ? '<span class="fill">[' + esc(label) + ']</span>' : esc(v);
 function tween(from, to, ms, step, done){
-  if (RM || ms <= 0){ step(to); if (done) done(); return; }
+  if (RM || ms <= 0 || document.documentElement.dataset.mode === 'present'){ step(to); if (done) done(); return; }
   const t0 = performance.now();
   (function f(now){ const k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; step(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else if (done) done(); })(t0);
 }
@@ -220,6 +220,7 @@ function boot(){
   const bPop = H('button', {type: 'button', title: 'Open the notes in their own window, for a second screen'}, 'Notes window · P', nav);
   const bGrid = H('button', {type: 'button'}, 'Slides · G', nav);
   const bPlan = H('button', {type: 'button'}, 'Team plan · T', nav);
+  const bMode = H('button', {type: 'button', title: 'Presentation mode: approved numbers, no sliders. Q&A mode: every slider and what-if is back.'}, 'Q&A mode · Q', nav);
   const bBuild = H('button', {type: 'button', 'aria-pressed': 'false'}, 'Build · B', nav);
   const bFs = H('button', {type: 'button'}, 'Full screen · F', nav);
   H('style', null, NCSS('clamp(15px, 1.22vw, 21px)', 13), document.head);
@@ -242,6 +243,7 @@ function boot(){
   bGrid.onclick = () => toggle(grid);
   bPlan.onclick = () => toggle(plan);
   bBuild.onclick = () => setBuild(!root.classList.contains('build'));
+  bMode.onclick = () => setMode(root.dataset.mode === 'present' ? 'qa' : 'present');
   bFs.onclick = toggleFs; bTimer.onclick = toggleTimer; bReset.onclick = resetTimer;
   let hideT = null;
   function poke(){ chrome.classList.add('show'); clearTimeout(hideT); hideT = setTimeout(() => chrome.classList.remove('show'), 2600); }
@@ -250,6 +252,16 @@ function boot(){
 
   function toggle(ov){ const open = ov.hidden; grid.hidden = true; plan.hidden = true; ov.hidden = !open; if (open){ const c = ov.querySelector('.cur') || ov.querySelector('button'); if (c) { try { c.focus({preventScroll: false}); } catch (e) {} } } }
 
+  // presentation mode (the default): sliders hidden, no count-ups, the approved base case on every valuation slide.
+  // Q&A mode brings every slider and what-if back. Leaving Q&A restores the approved numbers.
+  function setMode(m){
+    root.dataset.mode = m; bMode.textContent = m === 'present' ? 'Q&A mode · Q' : 'Presentation mode · Q'; bMode.setAttribute('aria-pressed', String(m === 'qa'));
+    try { localStorage.setItem('smifMode', m); } catch (e) {}
+    if (m === 'present' && A.resetVS && !A.isBase()){ A.resetVS(); }
+    if (cur >= 0) enter(cur, 1);
+  }
+  A.setMode = setMode;
+  { let m = 'present'; try { m = localStorage.getItem('smifMode') || 'present'; } catch (e) {} root.dataset.mode = m === 'qa' ? 'qa' : 'present'; bMode.textContent = root.dataset.mode === 'present' ? 'Q&A mode · Q' : 'Presentation mode · Q'; }
   // build mode
   function setBuild(on){
     root.classList.toggle('build', on); bBuild.setAttribute('aria-pressed', String(on));
@@ -459,6 +471,7 @@ function boot(){
     if (k === 'g' || k === 'G'){ toggle(grid); e.preventDefault(); return; }
     if (k === 't' || k === 'T'){ toggle(plan); e.preventDefault(); return; }
     if (k === 'b' || k === 'B'){ setBuild(!root.classList.contains('build')); e.preventDefault(); return; }
+    if (k === 'q' || k === 'Q'){ setMode(root.dataset.mode === 'present' ? 'qa' : 'present'); e.preventDefault(); return; }
     if (k === 's' || k === 'S'){ toggleTimer(); e.preventDefault(); return; }
     if (k === '0'){ resetTimer(); e.preventDefault(); return; }
     if (k === 'f' || k === 'F'){ toggleFs(); e.preventDefault(); return; }
