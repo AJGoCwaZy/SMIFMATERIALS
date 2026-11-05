@@ -37,11 +37,11 @@ All research files go in the shared Google Drive folder (link at the top), not i
 
 | Person | Owns | Role in this repo |
 |---|---|---|
-| Gabriel Castillo | Macro, the question, valuation | Co-lead. Approves changes to the finance slides. |
-| Alexander Jovanovic | Profitability, cash flow bridge, coordination | Co-lead. Approves changes and runs the Wednesday deck update. |
-| Aaron | Competition, durability, pre-mortem | Editor |
-| Daniel Vazquez | Products, customers, end markets | Editor |
-| Ryan Hernandez | Next markets, market size, backlog | Editor |
+| Gabriel Castillo | The call, the question, macro, industry (slides 1-6, 25) | Co-lead. Approves changes to the finance slides. |
+| Alexander Jovanovic | Moat scorecard, profitability, cash flow bridge, coordination (slides 7, 16-20) | Co-lead. Approves changes and runs the Wednesday deck update. |
+| Aaron | Pre-mortem and valuation (slides 21-24) | Editor |
+| Daniel Vazquez | Products, customers, end markets (slides 8-12) | Editor |
+| Ryan Hernandez | Next markets, market size, backlog (slides 13-15) | Editor |
 
 ---
 
