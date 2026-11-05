@@ -1,6 +1,6 @@
 # SMIF Materials Pitch: Linde (LIN)
 
-The interactive slide deck for the FIU SMIF Materials team's pitch on Linde plc (NYSE: LIN), presented to the investment committee on **Thursday, December 3, 2026** (to be confirmed with the professor).
+The interactive slide deck for the FIU SMIF Materials team's pitch on Linde plc (Nasdaq: LIN), presented to the investment committee on **Thursday, December 3, 2026** (to be confirmed with the professor).
 
 **Live deck:** `[GitHub Pages link goes here once the repo is set up]`
 **Fill sheet (words and numbers):** https://docs.google.com/spreadsheets/d/1L23-LMUrW2D_asj35BNkO9VRB62ysRj2feFtmR7NBQA/edit
