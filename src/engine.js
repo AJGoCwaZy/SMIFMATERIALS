@@ -34,11 +34,11 @@ window.PITCH = {
 
 /* who owns what: names, roles, colours used in the team plan */
 window.OWNERS = {
-  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · macro, the question, valuation', c: '#A57C61' },
-  A: { n: 'Aaron', s: 'Aaron', r: 'Competition, durability, pre-mortem', c: '#2B5780', last: null },
+  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry', c: '#A57C61' },
+  A: { n: 'Aaron', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: null },
   D: { n: 'Daniel Vazquez', s: 'Daniel', r: 'Products, customers, end markets', c: '#2E7D4F' },
   R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Next markets, market size, backlog', c: '#7B5EA7' },
-  X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · profitability, cash flow bridge, coordination', c: '#B23A2E' },
+  X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · moat, profitability, cash flow', c: '#B23A2E' },
   T: { n: 'Whole team', s: 'Team', r: 'Everyone', c: '#595959' }
 };
 
@@ -49,9 +49,9 @@ window.PLAN = {
   call: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
   question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
   macro: { o: 'G', t: 30, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
-  stab: { o: 'A', t: 30, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
-  make: { o: 'A', t: 35, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
-  moat: { o: 'A', t: 35, r: [1], prove: 'Why Linde wins against Air Products and Air Liquide, on the five measures that matter.', pull: 'Linde raw values are filled from the Bloomberg pull (Oct 8). Peers: FA and RV on APD US and AI FP, backlogs from their earnings releases.' },
+  stab: { o: 'G', t: 30, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
+  make: { o: 'G', t: 35, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
+  moat: { o: 'X', t: 35, r: [1], prove: 'Why Linde wins against Air Products and Air Liquide, on the five measures that matter.', pull: 'Linde raw values are filled from the Bloomberg pull (Oct 8). Peers: FA and RV on APD US and AI FP, backlogs from their earnings releases.' },
   buyers: { o: 'D', t: 30, r: [1], prove: 'Who the customers are, and why gas is essential to them but a small share of their costs.', pull: 'Company 10-K end-market descriptions.' },
   snap: { o: 'D', t: 30, prove: 'Size, valuation and balance sheet at a glance.', pull: 'Filled from the Bloomberg FA pull (Oct 8, 2026). Refresh with FA and GP the week of the pitch.' },
   endm: { o: 'D', t: 30, r: [2], prove: 'Sales by end market, defensive vs cyclical, and which markets are growing.', pull: 'Mix is filled from register #7. Pull growth by end market from Linde’s Q3 2026 earnings slides (out late October).' },
@@ -66,9 +66,9 @@ window.PLAN = {
   capex: { o: 'X', t: 30, r: [3], prove: 'Capex and financing needs: the plant J-curve and where Linde’s cash goes.', pull: 'CF (operating cash flow, capex, dividends, buybacks), capex guidance, DDIS (debt maturities).' },
   bridge: { o: 'X', t: 45, r: [3], prove: 'Everything before it, added up: free cash flow per share from 2025 to 2029 by driver, against the growth the price needs. The end-market driver comes from Daniel’s forecast.', pull: 'Model drivers: backlog start-up revenue, margin and productivity, capex plan (guidance), buybacks (CF: 2025 buybacks were about 2% of market cap).' },
   premortem: { o: 'A', t: 45, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and the combined odds. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
-  implied: { o: 'G', t: 35, r: [3], prove: 'What today’s price already assumes vs what we expect.', pull: 'Model FCF, WACC <GO>, EE consensus growth.' },
-  surface: { o: 'G', t: 30, r: [3], prove: 'Value per share across discount rates and long-run growth: how robust the upside is.', pull: 'Model DCF (FCF path, net debt, share count), WACC <GO>.' },
-  scen: { o: 'G', t: 40, r: [3], prove: 'Bear, base and bull values with probabilities; the weighted target vs other methods.', pull: 'Model, RV comps, ANR analyst targets, GP 52-week range.' },
+  implied: { o: 'A', t: 35, r: [3], prove: 'What today’s price already assumes vs what we expect.', pull: 'Model FCF, WACC <GO>, EE consensus growth.' },
+  surface: { o: 'A', t: 30, r: [3], prove: 'Value per share across discount rates and long-run growth: how robust the upside is.', pull: 'Model DCF (FCF path, net debt, share count), WACC <GO>.' },
+  scen: { o: 'A', t: 40, r: [3], prove: 'Bear, base and bull values with probabilities; the weighted target vs other methods.', pull: 'Model, RV comps, ANR analyst targets, GP 52-week range.' },
   close: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The call, then a scorecard: for each reason what we expect, the signal and its date, and when we would sell.', pull: 'Nothing new: it reuses the reasons, the catalyst dates and the pre-mortem tripwires.' },
   qa: { o: 'T', t: 10, prove: 'Whoever owns the slide answers the question.', pull: 'The slides themselves.' },
 };
