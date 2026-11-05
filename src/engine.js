@@ -11,7 +11,7 @@ window.PITCH = {
   company: 'Linde plc',
   short: 'Linde',         // used inside sentences and chart labels
   ticker: 'LIN',
-  exchange: 'NYSE',
+  exchange: 'Nasdaq',
   rating: null,           // 'BUY' or 'SELL'
   price: null,            // current share price, number
   target: null,           // price target, number
@@ -45,7 +45,7 @@ window.OWNERS = {
 /* the build plan: owner (o), seconds in the timed run (t), which of the three reasons the slide supports (r),
    what the slide must prove, and where the inputs come from. r is a first draft: change it when the reasons are written. */
 window.PLAN = {
-  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (NYSE: LIN).' },
+  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (Nasdaq: LIN).' },
   call: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
   question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
   macro: { o: 'G', t: 30, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
@@ -65,7 +65,7 @@ window.PLAN = {
   marg: { o: 'X', t: 25, r: [3], prove: 'Linde’s margin and return trend vs the Materials sector (and Air Products once pulled), and what drives it.', pull: 'Filled from the Bloomberg pull: Linde vs the S&P 500 Materials sector. Add Air Products with FA on APD US.' },
   capex: { o: 'X', t: 30, r: [3], prove: 'Capex and financing needs: the plant J-curve and where Linde’s cash goes.', pull: 'CF (operating cash flow, capex, dividends, buybacks), capex guidance, DDIS (debt maturities).' },
   bridge: { o: 'X', t: 45, r: [3], prove: 'Everything before it, added up: free cash flow per share from 2025 to 2029 by driver, against the growth the price needs. The end-market driver comes from Daniel’s forecast.', pull: 'Model drivers: backlog start-up revenue, margin and productivity, capex plan (guidance), buybacks (CF: 2025 buybacks were about 2% of market cap).' },
-  premortem: { o: 'A', w: 'X', t: 45, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and the combined odds. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
+  premortem: { o: 'A', w: 'X', t: 45, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and what would change our recommendation. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
   implied: { o: 'A', t: 35, r: [3], prove: 'What today’s price already assumes vs what we expect.', pull: 'Model FCF, WACC <GO>, EE consensus growth.' },
   surface: { o: 'A', t: 30, r: [3], prove: 'Value per share across discount rates and long-run growth: how robust the upside is.', pull: 'Model DCF (FCF path, net debt, share count), WACC <GO>.' },
   scen: { o: 'A', t: 40, r: [3], prove: 'Bear, base and bull values with probabilities; the weighted target vs other methods.', pull: 'Model, RV comps, ANR analyst targets, GP 52-week range.' },

@@ -62,7 +62,7 @@ window.DATA = {
     { n: 'Healthcare', s: 17, g: null, d: true, u: 'Medical oxygen, hospital gases and US home care (Lincare).' },
     { n: 'Metals and mining', s: 13, g: null, d: false, u: 'Oxygen and argon for steel, copper and other metals.' },
     { n: 'Food and beverage', s: 9, g: null, d: true, u: 'Freezing, carbonation and packaging gases.' },
-    { n: 'Electronics', s: 9, g: 18, d: true, u: 'Ultra-pure nitrogen and specialty gases for chip fabs. Fastest-growing market in Q2 2026.' },
+    { n: 'Electronics', s: 9, g: 18, d: false, u: 'Ultra-pure nitrogen and specialty gases for chip fabs. Fastest-growing market in Q2 2026.' },
     { n: 'Other', s: 10, g: null, d: false, u: 'Aerospace, space, water treatment, labs and more.' }
   ]},
   /* long: take-or-pay (the first big number); multi: on a multi-year contract, 3+ yr (the second) */
@@ -123,7 +123,8 @@ window.DATA = {
     om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#6B432B', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
     roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#6B432B', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
   }},
-  uses: { sample: false, items: [ ['Operations', 10.35], ['Capex', -5.26], ['Dividends', -2.81], ['Buybacks', -4.58] ] },
+  /* Linde 10-K FY2025 cash flow statement, $B. Net borrowing = debt increases (decreases), net. Other, net is computed: acquisitions, other investing, NCI and other, cash build, less divestitures and FX. */
+  uses: { sample: false, items: [ ['Operations', 10.35], ['Net borrowing', 2.91], ['Capex', -5.26], ['Dividends', -2.81], ['Buybacks', -4.58] ] },
   risks: { sample: true, r: [
     { n: 'Industrial recession cuts merchant and packaged volumes', p: .55, i: .62 },
     { n: 'Energy spike not fully passed through', p: .45, i: .38 },
@@ -202,7 +203,8 @@ window.UNIT_INFO = {
 const A = window.__A; const {RM, $, $$, S, T, H, esc, lin, clamp, usd, sg, pct, mmss, clear, F, tween, rng, pick, showTip, hideTip, hov, gridY, C, samp, INIT} = A;
 const D = window.DATA;
 const SHORT = () => window.PITCH.short || window.PITCH.ticker || 'the company';
-function srcok(sl, text, sel){ $$(sel || '.samp', sl).forEach(x => { x.className = 'samp src-ok'; x.textContent = text; }); }
+/* status label on an exhibit: kind 'fc' = team forecast, otherwise reported data */
+function srcok(sl, text, sel, kind){ $$(sel || '.samp', sl).forEach(x => { x.className = 'samp ' + (kind === 'fc' ? 'src-fc' : 'src-ok'); x.textContent = (kind === 'fc' ? 'Team forecast · ' : 'Reported · ') + text; }); }
 const FL = s => esc(s).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>');
 
 /* ---- the call ---- */
@@ -234,13 +236,11 @@ INIT.agenda = sl => {
 INIT.question = sl => {
   const v = D.val, P = window.PITCH, price = priceNow();
   const imp = impG(price, v.w / 100, v.g / 100) * 100;
-  const eps = D.snap.tiles.find(t => /^EPS/.test(t[0])), epsG = eps ? eps[2].split(' ')[0] : null;
   // our growth: PITCH.growth, else the bridge once its drivers are ours (never the 2019-2025 stand-in)
   const ours = A.ourGrowthNow(), ourT = P.growth != null && P.growth !== '' ? P.growth : ours == null ? null : ours.toFixed(1) + '%';
   const TL = [
     { k: 'The price needs', v: imp.toFixed(1) + '%', c: 'free cash flow growth a year for ten years, at about ' + usd(price) + ' a share', cls: 'need' },
     { k: SHORT() + ' delivered', v: v.hist + '%', c: 'free cash flow per share growth a year, 2019-2025' },
-    { k: 'Analysts expect', v: epsG, c: 'EPS growth, 2026 only, not FCF (Bloomberg consensus)' },
     { k: 'We expect', v: ourT, c: ours == null ? 'free cash flow growth a year, from our model' : sg(ours - imp, 1, ' pts') + ' vs what the price needs', cls: 'ours', f: 'x% a year' }
   ];
   const box = $('#qTest', sl);
@@ -248,9 +248,9 @@ INIT.question = sl => {
     H('div', {class: 'qt ' + (t.cls || '')}, '<span class="tk">' + esc(t.k) + '</span><span class="tv">' + F(t.v, t.f || '[ ]') + '</span><span class="tc">' + esc(t.c) + '</span>', box);
     if (i === 0) H('div', {class: 'qvs'}, 'vs', box);
   });
-  // the same four numbers on one line: where the price sits against history, analysts and us
+  // the same numbers on one line: where the price sits against history and us
   const svg = $('#qLine', sl), x0 = 60, x1 = 1400, X = lin(0, 20, x0, x1), yl = 86;
-  const pts = [[imp, 'Price needs ' + imp.toFixed(1) + '%', C.gold, -1], [v.hist, 'Delivered ' + v.hist + '%', C.steel, 1], [epsG ? parseFloat(epsG) : null, 'Analysts, 2026 EPS ' + epsG, C.steel, -1, 'hollow'], [ours, ours == null ? '' : 'We expect ' + ourT, C.navy, 1]];
+  const pts = [[imp, 'Price needs ' + imp.toFixed(1) + '%', C.gold, -1], [v.hist, 'Delivered ' + v.hist + '%', C.steel, 1], [ours, ours == null ? '' : 'We expect ' + ourT, C.navy, 1]];
   const live = pts.filter(q => q[0] != null && !isNaN(q[0])).sort((a, b) => a[0] - b[0]);
   // tick labels near a lower stem are skipped (the tick stays) so no stem cuts through a number
   const stems = live.filter(q => q[3] > 0).map(q => X(clamp(q[0], 0, 20)));
@@ -808,15 +808,16 @@ INIT.capex = sl => {
   }
   draw();
   // where the cash comes from and where it goes: two stacked columns that balance
-  const d = D.uses; if (!d.sample) srcok(sl, 'Bloomberg CF, 2025', '.side .samp'); else samp(sl, d.sample, '.side .samp');
+  const d = D.uses; if (!d.sample) srcok(sl, 'Linde 10-K, 2025', '.side .samp'); else samp(sl, d.sample, '.side .samp');
   const src = d.items.filter(v => v[1] > 0), use = d.items.filter(v => v[1] < 0).map(v => [v[0], -v[1]]);
   const gap = use.reduce((a, v) => a + v[1], 0) - src.reduce((a, v) => a + v[1], 0);
   if (gap > 0) src.push(['Other, net', gap]); else if (gap < 0) use.push(['Other, net', -gap]);
   // the headline's second sentence follows the same numbers as the chart
   const amt = n => { const it = d.items.find(v => v[0] === n); return it ? Math.abs(it[1]) : 0; };
-  const cxh = $('#cxH', sl); if (cxh) cxh.innerHTML = 'In 2025, operations ' + (amt('Operations') >= amt('Capex') + amt('Dividends') ? 'covered' : 'did not cover') + ' capex and dividends; <b>' + (gap > 0 ? 'buybacks needed other sources' : 'buybacks were covered too') + '</b>';
   const bn = v => '$' + (Math.round(v * 10 + 1e-9) / 10).toFixed(1) + 'B';
-  const tot = src.reduce((a, v) => a + v[1], 0), yb = 262, y = lin(0, tot, yb, 22), cols = [[src, 'Sources', 60, [C.navy, C.gold]], [use, 'Uses', 215, [C.steel, C.light, C.sky, C.gold]]];
+  const left = amt('Operations') - amt('Capex') - amt('Dividends');
+  const cxh = $('#cxH', sl); if (cxh) cxh.innerHTML = 'In 2025, operations ' + (left >= 0 ? 'covered' : 'did not cover') + ' capex and dividends; ' + (left >= amt('Buybacks') ? '<b>buybacks were covered too</b>' : '<b>net borrowing of ' + bn(amt('Net borrowing')) + ' helped fund buybacks</b>');
+  const tot = src.reduce((a, v) => a + v[1], 0), yb = 262, y = lin(0, tot, yb, 22), cols = [[src, 'Sources', 60, [C.navy, C.sky]], [use, 'Uses', 215, [C.steel, C.light, C.sky, C.gold]]];
   cols.forEach(cl => {
     let acc = 0;
     cl[0].forEach((v, i) => {
@@ -877,6 +878,7 @@ INIT.implied = sl => {
   $('#imRead', sl).addEventListener('click', e => { if (e.target.closest('[data-back]')){ touched = false; toOurs(); } });
   function solve(w, g){ let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
   function draw(){
+    d.w = W.v; d.g = G.v;
     const w = W.v / 100, g = G.v / 100, imp = solve(w, g) * 100, ours = O.v;
     clear(svg);
     const x0 = 80, x1 = 870, yb = 450, gx = lin(0, 20, x0, x1), vals = []; for (let k = 0; k <= 20; k += .25) vals.push([k, dcf(d.fcf0, k / 100, d.years, w, g)]);
@@ -937,7 +939,7 @@ INIT.implied = sl => {
   }
   toOurs();
   // always redraw on entering: labels are placed by measuring them, which needs the slide on screen
-  return { enter(){ if (!touched && Math.abs(O.v - clamp(r1(ourG()), 0, 18)) > .04) toOurs(); else draw(); } };
+  return { enter(){ if (Math.abs(W.v - d.w) > .04) W.set(d.w); if (Math.abs(G.v - d.g) > .04) G.set(d.g); if (!touched && Math.abs(O.v - clamp(r1(ourG()), 0, 18)) > .04) toOurs(); else draw(); } };
 };
 
 /* ---- 3D value landscape ---- */
@@ -951,11 +953,13 @@ INIT.surface = sl => {
   const V = (w, g) => dcf(d.fcf0, gOur / 100, d.years, w / 100, g / 100);
   const ws = [], gsv = []; for (let w = 6; w <= 10.001; w += .5) ws.push(+w.toFixed(1)); for (let g = 1.5; g <= 4.001; g += .5) gsv.push(+g.toFixed(1));
   // the grid point nearest the side-card inputs, outlined in the table
-  const nw = ws.reduce((a, b) => Math.abs(b - d.w) < Math.abs(a - d.w) ? b : a), ng = gsv.reduce((a, b) => Math.abs(b - d.g) < Math.abs(a - d.g) ? b : a);
+  let nw, ng, read2, wNow = d.w, gNow = d.g;
   const read3 = '<b>Blue dot:</b> our inputs. <b>Blue plane:</b> the price, about ' + usd(price) + '.';
-  const read2 = '<b>Outlined cell:</b> the grid point nearest our inputs (WACC ' + nw.toFixed(1) + '%, growth ' + ng.toFixed(1) + '%). Brown cells sit above the price of about ' + usd(price) + ', red cells below.';
+  const mkRead2 = () => '<b>Outlined cell:</b> the grid point nearest our inputs (WACC ' + nw.toFixed(1) + '%, growth ' + ng.toFixed(1) + '%). Brown cells sit above the price of about ' + usd(price) + ', red cells below.';
   // the table, the side card and the footer for the current growth
   function paint(){
+    wNow = d.w; gNow = d.g;
+    nw = ws.reduce((a, b) => Math.abs(b - d.w) < Math.abs(a - d.w) ? b : a); ng = gsv.reduce((a, b) => Math.abs(b - d.g) < Math.abs(a - d.g) ? b : a); read2 = mkRead2();
     base = V(d.w, d.g);
     let th = '<table class="dtab" style="font-size:17px"><thead><tr><th>WACC ↓ · growth →</th>' + gsv.map(g => '<th class="n">' + g.toFixed(1) + '%</th>').join('') + '</tr></thead><tbody>';
     ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(107,67,43,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1A1A1A'; return '<td class="n" style="background:' + bg + ';color:' + fg + (w === nw && g === ng ? ';outline:3px solid ' + C.gold + ';outline-offset:-3px' : '') + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
@@ -1025,7 +1029,7 @@ INIT.surface = sl => {
   return {
     enter(){
       // the bridge (or forecast) changed since this slide was built: repaint the table and card, and rebuild the mesh at the new growth
-      if (Math.abs(ourG() - gOur) > .04){ gOur = ourG(); paint(); if (three){ three.dispose(); three = null; delete host.dataset.tried; } }
+      if (Math.abs(ourG() - gOur) > .04 || Math.abs(d.w - wNow) > .01 || Math.abs(d.g - gNow) > .01){ gOur = ourG(); paint(); if (mode === '2d') $('#sfRead', sl).innerHTML = read2; if (three){ three.dispose(); three = null; delete host.dataset.tried; } }
       if (!three && !host.dataset.tried){ host.dataset.tried = '1'; try { three = build(); } catch (e){ console.warn(e); three = null; } if (three) fall.hidden = true; else { fall.textContent = '3D needs WebGL, which is off in this browser. The table shows the same values.'; setMode('2d'); b3.disabled = true; } } if (three && mode === '3d') three.start(); },
     leave(){ if (three) three.stop(); hideTip(sl); }
   };
@@ -1097,7 +1101,7 @@ INIT.scen = sl => {
 /* ---- cash flow bridge: 2025 to 2029 by driver, against what the price needs ---- */
 INIT.bridge = sl => {
   const d = D.bridge, v = D.val, svg = $('#brSvg', sl), box = $('#brCtl', sl);
-  if (d.sample) samp(sl, true); else srcok(sl, 'Our drivers: 10-K, Q3 2026');
+  if (d.sample) samp(sl, true); else srcok(sl, 'inputs from 10-K, Q3 2026', null, 'fc');
   const price = priceNow(), f0 = v.fcf0, yrs = d.years, fi = A.idx('fcast');
   const val = d.d.map(x => r1(x.link ? emDrv() : x.v));
   let touched = false, syncing = false;
@@ -1161,17 +1165,11 @@ INIT.premortem = sl => {
   const p = d.p.slice();
   const odds = cards.map(c => { const o = H('span', {class: 'pmo'}, '<b>0%</b><span>odds by 2029</span>'); const f = $('.ff', c); f.insertBefore(o, $('.hint', f)); return $('b', o); });
   p.forEach((v, i) => { H('div', {class: 'ctl'}, '<label for="pmp' + i + '">Story ' + (i + 1) + ' <output id="pmp' + i + 'o"></output></label><input type="range" id="pmp' + i + '" min="0" max="60" step="5" value="' + v + '">', box); rng('pmp' + i, nv => { p[i] = nv; draw(); }, nv => nv + '%'); });
-  const res = H('div', {class: 'pmres'}, '<span class="eyebrow">At least one story happens</span><div class="big" id="pmAny">0%</div><div class="pmdots" aria-hidden="true"></div><p class="xs muted" id="pmRead"></p>', box);
-  const dots = []; for (let k = 0; k < 100; k++) dots.push(H('i', null, null, $('.pmdots', res)));
   const sc = A.idx('scen');
   const go = H('button', {type: 'button', class: 'btn sm', style: 'align-self:flex-start;margin-top:auto'}, 'Priced in the bear case: slide ' + (sc + 1) + ' →', box);
   go.addEventListener('click', () => A.jump(sc));
   function draw(){
-    const any = (1 - p.reduce((a, v) => a * (1 - v / 100), 1)) * 100, k = Math.round(any);
-    $('#pmAny', res).textContent = k + '%';
     odds.forEach((o, i) => { o.textContent = p[i] + '%'; });
-    dots.forEach((e, i) => e.classList.toggle('on', i < k));
-    $('#pmRead', res).textContent = 'In ' + k + ' of 100 possible 2029s, at least one story happens. Assumes the stories are independent.';
   }
   draw();
 };
@@ -1192,7 +1190,7 @@ INIT.close = sl => {
     const qs = $('#clQ .q', sl); if (qs && qs.scrollHeight > qs.clientHeight + 2){ qs.classList.add('clamped'); console.warn('Slide ' + (A.idx('close') + 1) + ': the question is cut to two lines. Keep it under about 200 characters.'); }
   }
   qband();
-  t.innerHTML = '<thead><tr><th style="width:30%">Reason</th><th>What we expect</th><th>Signal and date</th><th>We sell if</th></tr></thead><tbody>' + P.pillars.map((p, i) =>
+  t.innerHTML = '<thead><tr><th style="width:30%">Reason</th><th>What we expect</th><th>Signal and date</th><th>We change our recommendation if</th></tr></thead><tbody>' + P.pillars.map((p, i) =>
     '<tr class="click" data-go="' + esc(p.go) + '"><td><div class="scr"><span class="scb">' + (i + 1) + '</span><span><b>' + F(p.h, 'Reason ' + (i + 1) + ': headline') + '</b><em>Evidence: slide ' + (A.idx(p.go) + 1) + ' →</em></span></div></td><td>' + F(p.expect, 'the number we expect, and by when') + '</td><td>' + F(p.signal, 'the report or data point, with its date') + '</td><td>' + F(p.sell, 'the tripwire') + '</td></tr>').join('') + '</tbody>';
   $$('tr.click', t).forEach(r => r.addEventListener('click', e => { if (!e.target.closest('.scr em')) return; const g = A.idx(r.dataset.go); if (g >= 0) A.jump(g); }));
   return { enter(){ qband(); } };
