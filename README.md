@@ -37,11 +37,11 @@ All research files go in the shared Google Drive folder (link at the top), not i
 
 | Person | Owns | Role in this repo |
 |---|---|---|
-| Gabriel Castillo | The call, the question, macro, industry and next markets (slides 1-7), the close (20); backs up Ryan on growth (11-12) | Co-lead. Approves changes to the finance slides. |
-| Alexander Jovanovic | Peer margins, pass-through, capex and cash, the free cash flow bridge, coordination (slides 13-16); backs up Aaron on the pre-mortem (17) | Co-lead. Approves changes and runs the Wednesday deck update. |
-| Aaron | Pre-mortem and valuation (slides 17-19); owns the valuation model and its reconciliation (backup) | Editor |
-| Daniel Vazquez | End markets, contracts, the end-market forecast (slides 8-10) | Editor |
-| Ryan Hernandez | Market size and the signed backlog (slides 11-12) | Editor |
+| Gabriel Castillo | The call, the question, macro, industry and next markets (slides 1-7), the close (21); backs up Ryan on growth (12-13) | Co-lead. Approves changes to the finance slides. |
+| Alexander Jovanovic | Peer margins, pass-through, capex and cash, the free cash flow bridge, coordination (slides 14-17); backs up Aaron on the pre-mortem (18) | Co-lead. Approves changes and runs the Wednesday deck update. |
+| Aaron | Pre-mortem and valuation (slides 18-20); owns the valuation model and its reconciliation (backup) | Editor |
+| Daniel Vazquez | Linde at a glance, end markets, contracts, the end-market forecast (slides 8-11) | Editor |
+| Ryan Hernandez | Market size and the signed backlog (slides 12-13) | Editor |
 
 ---
 

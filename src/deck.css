@@ -810,3 +810,4 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 
 /* status pills (Reported, Team forecast, Illustration, Sample data): off on the slides; build mode (B) shows them so the team can see what is still sample */
 :root:not(.build) .samp{display:none!important}
+.sntiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;flex:1}.sntiles .tile{padding:10px 16px;justify-content:center}.sntiles .tile .tv{font-size:32px}
