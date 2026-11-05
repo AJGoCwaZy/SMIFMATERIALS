@@ -193,15 +193,17 @@ window.DATA = {
   rel: { eps: 17.88, ebitda: 14164, dps: 6.41,
     eq: { debt: 26702, cash: 3947, nci: 1563, inv: 2015, sh: 461.0, out: 459.08 },
     methods: [
-      { n: 'P/E, Linde 2021-2025', on: 'eps', lo: 25.4, hi: 31.6, mid: 27.6, w: 40, tip: 'Linde\u2019s own year-end P/E, 2021-2025 (Bloomberg FA), on 2026E EPS of $17.88' },
+      { n: 'Linde\u2019s own P/E, 2021-2025', on: 'eps', lo: 25.4, hi: 31.6, mid: 27.6, w: 35, tip: 'Linde\u2019s own year-end P/E, 2021-2025 (Bloomberg FA), on 2026E EPS of $17.88' },
       { n: 'P/E, Air Products and Air Liquide', on: 'eps', eps: 19.44, lo: 22.1, hi: 26.3, w: 30, tip: 'peers\u2019 2027 P/E (22.1x and 26.3x) on Linde\u2019s 2027E EPS of $19.44' },
-      { n: 'EV/EBITDA, Air Products and Air Liquide', on: 'evrel', self: 18.93, lo: 17.43, hi: 18.98, w: 30, tip: 'trailing EV/EBITDA, Air Liquide 17.43x and Air Products 18.98x, against Linde\u2019s 18.93x' }
+      { n: 'EV/EBITDA, Air Products and Air Liquide', on: 'evrel', self: 18.93, lo: 17.43, hi: 18.98, w: 25, tip: 'trailing EV/EBITDA, Air Liquide 17.43x and Air Products 18.98x, against Linde\u2019s 18.93x' },
+      /* DCF: our FCFF model at a WACC of 9% (low end), 8.05% (Gabriel's build, middle) and 7% (high end) */
+      { n: 'DCF, WACC 7-9%', on: 'dcf', lo: 9, hi: 7, mid: 8.05, w: 10, tip: 'our FCFF model; middle at Gabriel\u2019s 8.05% WACC' }
     ],
-    refs: [ { n: 'Analyst price targets', lo: 400, hi: 600, mid: 550.85, tip: '29 analysts; mean $550.85, median $560' }, { n: '52-week range', lo: 387.78, hi: 548.20 } ],
+    refs: [],
     cases: [
-      { k: 'bear', n: 'Bear', p: 25, a: 'Every method at the low end: Linde back at its lowest P/E since 2021 and peers at their lower multiple.' },
-      { k: 'base', n: 'Base', p: 50, a: 'The middle of each method, weighted 40% Linde\u2019s own P/E history, 30% peer P/E, 30% peer EV/EBITDA.' },
-      { k: 'bull', n: 'Bull', p: 25, a: 'Every method at the high end: Linde back at its 2021 P/E and peers at their higher multiple.' }
+      { k: 'bear', n: 'Bear', p: 25, a: 'Every method at the low end: Linde back at its lowest P/E since 2021, peers at their lower multiple, a 9% WACC.' },
+      { k: 'base', n: 'Base', p: 50, a: 'The middle of each method, weighted 35% Linde\u2019s own P/E history, 30% peer P/E, 25% peer EV/EBITDA, 10% DCF.' },
+      { k: 'bull', n: 'Bull', p: 25, a: 'Every method at the high end: Linde back at its 2021 P/E, peers at their higher multiple, a 7% WACC.' }
     ] },
   /* FY2025, GAAP basis. Linde and the sector: Bloomberg FA benchmark (Oct 8, 2026). null = still to pull. */
   comps: { cols: ['Company', 'P/E', 'EV/EBITDA', 'Price/book', 'Op. margin', 'Return on capital', 'Net debt/EBITDA'], fmt: ['', 'x', 'x', 'x', '%', '%', 'x'],
@@ -1147,7 +1149,7 @@ INIT.scen = sl => {
   const q = d.eq, perShare = ev => (ev - q.debt + q.cash - q.nci + q.inv) / q.sh;
   // value per share at a multiple, by what the multiple is applied to
   const evNow = () => priceNow() * q.out + q.debt - q.cash + q.nci - q.inv;
-  const val = (m, x) => m.on === 'eps' ? x * (m.eps || d.eps) : m.on === 'ebitda' ? perShare(x * d.ebitda) : m.on === 'evrel' ? perShare(evNow() * x / m.self) : x;
+  const val = (m, x) => m.on === 'eps' ? x * (m.eps || d.eps) : m.on === 'ebitda' ? perShare(x * d.ebitda) : m.on === 'evrel' ? perShare(evNow() * x / m.self) : m.on === 'dcf' ? runModel({w: x}).v : x;
   const ready = m => m.lo != null && m.hi != null;
   const mid = m => m.mid != null ? m.mid : (m.lo + m.hi) / 2;
   const probs = d.cases.map(c => c.p);
@@ -1172,10 +1174,8 @@ INIT.scen = sl => {
     $('#scPt', sl).textContent = M.length ? usd(pt) : '[target]';
     $('#scAsym', sl).textContent = M.length ? ', ' + sg((pt / price - 1) * 100, 0, '%') + ' vs today’s ' + usd(price) : '';
     // rows: weighted methods, then market references, then the DCF on its own
-    const dcfV = []; for (let w = 7; w <= 9.001; w += .25) dcfV.push(runModel({w}).v);
-    const rows = d.methods.map(m => ({n: m.n + ' · ' + m.w + '%', lo: ready(m) ? val(m, m.lo) : null, hi: ready(m) ? val(m, m.hi) : null, md: ready(m) ? val(m, mid(m)) : null, g: 0, tip: m.tip}))
-      .concat(d.refs.map(r => ({n: r.n, lo: r.lo, hi: r.hi, md: r.mid, g: 1, tip: r.tip})))
-      .concat([{n: 'DCF, WACC 7-9%', lo: Math.min(...dcfV), hi: Math.max(...dcfV), md: runModel().v, g: 2, tip: 'our FCFF model; very sensitive to the discount rate'}]);
+    const rows = d.methods.map(m => ({n: m.n + ' · ' + m.w + '%', lo: ready(m) ? Math.min(val(m, m.lo), val(m, m.hi)) : null, hi: ready(m) ? Math.max(val(m, m.lo), val(m, m.hi)) : null, md: ready(m) ? val(m, mid(m)) : null, g: 0, tip: m.tip}))
+      .concat(d.refs.map(r => ({n: r.n, lo: r.lo, hi: r.hi, md: r.mid, g: 1, tip: r.tip})));
     clear(svg);
     const have = rows.filter(r => r.lo != null), lo0 = Math.min(...have.map(r => r.lo), price), hi0 = Math.max(...have.map(r => r.hi), price), step = [50, 100, 250].find(s => (hi0 - lo0) / s <= 14) || 500;
     const x0 = 330, x1 = 1360, lo = Math.max(0, Math.floor(lo0 / step) * step - step), hi = Math.ceil(hi0 / step) * step + step, x = lin(lo, hi, x0, x1), rh = 36, y0 = 18, gap = 24;
@@ -1197,7 +1197,7 @@ INIT.scen = sl => {
     if (M.length){ S('line', {x1: x(pt), x2: x(pt), y1: y0 - 8, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 46, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#2B5780'}, 'Target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg); }
     ends.forEach(e => svg.appendChild(e));
     const miss = d.methods.filter(m => !ready(m)).map(m => m.n);
-    $('#scTakeT', sl).innerHTML = M.length ? 'Weighted multiples give ' + usd(pt) + ', ' + sg((pt / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '; with the ' + (dy * 100).toFixed(1) + '% dividend yield, about ' + sg((pt / price - 1 + dy) * 100, 0, '%') + ' over 12 months. The DCF sits far lower because it is very sensitive to the discount rate, so we show it but do not weight it.' + (miss.length ? ' <span class="fill">[Still to pull: ' + esc(miss.join(', ')) + ']</span>' : '') : '<span class="fill">[Pull the peer multiples]</span>';
+    $('#scTakeT', sl).innerHTML = M.length ? 'The weighted methods give ' + usd(pt) + ', ' + sg((pt / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '; with the ' + (dy * 100).toFixed(1) + '% dividend yield, about ' + sg((pt / price - 1 + dy) * 100, 0, '%') + ' over 12 months. The DCF gets only 10%: at Gabriel\u2019s 8.05% WACC it is worth ' + usd(runModel({w: 8.05}).v) + ', and the price only works at about a ' + A.needW().toFixed(1) + '% WACC.' + (miss.length ? ' <span class="fill">[Still to pull: ' + esc(miss.join(', ')) + ']</span>' : '') : '<span class="fill">[Pull the peer multiples]</span>';
   }
   draw();
   return { enter(){ draw(); } };
