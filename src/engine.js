@@ -34,11 +34,11 @@ window.PITCH = {
 
 /* who owns what: names, roles, colours used in the team plan */
 window.OWNERS = {
-  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry', c: '#A57C61' },
+  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry; helps on growth', c: '#A57C61' },
   A: { n: 'Aaron', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: null },
   D: { n: 'Daniel Vazquez', s: 'Daniel', r: 'Products, customers, end markets', c: '#2E7D4F' },
   R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Next markets, market size, backlog', c: '#7B5EA7' },
-  X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · moat, profitability, cash flow', c: '#B23A2E' },
+  X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · moat, profitability, cash flow; helps on risk', c: '#B23A2E' },
   T: { n: 'Whole team', s: 'Team', r: 'Everyone', c: '#595959' }
 };
 
@@ -57,15 +57,15 @@ window.PLAN = {
   endm: { o: 'D', t: 30, r: [2], prove: 'Sales by end market, defensive vs cyclical, and which markets are growing.', pull: 'Mix is filled from register #7. Pull growth by end market from Linde’s Q3 2026 earnings slides (out late October).' },
   fcast: { o: 'D', t: 40, r: [2], prove: 'Our three-year view of each end market, and what it adds up to for Linde’s sales growth. The result feeds the cash flow bridge.', pull: 'One indicator per market (ACC chemical output, ISM, CMS home-oxygen rates, worldsteel, SEMI fab spending), management end-market commentary on calls, EE consensus revenue growth to compare against.' },
   cmix: { o: 'D', t: 25, r: [1], prove: 'How much revenue sits under long contracts, by supply mode, and how concentrated the customers are.', pull: 'Supply-mode mix is filled from Bloomberg FA segments (2025). Still needed: customer concentration from the 10-K.' },
-  next: { o: 'R', t: 35, r: [2], prove: 'The new industries that run on gas (AI, quantum, robotics, bioengineering, space, clean energy), how each uses it, and which ones we would actually play.', pull: 'Source register #3 (helium), #4 (space, gas use per wafer), #6 (hydrogen caution), #7 (APD project exits). Company disclosures on electronics, space and healthcare.' },
-  tam: { o: 'R', t: 45, r: [2], prove: 'For each theme: the headline market, the gas slice, the share we can serve, our revenue today. The advisor asked for this.', pull: 'Register #4, #5, #6. BI deep dives. Company electronics and space disclosures.' },
-  backlog: { o: 'R', t: 35, r: [2], prove: 'Growth already signed: backlog size, start-up timing, end-market mix.', pull: 'Earnings releases (sale-of-gas backlog), call transcripts. Settle the $10B vs $8.1B definition first.' },
+  next: { o: 'R', w: 'G', t: 35, r: [2], prove: 'The new industries that run on gas (AI, quantum, robotics, bioengineering, space, clean energy), how each uses it, and which ones we would actually play.', pull: 'Source register #3 (helium), #4 (space, gas use per wafer), #6 (hydrogen caution), #7 (APD project exits). Company disclosures on electronics, space and healthcare.' },
+  tam: { o: 'R', w: 'G', t: 45, r: [2], prove: 'For each theme: the headline market, the gas slice, the share we can serve, our revenue today. The advisor asked for this.', pull: 'Register #4, #5, #6. BI deep dives. Company electronics and space disclosures.' },
+  backlog: { o: 'R', w: 'G', t: 35, r: [2], prove: 'Growth already signed: backlog size, start-up timing, end-market mix.', pull: 'Earnings releases (sale-of-gas backlog), call transcripts. Settle the $10B vs $8.1B definition first.' },
   money: { o: 'X', t: 25, r: [3], prove: 'How cash comes in, how energy costs pass through, and why new plants consume cash first.', pull: 'Nothing new: it sets up the next four slides.' },
   pass: { o: 'X', t: 30, r: [1], prove: 'Contract protections and their limits: pass-through keeps profit dollars, not the margin %.', pull: 'Earnings release sales bridge (price, volume, cost pass-through, FX). Energy cost as % of sales.' },
   marg: { o: 'X', t: 25, r: [3], prove: 'Linde’s margin and return trend vs the Materials sector (and Air Products once pulled), and what drives it.', pull: 'Filled from the Bloomberg pull: Linde vs the S&P 500 Materials sector. Add Air Products with FA on APD US.' },
   capex: { o: 'X', t: 30, r: [3], prove: 'Capex and financing needs: the plant J-curve and where Linde’s cash goes.', pull: 'CF (operating cash flow, capex, dividends, buybacks), capex guidance, DDIS (debt maturities).' },
   bridge: { o: 'X', t: 45, r: [3], prove: 'Everything before it, added up: free cash flow per share from 2025 to 2029 by driver, against the growth the price needs. The end-market driver comes from Daniel’s forecast.', pull: 'Model drivers: backlog start-up revenue, margin and productivity, capex plan (guidance), buybacks (CF: 2025 buybacks were about 2% of market cap).' },
-  premortem: { o: 'A', t: 45, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and the combined odds. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
+  premortem: { o: 'A', w: 'X', t: 45, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and the combined odds. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
   implied: { o: 'A', t: 35, r: [3], prove: 'What today’s price already assumes vs what we expect.', pull: 'Model FCF, WACC <GO>, EE consensus growth.' },
   surface: { o: 'A', t: 30, r: [3], prove: 'Value per share across discount rates and long-run growth: how robust the upside is.', pull: 'Model DCF (FCF path, net debt, share count), WACC <GO>.' },
   scen: { o: 'A', t: 40, r: [3], prove: 'Bear, base and bull values with probabilities; the weighted target vs other methods.', pull: 'Model, RV comps, ANR analyst targets, GP 52-week range.' },
@@ -188,7 +188,7 @@ function boot(){
       if (nt) s.appendChild(nt);
     }
     const m = meta(i), o = window.OWNERS[m.o];
-    H('div', {class: 'otag'}, esc(o.s) + (m.t ? ' · ' + mmss(m.t) : ' · backup'), s);
+    H('div', {class: 'otag'}, esc(o.s) + (m.w ? ' + ' + esc(window.OWNERS[m.w].s) : '') + (m.t ? ' · ' + mmss(m.t) : ' · backup'), s);
     if (m.r && m.r.length && s.classList.contains('content')) trk(s, m.r);
     s.setAttribute('aria-label', 'Slide ' + (i + 1) + ': ' + titles[i]);
   });
@@ -301,7 +301,7 @@ function boot(){
       if (s.dataset.sec || i === 0){ const sc = SECS.find(x => x.a === i + 1); const secSecs = slides.reduce((a, s2, j) => a + (j + 1 >= sc.a && j + 1 <= sc.b ? (meta(j).t || 0) : 0), 0); curSec = H('tr', {class: 'sec'}, '<td colspan="8">' + esc(sc.n) + (secSecs ? ' · ' + mmss(secSecs) : '') + '</td>', body); secRows.push(curSec); }
       const m = meta(i), o = window.OWNERS[m.o];
       const tr = H('tr', {class: 'sl'}, null, body);
-      tr.innerHTML = '<td class="no">' + (i + 1) + '</td><td class="ti"></td><td class="ow"><span class="ochip" style="background:' + o.c + '">' + esc(o.s) + '</span></td><td class="tm">' + (m.t ? mmss(m.t) : '–') + '</td><td class="tm">' + (m.t ? mmss(START[i]) : 'backup') + '</td><td></td><td class="pu"></td><td class="lf"></td>';
+      tr.innerHTML = '<td class="no">' + (i + 1) + '</td><td class="ti"></td><td class="ow"><span class="ochip" style="background:' + o.c + '">' + esc(o.s) + '</span>' + (m.w ? ' <span class="ochip" style="background:transparent;border:1px solid ' + window.OWNERS[m.w].c + ';color:#fff">with ' + esc(window.OWNERS[m.w].s) + '</span>' : '') + '</td><td class="tm">' + (m.t ? mmss(m.t) : '–') + '</td><td class="tm">' + (m.t ? mmss(START[i]) : 'backup') + '</td><td></td><td class="pu"></td><td class="lf"></td>';
       tr.children[1].textContent = titles[i]; tr.children[5].textContent = m.prove || ''; tr.children[6].textContent = m.pull || '';
       tr.addEventListener('click', () => { ov.hidden = true; go(i); });
       rows.push({ tr, o: m.o, sec: curSec, i });
@@ -313,7 +313,7 @@ function boot(){
       Object.keys(window.OWNERS).forEach(k => { const o = window.OWNERS[k]; const secs = slides.reduce((a, s, i) => a + (meta(i).o === k ? (meta(i).t || 0) : 0), 0); const nS = slides.filter((s, i) => meta(i).o === k).length; L.push(o.n + ' (' + o.r + '): ' + mmss(secs) + ' speaking, ' + nS + ' slides'); });
       SECS.forEach(sc => {
         L.push(''); L.push(sc.n.toUpperCase());
-        for (let i = sc.a - 1; i < sc.b; i++){ const m = meta(i); L.push((i + 1) + '. ' + titles[i] + ' · ' + window.OWNERS[m.o].s + ' · ' + (m.t ? mmss(m.t) : 'backup') + (m.prove ? ' · ' + m.prove : '')); }
+        for (let i = sc.a - 1; i < sc.b; i++){ const m = meta(i); L.push((i + 1) + '. ' + titles[i] + ' · ' + window.OWNERS[m.o].s + (m.w ? ' (with ' + window.OWNERS[m.w].s + ')' : '') + ' · ' + (m.t ? mmss(m.t) : 'backup') + (m.prove ? ' · ' + m.prove : '')); }
       });
       return L.join('\n');
     }
@@ -349,7 +349,7 @@ function boot(){
     let rows = notes[i].map(r => '<div class="nr t-' + esc(r.t) + '"><span class="nt t-' + esc(r.t) + '">' + (TAG[r.t] || esc(r.t)) + '</span><span class="nx">' + tok(r.h, i) + '</span></div>').join('');
     if (!rows) rows = '<div class="nr"><span class="nt t-cover">Cover</span><span class="nx">No notes for this slide yet.</span></div>';
     const when = m.t ? mmss(m.t) + ' · plays ' + mmss(START[i]) + '-' + mmss(START[i] + m.t) : 'backup';
-    return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span>' + (which === 'now' && backTo() != null ? '<span class="nw">Backspace: back to slide ' + (backTo() + 1) + '</span>' : '') + '</div><div class="nrs">' + rows + '</div>';
+    return '<div class="nh"><span>' + (which === 'now' ? 'Now' : 'Next') + ' · ' + (i + 1) + ' · ' + esc(titles[i]) + '</span><span class="nw"><i style="background:' + o.c + '"></i>' + esc(o.s) + (m.w ? ' with ' + esc(window.OWNERS[m.w].s) : '') + ' · ' + when + (which === 'now' ? '<b class="nclock"></b>' : '') + '</span>' + (which === 'now' && backTo() != null ? '<span class="nw">Backspace: back to slide ' + (backTo() + 1) + '</span>' : '') + '</div><div class="nrs">' + rows + '</div>';
   }
   function notesHTML(){ return '<div class="ncol now">' + col(cur, 'now') + '</div><div class="ncol nxt">' + col(cur + 1, 'next') + '</div>'; }
   function paintNotes(){
