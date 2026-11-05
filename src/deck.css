@@ -807,3 +807,6 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 /* the reason tabs: only the ones this slide supports, so the headline leads */
 :root[data-mode=present] .rtrk .rc:not(.on){display:none}
 .mpeert{flex:1;display:flex;align-items:center}.mpeert[hidden]{display:none}.mpeert table{width:100%}
+
+/* status pills (Reported, Team forecast, Illustration, Sample data): off on the slides; build mode (B) shows them so the team can see what is still sample */
+:root:not(.build) .samp{display:none!important}
