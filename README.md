@@ -39,7 +39,7 @@ All research files go in the shared Google Drive folder (link at the top), not i
 |---|---|---|
 | Gabriel Castillo | Cover, the call, Linde at a glance, the question, macro, industry and next markets (slides 1-8), the close (21); backs up Ryan on growth (12-13) | Co-lead. Approves changes to the finance slides. |
 | Alexander Jovanovic | Peer margins, pass-through, capex and cash, the free cash flow bridge, coordination (slides 14-17); backs up Aaron on the pre-mortem (18) | Co-lead. Approves changes and runs the Wednesday deck update. |
-| Aaron | Pre-mortem and valuation (slides 18-20); owns the valuation model and its reconciliation (backup) | Editor |
+| Aaron Piz | Pre-mortem and valuation (slides 18-20); owns the valuation model and its reconciliation (backup) | Editor |
 | Daniel Vazquez | End markets, contracts, the end-market forecast (slides 9-11) | Editor |
 | Ryan Hernandez | Market size and the signed backlog (slides 12-13) | Editor |
 

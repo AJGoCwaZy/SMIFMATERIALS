@@ -35,7 +35,7 @@ window.PITCH = {
 /* who owns what: names, roles, colours used in the team plan */
 window.OWNERS = {
   G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry; helps on growth', c: '#A57C61' },
-  A: { n: 'Aaron', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: null },
+  A: { n: 'Aaron Piz', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: 'Piz' },
   D: { n: 'Daniel Vazquez', s: 'Daniel', r: 'Products, customers, end markets', c: '#2E7D4F' },
   R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Next markets, market size, backlog', c: '#7B5EA7' },
   X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · moat, profitability, cash flow; helps on risk', c: '#B23A2E' },
@@ -45,7 +45,7 @@ window.OWNERS = {
 /* the build plan: owner (o), seconds in the timed run (t), which of the three reasons the slide supports (r),
    what the slide must prove, and where the inputs come from. r is a first draft: change it when the reasons are written. */
 window.PLAN = {
-  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (Nasdaq: LIN).' },
+  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date. Company and ticker are set to Linde plc (Nasdaq: LIN).' },
   call: { o: 'G', t: 35, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
   question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question, and one matched chart: our free cash flow path against the one today’s price requires.', pull: 'Nothing new: the valuation model. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
   macro: { o: 'G', t: 25, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
