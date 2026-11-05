@@ -77,6 +77,7 @@ src/
   deck.css        The look: colors, fonts, spacing, card styles.
   engine.js       How the deck runs: navigation, timer, notes window, build mode, team plan, pitch basics (PITCH block).
   widgets.js      The interactive charts and sliders on each slide, and the sample data behind them (DATA block).
+  editor.js       Edit mode for the claude.ai copy of the deck (only in the editable build).
 gas-scene.js      The 3D models (slide 6 and two backup slides).
 vendor/           Fonts (Source Serif 4) and the 3D library (three.js), built into the deck so it works offline. Body text uses Arial.
 build.py          Combines everything above into one file: out/smif-materials-pitch.html
@@ -123,6 +124,10 @@ python test_overflow.py    # check the answers fit on their slides
 ```
 
 `bake.py` fills every gold box, the pitch basics (price, target, rating, date), the three reasons and the chart text from the sheet. It lists anything it left out: "Numbers to pull" rows (Alexander enters those in `src/widgets.js`) and rows for backup slides that are not in this deck. It also lists answers it could not use, like a verdict that isn't Play it now, Option value, Watch or Pass. Bake changes the built file, so run `build.py` again before baking a newer sheet.
+
+### Editable copy (claude.ai)
+
+`python build.py --editable` builds `out/smif-materials-pitch-editable.html`: the same deck plus an **Edit** button (or press `E`). Click any slide text or speaker note (the **Notes** button shows them) and type. **Save** publishes the change when the deck is hosted on claude.ai; **Download** gives you the edited `.html` file anywhere. Charts, widget text and the pitch basics (price, target, rating) still come from `src/widgets.js`, `src/engine.js` and the fill sheet, so edit those here. Edits made in the hosted copy do not flow back into `src/` on their own: copy them into `src/slides.html` through a pull request.
 
 ---
 

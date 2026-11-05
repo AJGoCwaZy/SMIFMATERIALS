@@ -8,6 +8,7 @@ in any browser or email to someone. Fails on purpose if any source file
 contains an em dash.
 """
 import base64
+import json
 import pathlib
 import re
 import sys
@@ -29,7 +30,8 @@ BASE_CSS = (
     "img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}"
 )
 
-SOURCES = ["src/slides.html", "src/deck.css", "src/engine.js", "src/widgets.js", "gas-scene.js"]
+SOURCES = ["src/slides.html", "src/deck.css", "src/engine.js", "src/widgets.js", "gas-scene.js", "src/editor.js"]
+EDITABLE_OUT = ROOT / "out" / "smif-materials-pitch-editable.html"
 
 
 def read(rel):
@@ -71,7 +73,7 @@ def inline_logos(js):
 def build():
     check_em_dashes()
     scripts = "\n".join(f"<script>\n{read(p)}\n</script>" for p in THREE_JS)
-    html = "\n".join([
+    write(OUT, "\n".join([
         "<!doctype html>",
         '<html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">',
@@ -102,12 +104,46 @@ def build():
         "",
         "</body></html>",
         "",
-    ])
-    OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(html, encoding="utf-8")
+    ]))
+
+
+def build_editable():
+    """The copy published on claude.ai: same deck plus edit mode (src/editor.js).
+
+    It is laid out the way claude.ai publishes a page (a fixed head, then the
+    deck inside <body>), so Save in edit mode can republish the whole file.
+    """
+    check_em_dashes()
+    deck = [*THREE_JS, "gas-scene.js"]
+    scripts = "\n".join(f"<script data-deck>\n{read(p)}\n</script>" for p in deck)
+    reset = BASE_CSS
+    write(EDITABLE_OUT, "".join([
+        "<!doctype html><html><head><meta charset=utf8>"
+        '<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">'
+        f"<style>{reset}</style></head><body>",
+        f"<title>{TITLE}</title>\n",
+        f'<meta name="description" content="{DESCRIPTION}">\n',
+        "<style>\n", inline_fonts(read("vendor/fonts.css")), "\n", read("src/deck.css"), "\n</style>\n",
+        '<div id="viewport"><div id="stage">\n', read("src/slides.html"), "\n</div></div>",
+        f"\n<script data-deck>\n{read('src/editor.js')}\n"
+        f"DeckEdit.reset = {json.dumps(reset)};\nDeckEdit.capture();\n</script>\n",
+        scripts, "\n",
+        f"<script data-deck>\n{inline_logos(read('src/engine.js'))}\n</script>\n",
+        f"<script data-deck>\n{inline_logos(read('src/widgets.js'))}\n</script>\n",
+        "<script data-deck>\nDeckEdit.start();\n</script>\n",
+        "</body></html>\n",
+    ]))
+
+
+def write(path, html):
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(html, encoding="utf-8")
     slides = len(re.findall(r'<section class="slide', html))
-    print(f"Built {OUT.relative_to(ROOT)} ({len(html) // 1024} KB, {slides} slides)")
+    print(f"Built {path.relative_to(ROOT)} ({len(html) // 1024} KB, {slides} slides)")
 
 
 if __name__ == "__main__":
-    build()
+    if "--editable" in sys.argv:
+        build_editable()
+    else:
+        build()
