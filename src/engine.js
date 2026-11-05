@@ -34,10 +34,10 @@ window.PITCH = {
 
 /* who owns what: names, roles, colours used in the team plan */
 window.OWNERS = {
-  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry', c: '#A57C61' },
+  G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry, next markets', c: '#A57C61' },
   A: { n: 'Aaron', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: null },
   D: { n: 'Daniel Vazquez', s: 'Daniel', r: 'Products, customers, end markets', c: '#2E7D4F' },
-  R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Next markets, market size, backlog', c: '#7B5EA7' },
+  R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Market size, backlog', c: '#7B5EA7' },
   X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · moat, profitability, cash flow', c: '#B23A2E' },
   T: { n: 'Whole team', s: 'Team', r: 'Everyone', c: '#595959' }
 };
@@ -57,7 +57,7 @@ window.PLAN = {
   endm: { o: 'D', t: 30, r: [2], prove: 'Sales by end market, defensive vs cyclical, and which markets are growing.', pull: 'Mix is filled from register #7. Pull growth by end market from Linde’s Q3 2026 earnings slides (out late October).' },
   fcast: { o: 'D', t: 40, r: [2], prove: 'Our three-year view of each end market, and what it adds up to for Linde’s sales growth. The result feeds the cash flow bridge.', pull: 'One indicator per market (ACC chemical output, ISM, CMS home-oxygen rates, worldsteel, SEMI fab spending), management end-market commentary on calls, EE consensus revenue growth to compare against.' },
   cmix: { o: 'D', t: 25, r: [1], prove: 'How much revenue sits under long contracts, by supply mode, and how concentrated the customers are.', pull: 'Supply-mode mix is filled from Bloomberg FA segments (2025). Still needed: customer concentration from the 10-K.' },
-  next: { o: 'R', t: 35, r: [2], prove: 'The new industries that run on gas (AI, quantum, robotics, bioengineering, space, clean energy), how each uses it, and which ones we would actually play.', pull: 'Source register #3 (helium), #4 (space, gas use per wafer), #6 (hydrogen caution), #7 (APD project exits). Company disclosures on electronics, space and healthcare.' },
+  next: { o: 'G', t: 35, r: [2], prove: 'The new industries that run on gas (AI, quantum, robotics, bioengineering, space, clean energy), how each uses it, and which ones we would actually play.', pull: 'Source register #3 (helium), #4 (space, gas use per wafer), #6 (hydrogen caution), #7 (APD project exits). Company disclosures on electronics, space and healthcare.' },
   tam: { o: 'R', t: 45, r: [2], prove: 'For each theme: the headline market, the gas slice, the share we can serve, our revenue today. The advisor asked for this.', pull: 'Register #4, #5, #6. BI deep dives. Company electronics and space disclosures.' },
   backlog: { o: 'R', t: 35, r: [2], prove: 'Growth already signed: backlog size, start-up timing, end-market mix.', pull: 'Earnings releases (sale-of-gas backlog), call transcripts. Settle the $10B vs $8.1B definition first.' },
   money: { o: 'X', t: 25, r: [3], prove: 'How cash comes in, how energy costs pass through, and why new plants consume cash first.', pull: 'Nothing new: it sets up the next four slides.' },
