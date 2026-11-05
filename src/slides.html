@@ -132,7 +132,30 @@
   </div>
 </section>
 
-<section class="slide content" data-sec="Linde" data-id="endm" data-init="endm" data-title="End markets">
+<section class="slide content" data-sec="Linde" data-id="snap" data-init="snap" data-title="Linde at a glance">
+  <header class="sh"><h2>The largest industrial gas company, <b id="snapH">valued above its own history</b></h2></header>
+  <div class="body">
+    <div class="side" style="width:540px">
+      <div class="card"><div class="ch"><span>What Linde does</span></div><div class="cb small" style="gap:6px">
+        <p>Separates air into <b>oxygen, nitrogen and argon</b>; also makes hydrogen, helium, CO<sub>2</sub> and specialty gases.</p>
+        <p>Delivers by <b>pipeline</b> from on-site plants, by <b>truck</b> and in <b>cylinders</b>; Engineering builds gas plants.</p>
+        <p>Customers in chemicals, manufacturing, healthcare, metals, food and electronics.</p>
+      </div></div>
+      <div id="snapTiles" class="sntiles"></div>
+    </div>
+    <div class="grow">
+      <div class="card fl"><div class="ch"><span>Share price</span><div class="row" id="pxTabs" style="gap:6px"></div></div><div class="cb" style="flex:1"><p class="small" id="pxChg" style="margin:0 0 2px"></p><div class="chartbox"><svg id="pxSvg" viewBox="0 0 900 262" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Linde share price"></svg></div></div></div>
+      <div class="card"><div class="ch"><span>Price / earnings against its own history</span><span class="xs muted">dashed line: 2021-2025 average, 27.6x</span></div><div class="cb"><div class="chartbox"><svg id="peSvg" viewBox="0 0 900 172" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Price to earnings by year"></svg></div><p class="small" id="snapRead" style="margin:2px 0 0"></p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">What Linde does, sales, countries, employees: Linde 10-K FY2025. Share price: daily closes since Linde plc began trading on Oct 31, 2018, to Nov 4, 2026 (stockanalysis.com, S&amp;P Global data). P/E: year-end market cap &divide; adjusted net income (Bloomberg FA); today: price &divide; 2026E consensus EPS of $17.88 (Bloomberg, Oct 8, 2026). Shares: 459.1M (Q3 2026 10-Q). <span class="fill" data-f="snap.2">[Refresh the week of the pitch]</span></span></footer>
+  <div class="notes">
+    <p data-t="cover">{company} is the largest industrial gas company: about $34B of sales in more than 80 countries. The share price has roughly tripled since the 2018 merger, and at about 29x this year&rsquo;s earnings the market already <b>pays more than its own 2021-2025 average</b>.</p>
+    <p data-t="room">Click 5Y, then Max on the share price chart, point at the Today bar against the dashed average line, and pause.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="endm" data-init="endm" data-title="End markets">
   <header class="sh"><h2><span class="fill" data-f="endm.1">[Headline: what Linde sells into, and which part is growing]</span></h2></header>
   <div class="body">
     <div class="grow">
@@ -362,24 +385,24 @@
       <div class="callout small" id="imRead"></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src">One FCFF model for every valuation slide: Gabriel&rsquo;s DCF (Oct 21, 2026) extended to 2035, mid-year discounting, Dec 31, 2025 balance sheet, 466.4M diluted shares, rolled forward to the pitch date. Curve: the same model with more or less sales growth every year. WACC 8.05% (10Y UST 5.09%, beta 0.81, ERP 4.20%). Price: <span id="imPx">$498.43 close, Oct 16, 2026</span>. <span class="fill" data-f="implied.2">[Aaron: check against the model and refresh the price the week of the pitch]</span></span></footer>
+  <footer class="sfoot"><span class="src">One FCFF model for every valuation slide: Gabriel&rsquo;s DCF (Oct 21, 2026) extended to 2035, mid-year discounting, Dec 31, 2025 balance sheet, 466.4M diluted shares, rolled forward to the pitch date. Curve: the same model with more or less sales growth every year. WACC 8.05% (10Y UST 5.09%, beta 0.81, ERP 4.20%). Price: <span id="imPx">$524.74 close, Nov 4, 2026 (Gabriel&rsquo;s model used $498.43, Oct 16)</span>. <span class="fill" data-f="implied.2">[Aaron: check against the model and refresh the price the week of the pitch]</span></span></footer>
   <div class="notes">
     <p data-t="cover">Same model, same years: the price requires <b>{implied} free cash flow growth a year</b> to 2035, against our {growth}. Put the other way, the price only works at about a 6% discount rate.</p>
     <p data-t="room">Point at the two dots on the curve, then at the Discount rate the price implies card, and pause.</p>
   </div>
 </section>
 
-<section class="slide content" data-id="scen" data-init="scen" data-title="Bear, base, bull">
-  <header class="sh"><h2>Our scenarios imply <b><span id="scPt"></span></b><span id="scAsym"></span></h2></header>
+<section class="slide content" data-id="scen" data-init="scen" data-title="Valuation by multiples">
+  <header class="sh"><h2>Valuation multiples point to <b><span id="scPt"></span></b><span id="scAsym"></span></h2></header>
   <div class="body col">
     <div class="seg3" id="scCards"></div>
     <div class="card fl"><div class="ch"><span>Football field · value per share</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="ffSvg" viewBox="0 0 1400 300" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
     <div class="takeaway" id="scTake"><span class="labtag">Risk / reward</span><span id="scTakeT"></span></div>
   </div>
-  <footer class="sfoot"><span class="src">Case values: our FCFF model with the changes on each card. Return a year: the price moves to the case value by Dec 2029 and the stock earns the 8.47% cost of equity on that value. Market references (sample): <span class="fill" data-f="scen.1">[Bloomberg RV comps, ANR analyst targets, GP 52-week range · as of date]</span></span></footer>
+  <footer class="sfoot"><span class="src">Multiples applied to Linde&rsquo;s 2026E consensus EPS ($17.88) and EBITDA ($14.2B), Bloomberg, Oct 8, 2026; EV to equity at the Sept 30, 2026 balance sheet (Q3 2026 10-Q), 461.0M diluted shares. Linde P/E: year-end market cap &divide; adjusted net income, 2021-2025 (Bloomberg FA). Weights and case probabilities are team judgments. DCF: our FCFF model, shown but not weighted. Peers, analyst targets (29 analysts) and 52-week range: stockanalysis.com (S&amp;P Global), Nov 5, 2026; peer P/E on 2027 consensus EPS; EV/EBITDA trailing. <span class="fill" data-f="scen.1">[Re-pull Air Products after its Nov 5 results]</span></span></footer>
   <div class="notes">
-    <p data-t="cover">Bear, base and bull all come from the model. Weighted, they imply <b>a return a year to Dec 2029 below the cost of equity</b>, and the market references sit apart from intrinsic value.</p>
-    <p data-t="room">Point at the three case values against the dashed price line, then hand off: "Those outcomes define the return and risk. Gabriel will close with the decision and monitoring rules."</p>
+    <p data-t="cover">We value Linde on multiples: its own P/E history, and the P/E and EV/EBITDA of Air Products and Air Liquide. Weighted, they point to <b>a price close to today&rsquo;s</b>, shown by the blue target line. Our DCF sits far lower because it is very sensitive to the discount rate, so we show it but do not weight it.</p>
+    <p data-t="room">Point at the three weighted bars, then the blue target line against the dashed price, then hand off: &ldquo;Those outcomes define the return and risk. Gabriel will close with the decision and monitoring rules.&rdquo;</p>
   </div>
 </section>
 
@@ -445,28 +468,6 @@
     <p data-t="room">Only if asked: click Chip fab and Hospital to show what the gas does for each.</p>
   </div>
 </section>
-
-<section class="slide content" data-id="snap" data-init="snap" data-title="Company at a glance">
-  <header class="sh"><h2><span data-k="company"></span> at a glance <span class="hlogo" data-logo></span></h2></header>
-  <div class="body">
-    <div class="grow">
-      <div id="snapTiles" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px"></div>
-      <div class="callout small" style="margin-top:auto"><b>In one line:</b> <span class="fill" data-f="snap.1">[What Linde does, how big it is, how it is valued vs its history]</span></div>
-    </div>
-    <div class="side" style="width:440px">
-      <div class="card fl"><div class="ch"><span>Sales by region</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1;align-items:center;justify-content:center">
-        <div class="chartbox" style="width:100%;min-height:300px"><svg id="snapDonut" viewBox="0 0 400 300"></svg></div>
-        <p class="small" id="snapNote" style="min-height:52px;align-self:stretch"></p>
-      </div></div>
-    </div>
-  </div>
-  <footer class="sfoot"><span class="src">Bloomberg FA, Bloomberg-adjusted figures, pulled Oct 8, 2026. Estimates: Bloomberg consensus. Regions summed from 2025 supply-mode segments. <span class="fill" data-f="snap.2">[Refresh the week of the pitch]</span></span></footer>
-  <div class="notes">
-    <p data-t="cover">Backup. {company} is worth about $222B and trades at <b>17.4x 2026 EBITDA</b>; net debt was 1.8x EBITDA at the end of 2025.</p>
-    <p data-t="room">Only if asked: point at the tile that answers the question.</p>
-  </div>
-</section>
-
 <section class="slide content" data-id="money" data-init="g3" data-stop="money" data-title="3D: follow the dollar">
   <header class="sh"><h2>Follow the dollar: <b>steady bills in</b>, energy costs passed on, new plants paid for up front</h2></header>
   <div class="body g3wrap">
@@ -501,7 +502,7 @@
       <div class="card fl"><div class="ch"><span>How to read it</span><span class="samp">Sample data</span></div><div class="cb small"><p>Each point is the DCF value per share for one pair of inputs: the discount rate (WACC) along one side, long-run growth along the other. Peaks are high values, valleys low ones.</p><p id="sfRead"></p></div></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src">Value per share from our FCFF model across WACC 6-10% and long-run growth 1.5-4%, every other input as on slide 18. <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
+  <footer class="sfoot"><span class="src">Value per share from our FCFF model across WACC 6-10% and long-run growth 1.5-4%, every other input as on the What the price assumes slide. <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
   <div class="notes">
     <p data-t="cover">Backup. The same model's value across discount rates and long-run growth; <b>the discount rate moves the answer most</b>.</p>
     <p data-t="room">Only if asked: switch to the table and point at the outlined cell.</p>
@@ -516,6 +517,6 @@
   <footer class="sfoot"><span class="src">Step 1 rebuilds Gabriel&rsquo;s Linde_LIN_DCF.xlsx (Oct 21, 2026) in the deck and lands within $0.10 of his $255.92. Balance sheet and share counts: Linde 10-K FY2025; Bloomberg FA. Dividends: 2026 consensus DPS.</span></footer>
   <div class="notes">
     <p data-t="cover">Backup. The audit trail from Gabriel's workbook to the deck's value: the formula fixes move it by a few dollars, and <b>the discount rate explains the rest of the gap</b> to the price.</p>
-    <p data-t="room">Only if asked: point at the Change column, then go back to slide 18.</p>
+    <p data-t="room">Only if asked: point at the Change column, then go back to the What the price assumes slide.</p>
   </div>
 </section>
