@@ -41,12 +41,10 @@
 <section class="slide content" data-id="question" data-init="question" data-title="The question we answer">
   <header class="sh"><h2><span class="fill" data-f="question.1">[Headline: the one question this pitch answers, in plain words]</span></h2></header>
   <div class="body col">
-    <div class="qbig"><span class="k">The question</span><p><span class="fill" data-f="question.2">[Our question in one sentence. Make it something the share price could be getting wrong.]</span></p></div>
-    <div class="qtest" id="qTest"></div>
-    <div class="qline"><svg id="qLine" viewBox="0 0 1440 176" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Growth rates on one line"></svg></div>
-    <div class="qroad"><div class="qrh"><span class="eyebrow">How we answer it</span><span class="xs muted">Click a section to jump there</span></div><div class="qrl" id="qRoad"></div></div>
+    <div class="qbig"><span class="k">The question</span><p><span class="fill" data-f="question.2">[Our question in one sentence, e.g. Can Linde&rsquo;s cash generation justify the price?]</span></p></div>
+    <div class="card fl"><div class="ch"><span>Free cash flow to the firm ($B): our forecast vs what today&rsquo;s price requires</span><span class="samp"></span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="qSvg" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Free cash flow paths, 2025 to 2035"></svg></div><p class="small" id="qRead" style="margin:6px 0 0"></p></div></div>
   </div>
-  <footer class="sfoot"><span class="src">The price needs: reverse DCF on 2025 free cash flow of $10.84 per basic share (Bloomberg), sample WACC 7.8% and long-run growth 2.8% until Gabriel&rsquo;s model is in. Delivered: Bloomberg FA, 2019-2025.</span></footer>
+  <footer class="sfoot"><span class="src">Both paths come from one FCFF model (Gabriel&rsquo;s DCF, Oct 21, 2026, extended to 2035): EBIT x (1 - tax) + D&amp;A - capex - working capital. The price path adds the same extra sales growth every year until the model value equals the share price. 2025: Linde 10-K.</span></footer>
   <div class="notes">
     <p data-t="cover">Our question: {f:question.2} At today's price the market needs about <b>{implied} free cash flow growth a year</b> for ten years; Linde delivered 13.9% a year in 2019-2025, and we expect {growth}.</p>
     <p data-t="room">Point to the growth line and ask for a show of hands: will Linde land left or right of the blue "Price needs" dot over the next ten years?</p>
@@ -116,62 +114,25 @@
   </div>
 </section>
 
-<section class="slide content" data-id="moat" data-init="moat" data-title="Moat scorecard">
-  <header class="sh"><h2><span class="fill" data-f="moat.1">[Headline: why Linde wins inside the oligopoly]</span></h2></header>
+<section class="slide content" data-id="next" data-init="next" data-title="Next markets">
+  <header class="sh"><h2><span class="fill" data-f="next.1">[Headline: the new industries we could play into, and the one that matters most]</span></h2></header>
   <div class="body">
     <div class="grow">
-      <div class="row" id="moatPeers"></div>
-      <div class="card fl"><div class="ch"><span>Moat scorecard · 1 (weak) to 5 (strong)</span><span class="samp">Sample data</span></div><div class="cb" id="moatRows" style="gap:12px;justify-content:center"></div></div>
+      <div class="row" id="nxChips"></div>
+      <div class="card fl"><div class="ch"><span>Opportunity map · click a bubble</span><span class="samp">Sample placement</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="nxSvg" viewBox="0 0 960 625" preserveAspectRatio="xMidYMin meet"></svg></div></div></div>
     </div>
-    <div class="side" style="width:400px">
-      <div class="card fl"><div class="ch"><span id="moatH">How we scored it</span></div><div class="cb small" id="moatB"><p>Click any bar for the raw number and its source.</p></div></div>
-      <div class="callout gold small"><b>Where we lose:</b> <span class="fill" data-f="moat.2">[The one measure where Air Products or Air Liquide beats Linde, and why it does not break the thesis]</span></div>
+    <div class="side" style="width:450px">
+      <div class="card fl"><div class="ch"><span id="nxH">Theme</span><span class="xs" style="text-transform:none;letter-spacing:0" id="nxG"></span></div><div class="cb" id="nxB" style="gap:12px;flex:1"></div></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src"><span class="fill" data-f="moat.3">[Sources: Bloomberg RV, FA, company filings, as of date]</span></span></footer>
+  <footer class="sfoot"><span class="src" id="nxSrc">How each industry uses gas: source register #3, #4, #6, #7 and company filings. Placement and verdicts: <span class="fill" data-f="next.2">[team view]</span></span></footer>
   <div class="notes">
-    <p data-t="cover">Linde beats Air Products and Air Liquide on every row but one, with the widest lead on <b>operating margin and return on capital</b>. The one we lose: {f:moat.2}</p>
-    <p data-t="room">Before clicking anything, ask the committee which of the five rows they think Air Products beats Linde on, then click the Air Products logo to reveal the answer.</p>
+    <p data-t="cover">Of the six new industries on our map, only <b>AI and chips</b> is both soon and big: electronics is already about 9% of Linde's sales. Clean energy is just as big, but years further out.</p>
+    <p data-t="room">Ask the committee which bubble on the opportunity map they would bet on, click the one they name, and set their call with the Play it now, Option value, Watch or Pass buttons.</p>
   </div>
 </section>
 
-<section class="slide content" data-sec="Linde" data-id="buyers" data-init="g3" data-stop="buyers" data-title="3D: who buys">
-  <header class="sh"><h2>Every fab, hospital and mill on this map pays for gas it <b>cannot run without</b></h2></header>
-  <div class="body g3wrap">
-    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
-    <div class="g3side">
-      <div class="card fl"><div class="ch"><span>Customers</span></div><div class="cb" id="buyerRows" style="gap:7px"></div></div>
-      <div class="sel3" data-sel><span class="k">Why they buy</span><b>Click a customer</b><p>Gas is essential to them but a small share of their costs, so they rarely switch suppliers over price.</p></div>
-    </div>
-  </div>
-  <div class="notes">
-    <p data-t="cover">Linde sells to chip fabs, hospitals, steel mills, refineries and food plants. Gas is <b>essential to every one of them but a small share of their costs</b>, so they rarely switch over price.</p>
-    <p data-t="room">Ask the committee which customer would switch suppliers first, then click Chip fab and Hospital in the Customers list so the Why they buy panel shows what the gas does for each.</p>
-  </div>
-</section>
-
-<section class="slide content" data-id="snap" data-init="snap" data-title="Company at a glance">
-  <header class="sh"><h2><span data-k="company"></span> at a glance <span class="hlogo" data-logo></span></h2></header>
-  <div class="body">
-    <div class="grow">
-      <div id="snapTiles" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px"></div>
-      <div class="callout small" style="margin-top:auto"><b>In one line:</b> <span class="fill" data-f="snap.1">[What Linde does, how big it is, how it is valued vs its history]</span></div>
-    </div>
-    <div class="side" style="width:440px">
-      <div class="card fl"><div class="ch"><span>Sales by region</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1;align-items:center;justify-content:center">
-        <div class="chartbox" style="width:100%;min-height:300px"><svg id="snapDonut" viewBox="0 0 400 300"></svg></div>
-        <p class="small" id="snapNote" style="min-height:52px;align-self:stretch"></p>
-      </div></div>
-    </div>
-  </div>
-  <footer class="sfoot"><span class="src">Bloomberg FA, Bloomberg-adjusted figures, pulled Oct 8, 2026. Estimates: Bloomberg consensus. Regions summed from 2025 supply-mode segments. <span class="fill" data-f="snap.2">[Refresh the week of the pitch]</span></span></footer>
-  <div class="notes">
-    <p data-t="cover">{company} is worth $222.1B and trades at <b>17.4x 2026 EBITDA</b>. Net debt is 1.8x EBITDA at the end of 2025.</p>
-    <p data-t="room">Point at the 44.7% in the centre of the Sales by region donut and ask for a show of hands: who expected almost half of sales to come from the Americas?</p>
-  </div>
-</section>
-
-<section class="slide content" data-id="endm" data-init="endm" data-title="End markets">
+<section class="slide content" data-sec="Linde" data-id="endm" data-init="endm" data-title="End markets">
   <header class="sh"><h2><span class="fill" data-f="endm.1">[Headline: what Linde sells into, and which part is growing]</span></h2></header>
   <div class="body">
     <div class="grow">
@@ -187,6 +148,27 @@
   <div class="notes">
     <p data-t="cover"><b>About a quarter of sales</b> (healthcare, food and beverage) is in fully defensive markets (the dark brown bars and the Fully defensive tile), though Linde counts about 62% as resilient on a broader definition <span class="fill">[which markets Linde counts in the 62%]</span>. Electronics grew 18% in Q2 2026 versus a year earlier; the Fastest growing tile shows the current leader.</p>
     <p data-t="room">Ask the committee to guess what share of sales is fully defensive, then point at the dark brown bars and the Fully defensive tile, and click the "Growth, latest quarter" tab to show Electronics up 18%.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="cmix" data-init="cmix" data-title="Contract mix">
+  <header class="sh"><h2><span class="fill" data-f="cmix.1">[Headline: how much of Linde’s revenue is locked in by long contracts]</span></h2></header>
+  <div class="body col">
+    <div class="card"><div class="ch"><span>How protected is the revenue</span><span class="samp">Sample data</span></div><div class="cb">
+      <div class="stk" id="mixStack"></div>
+      <div id="mixLegend" class="row" style="gap:18px;font-size:16px"></div>
+      <div class="callout small" id="mixCall"></div>
+    </div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;min-height:0">
+      <div class="card"><div class="ch"><span>Under contract</span></div><div class="cb"><div class="big" id="mixLocked">0%</div><p class="small muted" id="mixLockedCap">Take-or-pay, 15-20 yr</p><div class="big" id="mixMulti">0%</div><p class="small muted">Under multi-year contracts (3+ yr)</p></div></div>
+      <div class="card fl"><div class="ch"><span id="mixH">Click a segment</span></div><div class="cb small" id="mixNote"><p>Each segment shows its contract length and protections.</p></div></div>
+      <div class="card fl"><div class="ch"><span>Biggest customers</span></div><div class="cb small"><p><span class="fill" data-f="cmix.2">[Top customers or concentration: e.g. largest customer % of sales]</span></p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Bloomberg FA segments, 2025 sales of $34.0B. Contract lengths: Praxair investor slide via Bloomberg Intelligence (register #1).</span></footer>
+  <div class="notes">
+    <p data-t="cover">On-site gas is <b>23.8% of sales</b>, on 15-20 year take-or-pay contracts; add merchant bulk on 3-7 year contracts and <b>53.7% of sales</b> is under multi-year contracts. Biggest customers: {f:cmix.2}.</p>
+    <p data-t="room">Before the numbers finish counting up, ask the committee to guess what share of sales is under multi-year contracts, then click the Merchant bulk segment to show its prices reset every few years.</p>
   </div>
 </section>
 
@@ -214,46 +196,7 @@
   </div>
 </section>
 
-<section class="slide content" data-id="cmix" data-init="cmix" data-title="Contract mix">
-  <header class="sh"><h2><span class="fill" data-f="cmix.1">[Headline: how much of Linde’s revenue is locked in by long contracts]</span></h2></header>
-  <div class="body col">
-    <div class="card"><div class="ch"><span>How protected is the revenue</span><span class="samp">Sample data</span></div><div class="cb">
-      <div class="stk" id="mixStack"></div>
-      <div id="mixLegend" class="row" style="gap:18px;font-size:16px"></div>
-      <div class="callout small" id="mixCall"></div>
-    </div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;min-height:0">
-      <div class="card"><div class="ch"><span>Under contract</span></div><div class="cb"><div class="big" id="mixLocked">0%</div><p class="small muted" id="mixLockedCap">Take-or-pay, 15-20 yr</p><div class="big" id="mixMulti">0%</div><p class="small muted">Under multi-year contracts (3+ yr)</p></div></div>
-      <div class="card fl"><div class="ch"><span id="mixH">Click a segment</span></div><div class="cb small" id="mixNote"><p>Each segment shows its contract length and protections.</p></div></div>
-      <div class="card fl"><div class="ch"><span>Biggest customers</span></div><div class="cb small"><p><span class="fill" data-f="cmix.2">[Top customers or concentration: e.g. largest customer % of sales]</span></p></div></div>
-    </div>
-  </div>
-  <footer class="sfoot"><span class="src">Bloomberg FA segments, 2025 sales of $34.0B. Contract lengths: Praxair investor slide via Bloomberg Intelligence (register #1).</span></footer>
-  <div class="notes">
-    <p data-t="cover">On-site gas is <b>23.8% of sales</b>, on 15-20 year take-or-pay contracts; add merchant bulk on 3-7 year contracts and <b>53.7% of sales</b> is under multi-year contracts. Biggest customers: {f:cmix.2}.</p>
-    <p data-t="room">Before the numbers finish counting up, ask the committee to guess what share of sales is under multi-year contracts, then click the Merchant bulk segment to show its prices reset every few years.</p>
-  </div>
-</section>
-
-<section class="slide content" data-sec="Growth" data-id="next" data-init="next" data-title="Next markets">
-  <header class="sh"><h2><span class="fill" data-f="next.1">[Headline: the new industries we could play into, and the one that matters most]</span></h2></header>
-  <div class="body">
-    <div class="grow">
-      <div class="row" id="nxChips"></div>
-      <div class="card fl"><div class="ch"><span>Opportunity map · click a bubble</span><span class="samp">Sample placement</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="nxSvg" viewBox="0 0 960 625" preserveAspectRatio="xMidYMin meet"></svg></div></div></div>
-    </div>
-    <div class="side" style="width:450px">
-      <div class="card fl"><div class="ch"><span id="nxH">Theme</span><span class="xs" style="text-transform:none;letter-spacing:0" id="nxG"></span></div><div class="cb" id="nxB" style="gap:12px;flex:1"></div></div>
-    </div>
-  </div>
-  <footer class="sfoot"><span class="src" id="nxSrc">How each industry uses gas: source register #3, #4, #6, #7 and company filings. Placement and verdicts: <span class="fill" data-f="next.2">[team view]</span></span></footer>
-  <div class="notes">
-    <p data-t="cover">Of the six new industries on our map, only <b>AI and chips</b> is both soon and big: electronics is already about 9% of Linde's sales. Clean energy is just as big, but years further out.</p>
-    <p data-t="room">Ask the committee which bubble on the opportunity map they would bet on, click the one they name, and set their call with the Play it now, Option value, Watch or Pass buttons.</p>
-  </div>
-</section>
-
-<section class="slide content" data-id="tam" data-init="tam" data-title="TAM by theme">
+<section class="slide content" data-sec="Growth" data-id="tam" data-init="tam" data-title="TAM by theme">
   <header class="sh"><h2>Each growth theme, sized from the headline market <b>down to our revenue</b></h2></header>
   <div class="body">
     <div class="grow">
@@ -291,25 +234,22 @@
   </div>
 </section>
 
-<section class="slide content" data-sec="Money" data-id="money" data-init="g3" data-stop="money" data-title="3D: follow the dollar">
-  <header class="sh"><h2>Follow the dollar: <b>steady bills in</b>, energy costs passed on, new plants paid for up front</h2></header>
-  <div class="body g3wrap">
-    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
-    <div class="g3side">
-      <div class="card"><div class="ch"><span>Three money flows</span></div><div class="cb">
-        <ol class="steps">
-          <li><span><b>Cash in.</b> Customers pay every month, with minimum volumes on long contracts.</span></li>
-          <li><span><b>Energy passed on.</b> Power cost changes are billed through to on-site customers.</span></li>
-          <li><span><b>Cash out first.</b> A new plant costs cash for 2-3 years before it earns for 15-20.</span></li>
-        </ol>
-      </div></div>
-      <div class="legend3" data-legend="cash,energy,passthru,gas"></div>
-      <div class="sel3" data-sel><span class="k">Click anything in the model</span><b>Select a building</b><p>Follow one flow at a time with the toggles above.</p></div>
+<section class="slide content" data-sec="Money" data-id="marg" data-init="marg" data-title="Margins and returns">
+  <header class="sh"><h2><span class="fill" data-f="marg.1">[Headline: the margin and return trend, and what drives it]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="margTabs"><button class="chip on" data-m="adj" type="button">Adjusted margin</button><button class="chip" data-m="om" type="button">GAAP margin vs Materials</button><button class="chip" data-m="roc" type="button">Return on capital vs Materials</button></div>
+      <div class="card fl"><div class="ch"><span id="margH">Operating margin, %</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="margSvg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+    </div>
+    <div class="side" style="width:380px">
+      <div class="kv" id="margKv" style="grid-template-columns:1fr"></div>
+      <div class="callout gold small"><b>Driver:</b> <span class="fill" data-f="marg.2">[Why margins moved: pricing, productivity, mix, pass-through]</span></div>
     </div>
   </div>
+  <footer class="sfoot"><span class="src">Bloomberg FA and the S&amp;P 500 Materials benchmark, pulled Oct 8, 2026. Fiscal years; 2026-27 are Bloomberg consensus. <span class="fill" data-f="marg.3">[Add Air Products: FA on APD US]</span></span></footer>
   <div class="notes">
-    <p data-t="cover">Three money flows: customers pay every month with minimum volumes, on-site customers pay for power cost changes, and <b>a new plant burns cash for 2-3 years</b> before earning for 15-20 years.</p>
-    <p data-t="room">Click the "New plant" label in the 3D model and ask the committee: would you accept 2-3 years of cash out to lock in 15-20 years of cash in?</p>
+    <p data-t="cover">Adjusted operating margin climbed from 18.7% in 2019 to <b>29.1% in 2025</b>, 5.4 points above Air Products, and GAAP return on capital hit 11.5% versus 4.9% for Materials. The driver is {f:marg.2}.</p>
+    <p data-t="room">Ask the committee to guess Linde's 2025 GAAP return on capital against 4.9% for Materials, then click the "Return on capital vs Materials" chip to reveal 11.5%.</p>
   </div>
 </section>
 
@@ -331,25 +271,6 @@
   <div class="notes">
     <p data-t="cover">On-site contracts bill higher power costs to the customer the same month, so <b>profit dollars hold flat</b> while the margin dips from 25% to 22.3%. Merchant and packaged catch up after a 3 to 6 month lag, so they absorb part of the first year.</p>
     <p data-t="room">With the Energy price change slider sitting at +40%, ask the committee "If power costs jump 40%, does Linde make more money or less?", then click Packaged to show the profit dollars fall.</p>
-  </div>
-</section>
-
-<section class="slide content" data-id="marg" data-init="marg" data-title="Margins and returns">
-  <header class="sh"><h2><span class="fill" data-f="marg.1">[Headline: the margin and return trend, and what drives it]</span></h2></header>
-  <div class="body">
-    <div class="grow">
-      <div class="row" id="margTabs"><button class="chip on" data-m="adj" type="button">Adjusted margin</button><button class="chip" data-m="om" type="button">GAAP margin vs Materials</button><button class="chip" data-m="roc" type="button">Return on capital vs Materials</button></div>
-      <div class="card fl"><div class="ch"><span id="margH">Operating margin, %</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="margSvg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
-    </div>
-    <div class="side" style="width:380px">
-      <div class="kv" id="margKv" style="grid-template-columns:1fr"></div>
-      <div class="callout gold small"><b>Driver:</b> <span class="fill" data-f="marg.2">[Why margins moved: pricing, productivity, mix, pass-through]</span></div>
-    </div>
-  </div>
-  <footer class="sfoot"><span class="src">Bloomberg FA and the S&amp;P 500 Materials benchmark, pulled Oct 8, 2026. Fiscal years; 2026-27 are Bloomberg consensus. <span class="fill" data-f="marg.3">[Add Air Products: FA on APD US]</span></span></footer>
-  <div class="notes">
-    <p data-t="cover">Adjusted operating margin climbed from 18.7% in 2019 to <b>29.1% in 2025</b>, 5.4 points above Air Products, and GAAP return on capital hit 11.5% versus 4.9% for Materials. The driver is {f:marg.2}.</p>
-    <p data-t="room">Ask the committee to guess Linde's 2025 GAAP return on capital against 4.9% for Materials, then click the "Return on capital vs Materials" chip to reveal 11.5%.</p>
   </div>
 </section>
 
@@ -380,18 +301,17 @@
 </section>
 
 <section class="slide content" data-id="bridge" data-init="bridge" data-title="Cash flow bridge to 2029">
-  <header class="sh"><h2><span class="fill" data-f="bridge.1">[Headline: where Linde&rsquo;s cash flow per share gets to by 2029, and whether that beats what the price needs]</span></h2></header>
+  <header class="sh"><h2><span class="fill" data-f="bridge.1">[Headline: our operating forecast produces $X of free cash flow in 2029, against what the price requires]</span></h2></header>
   <div class="body">
     <div class="grow">
-      <div class="card fl"><div class="ch"><span>Free cash flow per share, 2025 to 2029E ($)</span><span class="samp">Sample drivers</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="brSvg" viewBox="0 0 960 360" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
-      <div id="brCtl" class="brctl"></div>
+      <div class="card fl"><div class="ch"><span>Free cash flow to the firm, 2025 to 2029E ($B)</span><span class="samp">Sample drivers</span></div><div class="cb" style="flex:1;padding:10px 16px"><div class="chartbox"><svg id="brSvg" viewBox="0 0 960 370" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
     </div>
     <div class="side" style="width:380px">
       <div class="kv" id="brKv" style="grid-template-columns:1fr"></div>
       <div class="callout gold small"><b>Our read:</b> <span class="fill" data-f="bridge.2">[Which driver carries the case, and the one we are least sure of]</span></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src">Start: 2025 free cash flow per basic share, $10.84 (Bloomberg). Each driver is % a year added to free cash flow per share, compounded four years. Blue line: the growth today&rsquo;s price needs (reverse DCF, sample WACC). <span class="fill" data-f="bridge.3">[Driver values from Gabriel&rsquo;s model]</span></span></footer>
+  <footer class="sfoot"><span class="src">Free cash flow to the firm (FCFF) = EBIT x (1 - tax) + D&amp;A - capex - working capital; 2025 from the 10-K ($8.92B EBIT, $3.76B D&amp;A, $5.26B capex, $0.24B working capital). Each bar is an exact piece of the 2029 change: sales at the 2025 margin, then the margin change. Blue line: the same model at the sales growth today&rsquo;s price requires. <span class="fill" data-f="bridge.3">[Driver values from Gabriel&rsquo;s model]</span></span></footer>
   <div class="notes">
     <p data-t="cover">Free cash flow per share starts at $10.84 in 2025, and each driver walks it to 2029. Whether we land above or below <b>what the price needs</b> is the whole case.</p>
     <p data-t="room">Ask the committee which driver they trust least, then drag that slider under the chart and have them watch the Gap box on the right move.</p>
@@ -427,55 +347,36 @@
 </section>
 
 <section class="slide content" data-sec="Valuation" data-id="implied" data-init="implied" data-title="What the price assumes">
-  <header class="sh"><h2><span class="fill" data-f="implied.1">[Headline: the growth the share price already assumes, vs what we expect]</span></h2></header>
+  <header class="sh"><h2><span class="fill" data-f="implied.1">[Headline: the price requires X% free cash flow growth a year, against our Y%]</span></h2></header>
   <div class="body">
     <div class="grow">
       <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
-        <div class="ctl"><label for="imW">Discount rate (WACC) <output id="imWo"></output></label><input type="range" id="imW" min="6" max="10" step="0.1" value="7.8"></div>
-        <div class="ctl"><label for="imG">Growth after year 10 <output id="imGo"></output></label><input type="range" id="imG" min="1.5" max="4" step="0.1" value="2.8"></div>
-        <div class="ctl"><label for="imO">Our FCF growth, years 1-10 <output id="imOo"></output></label><input type="range" id="imO" min="0" max="18" step="0.1" value="13.9"></div>
+        <div class="ctl"><label for="imW">Discount rate (WACC) <output id="imWo"></output></label><input type="range" id="imW" min="6" max="10" step="0.05" value="8.05"></div>
+        <div class="ctl"><label for="imG">Long-run growth after 2035 <output id="imGo"></output></label><input type="range" id="imG" min="1.5" max="4" step="0.1" value="3"></div>
+        <div class="ctl"><label for="imO">Sales growth vs ours, pts <output id="imOo"></output></label><input type="range" id="imO" min="-3" max="3" step="0.25" value="0"></div>
       </div>
-      <div class="card fl"><div class="ch"><span>Free cash flow growth needed to justify today's price</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="imSvg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
+      <div class="card fl"><div class="ch"><span>Value per share at each rate of free cash flow growth, 2025-2035</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="imSvg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
     </div>
     <div class="side" style="width:400px">
       <div class="kv" id="imKv" style="grid-template-columns:1fr"></div>
       <div class="callout small" id="imRead"></div>
     </div>
   </div>
-  <footer class="sfoot"><span class="src">Reverse DCF: 10 years of free cash flow growth, then a terminal value. Our growth: <span id="imSrc">the slide 20 bridge</span>, applied to all 10 years. Starting point: 2025 free cash flow of $10.84 a share (Bloomberg). Price: <span id="imPx">about $480 from market cap ÷ shares (Oct 8, 2026)</span>. <span class="fill" data-f="implied.2">[WACC and terminal growth from Gabriel’s model; price from GP on the day]</span></span></footer>
+  <footer class="sfoot"><span class="src">One FCFF model for every valuation slide: Gabriel&rsquo;s DCF (Oct 21, 2026) extended to 2035, mid-year discounting, Dec 31, 2025 balance sheet, 466.4M diluted shares, rolled forward to the pitch date. Curve: the same model with more or less sales growth every year. WACC 8.05% (10Y UST 5.09%, beta 0.81, ERP 4.20%). Price: <span id="imPx">$498.43 close, Oct 16, 2026</span>. <span class="fill" data-f="implied.2">[Aaron: check against the model and refresh the price the week of the pitch]</span></span></footer>
   <div class="notes">
     <p data-t="cover">At about {price}, the price needs <b>{implied} a year</b> of free cash flow growth for ten years; Linde delivered 13.9% a year from 2019 to 2025. We expect {growth}.</p>
     <p data-t="room">Ask the committee to guess what growth today's price implies, reveal it on the "Growth the price implies" card, then drag the Discount rate (WACC) slider so they see how much the answer depends on it.</p>
   </div>
 </section>
 
-<section class="slide content" data-id="surface" data-init="surface" data-title="Value landscape">
-  <header class="sh"><h2><span class="fill" data-f="surface.1">[Headline: the value per share stays above the price across reasonable inputs]</span></h2></header>
-  <div class="body">
-    <div class="grow">
-      <div class="row"><button class="btn sm on" id="sf3" type="button">3D landscape</button><button class="btn sm" id="sf2" type="button">Table</button><span class="xs muted" style="margin-left:8px">Drag to orbit. The blue plane is today's price: everything above it is upside.</span></div>
-      <div class="g3host" id="sfHost" style="flex:1"><div class="g3fall" id="sfFall">The 3D landscape loads when this slide is on screen.</div><div id="sfTable" class="hidden" style="position:absolute;inset:0;background:var(--white);padding:10px;overflow:auto;z-index:6"></div></div>
-    </div>
-    <div class="side" style="width:380px">
-      <div class="kv" id="sfKv" style="grid-template-columns:1fr"></div>
-      <div class="card fl"><div class="ch"><span>How to read it</span><span class="samp">Sample data</span></div><div class="cb small"><p>Each point is the DCF value per share for one pair of inputs: the discount rate (WACC) along one side, long-run growth along the other. Peaks are high values, valleys low ones.</p><p id="sfRead"></p></div></div>
-    </div>
-  </div>
-  <footer class="sfoot"><span class="src">DCF value per share across WACC 6-10% and terminal growth 1.5-4%, from $10.84 of 2025 free cash flow per basic share growing at <span id="sfSrc">our bridge rate</span>. <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
-  <div class="notes">
-    <p data-t="cover">Each point is our DCF value per share for one pair of discount rate and long-run growth. Anything above the blue {price} plane is upside, and the box on the right shows <b>what share of inputs clears it</b>.</p>
-    <p data-t="room">Drag to orbit the 3D surface, ask the committee how much of it clears the blue price plane, then point at the "Share of inputs above price" card.</p>
-  </div>
-</section>
-
 <section class="slide content" data-id="scen" data-init="scen" data-title="Bear, base, bull">
-  <header class="sh"><h2>Weighted to <b><span id="scPt"></span></b><span id="scAsym"></span></h2></header>
+  <header class="sh"><h2>Our scenarios imply <b><span id="scPt"></span></b><span id="scAsym"></span></h2></header>
   <div class="body col">
     <div class="seg3" id="scCards"></div>
     <div class="card fl"><div class="ch"><span>Football field · value per share</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1"><div class="chartbox"><svg id="ffSvg" viewBox="0 0 1400 300" preserveAspectRatio="xMidYMid meet"></svg></div></div></div>
     <div class="takeaway" id="scTake"><span class="labtag">Risk / reward</span><span id="scTakeT"></span></div>
   </div>
-  <footer class="sfoot"><span class="src"><span class="fill" data-f="scen.1">[Model, Bloomberg RV comps, ANR analyst targets, GP 52-week range · as of date]</span></span></footer>
+  <footer class="sfoot"><span class="src">Case values: our FCFF model with the changes on each card. Return a year: the price moves to the case value by Dec 2029 and the stock earns the 8.47% cost of equity on that value. Market references (sample): <span class="fill" data-f="scen.1">[Bloomberg RV comps, ANR analyst targets, GP 52-week range · as of date]</span></span></footer>
   <div class="notes">
     <p data-t="cover">Each case rests on one driving assumption. Weighting bear, base and bull by their odds gives our <b>{target} target</b>, {upside} upside, and the football field sets it beside every other valuation method.</p>
     <p data-t="room">Ask the committee "How much weight would you give the bear case?", drag the Probability slider on the Bear case card to their answer, and point to where the blue weighted target line moves against the dashed Price line.</p>
@@ -508,5 +409,113 @@
   <div class="notes">
     <p data-t="cover">That is our case: <b>{rating} on {company}</b>, {target} target. The teammate listed next to your topic answers, one sentence first, then the slide that proves it.</p>
     <p data-t="room">Ask the committee what they want to test first, point to the teammate whose role line covers it in the team list, then press G to jump to that slide.</p>
+  </div>
+</section>
+
+<section class="slide content" data-sec="Backup" data-id="moat" data-init="moat" data-title="Moat scorecard">
+  <header class="sh"><h2><span class="fill" data-f="moat.1">[Headline: why Linde wins inside the oligopoly]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row" id="moatPeers"></div>
+      <div class="card fl"><div class="ch"><span>Moat scorecard · 1 (weak) to 5 (strong)</span><span class="samp">Sample data</span></div><div class="cb" id="moatRows" style="gap:12px;justify-content:center"></div></div>
+    </div>
+    <div class="side" style="width:400px">
+      <div class="card fl"><div class="ch"><span id="moatH">How we scored it</span></div><div class="cb small" id="moatB"><p>Click any bar for the raw number and its source.</p></div></div>
+      <div class="callout gold small"><b>Where we lose:</b> <span class="fill" data-f="moat.2">[The one measure where Air Products or Air Liquide beats Linde, and why it does not break the thesis]</span></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src"><span class="fill" data-f="moat.3">[Sources: Bloomberg RV, FA, company filings, as of date]</span></span></footer>
+  <div class="notes">
+    <p data-t="cover">Linde beats Air Products and Air Liquide on every row but one, with the widest lead on <b>operating margin and return on capital</b>. The one we lose: {f:moat.2}</p>
+    <p data-t="room">Before clicking anything, ask the committee which of the five rows they think Air Products beats Linde on, then click the Air Products logo to reveal the answer.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="buyers" data-init="g3" data-stop="buyers" data-title="3D: who buys">
+  <header class="sh"><h2>Every fab, hospital and mill on this map pays for gas it <b>cannot run without</b></h2></header>
+  <div class="body g3wrap">
+    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
+    <div class="g3side">
+      <div class="card fl"><div class="ch"><span>Customers</span></div><div class="cb" id="buyerRows" style="gap:7px"></div></div>
+      <div class="sel3" data-sel><span class="k">Why they buy</span><b>Click a customer</b><p>Gas is essential to them but a small share of their costs, so they rarely switch suppliers over price.</p></div>
+    </div>
+  </div>
+  <div class="notes">
+    <p data-t="cover">Linde sells to chip fabs, hospitals, steel mills, refineries and food plants. Gas is <b>essential to every one of them but a small share of their costs</b>, so they rarely switch over price.</p>
+    <p data-t="room">Ask the committee which customer would switch suppliers first, then click Chip fab and Hospital in the Customers list so the Why they buy panel shows what the gas does for each.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="snap" data-init="snap" data-title="Company at a glance">
+  <header class="sh"><h2><span data-k="company"></span> at a glance <span class="hlogo" data-logo></span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div id="snapTiles" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px"></div>
+      <div class="callout small" style="margin-top:auto"><b>In one line:</b> <span class="fill" data-f="snap.1">[What Linde does, how big it is, how it is valued vs its history]</span></div>
+    </div>
+    <div class="side" style="width:440px">
+      <div class="card fl"><div class="ch"><span>Sales by region</span><span class="samp">Sample data</span></div><div class="cb" style="flex:1;align-items:center;justify-content:center">
+        <div class="chartbox" style="width:100%;min-height:300px"><svg id="snapDonut" viewBox="0 0 400 300"></svg></div>
+        <p class="small" id="snapNote" style="min-height:52px;align-self:stretch"></p>
+      </div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Bloomberg FA, Bloomberg-adjusted figures, pulled Oct 8, 2026. Estimates: Bloomberg consensus. Regions summed from 2025 supply-mode segments. <span class="fill" data-f="snap.2">[Refresh the week of the pitch]</span></span></footer>
+  <div class="notes">
+    <p data-t="cover">{company} is worth $222.1B and trades at <b>17.4x 2026 EBITDA</b>. Net debt is 1.8x EBITDA at the end of 2025.</p>
+    <p data-t="room">Point at the 44.7% in the centre of the Sales by region donut and ask for a show of hands: who expected almost half of sales to come from the Americas?</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="money" data-init="g3" data-stop="money" data-title="3D: follow the dollar">
+  <header class="sh"><h2>Follow the dollar: <b>steady bills in</b>, energy costs passed on, new plants paid for up front</h2></header>
+  <div class="body g3wrap">
+    <div class="g3host"><div class="g3fall">The 3D model loads when this slide is on screen.</div></div>
+    <div class="g3side">
+      <div class="card"><div class="ch"><span>Three money flows</span></div><div class="cb">
+        <ol class="steps">
+          <li><span><b>Cash in.</b> Customers pay every month, with minimum volumes on long contracts.</span></li>
+          <li><span><b>Energy passed on.</b> Power cost changes are billed through to on-site customers.</span></li>
+          <li><span><b>Cash out first.</b> A new plant costs cash for 2-3 years before it earns for 15-20.</span></li>
+        </ol>
+      </div></div>
+      <div class="legend3" data-legend="cash,energy,passthru,gas"></div>
+      <div class="sel3" data-sel><span class="k">Click anything in the model</span><b>Select a building</b><p>Follow one flow at a time with the toggles above.</p></div>
+    </div>
+  </div>
+  <div class="notes">
+    <p data-t="cover">Three money flows: customers pay every month with minimum volumes, on-site customers pay for power cost changes, and <b>a new plant burns cash for 2-3 years</b> before earning for 15-20 years.</p>
+    <p data-t="room">Click the "New plant" label in the 3D model and ask the committee: would you accept 2-3 years of cash out to lock in 15-20 years of cash in?</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="surface" data-init="surface" data-title="Value landscape">
+  <header class="sh"><h2><span class="fill" data-f="surface.1">[Headline: the value per share stays above the price across reasonable inputs]</span></h2></header>
+  <div class="body">
+    <div class="grow">
+      <div class="row"><button class="btn sm on" id="sf3" type="button">3D landscape</button><button class="btn sm" id="sf2" type="button">Table</button><span class="xs muted" style="margin-left:8px">Drag to orbit. The blue plane is today's price: everything above it is upside.</span></div>
+      <div class="g3host" id="sfHost" style="flex:1"><div class="g3fall" id="sfFall">The 3D landscape loads when this slide is on screen.</div><div id="sfTable" class="hidden" style="position:absolute;inset:0;background:var(--white);padding:10px;overflow:auto;z-index:6"></div></div>
+    </div>
+    <div class="side" style="width:380px">
+      <div class="kv" id="sfKv" style="grid-template-columns:1fr"></div>
+      <div class="card fl"><div class="ch"><span>How to read it</span><span class="samp">Sample data</span></div><div class="cb small"><p>Each point is the DCF value per share for one pair of inputs: the discount rate (WACC) along one side, long-run growth along the other. Peaks are high values, valleys low ones.</p><p id="sfRead"></p></div></div>
+    </div>
+  </div>
+  <footer class="sfoot"><span class="src">Value per share from our FCFF model across WACC 6-10% and long-run growth 1.5-4%, every other input as on slide 18. <span class="fill" data-f="surface.2">[Swap in Gabriel’s model inputs]</span></span></footer>
+  <div class="notes">
+    <p data-t="cover">Each point is our DCF value per share for one pair of discount rate and long-run growth. Anything above the blue {price} plane is upside, and the box on the right shows <b>what share of inputs clears it</b>.</p>
+    <p data-t="room">Drag to orbit the 3D surface, ask the committee how much of it clears the blue price plane, then point at the "Share of inputs above price" card.</p>
+  </div>
+</section>
+
+<section class="slide content" data-id="recon" data-init="recon" data-title="DCF reconciliation">
+  <header class="sh"><h2>From Gabriel&rsquo;s $256 to our value, <b>one change at a time</b></h2></header>
+  <div class="body col">
+    <div class="card fl"><div class="ch"><span>Value per share after each change</span><span class="samp src-fc">Team forecast · Gabriel&rsquo;s model</span></div><div class="cb"><table class="dtab rctab" id="rcTab" style="font-size:18px"></table><p class="small" id="rcRead" style="margin:12px 0 0"></p></div></div>
+  </div>
+  <footer class="sfoot"><span class="src">Step 1 rebuilds Gabriel&rsquo;s Linde_LIN_DCF.xlsx (Oct 21, 2026) in the deck and lands within $0.10 of his $255.92. Balance sheet and share counts: Linde 10-K FY2025; Bloomberg FA. Dividends: 2026 consensus DPS.</span></footer>
+  <div class="notes">
+    <p data-t="cover">This is the audit trail from Gabriel&rsquo;s workbook to the number in the deck: the formula fixes move it by a few dollars, and the discount rate explains the rest of the gap to the price.</p>
+    <p data-t="room">Point at the Change column, pause on step 5, then go back to slide 18 if the committee asks about the discount rate.</p>
   </div>
 </section>

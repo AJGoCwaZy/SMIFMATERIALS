@@ -750,7 +750,7 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 [data-id="call"] .callcard dl{flex:1;grid-auto-rows:1fr}
 [data-id="call"] .callcard dt,[data-id="call"] .callcard dd{display:flex;align-items:center}
 [data-id="call"] .callcard dd{justify-content:flex-end}
-.pillar .pr{grid-template-columns:170px 1fr}
+.pillar .pr{grid-template-columns:200px 1fr}
 .pillar .pr>span:nth-child(odd){white-space:nowrap}
 /* slide 24: sliders share one baseline */
 .scn .ctl{margin-top:auto}
@@ -794,3 +794,7 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 .mtots em{font:700 30px/1 var(--serif);font-style:normal;color:var(--pc)}
 .mtots .dim{opacity:.55}
 #brSvg text.dl,#brSvg text.dlb{paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+
+/* valuation model state tag and reconciliation table */
+.vsmod{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:3px;background:#FFF3C4;color:#6B4E00;font:600 12px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.rctab tr.tot td{border-top:2px solid var(--brown-dk);font-weight:700}
