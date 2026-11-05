@@ -811,3 +811,6 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 /* status pills (Reported, Team forecast, Illustration, Sample data): off on the slides; build mode (B) shows them so the team can see what is still sample */
 :root:not(.build) .samp{display:none!important}
 .sntiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;flex:1}.sntiles .tile{padding:10px 16px;justify-content:center}.sntiles .tile .tv{font-size:32px}
+
+/* numbers in Arial, not the serif: KPI values, tiles, chart value labels, case values, counters (headlines keep the serif) */
+.big,.bigm,.tile .tv,.kv b,.qt .tv,.scn b.v,.callcard dd,.callcard .rt,.pillar .pn,.agc .agn,.fcr output,.clband .cs b,.clband .cr,.flip.pm .pmo b,.mbar em,.mtots em,.scb,.rdot,.stk>div b,.rcn b,.steps li::before,.tl .ev,.dlb,svg text.dlb{font-family:Arial,"Helvetica Neue",Helvetica,sans-serif}

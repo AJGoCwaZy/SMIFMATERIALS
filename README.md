@@ -37,11 +37,11 @@ All research files go in the shared Google Drive folder (link at the top), not i
 
 | Person | Owns | Role in this repo |
 |---|---|---|
-| Gabriel Castillo | Cover, the call, Linde at a glance, the question, macro, industry and next markets (slides 1-8), the close (21); backs up Ryan on growth (12-13) | Co-lead. Approves changes to the finance slides. |
-| Alexander Jovanovic | Peer margins, pass-through, capex and cash, the free cash flow bridge, coordination (slides 14-17); backs up Aaron on the pre-mortem (18) | Co-lead. Approves changes and runs the Wednesday deck update. |
-| Aaron | Pre-mortem and valuation (slides 18-20); owns the valuation model and its reconciliation (backup) | Editor |
-| Daniel Vazquez | End markets, contracts, the end-market forecast (slides 9-11) | Editor |
-| Ryan Hernandez | Market size and the signed backlog (slides 12-13) | Editor |
+| Gabriel Castillo | Cover, the call, Linde at a glance, the question, macro, the midterms, industry and next markets (slides 1-9), the close (22); backs up Ryan on growth (13-14) | Co-lead. Approves changes to the finance slides. |
+| Alexander Jovanovic | Peer margins, pass-through, capex and cash, the free cash flow bridge, coordination (slides 15-18); backs up Aaron on the pre-mortem (19) | Co-lead. Approves changes and runs the Wednesday deck update. |
+| Aaron Piz | Pre-mortem and valuation (slides 19-21); owns the valuation model and its reconciliation (backup) | Editor |
+| Daniel Vazquez | End markets, contracts, the end-market forecast (slides 10-12) | Editor |
+| Ryan Hernandez | Market size and the signed backlog (slides 13-14) | Editor |
 
 ---
 
@@ -133,7 +133,7 @@ python test_overflow.py    # check the answers fit on their slides
 | `→` / `←` | Next / previous slide |
 | `N` | Speaker notes panel (current slide on the left, next slide on the right) |
 | `P` | Notes in a separate window for a second screen |
-| `S` | Start or stop the timer (the main run is 14:10 of the 15:00 slot) |
+| `S` | Start or stop the timer (the main run is 14:30 of the 15:00 slot) |
 | `G` | Jump to any slide |
 | `T` | Team plan: who owns each slide and how long it runs |
 | `B` | Build mode: shows what each slide must prove and the fill ID on every gold box |

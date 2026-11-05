@@ -35,7 +35,7 @@ window.PITCH = {
 /* who owns what: names, roles, colours used in the team plan */
 window.OWNERS = {
   G: { n: 'Gabriel Castillo', s: 'Gabriel', r: 'Co-lead · the call, macro, industry; helps on growth', c: '#A57C61' },
-  A: { n: 'Aaron', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: null },
+  A: { n: 'Aaron Piz', s: 'Aaron', r: 'Pre-mortem, valuation', c: '#2B5780', last: 'Piz' },
   D: { n: 'Daniel Vazquez', s: 'Daniel', r: 'Products, customers, end markets', c: '#2E7D4F' },
   R: { n: 'Ryan Hernandez', s: 'Ryan', r: 'Next markets, market size, backlog', c: '#7B5EA7' },
   X: { n: 'Alexander Jovanovic', s: 'Alexander', r: 'Co-lead · moat, profitability, cash flow; helps on risk', c: '#B23A2E' },
@@ -45,12 +45,13 @@ window.OWNERS = {
 /* the build plan: owner (o), seconds in the timed run (t), which of the three reasons the slide supports (r),
    what the slide must prove, and where the inputs come from. r is a first draft: change it when the reasons are written. */
 window.PLAN = {
-  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (Nasdaq: LIN).' },
+  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date. Company and ticker are set to Linde plc (Nasdaq: LIN).' },
   call: { o: 'G', t: 35, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
   question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question, and one matched chart: our free cash flow path against the one today’s price requires.', pull: 'Nothing new: the valuation model. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
   macro: { o: 'G', t: 25, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
+  midterm: { o: 'G', t: 25, r: [1], prove: 'What the Nov 3 midterms change for Linde: very little, because gridlock keeps policy where it is.', pull: 'Final seat counts once certified; refresh the price chart the week of the pitch.' },
   stab: { o: 'G', t: 25, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
-  make: { o: 'G', t: 40, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
+  make: { o: 'G', t: 35, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
   moat: { o: 'X', t: 0, r: [1], prove: 'Why Linde wins against Air Products and Air Liquide, on the five measures that matter.', pull: 'Linde raw values are filled from the Bloomberg pull (Oct 8). Peers: FA and RV on APD US and AI FP, backlogs from their earnings releases.' },
   buyers: { o: 'D', t: 0, r: [1], prove: 'Who the customers are, and why gas is essential to them but a small share of their costs.', pull: 'Company 10-K end-market descriptions.' },
   snap: { o: 'G', t: 30, prove: 'What Linde does, how big it is, and how the market values it against its own history, with the share price since 2018.', pull: 'Refresh the share price series and the price the week of the pitch.' },
