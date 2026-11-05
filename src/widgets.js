@@ -30,10 +30,10 @@ window.DATA = {
   /* logos: files in vendor/logos/ (built into the deck); a missing file shows the name instead */
   moat: { sample: true, peers: ['Linde', 'Air Products', 'Air Liquide'], tick: ['LIN', 'APD', 'AI'],
     logos: ['vendor/logos/linde.png', 'vendor/logos/air-products.png', 'vendor/logos/air-liquide.svg'], rows: [
-    { n: 'On-site share of sales', v: [4, 5, 4], raw: ['23.8% of 2025 sales (Bloomberg FA)', '[x%]', '[x%]'] },
+    { n: 'On-site share of sales', v: [4, 5, 4], raw: ['23.8% of 2025 sales (Bloomberg FA)', '52% of FY2025 sales (10-K)', '27.3%: Large Industries share of 2025 gas sales (our calculation)'] },
     { n: 'Signed backlog vs sales', v: [4, 3, 3], raw: ['$8.1B sale-of-gas backlog as of [quarter], about 24% of 2025 sales (register #7)', '[x%]', '[EUR 6B backlog vs sales]'] },
-    { n: 'Operating margin', v: [5, 3, 3], raw: ['29.1% adjusted, 2025 (Bloomberg)', '[x%]', '[x%]'] },
-    { n: 'Return on capital', v: [5, 2, 3], raw: ['11.5% GAAP, 24.2% Linde-adjusted, 2025 (Bloomberg, register #4)', '[x%]', '[x%]'] },
+    { n: 'Operating margin', v: [5, 3, 3], raw: ['29.8% adjusted, 2025 (company)', '23.7% adjusted, FY2025 (company)', '20.7% recurring operating margin, 2025'] },
+    { n: 'Return on capital', v: [5, 2, 3], raw: ['11.5% GAAP, 24.2% Linde-adjusted, 2025 (Bloomberg, register #4)', '10.1% adjusted ROC, FY2025 (annual report)', '11.2% recurring ROCE, 2025'] },
     { n: 'Pricing track record', v: [5, 4, 4], raw: ['25 years of positive pricing (register #4)', '[ ]', '[ ]'] }
   ]},
   threats: { sample: true, cards: [
@@ -62,7 +62,7 @@ window.DATA = {
     { n: 'Healthcare', s: 17, g: null, d: true, u: 'Medical oxygen, hospital gases and US home care (Lincare).' },
     { n: 'Metals and mining', s: 13, g: null, d: false, u: 'Oxygen and argon for steel, copper and other metals.' },
     { n: 'Food and beverage', s: 9, g: null, d: true, u: 'Freezing, carbonation and packaging gases.' },
-    { n: 'Electronics', s: 9, g: 18, d: true, u: 'Ultra-pure nitrogen and specialty gases for chip fabs. Fastest-growing market in Q2 2026.' },
+    { n: 'Electronics', s: 9, g: 18, d: false, u: 'Ultra-pure nitrogen and specialty gases for chip fabs. Fastest-growing market in Q2 2026.' },
     { n: 'Other', s: 10, g: null, d: false, u: 'Aerospace, space, water treatment, labs and more.' }
   ]},
   /* long: take-or-pay (the first big number); multi: on a multi-year contract, 3+ yr (the second) */
@@ -115,15 +115,26 @@ window.DATA = {
   pass: { energyShare: 30, otherCost: 45, modes: [ { k: 'on', n: 'On-site', pt: 1, d: 'Full pass-through, immediately.' }, { k: 'mer', n: 'Merchant bulk', pt: 0.6, d: 'Price formulas catch up after a 3 to 6 month lag, so about 60% comes back in year one.' }, { k: 'pkg', n: 'Packaged', pt: 0.6, d: 'Surcharges and list prices, also a 3 to 6 month lag: about 60% back in year one.' } ] },
   /* Bloomberg FA, pulled Oct 8, 2026. GAAP figures include Praxair merger amortization. */
   marg: { modes: {
-    adj: { t: 'Operating margin, Bloomberg adjusted, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026E', '2027E'], est: 7, series: [ { n: 'Linde', c: '#6B432B', v: [18.68, 21.30, 22.55, 22.95, 26.88, 28.66, 29.14, 29.65, 30.57] },
+    /* Linde: company-reported adjusted operating profit margin, FY earnings releases (8-K Ex. 99.1, sec.gov); 2019 pro forma.
+       Same basis as Air Products' adjusted margin below, so the gap compares like with like (Atlas review, R9). */
+    adj: { t: 'Adjusted operating margin, company-reported, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'Linde', c: '#6B432B', v: [18.7, 21.3, 23.3, 23.7, 27.6, 29.5, 29.8] },
       /* Air Products: company-reported adjusted operating margin, fiscal years to Sept 30 (10-K, annual reports, sec.gov).
          2019-21 computed from reported segment operating income / sales. GAAP is left out: 2024 includes the LNG sale gain
          (36.9% GAAP margin) and 2025 $3.7B of project-exit charges (-7.3%). */
-      { n: 'Air Products', c: '#2B5780', v: [24.33, 24.88, 21.97, 19.00, 21.74, 24.36, 23.74, null, null] } ] },
+      { n: 'Air Products', c: '#2B5780', v: [24.33, 24.88, 21.97, 19.00, 21.74, 24.36, 23.74] } ] },
     om: { t: 'Operating margin, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [10.05, 6.91, 15.57, 15.26, 12.48, 10.95, 11.39] }, { n: 'Linde', c: '#6B432B', v: [10.39, 12.19, 15.44, 15.35, 23.70, 25.43, 25.58] } ] },
+    /* peers side by side, FY2025, each company's own definition (Linde and APD: earnings releases and 10-K / annual report;
+       Air Liquide: FY2025 results release, Feb 20, 2026). Air Liquide's Large Industries share is our calculation (7,110 / 26,085). */
+    peer: { t: 'Peers side by side, FY2025', rows: [
+      ['Adjusted operating margin', ['29.8%', 'company adjusted'], ['23.7%', 'company adjusted, FY to Sept'], ['20.7%', 'recurring operating margin; 20.9% ex energy']],
+      ['Return on capital', ['24.2%', 'adjusted after-tax ROC'], ['10.1%', 'adjusted ROC'], ['11.2%', 'recurring ROCE']],
+      ['Long-contract supply mode', ['23.8%', 'on-site share of sales'], ['52%', 'on-site share of sales'], ['27.3%', 'Large Industries share of gas sales (derived)']],
+      ['Sales', ['$34.0B', 'calendar 2025'], ['$12.0B', 'FY to Sept 2025'], ['\u20AC26.9B', 'calendar 2025']]
+    ] },
     roc: { t: 'Return on capital, GAAP, %', years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'], series: [ { n: 'S&P 500 Materials', c: '#C9B3A3', v: [5.45, 2.10, 10.34, 10.36, 7.84, 6.02, 4.90] }, { n: 'Linde', c: '#6B432B', v: [3.42, 4.07, 6.32, 7.18, 11.07, 11.55, 11.46] } ] }
   }},
-  uses: { sample: false, items: [ ['Operations', 10.35], ['Capex', -5.26], ['Dividends', -2.81], ['Buybacks', -4.58] ] },
+  /* Linde 10-K FY2025 cash flow statement, $B. Net borrowing = debt increases (decreases), net. Other, net is computed: acquisitions, other investing, NCI and other, cash build, less divestitures and FX. */
+  uses: { sample: false, items: [ ['Operations', 10.35], ['Net borrowing', 2.91], ['Capex', -5.26], ['Dividends', -2.81], ['Buybacks', -4.58] ] },
   risks: { sample: true, r: [
     { n: 'Industrial recession cuts merchant and packaged volumes', p: .55, i: .62 },
     { n: 'Energy spike not fully passed through', p: .45, i: .38 },
@@ -132,30 +143,38 @@ window.DATA = {
     { n: 'Helium price falls back', p: .72, i: .22 },
     { n: 'Higher rates lower the valuation multiple', p: .62, i: .45 }
   ]},
-  /* fcf0 = 2025 free cash flow per share (Bloomberg). price \u2248 market cap \u00F7 shares, Oct 8, 2026. Growth, WACC and terminal growth are sample inputs for Gabriel's model. g1 (the 2019-2025 pace) stands in for our growth on slides 22-24 only while PITCH.growth is unset and the bridge is still sample data. */
-  val: { sample: true, price: 480, fcf0: 10.84, g1: 13.9, years: 10, w: 7.8, g: 2.8, hist: 13.9 },
-  /* cash flow bridge: % a year each driver adds to free cash flow per share, 2025 to 2029. 'link' = taken from the end-market forecast */
-  /* Driver values, % a year added to free cash flow per share, 2025-2029. 2025 base: operating cash flow $10.35B, capex $5.26B,
-     free cash flow $5.09B (10-K). New plants: $7.9B sale-of-gas backlog (Q3 2026 10-Q) x 35% sales per $ of capex (mgmt range
-     20-50%, Q2 2026 call) / 4 years = $0.69B sales a year at the 2025 cash margin (30.5%) = $0.21B a year. Margin: +40 bps a year
-     (mgmt 30-50, Q4 2025 call) on $34.0B sales after 22.4% tax = $0.11B. Capex: $5.26B to $6.15B by 2029 (Gabriel's model; 2026
-     guide $5.5-6.0B) = $0.22B more a year. Shares: diluted count -2.05% in 2025 (10-K). End markets: slide 11 x cash leverage. */
-  bridge: { sample: false, years: 4, d: [
-    { k: 'em', n: 'End markets', s: 'slide 11 forecast x2 cash leverage', v: null, link: 'fcast' },
-    { k: 'bl', n: 'New plants', s: '$7.9B backlog starting up', v: 4.1 },
-    { k: 'mg', n: 'Margin', s: '+40 bps a year (mgmt 30-50)', v: 2.1 },
-    { k: 'cx', n: 'Capex', s: '$5.3B to ~$6.2B by 2029', v: -4.4 },
-    { k: 'sh', n: 'Fewer shares', s: 'diluted shares -2% a year', v: 2.1 }
-  ]},
+  /* price: close on Oct 16, 2026 (Gabriel's model). PITCH.price overrides it on the day. */
+  val: { sample: false, price: 498.43 },
+  /* THE VALUATION MODEL. Gabriel's DCF (Linde_LIN_DCF.xlsx, Oct 21, 2026), ported line by line; runModel() in this file.
+     base: FY2025 actuals, $M (10-K; Bloomberg FA for the balance sheet splits). seg: merchant, on-site, packaged gas, other and
+     engineering; adj: Bloomberg reconciling item. cost: cost of sales + SG&A + R&D + cost reduction and other (ex D&A).
+     g: segment sales growth 2026-2030 (price + FX + M&A + volume, his Assumptions tab). bl: on-site start-ups, $M a year =
+     $8.1B sale-of-gas backlog (Q2 2026 call) x 35% sales per $ of capex (mgmt 20-50%, Q2 2026 call) / 4 years.
+     exp: fall in the cost ratio each year (2026-27 = change in consensus margin, then 40 bps, mgmt 30-50 bps, Q4 2025 call).
+     dep: D&A / prior-year gross PP&E. Capex keeps net PP&E at 83.2% of sales. tax: 22.36% (FY2025 effective).
+     After 2030 every segment's growth fades in a straight line to long-run growth by 'fade' (2035): our change, see the
+     reconciliation slide. wacc/ke: Gabriel's build (10Y UST 5.09%, beta 0.81, ERP 4.20%, A-rated debt 5.71%, 10.5% debt weight).
+     eq: Dec 31, 2025 balance sheet (10-K). sh: 463.68M outstanding at Dec 31, 2025 + 2.70M dilutive (FY2025 diluted less basic
+     average); shG: Gabriel's 460.98M. roll: Dec 31, 2025 to the pitch (Dec 3, 2026 = 337 days) at the cost of equity, less
+     about three 2026 quarterly dividends (2026 consensus DPS $6.41 / 4 x 3). target: Dec 31, 2029, 3.08 years from the pitch. */
+  model: { sample: false,
+    base: { sales: 33986, seg: [10159, 8083, 11853, 3857], adj: 34, cost: 21300, da: 3763, ebit: 8923, capex: 5261, wc: 240,
+      gross: 68079, accd: 39819, nfa: 28260, ca: 8269, cl: 8892 },
+    g: [[.05, .03, .03, .03, .03], [.04, .02, .02, .02, .02], [.05, .03, .03, .03, .03], [.04, .02, .02, .02, .02]],
+    bl: 709, exp: [.0051, .0092, .004, .004, .004], tax: .2236, dep: 3763 / 68079,
+    fade: 2035, mid: true, wacc: 8.05, tg: 3.0, ke: 8.47,
+    eq: { cash: 5056, inv: 2015, debt: 26989, nci: 1496, sh: 466.38, shG: 460.98 },
+    roll: { days: 337, div: 4.81 }, target: { date: 'Dec 2029', yrs: 3.08 } },
   /* pre-mortem odds: chance of each story by 2029, % */
   premortem: { sample: true, p: [20, 10, 10] },
+  /* cases: o = change from our forecast. dg: sales growth, pts a year to 2035; mx: margin, pts a year 2026-2030 (-0.4 = no
+     expansion after 2027); blk: share of the backlog start-ups. Probabilities are team judgments.
+     ff: market references only (sample until pulled); the DCF and scenario rows are computed from the model. */
   scen: { sample: true, s: [
-    { k: 'bear', n: 'Bear', v: 400, p: 25, a: '[Industrial recession: volumes \u22125%, margin \u22122 pts, multiple de-rates]' },
-    { k: 'base', n: 'Base', v: 520, p: 50, a: '[Backlog starts on time, pricing tracks inflation]' },
-    { k: 'bull', n: 'Bull', v: 620, p: 25, a: '[Electronics and space beat plan, Lincare sold at a good price]' }
-  ], ff: [ ['52-week range', 420, 495], ['Analyst targets', 470, 590], ['Comps, EV/EBITDA', 440, 540],
-    ['DCF, WACC 7-9%', null, null], /* null = computed by the deck's own dcf() at our FCF growth (PITCH.growth, else the slide 20 bridge) and val's long-run growth; type numbers here to override */
-    ['Our scenarios', 400, 620] ] },
+    { k: 'bear', n: 'Bear', p: 25, o: { dg: -1, mx: -.4, blk: .5 }, a: 'Sales growth 1 pt a year lower, no margin gains after 2027, half the backlog start-ups.' },
+    { k: 'base', n: 'Base', p: 50, o: {}, a: 'Our forecast: backlog starts on time, margin +40 bps a year to 2030, growth fades to 3%.' },
+    { k: 'bull', n: 'Bull', p: 25, o: { dg: 1, mx: .1 }, a: 'Sales growth 1 pt a year higher and margin +50 bps a year, the top of guidance.' }
+  ], ff: [ ['52-week range', 420, 495], ['Analyst targets', 470, 590], ['Comps, EV/EBITDA', 440, 540] ] },
   /* FY2025, GAAP basis. Linde and the sector: Bloomberg FA benchmark (Oct 8, 2026). null = still to pull. */
   comps: { cols: ['Company', 'P/E', 'EV/EBITDA', 'Price/book', 'Op. margin', 'Return on capital', 'Net debt/EBITDA'], fmt: ['', 'x', 'x', 'x', '%', '%', 'x'],
     rows: [ ['Linde (LIN)', 25.91, 17.39, 5.17, 25.58, 11.46, 1.79], ['S&P 500 Materials', 24.30, 13.99, 2.88, 11.39, 4.90, 2.17], ['Air Products (APD)', null, null, null, null, null, null], ['Air Liquide (AI FP)', null, null, null, null, null, null], ['Nippon Sanso (4091 JP)', null, null, null, null, null, null] ] },
@@ -202,7 +221,8 @@ window.UNIT_INFO = {
 const A = window.__A; const {RM, $, $$, S, T, H, esc, lin, clamp, usd, sg, pct, mmss, clear, F, tween, rng, pick, showTip, hideTip, hov, gridY, C, samp, INIT} = A;
 const D = window.DATA;
 const SHORT = () => window.PITCH.short || window.PITCH.ticker || 'the company';
-function srcok(sl, text, sel){ $$(sel || '.samp', sl).forEach(x => { x.className = 'samp src-ok'; x.textContent = text; }); }
+/* status label on an exhibit: kind 'fc' = team forecast, otherwise reported data */
+function srcok(sl, text, sel, kind){ $$(sel || '.samp', sl).forEach(x => { x.className = 'samp ' + (kind === 'fc' ? 'src-fc' : 'src-ok'); x.textContent = (kind === 'fc' ? 'Team forecast · ' : 'Reported · ') + text; }); }
 const FL = s => esc(s).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>');
 
 /* ---- the call ---- */
@@ -210,7 +230,7 @@ INIT.call = sl => {
   const box = $('#pillars', sl);
   const LB = ['Reason 1', 'Reason 2', 'Reason 3'];
   window.PITCH.pillars.forEach((p, i) => {
-    const b = H('button', {type: 'button', class: 'pillar'}, '<div class="pn">' + (i + 1) + '</div><div class="pb"><span class="ptag">' + F(p.tag, '2-3 word tag') + '</span><h3>' + F(p.h, LB[i] + ': a short headline') + '</h3><div class="pr"><span>Market assumes</span><span>' + F(p.assume, 'what the price implies') + '</span><span>We see</span><span>' + F(p.see, 'our evidence') + '</span><span>Worth</span><span>' + F(p.worth, '$ per share') + '</span></div><span class="go">Go to the evidence →</span></div>', box);
+    const b = H('button', {type: 'button', class: 'pillar'}, '<div class="pn">' + (i + 1) + '</div><div class="pb"><span class="ptag">' + F(p.tag, '2-3 word tag') + '</span><h3>' + F(p.h, LB[i] + ': a short headline') + '</h3><div class="pr"><span>Evidence</span><span>' + F(p.assume, 'the evidence, with its slide') + '</span><span>Forecast implication</span><span>' + F(p.see, 'what it does to our forecast') + '</span><span>What changes our view</span><span>' + F(p.worth, 'the number that would change it') + '</span></div><span class="go">Go to the evidence →</span></div>', box);
     b.addEventListener('click', e => { if (e.detail > 0 && !e.target.closest('.go')) return; const k = A.idx(p.go); if (k >= 0) A.jump(k); });
   });
 };
@@ -218,7 +238,7 @@ INIT.call = sl => {
 /* ---- agenda ---- */
 INIT.agenda = sl => {
   const box = $('#agendaCards', sl);
-  const AG = [ ['macro', 'Industry', 'Macro in thirty seconds, then why industrial gases and who wins.'], ['buyers', 'Linde', 'Customers, end markets, our forecast, contracts.'], ['next', 'Growth', 'Next markets, market size by theme, signed backlog.'], ['money', 'The money', 'Pass-through, margins, capex and the cash flow bridge.'], ['premortem', 'Risks', 'How we could be wrong, and the odds.'], ['implied', 'Valuation', 'What the price assumes and what it is worth.'] ];
+  const AG = [ ['macro', 'Industry', 'Macro, why industrial gases, and which new markets we test.'], ['endm', 'Linde', 'End markets, contracts and our forecast.'], ['tam', 'Growth', 'Market size and the signed backlog.'], ['marg', 'The money', 'Peer economics, pass-through, capex and the cash flow forecast.'], ['premortem', 'Risks', 'What would change our recommendation.'], ['implied', 'Valuation', 'What the price assumes and what it is worth.'] ];
   AG.forEach((a, n) => {
     const i = A.idx(a[0]); if (i < 0) return;
     const sec = A.SECS.find(s => s.a <= i + 1 && s.b >= i + 1);
@@ -230,57 +250,33 @@ INIT.agenda = sl => {
   });
 };
 
-/* ---- the question: what the price needs vs what we expect, and the roadmap ---- */
+/* ---- the question: one matched chart, our free cash flow path vs the one today's price requires ---- */
 INIT.question = sl => {
-  const v = D.val, P = window.PITCH, price = priceNow();
-  const imp = impG(price, v.w / 100, v.g / 100) * 100;
-  const eps = D.snap.tiles.find(t => /^EPS/.test(t[0])), epsG = eps ? eps[2].split(' ')[0] : null;
-  // our growth: PITCH.growth, else the bridge once its drivers are ours (never the 2019-2025 stand-in)
-  const ours = A.ourGrowthNow(), ourT = P.growth != null && P.growth !== '' ? P.growth : ours == null ? null : ours.toFixed(1) + '%';
-  const TL = [
-    { k: 'The price needs', v: imp.toFixed(1) + '%', c: 'free cash flow growth a year for ten years, at about ' + usd(price) + ' a share', cls: 'need' },
-    { k: SHORT() + ' delivered', v: v.hist + '%', c: 'free cash flow per share growth a year, 2019-2025' },
-    { k: 'Analysts expect', v: epsG, c: 'EPS growth, 2026 only, not FCF (Bloomberg consensus)' },
-    { k: 'We expect', v: ourT, c: ours == null ? 'free cash flow growth a year, from our model' : sg(ours - imp, 1, ' pts') + ' vs what the price needs', cls: 'ours', f: 'x% a year' }
-  ];
-  const box = $('#qTest', sl);
-  TL.forEach((t, i) => {
-    H('div', {class: 'qt ' + (t.cls || '')}, '<span class="tk">' + esc(t.k) + '</span><span class="tv">' + F(t.v, t.f || '[ ]') + '</span><span class="tc">' + esc(t.c) + '</span>', box);
-    if (i === 0) H('div', {class: 'qvs'}, 'vs', box);
-  });
-  // the same four numbers on one line: where the price sits against history, analysts and us
-  const svg = $('#qLine', sl), x0 = 60, x1 = 1400, X = lin(0, 20, x0, x1), yl = 86;
-  const pts = [[imp, 'Price needs ' + imp.toFixed(1) + '%', C.gold, -1], [v.hist, 'Delivered ' + v.hist + '%', C.steel, 1], [epsG ? parseFloat(epsG) : null, 'Analysts, 2026 EPS ' + epsG, C.steel, -1, 'hollow'], [ours, ours == null ? '' : 'We expect ' + ourT, C.navy, 1]];
-  const live = pts.filter(q => q[0] != null && !isNaN(q[0])).sort((a, b) => a[0] - b[0]);
-  // tick labels near a lower stem are skipped (the tick stays) so no stem cuts through a number
-  const stems = live.filter(q => q[3] > 0).map(q => X(clamp(q[0], 0, 20)));
-  S('line', {x1: x0, x2: x1, y1: yl, y2: yl, stroke: C.light, 'stroke-width': 3}, svg);
-  for (let k = 0; k <= 20; k += 2){ S('line', {x1: X(k), x2: X(k), y1: yl - 6, y2: yl + 6, stroke: C.light, 'stroke-width': 2}, svg); if (stems.every(sx => Math.abs(sx - X(k)) >= 20)) T('text', {x: X(k), y: yl + 30, 'text-anchor': 'middle', class: 'ax'}, k + '%', svg); }
-  // labels go in the lowest free row on their side (two rows a side), so close values never overprint
-  const taken = {up: [[], []], dn: [[], []]};
-  const placed = live.map(q => {
-    const x = X(clamp(q[0], 0, 20)), up = q[3] < 0, w = q[1].length * 9.5, tx = clamp(x, w / 2 + 4, 1440 - w / 2 - 4), sp = [tx - w / 2 - 6, tx + w / 2 + 6], rows = taken[up ? 'up' : 'dn'];
-    let row = rows.findIndex(r => r.every(o => sp[1] <= o[0] || sp[0] >= o[1])); if (row < 0) row = 1;
-    rows[row].push(sp);
-    return {q, x, up, tx, row, sp};
-  });
-  placed.forEach(p => S('line', {x1: p.x, x2: p.x, y1: yl, y2: p.up ? yl - 34 - 24 * p.row : yl + 34 + 24 * p.row, stroke: p.q[2], 'stroke-width': 2}, svg));
-  // hollow dot: a different measure (one year of EPS) from the ten-year FCF points
-  placed.forEach(p => S('circle', {cx: p.x, cy: yl, r: p.q[2] === C.navy || p.q[2] === C.gold ? 11 : 8, fill: p.q[4] === 'hollow' ? '#fff' : p.q[2], stroke: p.q[4] === 'hollow' ? p.q[2] : '#fff', 'stroke-width': 3}, svg));
-  placed.forEach(p => T('text', {x: p.tx, y: p.up ? yl - 42 - 24 * p.row : yl + 52 + 24 * p.row, 'text-anchor': 'middle', class: 'dlb', style: 'font-size:17px;fill:' + (p.q[2] === C.gold ? '#2B5780' : p.q[2]) + ';paint-order:stroke;stroke:var(--tint);stroke-width:6px;stroke-linejoin:round'}, p.q[1], svg));
-  // the axis title moves above the line when a lower label needs its corner
-  const tUp = placed.some(p => !p.up && p.sp[1] > x1 - 130);
-  T('text', {x: x1, y: tUp ? yl - 16 : yl + 58, 'text-anchor': 'end', class: 'axt', style: 'font-size:15px;paint-order:stroke;stroke:var(--tint);stroke-width:6px;stroke-linejoin:round'}, 'Growth a year →', svg);
-  if (ours == null){ T('text', {x: X(19.6), y: yl - 22, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780;font-size:15px'}, '[We expect: our number lands here]', svg); }
-  // roadmap from the section list
-  const road = $('#qRoad', sl);
-  A.SECS.filter(sc => ['Open', 'Close', 'Backup'].indexOf(sc.n) < 0).forEach((sc, n) => {
-    const own = [], tm = [0];
-    for (let k = sc.a - 1; k < sc.b; k++){ const m = A.meta(k); tm[0] += m.t || 0; if (own.indexOf(m.o) < 0) own.push(m.o); }
-    const b = H('button', {type: 'button', class: 'qr'}, '<span class="qn">' + (n + 1) + '</span><b></b><span class="qo">' + own.map(o => '<i style="background:' + window.OWNERS[o].c + '">' + esc(window.OWNERS[o].s) + '</i>').join('') + '</span><span class="qm">' + mmss(tm[0]) + ' · ' + (sc.a === sc.b ? 'slide ' + sc.a : 'slides ' + sc.a + '-' + sc.b) + '</span>', road);
-    $('b', b).textContent = sc.n;
-    b.addEventListener('click', () => A.jump(sc.a - 1));
-  });
+  const svg = $('#qSvg', sl);
+  srcok(sl, "Gabriel's model, 10-K, Q3 2026", null, 'fc');
+  function draw(){
+    const R = runModel(), N = needRun(), price = priceNow();
+    clear(svg);
+    const yrs = [2025].concat(R.yrs), ours = [R.f0].concat(R.F), need = [N.f0].concat(N.F);
+    const x0 = 90, x1 = 1180, yb = 300, X = lin(2025, yrs[yrs.length - 1], x0, x1), top = Math.max(...need) * 1.12, y = lin(0, top, yb, 14);
+    const st = top > 24000 ? 5000 : 2500, tk = []; for (let v = 0; v <= top; v += st) tk.push(v);
+    gridY(svg, x0, x1, y, tk, v => '$' + v / 1000 + 'B');
+    yrs.forEach(yr => T('text', {x: X(yr), y: yb + 26, 'text-anchor': 'middle', class: 'ax'}, yr === 2025 ? '2025A' : String(yr), svg));
+    const path = a => a.map((v, i) => (i ? 'L' : 'M') + X(yrs[i]) + ' ' + y(v)).join(' ');
+    S('path', {d: path(need), fill: 'none', stroke: C.gold, 'stroke-width': 4, 'stroke-dasharray': '10 7'}, svg);
+    S('path', {d: path(ours), fill: 'none', stroke: C.navy, 'stroke-width': 5}, svg);
+    S('circle', {cx: X(2025), cy: y(R.f0), r: 8, fill: C.navy, stroke: '#fff', 'stroke-width': 2.5}, svg);
+    const L = yrs.length - 1, halo = ';paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round';
+    T('text', {x: X(yrs[L]) + 14, y: y(need[L]) + 6, class: 'dlb', style: 'fill:#2B5780' + halo}, 'Price requires ' + bn1(need[L]), svg);
+    T('text', {x: X(yrs[L]) + 14, y: y(need[L]) + 30, class: 'dl', style: 'fill:#2B5780' + halo}, (N.fc * 100).toFixed(1) + '% a year', svg);
+    T('text', {x: X(yrs[L]) + 14, y: y(ours[L]) + 6, class: 'dlb', style: halo.slice(1)}, 'Our forecast ' + bn1(ours[L]), svg);
+    T('text', {x: X(yrs[L]) + 14, y: y(ours[L]) + 30, class: 'dl', style: halo.slice(1)}, (R.fc * 100).toFixed(1) + '% a year', svg);
+    T('text', {x: X(2025) + 12, y: y(R.f0) - 14, class: 'dl', style: halo.slice(1)}, '2025: ' + bn1(R.f0), svg);
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
+    $('#qRead', sl).innerHTML = 'At ' + usd(price) + ', a ' + A.VS.w.toFixed(2) + '% WACC and ' + A.VS.tg.toFixed(1) + '% long-run growth, the price requires free cash flow to the firm to grow <b>' + (N.fc * 100).toFixed(1) + '% a year</b> to 2035. Our forecast: <b>' + (R.fc * 100).toFixed(1) + '%</b>.' + stateTag();
+  }
+  draw();
+  return { enter(){ draw(); } };
 };
 
 /* ---- macro ---- */
@@ -619,7 +615,7 @@ INIT.fcast = sl => {
     const on = scen.find(x => x.b.classList.contains('on')); A.fcastView = on ? on.k : 'custom';
     $('#fcKv', sl).innerHTML = '<div><span>Fully defensive markets</span><b>' + sg(grp(m => m.d), 1, '%') + '</b><i>a year</i></div><div><span>Cyclical or mixed</span><b>' + sg(grp(m => !m.d), 1, '%') + '</b><i>a year</i></div>';
     const top = con.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0])[0];
-    $('#fcRead', sl).innerHTML = '<b>' + esc(em[top[1]].n) + '</b> adds the most: ' + sg(top[0], 1, ' pts') + ' of the ' + sg(blend, 1, '%') + '. Compare with <span class="fill">[management guidance or consensus]</span>.';
+    $('#fcRead', sl).innerHTML = '<b>' + esc(em[top[1]].n) + '</b> adds the most: ' + sg(top[0], 1, ' pts') + ' of the ' + sg(blend, 1, '%') + '. Cross-check: the valuation model’s existing business grows ' + ((Math.pow(runModel({blk: 0}).S[3] / D.model.base.sales, 1 / 4) - 1) * 100).toFixed(1) + '% a year to 2029, before new plants.';
   }
   function note(){
     const m = em[sel];
@@ -750,9 +746,17 @@ INIT.pass = sl => {
 /* ---- margins and returns ---- */
 INIT.marg = sl => {
   const d = D.marg, svg = $('#margSvg', sl);
-  srcok(sl, 'Bloomberg FA, Oct 8, 2026');
+  srcok(sl, 'company releases; Bloomberg FA');
   let m = 'adj';
+  const pbox = H('div', {class: 'mpeert', hidden: ''}, null, svg.closest('.cb'));
+  function peer(){
+    const md = d.modes.peer, P = ['Linde', 'Air Products', 'Air Liquide'];
+    pbox.innerHTML = '<table class="dtab" style="font-size:17px"><thead><tr><th></th>' + P.map(p => '<th class="n">' + p + '</th>').join('') + '</tr></thead><tbody>' + md.rows.map(r => '<tr><td><b>' + esc(r[0]) + '</b></td>' + r.slice(1).map(c => '<td class="n"><b>' + esc(c[0]) + '</b><br><span class="xs muted">' + esc(c[1]) + '</span></td>').join('') + '</tr>').join('') + '</tbody></table>';
+    $('#margH', sl).textContent = md.t;
+    $('#margKv', sl).innerHTML = '<div class="hi"><span>Operating advantage</span><b>+6.1 pts</b><i>adjusted margin vs Air Products, FY2025 (same basis)</i></div><div><span>What investors pay for it</span><b>17.4x</b><i>Linde EV / 2026E EBITDA (Bloomberg). Peers: <span class="fill">[APD and AI on RV]</span></i></div><div><span>Read with care</span><i style="font-size:15px;line-height:1.35;color:#1A1A1A">Return on capital uses each company&rsquo;s own definition. A bigger on-site share is more protection, not automatically more value.</i></div>';
+  }
   function draw(){
+    const pm = m === 'peer'; svg.closest('.chartbox').hidden = pm; pbox.hidden = !pm; if (pm) return peer();
     clear(svg);
     const md = d.modes[m], Y = md.years, x0 = 70, x1 = 720, yb = 370;
     const all = md.series.reduce((a, s2) => a.concat(s2.v.filter(v => v != null)), []);
@@ -808,15 +812,16 @@ INIT.capex = sl => {
   }
   draw();
   // where the cash comes from and where it goes: two stacked columns that balance
-  const d = D.uses; if (!d.sample) srcok(sl, 'Bloomberg CF, 2025', '.side .samp'); else samp(sl, d.sample, '.side .samp');
+  const d = D.uses; if (!d.sample) srcok(sl, 'Linde 10-K, 2025', '.side .samp'); else samp(sl, d.sample, '.side .samp');
   const src = d.items.filter(v => v[1] > 0), use = d.items.filter(v => v[1] < 0).map(v => [v[0], -v[1]]);
   const gap = use.reduce((a, v) => a + v[1], 0) - src.reduce((a, v) => a + v[1], 0);
   if (gap > 0) src.push(['Other, net', gap]); else if (gap < 0) use.push(['Other, net', -gap]);
   // the headline's second sentence follows the same numbers as the chart
   const amt = n => { const it = d.items.find(v => v[0] === n); return it ? Math.abs(it[1]) : 0; };
-  const cxh = $('#cxH', sl); if (cxh) cxh.innerHTML = 'In 2025, operations ' + (amt('Operations') >= amt('Capex') + amt('Dividends') ? 'covered' : 'did not cover') + ' capex and dividends; <b>' + (gap > 0 ? 'buybacks needed other sources' : 'buybacks were covered too') + '</b>';
   const bn = v => '$' + (Math.round(v * 10 + 1e-9) / 10).toFixed(1) + 'B';
-  const tot = src.reduce((a, v) => a + v[1], 0), yb = 262, y = lin(0, tot, yb, 22), cols = [[src, 'Sources', 60, [C.navy, C.gold]], [use, 'Uses', 215, [C.steel, C.light, C.sky, C.gold]]];
+  const left = amt('Operations') - amt('Capex') - amt('Dividends');
+  const cxh = $('#cxH', sl); if (cxh) cxh.innerHTML = 'In 2025, operations ' + (left >= 0 ? 'covered' : 'did not cover') + ' capex and dividends; ' + (left >= amt('Buybacks') ? '<b>buybacks were covered too</b>' : '<b>net borrowing of ' + bn(amt('Net borrowing')) + ' helped fund buybacks</b>');
+  const tot = src.reduce((a, v) => a + v[1], 0), yb = 262, y = lin(0, tot, yb, 22), cols = [[src, 'Sources', 60, [C.navy, C.sky]], [use, 'Uses', 215, [C.steel, C.light, C.sky, C.gold]]];
   cols.forEach(cl => {
     let acc = 0;
     cl[0].forEach((v, i) => {
@@ -843,127 +848,137 @@ INIT.risks = sl => {
   const top = d.r.map((k, i) => [k.p * k.i, i]).sort((a, b) => b[0] - a[0])[0][1]; sel(top);
 };
 
-/* ---- reverse DCF ---- */
-function dcf(fcf0, g1, years, w, g){ let v = 0, f = fcf0; for (let t = 1; t <= years; t++){ f *= 1 + g1; v += f / Math.pow(1 + w, t); } return v + f * (1 + g) / (w - g) / Math.pow(1 + w, years); }
-/* the free cash flow growth a year (years 1-10) at which the DCF value equals the price */
-function impG(price, w, g){ const d = D.val; let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
-const priceNow = () => window.PITCH.price || D.val.price;
-/* one source of truth for 'our growth': PITCH.growth once set; else the cash flow bridge (live edits, else its defaults)
-   once its drivers are the team's own (bridge.sample false); until then the 2019-2025 pace (val.g1), labelled as that, never as 'our growth' */
+/* ---- the valuation model: one FCFF DCF that every valuation slide reads ----
+   Slides 3, 16, 18, 19 and 20 and the backup surface and reconciliation all call runModel(), so a change made on one
+   (WACC, long-run growth, our sales growth) reaches every other. Built line by line from Gabriel's DCF
+   (Linde_LIN_DCF.xlsx, Oct 21, 2026): FCFF = EBIT x (1 - tax) + D&A - capex - increase in operating working capital.
+   The as-built version reproduces his $255.92 (year-end) and $267.85 (mid-year) to about $0.10 a share. */
 const r1 = x => +x.toFixed(1);
-const defBlend = () => { const em = D.endm.rows, sc = D.fcast.scen[D.fcast.start], tot = em.reduce((a, m) => a + m.s, 0); return em.reduce((a, m, i) => a + m.s / tot * sc[i], 0); };
-/* End markets come in as sales growth (slide 11). Free cash flow moves about twice as much, because operating cash flow
-   is about twice free cash flow (2025: $10.35B vs $5.09B after capex). cashLev() is that ratio, from DATA.uses. */
-const cashLev = () => { const u = D.uses.items, ops = u.find(x => x[0] === 'Operations')[1], cx = -u.find(x => x[0] === 'Capex')[1]; return ops / (ops - cx); };
-const emDrv = () => (A.fcastBlend != null ? A.fcastBlend : defBlend()) * cashLev();
-const bridgeG = () => D.bridge.d.reduce((a, x) => a + r1(x.link ? emDrv() : x.v), 0);
-const ourSrc = () => { const P = window.PITCH.growth; return P != null && P !== '' && !isNaN(parseFloat(P)) ? 'pitch' : D.bridge.sample ? 'pace' : 'bridge'; };
-const ourG = () => { const s = ourSrc(); return s === 'pitch' ? parseFloat(window.PITCH.growth) : s === 'bridge' ? (A.ourGrowth != null ? A.ourGrowth : bridgeG()) : D.val.g1; };
-// where the growth on slides 22-24 comes from, in words
-const ourSrcTxt = () => ({pitch: 'our model', bridge: "the slide " + (A.idx('bridge') + 1) + " bridge's 2025-2029 rate", pace: 'the 2019-2025 pace until our bridge drivers are in'})[ourSrc()];
-// 'we expect': only the team's own number (PITCH.growth or a sourced bridge), never the historical stand-in; read by the notes and slides 3 and 25
-A.ourGrowthNow = () => ourSrc() === 'pace' ? null : ourG();
-A.impliedNow = () => impG(priceNow(), D.val.w / 100, D.val.g / 100) * 100;
-INIT.implied = sl => {
-  const d = D.val, svg = $('#imSvg', sl);
-  samp(sl, d.sample);
-  const price = window.PITCH.price || d.price;
-  const px = $('#imPx', sl); if (px && window.PITCH.price) px.textContent = usd(price) + ' (Bloomberg GP)';
-  const src = $('#imSrc', sl); if (src) src.textContent = ourSrcTxt();
-  let touched = false, syncing = false;
-  const W = rng('imW', draw, v => v.toFixed(1) + '%'), G = rng('imG', draw, v => v.toFixed(1) + '%'), O = rng('imO', () => { if (!syncing) touched = true; draw(); }, v => v.toFixed(1) + '%');
-  // the growth slider starts at our growth (PITCH.growth, else the cash flow bridge, else the 2019-2025 pace), clamped to its 0-18 range
-  const toOurs = () => { syncing = true; O.set(clamp(r1(ourG()), 0, 18)); syncing = false; };
-  $('#imRead', sl).addEventListener('click', e => { if (e.target.closest('[data-back]')){ touched = false; toOurs(); } });
-  function solve(w, g){ let lo = -.2, hi = .4; for (let k = 0; k < 70; k++){ const mid = (lo + hi) / 2; if (dcf(d.fcf0, mid, d.years, w, g) < price) lo = mid; else hi = mid; } return (lo + hi) / 2; }
-  function draw(){
-    const w = W.v / 100, g = G.v / 100, imp = solve(w, g) * 100, ours = O.v;
-    clear(svg);
-    const x0 = 80, x1 = 870, yb = 450, gx = lin(0, 20, x0, x1), vals = []; for (let k = 0; k <= 20; k += .25) vals.push([k, dcf(d.fcf0, k / 100, d.years, w, g)]);
-    const mx = Math.max(price * 1.6, Math.min(vals[vals.length - 1][1], price * 2.6)), y = lin(0, mx, yb, 14);
-    const step = mx > 800 ? 200 : 100; const ticks = []; for (let v = 0; v <= mx; v += step) ticks.push(v);
-    gridY(svg, x0, x1, y, ticks, v => '$' + v);
-    for (let k = 0; k <= 20; k += 4) T('text', {x: gx(k), y: yb + 24, 'text-anchor': 'middle', class: 'ax'}, k + '%', svg);
-    T('text', {x: (x0 + x1) / 2, y: yb + 48, 'text-anchor': 'middle', class: 'axt'}, 'Free cash flow growth a year, years 1-10', svg);
-    const vis = vals.filter(p => p[1] <= mx * 1.02);
-    S('path', {d: vis.map((p, i) => (i ? 'L' : 'M') + gx(p[0]) + ' ' + y(p[1])).join(' '), fill: 'none', stroke: C.navy, 'stroke-width': 4}, svg);
-    S('line', {x1: x0, x2: x1, y1: y(price), y2: y(price), stroke: C.gold, 'stroke-width': 2.5, 'stroke-dasharray': '7 5'}, svg);
-    const pT = T('text', {x: x0 + 8, y: y(price) - 8, class: 'dl', style: 'fill:#2B5780'}, 'Price ≈' + usd(price), svg);
-    const vo = dcf(d.fcf0, ours / 100, d.years, w, g), showO = vo <= mx, ox = gx(ours), ix = gx(imp), inR = imp >= 0 && imp <= 20;
-    // a white halo keeps the two labels readable in the rare spots where no side is free of the other line
-    const halo = ';paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round';
-    let mkT = null, offT = null;
-    if (inR){
-      S('line', {x1: ix, x2: ix, y1: y(price), y2: yb, stroke: C.gold, 'stroke-width': 2}, svg); S('circle', {cx: ix, cy: y(price), r: 8, fill: C.gold, stroke: '#fff', 'stroke-width': 2.5}, svg);
-      // the Market label sits beside the gold line, on the side away from the dotted line for our growth
-      const mt = 'Market: ' + imp.toFixed(1) + '%', mw = mt.length * 8.8 + 14;
-      let right = ix < x0 + 150;
-      if (showO && !right && ox > ix - mw && ox < ix && ix + mw <= x1) right = true;
-      else if (showO && right && ox > ix && ox < ix + mw && ix - mw >= x0) right = false;
-      mkT = T('text', {x: ix + (right ? 8 : -8), y: yb - 10, 'text-anchor': right ? 'start' : 'end', class: 'dl', style: 'fill:#2B5780' + halo}, mt, svg);
-    }
-    else if (imp > 20) offT = T('text', {x: x1, y: y(price) - 8, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780'}, 'Market: ' + imp.toFixed(1) + '% (off scale) →', svg);
-    else offT = T('text', {x: x1, y: y(price) + 24, 'text-anchor': 'end', class: 'dl', style: 'fill:#2B5780'}, '← Market: ' + pct(imp, 1) + ' (off scale)', svg);
-    if (showO){
-      S('line', {x1: ox, x2: ox, y1: y(vo), y2: yb, stroke: C.navy, 'stroke-width': 2, 'stroke-dasharray': '3 4'}, svg); S('circle', {cx: ox, cy: y(vo), r: 9, fill: C.navy, stroke: '#fff', 'stroke-width': 2.5}, svg);
-      const at = 'At ' + ours.toFixed(1) + '%: ' + usd(vo), aw = at.length * 11 + 14;
-      // flip the label above-left when it would run off the chart or across the gold Market line
-      const ly = y(vo) + 26, crossG = inR && ix > ox && ix < ox + aw && ly > y(price) && ly - 18 < yb;
-      const flip = ox > x1 - 150 || (crossG && ox - aw >= x0);
-      const aT = T('text', {class: 'dlb', style: halo.slice(1)}, at, svg);
-      // try the preferred corner first, then the others, and keep the first one clear of the Price and Market labels and the gold line
-      const C4 = [[14, ly, 'start'], [-14, y(vo) - 12, 'end'], [-14, ly, 'end'], [14, y(vo) - 12, 'start']], pref = flip ? 1 : 0;
-      const put = (e, c) => { e.setAttribute('x', ox + c[0]); e.setAttribute('y', c[1]); e.setAttribute('text-anchor', c[2]); };
-      const bb = e => { try { const r = e.getBBox(); return r.width ? r : null; } catch (_){ return null; } };
-      const ov = (a, b) => a.x < b.x + b.width + 4 && b.x < a.x + a.width + 4 && a.y < b.y + b.height && b.y < a.y + a.height;
-      const obs = () => { const o = [pT, mkT, offT].filter(Boolean).map(bb).filter(Boolean); if (inR) o.push({x: ix - 3, y: y(price), width: 6, height: yb - y(price)}); return o; };
-      const clear1 = () => { const r = bb(aT); return !r || (r.x >= x0 - 12 && r.x + r.width <= x1 + 28 && r.y >= 0 && r.y + r.height <= yb && !obs().some(o => ov(r, o))); };
-      const ok = [pref, 0, 1, 2, 3].filter((v, i, a) => a.indexOf(v) === i).some(k => { put(aT, C4[k]); return clear1(); });
-      if (!ok){
-        put(aT, C4[pref]);
-        // no corner is free (a price far below today's): move the Price label to the right end of its line instead
-        const pr = bb(pT), ar = bb(aT);
-        if (pr && ar && ov(pr, ar)){ pT.setAttribute('x', x1); pT.setAttribute('text-anchor', 'end'); const p2 = bb(pT); if (p2 && (ov(p2, ar) || [mkT, offT].some(e => e && bb(e) && ov(p2, bb(e))))){ pT.setAttribute('x', x0 + 8); pT.removeAttribute('text-anchor'); } }
-      }
-    }
-    if (mkT) svg.appendChild(mkT);
-    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
-    // 'our growth' only while the slider sits on it; a dragged or clamped slider is a what-if
-    const isOurs = Math.abs(ours - ourG()) < .05, pace = ourSrc() === 'pace', canBack = Math.abs(ours - clamp(r1(ourG()), 0, 18)) > .04;
-    const vLab = !isOurs ? 'Value at ' + ours.toFixed(1) + '% growth (slider)' : pace ? 'Value at the 2019-25 pace' : 'Value at our growth';
-    const rLab = !isOurs ? 'At <b>' + ours.toFixed(1) + '%</b> (what-if)' : pace ? 'At the 2019-2025 pace of <b>' + ours.toFixed(1) + '%</b>' : 'At our growth of <b>' + ours.toFixed(1) + '%</b>';
-    $('#imKv', sl).innerHTML = '<div><span>Growth the price implies</span><b>' + imp.toFixed(1) + '%</b><i>a year for 10 years</i></div><div class="hi"><span>' + vLab + '</span><b>' + usd(vo) + '</b><i>' + sg((vo / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '</i></div><div><span>2019-2025, actual</span><b>' + d.hist + '%</b><i>FCF per share growth a year (Bloomberg)</i></div>';
-    $('#imRead', sl).innerHTML = 'The price implies <b>' + imp.toFixed(1) + '%</b> a year. Linde grew free cash flow per share <b>' + d.hist + '%</b> a year in 2019-2025. ' + rLab + ': value ' + usd(vo) + ', ' + sg((vo / price - 1) * 100, 0, '%') + ' vs the price. ' + (canBack ? '<button type="button" class="btn sm" data-back>' + (pace ? 'Back to the 2019-25 pace' : 'Back to our growth') + '</button>' : '<span class="fill">[Our expected growth and why]</span>');
+const priceNow = () => window.PITCH.price || D.val.price;
+A.VS0 = () => { const M = D.model; return { w: M.wacc, tg: M.tg, dg: 0, mx: 0, blk: 1 }; };
+A.VS = A.VS0();
+A.vsKey = () => ['w', 'tg', 'dg', 'mx', 'blk'].map(k => A.VS[k]).join('|');
+A.isBase = () => { const b = A.VS0(); return ['w', 'tg', 'dg', 'mx', 'blk'].every(k => Math.abs(A.VS[k] - b[k]) < 1e-9); };
+A.resetVS = () => { A.VS = A.VS0(); };
+const VK = ['w', 'tg', 'dg', 'mx', 'blk', 'fade', 'mid', 'sh', 'roll'], vcache = new Map();
+function runModel(o){
+  const M = D.model, b = M.base, s0 = Object.assign({}, A.VS, o || {});
+  const key = VK.map(k => s0[k]).join('|'); if (vcache.has(key)) return vcache.get(key);
+  if (vcache.size > 6000) vcache.clear();
+  const w = s0.w / 100, tg = s0.tg / 100, dg = (s0.dg || 0) / 100, mx = (s0.mx || 0) / 100, blk = s0.blk == null ? 1 : s0.blk;
+  const fade = s0.fade || M.fade, n = fade - 2025, mid = s0.mid == null ? M.mid : s0.mid, sh = s0.sh || M.eq.sh, roll = s0.roll == null ? true : s0.roll;
+  let seg = b.seg.slice(), gross = b.gross, accd = b.accd, caP = b.ca, clP = b.cl, c = b.cost / b.sales;
+  const R = { yrs: [], S: [], E: [], F: [], DA: [], CX: [], NW: [], C: [] };
+  for (let t = 0; t < n; t++){
+    const yr = 2026 + t, k = t < 5 ? 0 : (yr - 2030) / (fade - 2030);
+    // segment growth: Gabriel's rates to 2030, then a straight fade to long-run growth by the last year
+    seg = seg.map((v, i) => v * (1 + (t < 5 ? M.g[i][t] : M.g[i][4] + (tg - M.g[i][4]) * k) + dg));
+    seg[1] += M.bl * blk * (1 - k);                       // on-site start-ups from the signed backlog, fading with growth
+    const s = seg.reduce((a, v) => a + v, 0) + b.adj;
+    if (t < 5) c -= M.exp[t] + mx;                       // margin expansion to 2030, flat after
+    const da = M.dep * gross, ebit = s * (1 - c) - da;
+    accd += da; const g2 = s * b.nfa / b.sales + accd, cx = g2 - gross; gross = g2;   // capex keeps net plant at 2025's share of sales
+    const ca = s * b.ca / b.sales, cl = s * b.cl / b.sales, nw = (ca - caP) - (cl - clP); caP = ca; clP = cl;
+    R.yrs.push(yr); R.S.push(s); R.E.push(ebit); R.DA.push(da); R.CX.push(cx); R.NW.push(nw); R.C.push(c);
+    R.F.push(ebit * (1 - M.tax) + da - nw - cx);
   }
-  toOurs();
-  // always redraw on entering: labels are placed by measuring them, which needs the slide on screen
-  return { enter(){ if (!touched && Math.abs(O.v - clamp(r1(ourG()), 0, 18)) > .04) toOurs(); else draw(); } };
+  R.f0 = b.ebit * (1 - M.tax) + b.da - b.capex - b.wc;   // 2025 actual, same formula
+  R.ok = w - tg > .004;
+  const tv = R.ok ? R.F[n - 1] * (1 + tg) / (w - tg) : NaN;
+  let ev = R.F.reduce((a, f, t) => a + f / Math.pow(1 + w, t + 1), 0) + tv / Math.pow(1 + w, n);
+  if (mid) ev *= Math.sqrt(1 + w);
+  const q = M.eq, eqv = ev + q.cash + q.inv - q.debt - q.nci;
+  R.tv = tv; R.ev = ev; R.tvShare = tv / Math.pow(1 + w, n) * (mid ? Math.sqrt(1 + w) : 1) / ev;
+  R.v25 = eqv / sh; R.v = roll ? R.v25 * Math.pow(1 + M.ke / 100, M.roll.days / 365) - M.roll.div : R.v25;
+  R.fc = Math.pow(R.F[n - 1] / R.f0, 1 / n) - 1; R.sc = Math.pow(R.S[n - 1] / b.sales, 1 / n) - 1;
+  R.at = yr => R.yrs.indexOf(yr);
+  vcache.set(key, R);
+  return R;
+}
+A.runModel = runModel;
+// the extra sales growth a year (on top of ours, every year to 2035) at which the model value equals today's price
+function needRun(o){
+  const price = priceNow(); let lo = -15, hi = 40;
+  for (let k = 0; k < 50; k++){ const m = (lo + hi) / 2; if (runModel(Object.assign({}, o, {dg: (o && o.dg != null ? o.dg : A.VS.dg) + m})).v < price) lo = m; else hi = m; }
+  const extra = (lo + hi) / 2, R = runModel(Object.assign({}, o, {dg: (o && o.dg != null ? o.dg : A.VS.dg) + extra}));
+  R.extra = extra; return R;
+}
+// the discount rate at which our forecast is worth today's price
+function needW(){ const price = priceNow(); let lo = A.VS.tg + .5, hi = 14; for (let k = 0; k < 50; k++){ const m = (lo + hi) / 2; if (runModel({w: m}).v > price) lo = m; else hi = m; } return (lo + hi) / 2; }
+A.needW = needW;
+// read by the notes ({implied}, {growth}) and slides 3 and 20: FCFF growth a year, 2025-2035
+A.ourGrowthNow = () => runModel().fc * 100;
+A.impliedNow = () => needRun().fc * 100;
+// expected return a year to the target date if the price moves to value v by then (the cost of equity is earned on value)
+const annRet = v => Math.pow(v / priceNow(), 1 / D.model.target.yrs) * (1 + D.model.ke / 100) - 1;
+const bn1 = v => '$' + (v / 1000).toFixed(1) + 'B';
+const stateTag = () => A.isBase() ? '' : ' <span class="vsmod">Committee sensitivity</span>';
+A.stateTag = stateTag;
+
+INIT.implied = sl => {
+  const M = D.model, svg = $('#imSvg', sl);
+  srcok(sl, "Gabriel's model, 10-K, Q3 2026", null, 'fc');
+  const px = $('#imPx', sl); if (px && window.PITCH.price) px.textContent = usd(priceNow()) + ' (Bloomberg GP)';
+  let syncing = false;
+  const set = () => { if (syncing) return; A.VS.w = W.v; A.VS.tg = Math.min(G.v, W.v - .5); A.VS.dg = O.v; draw(); };
+  const W = rng('imW', set, v => v.toFixed(2) + '%'), G = rng('imG', set, v => v.toFixed(1) + '%'), O = rng('imO', set, v => sg(v, 2, ''));
+  const sync = () => { syncing = true; W.set(A.VS.w); G.set(A.VS.tg); O.set(A.VS.dg); syncing = false; };
+  $('#imRead', sl).addEventListener('click', e => { if (e.target.closest('[data-reset]')){ A.resetVS(); sync(); draw(); } });
+  function draw(){
+    clear(svg);
+    const price = priceNow(), R = runModel(), N = needRun(), cur = [];
+    for (let x = -4; x <= 12.001; x += .5){ const r = runModel({dg: A.VS.dg + x}); if (r.ok) cur.push([r.fc * 100, r.v]); }
+    const x0 = 90, x1 = 870, yb = 440, X = lin(0, 16, x0, x1);
+    const mx = Math.max(price * 1.35, N.v * 1.1), y = lin(0, mx, yb, 16), step = mx > 900 ? 200 : 100, tk = []; for (let v = 0; v <= mx; v += step) tk.push(v);
+    gridY(svg, x0, x1, y, tk, v => '$' + v);
+    for (let k = 0; k <= 16; k += 2) T('text', {x: X(k), y: yb + 26, 'text-anchor': 'middle', class: 'ax'}, k + '%', svg);
+    T('text', {x: (x0 + x1) / 2, y: yb + 52, 'text-anchor': 'middle', class: 'axt'}, 'Free cash flow growth a year, 2025-2035 (FCFF)', svg);
+    const vis = cur.filter(p => p[0] >= 0 && p[0] <= 16 && p[1] <= mx);
+    S('path', {d: vis.map((p, i) => (i ? 'L' : 'M') + X(p[0]) + ' ' + y(p[1])).join(' '), fill: 'none', stroke: C.navy, 'stroke-width': 4}, svg);
+    S('line', {x1: x0, x2: x1, y1: y(price), y2: y(price), stroke: C.gold, 'stroke-width': 2.5, 'stroke-dasharray': '7 5'}, svg);
+    T('text', {x: x0 + 8, y: y(price) - 10, class: 'dl', style: 'fill:#2B5780'}, 'Price ' + usd(price), svg);
+    const halo = 'paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round';
+    const nx = X(clamp(N.fc * 100, 0, 16));
+    S('line', {x1: nx, x2: nx, y1: y(price), y2: yb, stroke: C.gold, 'stroke-width': 2}, svg); S('circle', {cx: nx, cy: y(price), r: 9, fill: C.gold, stroke: '#fff', 'stroke-width': 2.5}, svg);
+    T('text', {x: nx - 14, y: y(price) - 14, 'text-anchor': 'end', class: 'dlb', style: 'fill:#2B5780;' + halo}, 'Price requires ' + (N.fc * 100).toFixed(1) + '% a year', svg);
+    const ox = X(clamp(R.fc * 100, 0, 16));
+    S('line', {x1: ox, x2: ox, y1: y(R.v), y2: yb, stroke: C.navy, 'stroke-width': 2, 'stroke-dasharray': '3 4'}, svg); S('circle', {cx: ox, cy: y(R.v), r: 9, fill: C.navy, stroke: '#fff', 'stroke-width': 2.5}, svg);
+    T('text', {x: ox + 16, y: y(R.v) + 34, class: 'dlb', style: halo}, 'Our forecast ' + (R.fc * 100).toFixed(1) + '%: ' + usd(R.v), svg);
+    S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
+    const wn = needW();
+    $('#imKv', sl).innerHTML = '<div><span>Today&rsquo;s price requires</span><b>' + (N.fc * 100).toFixed(1) + '%</b><i>FCFF growth a year to 2035 (sales ' + (N.sc * 100).toFixed(1) + '% a year)</i></div>' +
+      '<div class="hi"><span>Our forecast</span><b>' + (R.fc * 100).toFixed(1) + '%</b><i>a year (sales ' + (R.sc * 100).toFixed(1) + '%) · value ' + usd(R.v) + ', ' + sg((R.v / price - 1) * 100, 0, '%') + ' vs price</i></div>' +
+      '<div><span>Discount rate the price implies</span><b>' + wn.toFixed(1) + '%</b><i>WACC at which our forecast is worth ' + usd(price) + ' (ours: ' + A.VS.w.toFixed(2) + '%)</i></div>';
+    $('#imRead', sl).innerHTML = 'Same model, same years, same definition: at WACC ' + A.VS.w.toFixed(2) + '% and long-run growth ' + A.VS.tg.toFixed(1) + '%, the price requires free cash flow to grow <b>' + (N.fc * 100).toFixed(1) + '%</b> a year to 2035; our forecast is <b>' + (R.fc * 100).toFixed(1) + '%</b>.' + stateTag() + (A.isBase() ? '' : ' <button type="button" class="btn sm" data-reset>Restore approved base case</button>');
+  }
+  sync(); draw();
+  return { enter(){ sync(); draw(); } };
 };
 
 /* ---- 3D value landscape ---- */
 INIT.surface = sl => {
   const d = D.val, host = $('#sfHost', sl), tab = $('#sfTable', sl), fall = $('#sfFall', sl);
-  samp(sl, d.sample);
+  srcok(sl, 'values from our model', '.card .samp', 'fc');
   const price = window.PITCH.price || d.price;
   const WS = [6, 10], GSr = [1.5, 4];
   // our growth (PITCH.growth, else the cash flow bridge, else the 2019-2025 pace); re-read on entering the slide, see enter()
-  let gOur = ourG(), base = 0;
-  const V = (w, g) => dcf(d.fcf0, gOur / 100, d.years, w / 100, g / 100);
+  let gOur = A.vsKey(), base = 0;
+  const V = (w, g) => runModel({w, tg: g}).v;
   const ws = [], gsv = []; for (let w = 6; w <= 10.001; w += .5) ws.push(+w.toFixed(1)); for (let g = 1.5; g <= 4.001; g += .5) gsv.push(+g.toFixed(1));
   // the grid point nearest the side-card inputs, outlined in the table
-  const nw = ws.reduce((a, b) => Math.abs(b - d.w) < Math.abs(a - d.w) ? b : a), ng = gsv.reduce((a, b) => Math.abs(b - d.g) < Math.abs(a - d.g) ? b : a);
+  let nw, ng, read2, wNow = A.VS.w, gNow = A.VS.tg;
   const read3 = '<b>Blue dot:</b> our inputs. <b>Blue plane:</b> the price, about ' + usd(price) + '.';
-  const read2 = '<b>Outlined cell:</b> the grid point nearest our inputs (WACC ' + nw.toFixed(1) + '%, growth ' + ng.toFixed(1) + '%). Brown cells sit above the price of about ' + usd(price) + ', red cells below.';
+  const mkRead2 = () => '<b>Outlined cell:</b> the grid point nearest our inputs (WACC ' + nw.toFixed(1) + '%, growth ' + ng.toFixed(1) + '%). Brown cells sit above the price of about ' + usd(price) + ', red cells below.';
   // the table, the side card and the footer for the current growth
   function paint(){
-    base = V(d.w, d.g);
+    wNow = A.VS.w; gNow = A.VS.tg;
+    nw = ws.reduce((a, b) => Math.abs(b - A.VS.w) < Math.abs(a - A.VS.w) ? b : a); ng = gsv.reduce((a, b) => Math.abs(b - A.VS.tg) < Math.abs(a - A.VS.tg) ? b : a); read2 = mkRead2();
+    base = V(A.VS.w, A.VS.tg);
     let th = '<table class="dtab" style="font-size:17px"><thead><tr><th>WACC ↓ · growth →</th>' + gsv.map(g => '<th class="n">' + g.toFixed(1) + '%</th>').join('') + '</tr></thead><tbody>';
     ws.forEach(w => { th += '<tr><td><b>' + w.toFixed(1) + '%</b></td>' + gsv.map(g => { const v = V(w, g), up = v / price - 1; const bg = up >= 0 ? 'rgba(107,67,43,' + Math.min(.85, .12 + up * .9).toFixed(2) + ')' : 'rgba(178,58,46,' + Math.min(.6, .1 - up * .9).toFixed(2) + ')'; const fg = up > .5 ? '#fff' : '#1A1A1A'; return '<td class="n" style="background:' + bg + ';color:' + fg + (w === nw && g === ng ? ';outline:3px solid ' + C.gold + ';outline-offset:-3px' : '') + '">' + usd(v) + '</td>'; }).join('') + '</tr>'; });
     tab.innerHTML = th + '</tbody></table>';
-    let share = 0, tot = 0; for (let w = 6; w <= 10; w += .25) for (let g = 1.5; g <= 4; g += .125){ tot++; if (V(w, g) >= price) share++; }
-    const gl = ourSrc() === 'pace' ? 'FCF growth ' + gOur.toFixed(1) + '% (2019-25 pace)' : 'Our FCF growth ' + gOur.toFixed(1) + '%';
-    $('#sfKv', sl).innerHTML = '<div class="hi"><span>Value at our inputs</span><b>' + usd(base) + '</b><i>' + gl + ', WACC ' + d.w + '%, long-run ' + d.g + '%</i></div><div><span>Share of inputs above price</span><b>' + Math.round(share / tot * 100) + '%</b><i>of the grid sits above ' + usd(price) + '</i></div>';
-    const fs = $('#sfSrc', sl); if (fs) fs.textContent = ourSrc() === 'pace' ? 'the 2019-2025 pace of ' + d.hist + '% a year, until our bridge drivers are in' : ourSrc() === 'pitch' ? "our model's " + gOur.toFixed(1) + '% a year' : 'our bridge rate of ' + gOur.toFixed(1) + '% a year (slide ' + (A.idx('bridge') + 1) + ')';
+    const R = runModel();
+    $('#sfKv', sl).innerHTML = '<div class="hi"><span>Value at our inputs</span><b>' + usd(base) + '</b><i>FCFF ' + (R.fc * 100).toFixed(1) + '% a year to 2035, WACC ' + A.VS.w.toFixed(2) + '%, long-run ' + A.VS.tg.toFixed(1) + '%</i></div>';
   }
   paint();
   $('#sfRead', sl).innerHTML = read3;
@@ -1000,15 +1015,15 @@ INIT.surface = sl => {
     plane.rotation.x = -Math.PI / 2; plane.position.y = price * YS; scene.add(plane);
     const edge = new THREE.LineSegments(new THREE.EdgesGeometry(plane.geometry), new THREE.LineBasicMaterial({color: 0x2B5780})); edge.rotation.x = -Math.PI / 2; edge.position.y = price * YS; scene.add(edge);
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({color: 0xF1ECE4, roughness: 1})); floor.rotation.x = -Math.PI / 2; floor.position.y = -.02; floor.receiveShadow = true; scene.add(floor);
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(.38, 24, 16), new THREE.MeshStandardMaterial({color: 0x2B5780, emissive: 0x0F2238})); dot.position.set(xOf(d.w), base * YS + .3, zOf(d.g)); dot.castShadow = true; scene.add(dot);
-    const stem = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, base * YS + .3, 8), new THREE.MeshBasicMaterial({color: 0x2B5780})); stem.position.set(xOf(d.w), (base * YS + .3) / 2, zOf(d.g)); scene.add(stem);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.38, 24, 16), new THREE.MeshStandardMaterial({color: 0x2B5780, emissive: 0x0F2238})); dot.position.set(xOf(A.VS.w), base * YS + .3, zOf(A.VS.tg)); dot.castShadow = true; scene.add(dot);
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, base * YS + .3, 8), new THREE.MeshBasicMaterial({color: 0x2B5780})); stem.position.set(xOf(A.VS.w), (base * YS + .3) / 2, zOf(A.VS.tg)); scene.add(stem);
     function sprite(text, o){ o = o || {}; const cv = document.createElement('canvas'), g = cv.getContext('2d'), fs = 64; g.font = (o.w || 600) + ' ' + fs + 'px "Arial", Arial, sans-serif'; const tw = Math.ceil(g.measureText(text).width) + 44; cv.width = tw; cv.height = fs + 36; g.font = (o.w || 600) + ' ' + fs + 'px "Arial", Arial, sans-serif'; g.textBaseline = 'middle'; if (o.bg){ g.fillStyle = o.bg; g.fillRect(0, 0, tw, cv.height); } g.fillStyle = o.c || '#1A1A1A'; g.fillText(text, 22, cv.height / 2 + 2); const tx = new THREE.CanvasTexture(cv); tx.minFilter = THREE.LinearFilter; if ('encoding' in tx) tx.encoding = THREE.sRGBEncoding; const sp = new THREE.Sprite(new THREE.SpriteMaterial({map: tx, transparent: true, depthTest: false})); const s = (o.s || .5) / 64; sp.scale.set(tw * s, cv.height * s, 1); sp.center.set(o.cx == null ? .5 : o.cx, .5); sp.renderOrder = 5; scene.add(sp); return sp; }
     [6, 7, 8, 9, 10].forEach(w => sprite(w + '%', {s: .45, c: '#595959'}).position.set(xOf(w), .05, zOf(1.5) + 1.1));
     sprite('WACC (discount rate) →', {s: .5, c: '#6B432B', w: 700}).position.set(0, .05, zOf(1.5) + 3.1);
     [1.5, 2.5, 3.5].forEach(g => sprite(g.toFixed(1) + '%', {s: .45, c: '#595959', cx: 0}).position.set(xOf(10) + .9, .05, zOf(g)));
     sprite('Long-run growth →', {s: .5, c: '#6B432B', w: 700, cx: 0}).position.set(xOf(10) + 2.4, .05, zOf(2.75));
     sprite('Price ' + usd(price), {s: .5, c: '#FFFFFF', bg: '#2B5780', cx: 0}).position.set(xOf(10) + .8, price * YS, zOf(4) - .4);
-    sprite('Our case ' + usd(base), {s: .5, c: '#FFFFFF', bg: '#6B432B'}).position.set(xOf(d.w), base * YS + 1.4, zOf(d.g));
+    sprite('Our case ' + usd(base), {s: .5, c: '#FFFFFF', bg: '#6B432B'}).position.set(xOf(A.VS.w), base * YS + 1.4, zOf(A.VS.tg));
     // hover readout
     const ray = new THREE.Raycaster(), mv = new THREE.Vector2();
     renderer.domElement.addEventListener('pointermove', e => { if (e.buttons) return; const r = renderer.domElement.getBoundingClientRect(); mv.x = (e.clientX - r.left) / r.width * 2 - 1; mv.y = -(e.clientY - r.top) / r.height * 2 + 1; ray.setFromCamera(mv, cam); const h = ray.intersectObject(surf)[0]; if (!h){ hideTip(sl); return; } const w = 8 + h.point.x / XW * 4, g = 2.75 - h.point.z / ZW * 2.5; const v = V(w, g); showTip(sl, e, 'WACC <b>' + w.toFixed(1) + '%</b> · growth <b>' + g.toFixed(1) + '%</b> → <b>' + usd(v) + '</b> (' + sg((v / price - 1) * 100, 0, '%') + ')'); });
@@ -1025,132 +1040,129 @@ INIT.surface = sl => {
   return {
     enter(){
       // the bridge (or forecast) changed since this slide was built: repaint the table and card, and rebuild the mesh at the new growth
-      if (Math.abs(ourG() - gOur) > .04){ gOur = ourG(); paint(); if (three){ three.dispose(); three = null; delete host.dataset.tried; } }
+      if (A.vsKey() !== gOur){ gOur = A.vsKey(); paint(); if (mode === '2d') $('#sfRead', sl).innerHTML = read2; if (three){ three.dispose(); three = null; delete host.dataset.tried; } }
       if (!three && !host.dataset.tried){ host.dataset.tried = '1'; try { three = build(); } catch (e){ console.warn(e); three = null; } if (three) fall.hidden = true; else { fall.textContent = '3D needs WebGL, which is off in this browser. The table shows the same values.'; setMode('2d'); b3.disabled = true; } } if (three && mode === '3d') three.start(); },
     leave(){ if (three) three.stop(); hideTip(sl); }
   };
 };
 
-/* ---- scenarios + football field ---- */
+/* ---- scenarios + football field: every case value comes from runModel() ---- */
 INIT.scen = sl => {
-  const d = D.scen, box = $('#scCards', sl), svg = $('#ffSvg', sl);
-  samp(sl, d.sample);
-  const price = window.PITCH.price || D.val.price;
-  // the DCF bar uses the same dcf() and inputs as slides 22-23 (our growth, long-run growth), unless the team typed a range
-  // recomputed on every draw and on entering the slide, so a later edit on the bridge (slide 20) reaches the bar
-  const v = D.val, dr = d.ff.findIndex(f => /^DCF/.test(f[0])), autoD = dr >= 0 && (d.ff[dr][1] == null || d.ff[dr].auto);
-  function dcfRow(){
-    if (!autoD) return;
-    const gOur = ourG(), vals = [];
-    for (let w = 7; w <= 9.001; w += .25) vals.push(dcf(v.fcf0, gOur / 100, v.years, w / 100, v.g / 100));
-    d.ff[dr] = ['DCF, WACC 7-9%', Math.round(Math.min(...vals)), Math.round(Math.max(...vals))];
-    d.ff[dr].tip = 'long-run growth ' + v.g + '%, FCF growth ' + gOur.toFixed(1) + '% a year';
-    d.ff[dr].auto = true;
-  }
+  const M = D.model, d = D.scen, box = $('#scCards', sl), svg = $('#ffSvg', sl);
+  srcok(sl, 'values from our model', '.card .samp', 'fc');
   const probs = d.s.map(s => s.p);
-  const ctl = d.s.map((s, i) => {
-    const c = H('div', {class: 'scn ' + s.k}, '<span class="k">' + esc(s.n) + ' case</span><b class="v">' + usd(s.v) + '</b><i class="vs">' + sg((s.v / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '</i><p>' + esc(s.a).replace(/\[([^\]]*)\]/g, '<span class="fill">[$1]</span>') + '</p><div class="ctl"><label for="scp' + i + '">Probability <output id="scp' + i + 'o"></output></label><input type="range" id="scp' + i + '" min="0" max="100" step="5" value="' + s.p + '"></div>', box);
+  const caseRun = s => runModel({dg: A.VS.dg + (s.o.dg || 0), mx: A.VS.mx + (s.o.mx || 0), blk: A.VS.blk * (s.o.blk == null ? 1 : s.o.blk)});
+  const cards = d.s.map((s, i) => H('div', {class: 'scn ' + s.k}, '<span class="k">' + esc(s.n) + ' case</span><b class="v"></b><i class="vs"></i><p>' + FL(s.a) + '</p><div class="ctl"><label for="scp' + i + '">Probability <output id="scp' + i + 'o"></output></label><input type="range" id="scp' + i + '" min="0" max="100" step="5" value="' + s.p + '"></div>', box));
+  const ctl = d.s.map((s, i) => rng('scp' + i, nv => {
     // moving one probability rebalances the other two in proportion, so the three always add to 100%
-    return rng('scp' + i, nv => {
-      probs[i] = nv;
-      const o = [0, 1, 2].filter(k => k !== i), rest = 100 - nv, os = probs[o[0]] + probs[o[1]];
-      probs[o[0]] = os ? Math.round(probs[o[0]] / os * rest / 5) * 5 : Math.round(rest / 2 / 5) * 5;
-      probs[o[1]] = rest - probs[o[0]];
-      o.forEach(k => { const e = ctl[k].el; e.value = probs[k]; e.style.setProperty('--p', probs[k] + '%'); const out = document.getElementById('scp' + k + 'o'); if (out) out.textContent = probs[k] + '%'; });
-      draw();
-    }, nv => nv + '%');
-  });
-  // risk / reward from the case values alone, not the sliders; the ratio uses the rounded % shown, so the printed numbers divide to it
-  const bear = d.s.find(s => s.k === 'bear').v, bull = d.s.find(s => s.k === 'bull').v, up = (bull / price - 1) * 100, dn = (1 - bear / price) * 100;
-  const upR = Math.round(up), dnR = Math.round(dn), ratio = up > 0 && dn > 0 && upR > 0 && dnR > 0 ? upR / dnR : null;
-  const rr = () => up <= 0 ? 'Bull case is at or below the price. ' : dn <= 0 ? 'Bear case is at or above the price. ' :
-    'Upside to bull ' + sg(upR, 0, '%') + ' vs downside to bear ' + sg(-dnR, 0, '%') + (ratio == null ? '. ' : ratio >= 1 ? ': ' + ratio.toFixed(1) + ' to 1. ' : ': more downside to the bear than upside to the bull. ');
+    probs[i] = nv;
+    const o = [0, 1, 2].filter(k => k !== i), rest = 100 - nv, os = probs[o[0]] + probs[o[1]];
+    probs[o[0]] = os ? Math.round(probs[o[0]] / os * rest / 5) * 5 : Math.round(rest / 2 / 5) * 5;
+    probs[o[1]] = rest - probs[o[0]];
+    o.forEach(k => { const e = ctl[k].el; e.value = probs[k]; e.style.setProperty('--p', probs[k] + '%'); const out = document.getElementById('scp' + k + 'o'); if (out) out.textContent = probs[k] + '%'; });
+    draw();
+  }, nv => nv + '%'));
   function draw(){
-    dcfRow();
-    const sum = probs.reduce((a, b) => a + b, 0), tot = sum || 1, pt = d.s.reduce((a, s, i) => a + s.v * probs[i] / tot, 0);
-    // the headline number is the weighted value worked out here, so it follows the sliders
-    $('#scPt', sl).textContent = usd(pt);
-    // our own DCF (when computed) sits below the price: no upside-skew claim, and say the cases need reconciling
-    const dc = dr >= 0 && d.ff[dr].auto ? d.ff[dr] : null, dcLow = dc && dc[2] < price;
-    $('#scAsym', sl).textContent = ratio != null && ratio > 1 && !dcLow ? ', with more upside to the bull than downside to the bear' : ' across bear, base and bull';
+    const price = priceNow(), vals = d.s.map(s => caseRun(s).v);
+    d.s.forEach((s, i) => { const c = cards[i]; $('.v', c).textContent = usd(vals[i]); $('.vs', c).textContent = sg((vals[i] / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + ' · ' + sg(annRet(vals[i]) * 100, 1, '%') + ' a year to ' + M.target.date; });
+    const tot = probs.reduce((a, b) => a + b, 0) || 1, pt = vals.reduce((a, v, i) => a + v * probs[i] / tot, 0), ret = annRet(pt);
+    $('#scPt', sl).textContent = sg(ret * 100, 1, '%') + ' a year';
+    $('#scAsym', sl).textContent = ' to ' + M.target.date + ', probability-weighted';
+    // intrinsic rows from the model, then the market references (sample until pulled), drawn apart
+    const dcfV = []; for (let w = 7; w <= 9.001; w += .25) dcfV.push(runModel({w}).v);
+    const rows = [['DCF, WACC 7-9%', Math.min(...dcfV), Math.max(...dcfV), 'in'], ['Our scenarios', Math.min(...vals), Math.max(...vals), 'in']].concat(d.ff.map(f => [f[0], f[1], f[2], 'mk']));
     clear(svg);
-    // tick step from the span, so a wide range (a fast bridge) stays readable; never below $0
-    const lo0 = Math.min(...d.ff.map(f => f[1]), price, pt), hi0 = Math.max(...d.ff.map(f => f[2]), pt), step = [50, 100, 250, 500, 1000].find(s => (hi0 - lo0) / s <= 14) || 2000;
-    const x0 = 260, x1 = 1360, lo = Math.max(0, Math.floor(lo0 / step) * step - step), hi = Math.ceil(hi0 / step) * step + step, x = lin(lo, hi, x0, x1), rh = 44, y0 = 16;
-    for (let v = lo; v <= hi; v += step){ S('line', {x1: x(v), x2: x(v), y1: y0, y2: y0 + d.ff.length * rh, stroke: C.line}, svg); T('text', {x: x(v), y: y0 + d.ff.length * rh + 24, 'text-anchor': 'middle', class: 'ax'}, usd(v), svg); }
+    const lo0 = Math.min(...rows.map(f => f[1]), price, pt), hi0 = Math.max(...rows.map(f => f[2]), price, pt), step = [50, 100, 250, 500].find(s => (hi0 - lo0) / s <= 14) || 1000;
+    const x0 = 300, x1 = 1360, lo = Math.max(0, Math.floor(lo0 / step) * step - step), hi = Math.ceil(hi0 / step) * step + step, x = lin(lo, hi, x0, x1), rh = 40, y0 = 16, gap = 22;
+    const yOf = i => y0 + i * rh + (i >= 2 ? gap : 0), yb = yOf(rows.length);
+    for (let v = lo; v <= hi; v += step){ S('line', {x1: x(v), x2: x(v), y1: y0, y2: yb, stroke: C.line}, svg); T('text', {x: x(v), y: yb + 24, 'text-anchor': 'middle', class: 'ax'}, usd(v), svg); }
+    T('text', {x: 8, y: y0 + 2 * rh + gap - 6, class: 'ax', style: 'font-size:13px;letter-spacing:.06em'}, 'MARKET REFERENCES (NOT INTRINSIC VALUE)', svg);
     const ends = [], halo = ';paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round';
-    d.ff.forEach((f, i) => { const y = y0 + i * rh; T('text', {x: x0 - 14, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'axl'}, f[0], svg); const r = S('rect', {x: x(f[1]), y: y + 8, width: x(f[2]) - x(f[1]), height: rh - 16, fill: i === d.ff.length - 1 ? C.navy : C.light}, svg); hov(r, sl, () => '<b>' + esc(f[0]) + '</b>: ' + usd(f[1]) + ' to ' + usd(f[2]) + (f.tip ? ' (' + esc(f.tip) + ')' : '')); ends.push(T('text', {x: x(f[1]) - 8, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'dl', style: 'font-size:14px' + halo}, usd(f[1]), svg)); ends.push(T('text', {x: x(f[2]) + 8, y: y + rh / 2 + 6, class: 'dl', style: 'font-size:14px' + halo}, usd(f[2]), svg)); });
-    const yb = y0 + d.ff.length * rh;
+    rows.forEach((f, i) => {
+      const y = yOf(i); T('text', {x: x0 - 14, y: y + rh / 2 + 6, 'text-anchor': 'end', class: 'axl'}, f[0], svg);
+      const r = S('rect', {x: x(f[1]), y: y + 8, width: Math.max(3, x(f[2]) - x(f[1])), height: rh - 16, fill: f[3] === 'in' ? (i === 1 ? C.navy : C.steel) : C.light}, svg);
+      hov(r, sl, () => '<b>' + esc(f[0]) + '</b>: ' + usd(f[1]) + ' to ' + usd(f[2]) + (f[3] === 'mk' && D.scen.sample ? ' (sample)' : ''));
+      ends.push(T('text', {x: x(f[2]) + 8, y: y + rh / 2 + 6, class: 'dl', style: 'font-size:14px' + halo}, usd(f[1]) + '-' + usd(f[2]), svg));
+    });
     S('line', {x1: x(price), x2: x(price), y1: y0 - 6, y2: yb, stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '6 4'}, svg); T('text', {x: x(price), y: y0 - 2 - 6, 'text-anchor': 'middle', class: 'dl'}, 'Price ' + usd(price), svg);
-    if (sum > 0){ S('line', {x1: x(pt), x2: x(pt), y1: y0 - 6, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 48, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#2B5780'}, 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg); }
-    // the bar-end values go on top of the price and target lines, with a white halo, so a line never cuts through a number
+    S('line', {x1: x(pt), x2: x(pt), y1: y0 - 6, y2: yb, stroke: C.gold, 'stroke-width': 4}, svg); T('text', {x: x(pt), y: yb + 48, 'text-anchor': 'middle', class: 'dlb', style: 'fill:#2B5780'}, 'Probability-weighted value ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ')', svg);
     ends.forEach(e => svg.appendChild(e));
-    const P = window.PITCH, tg = P.target != null && P.target !== '' ? parseFloat(P.target) : null;
-    $('#scTakeT', sl).textContent = rr() + 'Weighted target ' + usd(pt) + ' (' + sg((pt / price - 1) * 100, 0, '%') + ').' +
-      (tg != null && !isNaN(tg) && Math.abs(tg - pt) > 1 ? ' Our stated target ' + usd(tg) + ' differs from the weighted value ' + usd(pt) + '.' : '') +
-      (dcLow ? ' Our DCF at ' + (ourSrc() === 'pace' ? 'the 2019-2025 pace' : 'our growth') + ' (' + usd(dc[1]) + ' to ' + usd(dc[2]) + ') sits below ' + (dc[2] < bear ? 'the bear case' : 'the price') + '; the case values need to be reconciled with the model.' : '');
+    $('#scTakeT', sl).innerHTML = 'Probability-weighted value ' + usd(pt) + ', ' + sg((pt / price - 1) * 100, 0, '%') + ' vs ' + usd(price) + '. If the price moves to it by ' + M.target.date + ', the return is about ' + sg(ret * 100, 1, '%') + ' a year, against an ' + M.ke.toFixed(2) + '% cost of equity. Probabilities are team judgments.' + stateTag();
   }
   draw();
   return { enter(){ draw(); } };
 };
 
-/* ---- cash flow bridge: 2025 to 2029 by driver, against what the price needs ---- */
+/* ---- free cash flow bridge: 2025 actual to 2029E, every bar an exact piece of the model ---- */
 INIT.bridge = sl => {
-  const d = D.bridge, v = D.val, svg = $('#brSvg', sl), box = $('#brCtl', sl);
-  if (d.sample) samp(sl, true); else srcok(sl, 'Our drivers: 10-K, Q3 2026');
-  const price = priceNow(), f0 = v.fcf0, yrs = d.years, fi = A.idx('fcast');
-  const val = d.d.map(x => r1(x.link ? emDrv() : x.v));
-  let touched = false, syncing = false;
-  const ctl = d.d.map((x, i) => {
-    H('div', {class: 'ctl'}, '<label for="brs' + i + '">' + esc(x.n) + ' <output id="brs' + i + 'o"></output></label><input type="range" id="brs' + i + '" min="' + (x.link ? -10 : -8) + '" max="' + (x.link ? 20 : 10) + '" step="0.1" value="' + val[i] + '">' + (x.link ? '<span class="bs" id="brLinkCap"></span>' : '<span class="bs">' + esc(x.s) + '</span>'), box);
-    return rng('brs' + i, nv => { val[i] = nv; if (x.link && !syncing){ touched = true; cap(); } draw(); }, nv => sg(nv, 1, '%'));
-  });
-  // where the End markets number comes from: slide 11's chip (or a custom view), or set here
-  const capTxt = () => { const vw = A.fcastView || D.fcast.start; return touched ? 'set here, not slide ' + (fi + 1) : 'slide ' + (fi + 1) + ', ' + (vw === 'custom' ? 'custom view' : vw.replace(/^./, c => c.toUpperCase())); };
-  const cap = () => { const e = $('#brLinkCap', sl); if (e) e.textContent = capTxt(); };
-  cap();
+  const M = D.model, b = M.base, svg = $('#brSvg', sl);
+  srcok(sl, "Gabriel's model, 10-K, Q3 2026", null, 'fc');
   function draw(){
-    const sum = val.reduce((a, b) => a + b, 0) / 100, end = f0 * Math.pow(1 + sum, yrs);
-    A.ourGrowth = sum * 100;
-    const imp = impG(price, v.w / 100, v.g / 100), need = f0 * Math.pow(1 + imp, yrs);
-    const dl = Math.abs(sum) > 1e-9 ? val.map(g => (end - f0) * (g / 100) / sum) : val.map(g => f0 * g / 100 * yrs);
+    const R = runModel(), R0 = runModel({blk: 0}), N = needRun(), i = R.at(2029), t = M.tax, c25 = b.cost / b.sales;
+    // existing sales and new plants at 2025's margin, then the margin change on 2029 sales; D&A adds back net of its tax shield
+    const parts = [
+      ['Existing sales', (R0.S[i] - b.sales) * (1 - c25) * (1 - t), 'sales growth from today’s plants, price and volume, at the 2025 margin'],
+      ['New plants', (R.S[i] - R0.S[i]) * (1 - c25) * (1 - t), 'on-site start-ups from the signed backlog, at the 2025 margin'],
+      ['Margin', R.S[i] * (c25 - R.C[i]) * (1 - t), 'cost ratio down ' + ((c25 - R.C[i]) * 100).toFixed(1) + ' pts by 2029 (mgmt +30-50 bps a year)'],
+      ['D&A tax shield', (R.DA[i] - b.da) * t, 'more depreciation lowers tax'],
+      ['Capex', -(R.CX[i] - b.capex), 'capex ' + bn1(b.capex) + ' in 2025 to ' + bn1(R.CX[i]) + ' in 2029'],
+      ['Working capital', -(R.NW[i] - b.wc), 'working capital grows with sales']
+    ];
+    const f0 = R.f0, end = R.F[i], need = N.F[i];
     clear(svg);
-    let run = f0, peak = f0; dl.forEach(x => { run += x; peak = Math.max(peak, run); });
-    const x0 = 10, x1 = 950, yb = 300, top = Math.max(end, need, peak) * 1.14, y = lin(0, top, yb, 14);
-    const st = top > 40 ? 10 : 5, tk = []; for (let t = 0; t <= top; t += st) tk.push(t);
-    gridY(svg, x0, x1, y, tk, t => '$' + t);
-    const n = dl.length + 2, bw = (x1 - x0) / n, w = bw * .62;
-    const cx = i => x0 + i * bw + bw / 2;
-    function bar(i, a0, a1, fill, lab, txt, tip){
-      const r = S('rect', {x: cx(i) - w / 2, y: y(Math.max(a0, a1)), width: w, height: Math.max(2, Math.abs(y(a0) - y(a1))), fill}, svg);
-      T('text', {x: cx(i), y: yb + 24, 'text-anchor': 'middle', class: 'axl', style: 'font-size:15px'}, lab, svg);
-      T('text', {x: cx(i), y: y(Math.max(a0, a1)) - 9, 'text-anchor': 'middle', class: i === 0 || i === n - 1 ? 'dlb' : 'dl', style: 'font-size:16px'}, txt, svg);
+    const x0 = 10, x1 = 950, yb = 300; let run = f0, peak = f0; parts.forEach(p => { run += p[1]; peak = Math.max(peak, run); });
+    const top = Math.max(end, need, peak) * 1.14, y = lin(0, top, yb, 14), st = top > 20000 ? 4000 : 2000, tk = []; for (let v = 0; v <= top; v += st) tk.push(v);
+    gridY(svg, x0, x1, y, tk, v => '$' + v / 1000 + 'B');
+    const n = parts.length + 2, bw = (x1 - x0) / n, w = bw * .64, cx = k => x0 + k * bw + bw / 2;
+    function bar(k, a0, a1, fill, lab, txt, tip){
+      const r = S('rect', {x: cx(k) - w / 2, y: y(Math.max(a0, a1)), width: w, height: Math.max(2, Math.abs(y(a0) - y(a1))), fill}, svg);
+      T('text', {x: cx(k), y: yb + 24, 'text-anchor': 'middle', class: 'axl', style: 'font-size:14px'}, lab, svg);
+      T('text', {x: cx(k), y: y(Math.max(a0, a1)) - 9, 'text-anchor': 'middle', class: k === 0 || k === n - 1 ? 'dlb' : 'dl', style: 'font-size:16px;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round'}, txt, svg);
       hov(r, sl, () => tip);
     }
-    bar(0, 0, f0, C.navy, '2025', '$' + f0.toFixed(2), '<b>2025 actual</b>: $' + f0.toFixed(2) + ' of free cash flow per share (Bloomberg)');
+    const sb = v => (v >= 0 ? '+' : '−') + '$' + Math.abs(v / 1000).toFixed(2) + 'B';
+    bar(0, 0, f0, C.navy, '2025', bn1(f0), '<b>2025 actual</b>: ' + bn1(f0) + ' (EBIT x (1 - tax) + D&A - capex - working capital, 10-K)');
     let acc = f0;
-    dl.forEach((x, i) => {
-      const a0 = acc, a1 = acc + x;
-      S('line', {x1: cx(i) + w / 2, x2: cx(i + 1) - w / 2, y1: y(a0), y2: y(a0), stroke: C.grey, 'stroke-width': 1, 'stroke-dasharray': '3 3'}, svg);
-      bar(i + 1, a0, a1, x >= 0 ? C.steel : C.bad, d.d[i].n, (x >= 0 ? '+' : '−') + '$' + Math.abs(x).toFixed(2), '<b>' + esc(d.d[i].n) + '</b>: ' + sg(val[i], 1, '%') + ' a year adds ' + (x >= 0 ? '+' : '−') + '$' + Math.abs(x).toFixed(2) + ' a share by 2029');
-      acc = a1;
+    parts.forEach((p, k) => {
+      S('line', {x1: cx(k) + w / 2, x2: cx(k + 1) - w / 2, y1: y(acc), y2: y(acc), stroke: C.grey, 'stroke-width': 1, 'stroke-dasharray': '3 3'}, svg);
+      bar(k + 1, acc, acc + p[1], p[1] >= 0 ? C.steel : C.bad, p[0], sb(p[1]), '<b>' + esc(p[0]) + '</b>: ' + sb(p[1]) + ' by 2029 · ' + esc(p[2]));
+      acc += p[1];
     });
     S('line', {x1: cx(n - 2) + w / 2, x2: cx(n - 1) - w / 2, y1: y(acc), y2: y(acc), stroke: C.grey, 'stroke-width': 1, 'stroke-dasharray': '3 3'}, svg);
-    bar(n - 1, 0, end, C.navy, '2029E', '$' + end.toFixed(2), '<b>2029 estimate</b>: $' + end.toFixed(2) + ', ' + sg(sum * 100, 1, '%') + ' a year');
+    bar(n - 1, 0, end, C.navy, '2029E', bn1(end), '<b>2029 estimate</b>: ' + bn1(end));
     S('line', {x1: x0, x2: x1, y1: y(need), y2: y(need), stroke: C.gold, 'stroke-width': 3, 'stroke-dasharray': '9 6'}, svg);
-    svg.querySelectorAll('text.dl, text.dlb').forEach(t => svg.appendChild(t));  // value labels sit on top of the needed-growth line
-    // the needed-value label sits above or below the line, clear of every driver's value label and bar, else at the top
-    const keep = []; let ac2 = f0; dl.forEach(x => { const t = y(Math.max(ac2, ac2 + x)), b = Math.max(t + 2, y(Math.min(ac2, ac2 + x))); keep.push([t - 9, t, b]); ac2 += x; });
-    const ly = [y(need) - 10, y(need) + 24].find(c => keep.every(([l, t, b]) => Math.abs(l - c) >= 22 && (c + 5 < t || c - 14 > b))) || 14;
-    T('text', {x: cx(1) - w / 2, y: ly, class: 'dlb', style: 'fill:#2B5780;font-size:16px;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round'}, 'What the price needs by 2029: $' + need.toFixed(2) + ' (' + (imp * 100).toFixed(1) + '% a year)', svg);
+    svg.querySelectorAll('text.dl, text.dlb').forEach(e => svg.appendChild(e));
+    S('line', {x1: x0 + 8, x2: x0 + 48, y1: yb + 50, y2: yb + 50, stroke: C.gold, 'stroke-width': 3, 'stroke-dasharray': '9 6'}, svg);
+    T('text', {x: x0 + 58, y: yb + 56, class: 'dlb', style: 'fill:#2B5780;font-size:16px'}, 'What today’s price requires in 2029: ' + bn1(need), svg);
     S('line', {x1: x0, x2: x1, y1: yb, y2: yb, class: 'base'}, svg);
-    const gap = sum * 100 - imp * 100, good = gap >= 0;
-    $('#brKv', sl).innerHTML = '<div class="hi" style="grid-column:1/-1"><span>Free cash flow per share, 2029E</span><b>$' + end.toFixed(2) + '</b><i>from $' + f0.toFixed(2) + ' in 2025 · ' + sg((end / need - 1) * 100, 0, '%') + ' vs what the price needs</i></div>' +
-      '<div><span>Our drivers add up to</span><b>' + sg(sum * 100, 1, '%') + '</b><i>a year</i></div><div><span>The price needs</span><b>' + (imp * 100).toFixed(1) + '%</b><i>a year (reverse DCF)</i></div>' +
-      '<div style="grid-column:1/-1;border-color:' + (good ? C.good : C.bad) + '"><span>Gap</span><b style="color:' + (good ? C.good : C.bad) + '">' + sg(gap, 1, ' pts') + '</b><i>' + (good ? 'our drivers beat what the price assumes' : 'the price already assumes more than our drivers') + '</i></div>';
+    const gap = end / need - 1;
+    $('#brKv', sl).innerHTML = '<div class="hi"><span>Free cash flow to the firm, 2029E</span><b>' + bn1(end) + '</b><i>from ' + bn1(f0) + ' in 2025, ' + sg((Math.pow(end / f0, 1 / 4) - 1) * 100, 1, '%') + ' a year</i></div>' +
+      '<div><span>What the price requires in 2029</span><b>' + bn1(need) + '</b><i>same model with ' + sg(N.extra, 1, ' pts') + ' more sales growth every year</i></div>' +
+      '<div style="border-color:' + (gap >= 0 ? C.good : C.bad) + '"><span>Gap</span><b style="color:' + (gap >= 0 ? C.good : C.bad) + '">' + sg(gap * 100, 0, '%') + '</b><i>' + (gap >= 0 ? 'our forecast beats what the price requires' : 'the price requires more cash than our forecast') + stateTag() + '</i></div>';
   }
   draw();
-  return { enter(){ cap(); if (!touched && A.fcastBlend != null && Math.abs(r1(emDrv()) - val[0]) > .04){ syncing = true; ctl[0].set(r1(emDrv())); syncing = false; } } };
+  return { enter(){ draw(); } };
+};
+
+/* ---- backup: from Gabriel's $256 to the deck's value, one change at a time ---- */
+INIT.recon = sl => {
+  const M = D.model, t = $('#rcTab', sl);
+  function draw(){
+    const st = [
+      ['Gabriel’s model as built', {fade: 2030, mid: false, sh: M.eq.shG, roll: false}, '5 years to 2030, year-end discounting, 461.0M basic shares (Q2 2026 cover)'],
+      ['Mid-year discounting', {fade: 2030, mid: true, sh: M.eq.shG, roll: false}, 'cash arrives through the year, not on Dec 31 (Gabriel’s own second version)'],
+      ['Ten-year forecast', {fade: 2035, mid: true, sh: M.eq.shG, roll: false}, 'growth fades from 2030’s rate to ' + A.VS.tg.toFixed(1) + '% by 2035; plant spending stays in step with sales, so the terminal year reinvests for ' + A.VS.tg.toFixed(1) + '% growth'],
+      ['Diluted shares, same date as the balance sheet', {fade: 2035, mid: true, roll: false}, M.eq.sh.toFixed(1) + 'M: 463.7M outstanding at Dec 31, 2025 plus 2.7M dilutive (FY2025 average)'],
+      ['Rolled forward to the pitch date', {fade: 2035, mid: true, roll: true}, 'value grows at the ' + M.ke.toFixed(2) + '% cost of equity for ' + M.roll.days + ' days, less about $' + M.roll.div.toFixed(2) + ' of 2026 dividends paid']
+    ];
+    let prev = null, h = '<thead><tr><th>Step</th><th>What changes</th><th class="n">Value a share</th><th class="n">Change</th></tr></thead><tbody>';
+    st.forEach((s, i) => { const v = runModel(s[1]).v; h += '<tr' + (i === st.length - 1 ? ' class="tot"' : '') + '><td><b>' + (i + 1) + '. ' + esc(s[0]) + '</b></td><td>' + esc(s[2]) + '</td><td class="n">' + usd(v, 2) + '</td><td class="n">' + (prev == null ? '' : sg(v - prev, 2).replace(/^([+−])/, '$1$')) + '</td></tr>'; prev = v; });
+    t.innerHTML = h + '</tbody></table>';
+    const R = runModel();
+    $('#rcRead', sl).innerHTML = 'At WACC ' + A.VS.w.toFixed(2) + '% and long-run growth ' + A.VS.tg.toFixed(1) + '%, terminal value is ' + Math.round(R.tvShare * 100) + '% of enterprise value. The horizon and share-count fixes move the value by a few dollars; the gap to the price comes from the discount rate (slide ' + (A.idx('implied') + 1) + ').' + stateTag();
+  }
+  draw();
+  return { enter(){ draw(); } };
 };
 
 /* ---- pre-mortem: three stories, their odds, and 100 possible futures ---- */
@@ -1161,17 +1173,11 @@ INIT.premortem = sl => {
   const p = d.p.slice();
   const odds = cards.map(c => { const o = H('span', {class: 'pmo'}, '<b>0%</b><span>odds by 2029</span>'); const f = $('.ff', c); f.insertBefore(o, $('.hint', f)); return $('b', o); });
   p.forEach((v, i) => { H('div', {class: 'ctl'}, '<label for="pmp' + i + '">Story ' + (i + 1) + ' <output id="pmp' + i + 'o"></output></label><input type="range" id="pmp' + i + '" min="0" max="60" step="5" value="' + v + '">', box); rng('pmp' + i, nv => { p[i] = nv; draw(); }, nv => nv + '%'); });
-  const res = H('div', {class: 'pmres'}, '<span class="eyebrow">At least one story happens</span><div class="big" id="pmAny">0%</div><div class="pmdots" aria-hidden="true"></div><p class="xs muted" id="pmRead"></p>', box);
-  const dots = []; for (let k = 0; k < 100; k++) dots.push(H('i', null, null, $('.pmdots', res)));
   const sc = A.idx('scen');
   const go = H('button', {type: 'button', class: 'btn sm', style: 'align-self:flex-start;margin-top:auto'}, 'Priced in the bear case: slide ' + (sc + 1) + ' →', box);
   go.addEventListener('click', () => A.jump(sc));
   function draw(){
-    const any = (1 - p.reduce((a, v) => a * (1 - v / 100), 1)) * 100, k = Math.round(any);
-    $('#pmAny', res).textContent = k + '%';
     odds.forEach((o, i) => { o.textContent = p[i] + '%'; });
-    dots.forEach((e, i) => e.classList.toggle('on', i < k));
-    $('#pmRead', res).textContent = 'In ' + k + ' of 100 possible 2029s, at least one story happens. Assumes the stories are independent.';
   }
   draw();
 };
@@ -1179,7 +1185,7 @@ INIT.premortem = sl => {
 /* ---- close: the call and the scorecard ---- */
 INIT.close = sl => {
   const P = window.PITCH, band = $('#clBand', sl), t = $('#clTab', sl);
-  band.innerHTML = '<div class="cr">' + F(P.rating, 'BUY') + '</div><div class="cn"><span class="clogo cc">' + A.logo() + '</span><b>' + esc(P.company) + '</b><span>' + esc(P.exchange) + ': ' + esc(P.ticker) + '</span></div>' +
+  band.innerHTML = '<div class="cr">' + F(P.rating, 'rating') + '</div><div class="cn"><span class="clogo cc">' + A.logo() + '</span><b>' + esc(P.company) + '</b><span>' + esc(P.exchange) + ': ' + esc(P.ticker) + '</span></div>' +
     [['Price', A.kval('price'), '$ price'], ['Target', A.kval('target'), '$ target'], ['Upside', A.kval('upside'), 'x%'], ['Horizon', P.horizon, 'Horizon'], ['Position', P.position, 'x% of sleeve']].map(x => '<div class="cs"><span>' + x[0] + '</span><b>' + F(x[1], x[2]) + '</b></div>').join('');
   // back to slide 3: the question, what the price needs and what we expect (text copied, never the fill node)
   // 'we expect' is the same number slides 22-24 use (PITCH.growth, else a sourced bridge); refreshed on entering the slide
@@ -1187,12 +1193,12 @@ INIT.close = sl => {
     const imp = A.impliedNow(), ours = A.ourGrowthNow(), ot = P.growth != null && P.growth !== '' ? P.growth : ours == null ? null : ours.toFixed(1) + '%';
     const qe = document.querySelector('[data-f="question.2"]'), qt = qe ? qe.textContent.trim() : '';
     const q = !qe || qe.classList.contains('fill') ? '<span class="fill">' + esc(qt || '[Our question in one sentence]') + '</span>' : esc(qt);
-    $('#clQ', sl).innerHTML = '<span class="k">The question we answered</span><p><span class="q">' + q + '</span> <span class="a">The price needs <b>' + imp.toFixed(1) + '%</b> a year. We expect <b>' + F(ot, 'x% a year') + '</b>' + (ours == null || isNaN(ours) ? '.' : Math.abs(ours - imp) < .05 ? ': <b>in line with</b> what the price needs.' : ': <b>' + Math.abs(ours - imp).toFixed(1) + ' pts</b> ' + (ours >= imp ? 'above' : 'below') + ' what the price needs.') + '</span></p>';
+    $('#clQ', sl).innerHTML = '<span class="k">The question we answered</span><p><span class="q">' + q + '</span> <span class="a">The price requires free cash flow growth of <b>' + imp.toFixed(1) + '%</b> a year to 2035. We expect <b>' + F(ot, 'x% a year') + '</b>' + (ours == null || isNaN(ours) ? '.' : Math.abs(ours - imp) < .05 ? ': <b>in line with</b> what the price needs.' : ': <b>' + Math.abs(ours - imp).toFixed(1) + ' pts</b> ' + (ours >= imp ? 'above' : 'below') + ' what the price needs.') + '</span></p>';
     // the question is clamped to two lines here: flag it, since slide 3 shows it in full
     const qs = $('#clQ .q', sl); if (qs && qs.scrollHeight > qs.clientHeight + 2){ qs.classList.add('clamped'); console.warn('Slide ' + (A.idx('close') + 1) + ': the question is cut to two lines. Keep it under about 200 characters.'); }
   }
   qband();
-  t.innerHTML = '<thead><tr><th style="width:30%">Reason</th><th>What we expect</th><th>Signal and date</th><th>We sell if</th></tr></thead><tbody>' + P.pillars.map((p, i) =>
+  t.innerHTML = '<thead><tr><th style="width:30%">Reason</th><th>What we expect</th><th>Signal and date</th><th>We change our recommendation if</th></tr></thead><tbody>' + P.pillars.map((p, i) =>
     '<tr class="click" data-go="' + esc(p.go) + '"><td><div class="scr"><span class="scb">' + (i + 1) + '</span><span><b>' + F(p.h, 'Reason ' + (i + 1) + ': headline') + '</b><em>Evidence: slide ' + (A.idx(p.go) + 1) + ' →</em></span></div></td><td>' + F(p.expect, 'the number we expect, and by when') + '</td><td>' + F(p.signal, 'the report or data point, with its date') + '</td><td>' + F(p.sell, 'the tripwire') + '</td></tr>').join('') + '</tbody>';
   $$('tr.click', t).forEach(r => r.addEventListener('click', e => { if (!e.target.closest('.scr em')) return; const g = A.idx(r.dataset.go); if (g >= 0) A.jump(g); }));
   return { enter(){ qband(); } };

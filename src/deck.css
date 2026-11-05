@@ -439,7 +439,7 @@ html.reader .rhead{display:block}
 .qbig .k{font:600 14px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dk)}
 .qbig p{font:700 34px/1.28 var(--serif);color:var(--white);text-wrap:balance}
 .qbig .fill,.qt.ours .fill,.clband .fill{background:rgba(201,162,126,.18);color:#F6E3BE;border-bottom-color:var(--gold-dk)}
-.qtest{display:grid;grid-template-columns:minmax(0,1fr) 46px repeat(3,minmax(0,1fr));gap:12px;flex:none}
+.qtest{display:grid;grid-template-columns:minmax(0,1fr) 46px repeat(2,minmax(0,1fr));gap:12px;flex:none}
 .qt{background:var(--tint);border-top:6px solid var(--light);padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0}
 .qt .tk{font:600 14px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .qt .tv{font:700 54px/1 var(--serif);color:var(--navy)}
@@ -576,6 +576,7 @@ b,strong{color:var(--brown-dk)}
 .samp{background:#fff;color:#595959;border:1px solid var(--hair);font:700 10.5px/1 var(--sans);padding:4px 8px}
 .samp::before{background:var(--gold)}
 .samp.src-ok{background:#fff;color:var(--good);border-color:#B9D3BF}
+.samp.src-fc{background:#fff;color:var(--brown-dk);border-color:#D8C3B2}.samp.src-fc::before{background:var(--brown)}
 
 /* ---- key takeaway bar ---- */
 .takeaway{background:var(--brown);color:#fff;font:700 21px/1.35 var(--sans);justify-content:center;text-align:center;padding:12px 24px}
@@ -749,7 +750,7 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 [data-id="call"] .callcard dl{flex:1;grid-auto-rows:1fr}
 [data-id="call"] .callcard dt,[data-id="call"] .callcard dd{display:flex;align-items:center}
 [data-id="call"] .callcard dd{justify-content:flex-end}
-.pillar .pr{grid-template-columns:170px 1fr}
+.pillar .pr{grid-template-columns:200px 1fr}
 .pillar .pr>span:nth-child(odd){white-space:nowrap}
 /* slide 24: sliders share one baseline */
 .scn .ctl{margin-top:auto}
@@ -793,3 +794,16 @@ input[type=range]::-moz-range-thumb{border-color:var(--brown)}
 .mtots em{font:700 30px/1 var(--serif);font-style:normal;color:var(--pc)}
 .mtots .dim{opacity:.55}
 #brSvg text.dl,#brSvg text.dlb{paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+
+/* valuation model state tag and reconciliation table */
+.vsmod{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:3px;background:#FFF3C4;color:#6B4E00;font:600 12px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.rctab tr.tot td{border-top:2px solid var(--brown-dk);font-weight:700}
+
+/* presentation mode (default): no sliders or what-ifs on screen; the bars they drive stay. Q&A mode shows them all. */
+:root[data-mode=present] .ctl,:root[data-mode=present] [data-reset],:root[data-mode=present] #fcScen .xs{display:none!important}
+:root[data-mode=present] .fcr input[type=range]{pointer-events:none}
+:root[data-mode=present] .fcr input[type=range]::-webkit-slider-thumb{opacity:0}
+:root[data-mode=present] .fcr input[type=range]::-moz-range-thumb{opacity:0}
+/* the reason tabs: only the ones this slide supports, so the headline leads */
+:root[data-mode=present] .rtrk .rc:not(.on){display:none}
+.mpeert{flex:1;display:flex;align-items:center}.mpeert[hidden]{display:none}.mpeert table{width:100%}

@@ -5,30 +5,30 @@
    lives in DATA (widgets.js); a dataset marked sample:true shows a
    gold SAMPLE tag until the team replaces it.
    Keys: arrows / space move · N notes under the slide · P notes in their own window · G all slides · T team plan
-         B build mode · S pitch timer · 0 reset timer · F full screen
+         B build mode · Q presentation / Q&A mode · S pitch timer · 0 reset timer · F full screen
    ================================================================ */
 window.PITCH = {
   company: 'Linde plc',
   short: 'Linde',         // used inside sentences and chart labels
   ticker: 'LIN',
-  exchange: 'NYSE',
-  rating: null,           // 'BUY' or 'SELL'
+  exchange: 'Nasdaq',
+  rating: null,           // 'BUY', 'HOLD' or 'SELL': the team's call
   price: null,            // current share price, number
   target: null,           // price target, number
   growth: null,           // our expected free cash flow growth a year, e.g. '9%'
-  horizon: '3+ years',
+  horizon: 'Dec 2029',    // the target date the scenario returns run to (DATA.model.target)
   position: null,         // e.g. '3% of the Materials sleeve'
   date: null,             // e.g. 'December 3, 2026'
   logo: 'vendor/logos/linde.png', // the Linde logo: a file in vendor/logos/ (built into the deck), a data URI or an image URL; null shows a placeholder
   orgLogo: null,          // our logo for white backgrounds (footers), e.g. vendor/logos/smif-club.png in quotes; until set, a serif FIU SMIF wordmark shows
   orgLogoLight: null,     // the white version for the brown band on the cover and closing slide, e.g. vendor/logos/smif-club-white.png in quotes
-  /* the three reasons. tag: 2-3 words for the tracker chips. h: one-line headline.
-     assume / see / worth: "market assumes, we see, worth $ per share".
+  /* the three reasons (Atlas review, R6). tag: 2-3 words for the tracker chips. h: one-line headline.
+     assume / see / worth show as "Evidence / Forecast implication / What changes our view".
      expect / signal / sell: the scorecard on the closing slide. go: the slide that proves it. */
   pillars: [
-    { tag: null, h: null, assume: null, see: null, worth: null, expect: null, signal: null, sell: null, go: 'cmix' },
-    { tag: null, h: null, assume: null, see: null, worth: null, expect: null, signal: null, sell: null, go: 'backlog' },
-    { tag: null, h: null, assume: null, see: null, worth: null, expect: null, signal: null, sell: null, go: 'bridge' }
+    { tag: 'Contracts', h: 'Contracts support earnings resilience', assume: null, see: null, worth: null, expect: null, signal: null, sell: null, go: 'cmix' },
+    { tag: 'Signed growth', h: 'Signed growth requires upfront investment', assume: null, see: null, worth: null, expect: null, signal: null, sell: null, go: 'backlog' },
+    { tag: 'Cash returns', h: 'Cash returns must justify the entry price', assume: null, see: null, worth: null, expect: null, signal: null, sell: null, go: 'bridge' }
   ]
 };
 
@@ -45,31 +45,32 @@ window.OWNERS = {
 /* the build plan: owner (o), seconds in the timed run (t), which of the three reasons the slide supports (r),
    what the slide must prove, and where the inputs come from. r is a first draft: change it when the reasons are written. */
 window.PLAN = {
-  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (NYSE: LIN).' },
-  call: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
-  question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question the pitch answers, and the gap between what the price needs and what we expect. This is the hook: it turns the pitch into an argument.', pull: 'Our expected growth from Gabriel’s model (PITCH.growth). The other tiles are live from Bloomberg data already in the deck. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
-  macro: { o: 'G', t: 30, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
-  stab: { o: 'G', t: 30, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
-  make: { o: 'G', t: 35, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
-  moat: { o: 'X', t: 35, r: [1], prove: 'Why Linde wins against Air Products and Air Liquide, on the five measures that matter.', pull: 'Linde raw values are filled from the Bloomberg pull (Oct 8). Peers: FA and RV on APD US and AI FP, backlogs from their earnings releases.' },
-  buyers: { o: 'D', t: 30, r: [1], prove: 'Who the customers are, and why gas is essential to them but a small share of their costs.', pull: 'Company 10-K end-market descriptions.' },
-  snap: { o: 'D', t: 30, prove: 'Size, valuation and balance sheet at a glance.', pull: 'Filled from the Bloomberg FA pull (Oct 8, 2026). Refresh with FA and GP the week of the pitch.' },
-  endm: { o: 'D', t: 30, r: [2], prove: 'Sales by end market, defensive vs cyclical, and which markets are growing.', pull: 'Mix is filled from register #7. Pull growth by end market from Linde’s Q3 2026 earnings slides (out late October).' },
-  fcast: { o: 'D', t: 40, r: [2], prove: 'Our three-year view of each end market, and what it adds up to for Linde’s sales growth. The result feeds the cash flow bridge.', pull: 'One indicator per market (ACC chemical output, ISM, CMS home-oxygen rates, worldsteel, SEMI fab spending), management end-market commentary on calls, EE consensus revenue growth to compare against.' },
-  cmix: { o: 'D', t: 25, r: [1], prove: 'How much revenue sits under long contracts, by supply mode, and how concentrated the customers are.', pull: 'Supply-mode mix is filled from Bloomberg FA segments (2025). Still needed: customer concentration from the 10-K.' },
-  next: { o: 'R', w: 'G', t: 35, r: [2], prove: 'The new industries that run on gas (AI, quantum, robotics, bioengineering, space, clean energy), how each uses it, and which ones we would actually play.', pull: 'Source register #3 (helium), #4 (space, gas use per wafer), #6 (hydrogen caution), #7 (APD project exits). Company disclosures on electronics, space and healthcare.' },
-  tam: { o: 'R', w: 'G', t: 45, r: [2], prove: 'For each theme: the headline market, the gas slice, the share we can serve, our revenue today. The advisor asked for this.', pull: 'Register #4, #5, #6. BI deep dives. Company electronics and space disclosures.' },
-  backlog: { o: 'R', w: 'G', t: 35, r: [2], prove: 'Growth already signed: backlog size, start-up timing, end-market mix.', pull: 'Earnings releases (sale-of-gas backlog), call transcripts. Settle the $10B vs $8.1B definition first.' },
-  money: { o: 'X', t: 25, r: [3], prove: 'How cash comes in, how energy costs pass through, and why new plants consume cash first.', pull: 'Nothing new: it sets up the next four slides.' },
-  pass: { o: 'X', t: 30, r: [1], prove: 'Contract protections and their limits: pass-through keeps profit dollars, not the margin %.', pull: 'Earnings release sales bridge (price, volume, cost pass-through, FX). Energy cost as % of sales.' },
-  marg: { o: 'X', t: 25, r: [3], prove: 'Linde’s margin and return trend vs the Materials sector (and Air Products once pulled), and what drives it.', pull: 'Filled from the Bloomberg pull: Linde vs the S&P 500 Materials sector. Add Air Products with FA on APD US.' },
-  capex: { o: 'X', t: 30, r: [3], prove: 'Capex and financing needs: the plant J-curve and where Linde’s cash goes.', pull: 'CF (operating cash flow, capex, dividends, buybacks), capex guidance, DDIS (debt maturities).' },
-  bridge: { o: 'X', t: 45, r: [3], prove: 'Everything before it, added up: free cash flow per share from 2025 to 2029 by driver, against the growth the price needs. The end-market driver comes from Daniel’s forecast.', pull: 'Model drivers: backlog start-up revenue, margin and productivity, capex plan (guidance), buybacks (CF: 2025 buybacks were about 2% of market cap).' },
-  premortem: { o: 'A', w: 'X', t: 45, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and the combined odds. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
-  implied: { o: 'A', t: 35, r: [3], prove: 'What today’s price already assumes vs what we expect.', pull: 'Model FCF, WACC <GO>, EE consensus growth.' },
-  surface: { o: 'A', t: 30, r: [3], prove: 'Value per share across discount rates and long-run growth: how robust the upside is.', pull: 'Model DCF (FCF path, net debt, share count), WACC <GO>.' },
-  scen: { o: 'A', t: 40, r: [3], prove: 'Bear, base and bull values with probabilities; the weighted target vs other methods.', pull: 'Model, RV comps, ANR analyst targets, GP 52-week range.' },
-  close: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The call, then a scorecard: for each reason what we expect, the signal and its date, and when we would sell.', pull: 'Nothing new: it reuses the reasons, the catalyst dates and the pre-mortem tripwires.' },
+  cover: { o: 'G', t: 15, prove: 'Who we are and what we pitch, in fifteen seconds.', pull: 'Presentation date and Aaron’s last name for the team list. Company and ticker are set to Linde plc (Nasdaq: LIN).' },
+  call: { o: 'G', t: 35, r: [1, 2, 3], prove: 'The rating, target, upside and the three reasons, before any detail.', pull: 'Price: Bloomberg GP. Target: the weighted value from the bear/base/bull slide. Reasons: one per pillar in "market assumes / we see / worth" form, plus a 2-3 word tag each.' },
+  question: { o: 'G', t: 30, r: [1, 2, 3], prove: 'The one question, and one matched chart: our free cash flow path against the one today’s price requires.', pull: 'Nothing new: the valuation model. Keep the question under about 200 characters: the closing slide repeats it on two lines.' },
+  macro: { o: 'G', t: 25, prove: 'The one or two macro forces that matter for this company and which way they push. Thirty seconds.', pull: 'ECST, GP on USGG10YR and DXY, NAPMPMI (ISM manufacturing), EIA industrial power prices.' },
+  stab: { o: 'G', t: 25, r: [1], prove: 'Why this sub-industry inside Materials: its earnings hold up through cycles.', pull: 'Source register #1 and #2 (already loaded). Optional: FA EPS history for other Materials sub-industries.' },
+  make: { o: 'G', t: 40, r: [1], prove: 'How the product is made (power is the cost that matters), then the three supply modes, their contract lengths and why density is a local moat. Two steps on one slide.', pull: 'Industrial Gases Primer and the Air Separation explainer for wording. Source register #1 (loaded). Company 10-K: sales by supply mode.' },
+  moat: { o: 'X', t: 0, r: [1], prove: 'Why Linde wins against Air Products and Air Liquide, on the five measures that matter.', pull: 'Linde raw values are filled from the Bloomberg pull (Oct 8). Peers: FA and RV on APD US and AI FP, backlogs from their earnings releases.' },
+  buyers: { o: 'D', t: 0, r: [1], prove: 'Who the customers are, and why gas is essential to them but a small share of their costs.', pull: 'Company 10-K end-market descriptions.' },
+  snap: { o: 'D', t: 0, prove: 'Size, valuation and balance sheet at a glance.', pull: 'Filled from the Bloomberg FA pull (Oct 8, 2026). Refresh with FA and GP the week of the pitch.' },
+  endm: { o: 'D', t: 35, r: [1], prove: 'Sales by end market, defensive vs cyclical, and which markets are growing.', pull: 'Mix is filled from register #7. Pull growth by end market from Linde’s Q3 2026 earnings slides (out late October).' },
+  fcast: { o: 'D', t: 55, r: [2], prove: 'Our three-year view of each end market, as a cross-check on the valuation model’s existing-business growth (new plants are counted separately, on slide 12).', pull: 'One indicator per market (ACC chemical output, ISM, CMS home-oxygen rates, worldsteel, SEMI fab spending), management end-market commentary on calls, EE consensus revenue growth to compare against.' },
+  cmix: { o: 'D', t: 30, r: [1], prove: 'How much revenue sits under long contracts, by supply mode, and how concentrated the customers are.', pull: 'Supply-mode mix is filled from Bloomberg FA segments (2025). Still needed: customer concentration from the 10-K.' },
+  next: { o: 'G', t: 30, r: [2], prove: 'The new industries that run on gas (AI, quantum, robotics, bioengineering, space, clean energy), how each uses it, and which ones we would actually play.', pull: 'Source register #3 (helium), #4 (space, gas use per wafer), #6 (hydrogen caution), #7 (APD project exits). Company disclosures on electronics, space and healthcare.' },
+  tam: { o: 'R', w: 'G', t: 40, r: [2], prove: 'For each theme: the headline market, the gas slice, the share we can serve, our revenue today. The advisor asked for this.', pull: 'Register #4, #5, #6. BI deep dives. Company electronics and space disclosures.' },
+  backlog: { o: 'R', w: 'G', t: 50, r: [2], prove: 'Growth already signed: backlog size, start-up timing, end-market mix.', pull: 'Earnings releases (sale-of-gas backlog), call transcripts. Settle the $10B vs $8.1B definition first.' },
+  money: { o: 'X', t: 0, r: [3], prove: 'How cash comes in, how energy costs pass through, and why new plants consume cash first.', pull: 'Nothing new: it sets up the next four slides.' },
+  pass: { o: 'X', t: 35, r: [1], prove: 'Contract protections and their limits: pass-through keeps profit dollars, not the margin %.', pull: 'Earnings release sales bridge (price, volume, cost pass-through, FX). Energy cost as % of sales.' },
+  marg: { o: 'X', t: 55, r: [1, 3], prove: 'Linde’s margin and return trend vs the Materials sector (and Air Products once pulled), and what drives it.', pull: 'Filled from the Bloomberg pull: Linde vs the S&P 500 Materials sector. Add Air Products with FA on APD US.' },
+  capex: { o: 'X', t: 55, r: [2, 3], prove: 'Capex and financing needs: the plant J-curve and where Linde’s cash goes.', pull: 'CF (operating cash flow, capex, dividends, buybacks), capex guidance, DDIS (debt maturities).' },
+  bridge: { o: 'X', t: 70, r: [3], prove: 'Our operating forecast, added up: free cash flow to the firm from 2025 to 2029 by driver, each bar an exact piece of the model, against what the price requires.', pull: 'Nothing new: the valuation model (Gabriel’s DCF, extended to 2035).' },
+  premortem: { o: 'A', w: 'X', t: 35, r: [1, 2, 3], prove: 'The three most plausible ways we lose money, the first warning sign of each, and what would change our recommendation. Shows the committee we stress-tested our own idea.', pull: 'Alexander’s downside-risk work, call transcript Q&A, BI, register #3 and #6. Costs per share from the bear case.' },
+  implied: { o: 'A', t: 40, r: [3], prove: 'What today’s price requires, in the same model, years and definition as our forecast.', pull: 'The valuation model; price from GP the week of the pitch.' },
+  surface: { o: 'A', t: 0, r: [3], prove: 'Backup: value per share across discount rates and long-run growth, from the same model.', pull: 'Model DCF (FCF path, net debt, share count), WACC <GO>.' },
+  scen: { o: 'A', t: 65, r: [3], prove: 'Bear, base and bull from the model, each case’s return a year to Dec 2029, and the market references kept apart.', pull: 'Model; RV comps, ANR analyst targets, GP 52-week range for the market references.' },
+  close: { o: 'G', t: 45, r: [1, 2, 3], prove: 'The call, then a scorecard: for each reason what we expect, the signal and its date, and when we would sell.', pull: 'Nothing new: it reuses the reasons, the catalyst dates and the pre-mortem tripwires.' },
+  recon: { o: 'A', t: 0, r: [3], prove: 'Every change from Gabriel’s workbook to the deck’s value, with its effect per share.', pull: 'Nothing new: computed from the model.' },
   qa: { o: 'T', t: 10, prove: 'Whoever owns the slide answers the question.', pull: 'The slides themselves.' },
 };
 
@@ -95,7 +96,7 @@ function clear(el){ while (el.firstChild) el.removeChild(el.firstChild); }
 /* a value or a gold placeholder */
 const F = (v, label) => (v == null || v === '') ? '<span class="fill">[' + esc(label) + ']</span>' : esc(v);
 function tween(from, to, ms, step, done){
-  if (RM || ms <= 0){ step(to); if (done) done(); return; }
+  if (RM || ms <= 0 || document.documentElement.dataset.mode === 'present'){ step(to); if (done) done(); return; }
   const t0 = performance.now();
   (function f(now){ const k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; step(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); else if (done) done(); })(t0);
 }
@@ -137,7 +138,7 @@ function NCSS(fs, hs){
 }
 
 /* ---------------- deck core ---------------- */
-const KL = { company: 'Company', ticker: 'TICKER', exchange: 'Exchange', rating: 'BUY', price: '$ price', target: '$ target', upside: 'x%', growth: 'x% a year', horizon: 'Horizon', position: 'x% of sleeve', date: 'Date' };
+const KL = { company: 'Company', ticker: 'TICKER', exchange: 'Exchange', rating: 'rating', price: '$ price', target: '$ target', upside: 'x%', growth: 'x% a year', horizon: 'Horizon', position: 'x% of sleeve', date: 'Date' };
 function kval(k){
   const P = window.PITCH;
   if (k === 'upside') return (P.price && P.target) ? sg((P.target / P.price - 1) * 100, 1) + '%' : null;
@@ -183,7 +184,7 @@ function boot(){
     if (s.classList.contains('content')){
       let f = s.querySelector('.sfoot'); if (!f) f = H('footer', {class: 'sfoot'}, '<span class="src"></span>', s);
       f.insertBefore(H('span', {class: 'pno num'}, String(i + 1)), f.firstChild);
-      if (window.PITCH.logo && i >= ids.indexOf('buyers') && ids.indexOf('buyers') >= 0) H('span', {class: 'flogo'}, A.logo(), f);
+      if (window.PITCH.logo && i >= ids.indexOf('next') && ids.indexOf('next') >= 0) H('span', {class: 'flogo'}, A.logo(), f);
       H('span', {class: 'brand'}, A.org(), f);
       if (nt) s.appendChild(nt);
     }
@@ -219,6 +220,7 @@ function boot(){
   const bPop = H('button', {type: 'button', title: 'Open the notes in their own window, for a second screen'}, 'Notes window · P', nav);
   const bGrid = H('button', {type: 'button'}, 'Slides · G', nav);
   const bPlan = H('button', {type: 'button'}, 'Team plan · T', nav);
+  const bMode = H('button', {type: 'button', title: 'Presentation mode: approved numbers, no sliders. Q&A mode: every slider and what-if is back.'}, 'Q&A mode · Q', nav);
   const bBuild = H('button', {type: 'button', 'aria-pressed': 'false'}, 'Build · B', nav);
   const bFs = H('button', {type: 'button'}, 'Full screen · F', nav);
   H('style', null, NCSS('clamp(15px, 1.22vw, 21px)', 13), document.head);
@@ -241,6 +243,7 @@ function boot(){
   bGrid.onclick = () => toggle(grid);
   bPlan.onclick = () => toggle(plan);
   bBuild.onclick = () => setBuild(!root.classList.contains('build'));
+  bMode.onclick = () => setMode(root.dataset.mode === 'present' ? 'qa' : 'present');
   bFs.onclick = toggleFs; bTimer.onclick = toggleTimer; bReset.onclick = resetTimer;
   let hideT = null;
   function poke(){ chrome.classList.add('show'); clearTimeout(hideT); hideT = setTimeout(() => chrome.classList.remove('show'), 2600); }
@@ -249,6 +252,16 @@ function boot(){
 
   function toggle(ov){ const open = ov.hidden; grid.hidden = true; plan.hidden = true; ov.hidden = !open; if (open){ const c = ov.querySelector('.cur') || ov.querySelector('button'); if (c) { try { c.focus({preventScroll: false}); } catch (e) {} } } }
 
+  // presentation mode (the default): sliders hidden, no count-ups, the approved base case on every valuation slide.
+  // Q&A mode brings every slider and what-if back. Leaving Q&A restores the approved numbers.
+  function setMode(m){
+    root.dataset.mode = m; bMode.textContent = m === 'present' ? 'Q&A mode · Q' : 'Presentation mode · Q'; bMode.setAttribute('aria-pressed', String(m === 'qa'));
+    try { localStorage.setItem('smifMode', m); } catch (e) {}
+    if (m === 'present' && A.resetVS && !A.isBase()){ A.resetVS(); }
+    if (cur >= 0) enter(cur, 1);
+  }
+  A.setMode = setMode;
+  { let m = 'present'; try { m = localStorage.getItem('smifMode') || 'present'; } catch (e) {} root.dataset.mode = m === 'qa' ? 'qa' : 'present'; bMode.textContent = root.dataset.mode === 'present' ? 'Q&A mode · Q' : 'Presentation mode · Q'; }
   // build mode
   function setBuild(on){
     root.classList.toggle('build', on); bBuild.setAttribute('aria-pressed', String(on));
@@ -458,6 +471,7 @@ function boot(){
     if (k === 'g' || k === 'G'){ toggle(grid); e.preventDefault(); return; }
     if (k === 't' || k === 'T'){ toggle(plan); e.preventDefault(); return; }
     if (k === 'b' || k === 'B'){ setBuild(!root.classList.contains('build')); e.preventDefault(); return; }
+    if (k === 'q' || k === 'Q'){ setMode(root.dataset.mode === 'present' ? 'qa' : 'present'); e.preventDefault(); return; }
     if (k === 's' || k === 'S'){ toggleTimer(); e.preventDefault(); return; }
     if (k === '0'){ resetTimer(); e.preventDefault(); return; }
     if (k === 'f' || k === 'F'){ toggleFs(); e.preventDefault(); return; }
