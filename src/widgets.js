@@ -3,12 +3,16 @@
    Replace values with sourced numbers and set sample:false.
    ================================================================ */
 window.DATA = {
-  /* focus: the tile Gabriel talks about (0-3); ours: one line on what it means for Linde */
-  macro: { sample: true, focus: 0, ours: null, tiles: [
-    { k: '10Y Treasury yield', v: '4.9%', c: '+0.7 pts this year', st: 'warn', sw: 'Headwind', why: 'Higher long-term rates raise the discount rate on 15-20 year contracts and the cost of financing new plants.' },
-    { k: 'US dollar (DXY)', v: '101', c: '−4% this year', st: 'good', sw: 'Tailwind', why: 'A weaker dollar lifts the dollar value of sales earned abroad. Most of the big gas companies sell more outside the US than inside.' },
-    { k: 'ISM manufacturing', v: '49.5', c: 'Below 50 = shrinking', st: 'warn', sw: 'Watch', why: 'Factory activity drives volumes for merchant and packaged gas. On-site volumes are protected by take-or-pay minimums.' },
-    { k: 'Industrial power price', v: '8.6¢/kWh', c: '+6% this year', st: 'ctx', sw: 'Passed on', why: 'Electricity is the largest running cost of an air separation plant. On-site contracts pass it to customers; merchant and packaged prices catch up with a lag.' }
+  /* focus: the tile Gabriel talks about (0-3); ours: one line on what it means for Linde.
+     10Y: FRED DGS10 (U.S. Treasury), 4.90% on Nov 4, 2026 vs 4.10% on Nov 4, 2025. Dollar: FRED DTWEXBGS (Federal Reserve
+     nominal broad dollar index), 121.67 on Oct 30, 2026 vs 121.45 on Nov 3, 2025. ISM: October 2026 Manufacturing PMI, 55.5
+     (54.5 in September), released Nov 2, 2026. Power: EIA Electric Power Monthly Table 5.3, industrial sector, 9.64 cents/kWh
+     in August 2026 vs 8.98 in August 2025. */
+  macro: { sample: false, focus: 0, ours: 'Demand is fine; the rate used to discount Linde\u2019s long contracts is what holds the share price back.', tiles: [
+    { k: '10Y Treasury yield', v: '4.90%', c: '+0.8 pts vs a year ago', st: 'warn', sw: 'Headwind', why: 'Higher long-term rates raise the discount rate on 15-20 year contracts and the cost of financing new plants. Our 8.05% WACC is built on the 10-year yield, so lower rates would lift the DCF value and support the multiple.' },
+    { k: 'US dollar (Fed broad index)', v: '121.7', c: 'flat vs a year ago', st: 'ctx', sw: 'Neutral', why: 'About two-thirds of Linde\u2019s sales are outside the US. A flat dollar means currency neither adds to nor takes from reported growth this year.' },
+    { k: 'ISM manufacturing', v: '55.5', c: 'October; 10th month above 50', st: 'good', sw: 'Tailwind', why: 'Factory activity drives volumes for merchant and packaged gas. Above 50 means manufacturing is growing; on-site volumes are protected by take-or-pay minimums either way.' },
+    { k: 'Industrial power price', v: '9.6\u00A2/kWh', c: '+7% vs a year ago (August)', st: 'ctx', sw: 'Passed on', why: 'Electricity is the largest running cost of an air separation plant. On-site contracts pass it to customers the same month; merchant and packaged prices catch up after a 3 to 6 month lag.' }
   ]},
   stab: { sample: false,
     eps: [ { n: 'Industrial gases', lo: -7, hi: 21 }, { n: 'Specialty chemicals', lo: -11, hi: 50 }, { n: 'Basic and diversified chemicals', lo: -42, hi: 137 } ],
